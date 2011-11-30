@@ -1,5 +1,4 @@
 package primevc.js.display;
- import js.Dom;
  import js.Lib;
  import nl.onlinetouch.viewer.events.BookletEvents;
  import nl.onlinetouch.vo.publication.ISpreadVO;
@@ -12,16 +11,18 @@ class Link extends DOMElem
 {	
     public var bookletEvents    (default, null):BookletEvents;
 	public var href				(default, setHref):String;
-    public var spread           (default, setSpread):ISpreadVO;
-    
+    public var spreadId         (default, setSpreadId):String;
+
 	public function new() {
 		super("a");
         bookletEvents = new BookletEvents();
 	}
 	
-	private function setSpread(v:ISpreadVO):ISpreadVO {
-		spread = v; 
-        untyped elem.addEventListener("click", gotoSpread, false);
+	private function setSpreadId(v:String):String {
+		spreadId = v;
+        elem.addEventListener("click", function() { 
+            bookletEvents.gotoSpread.send(spreadId);
+        }, false);
 		return v;
 	}
 	
@@ -30,9 +31,5 @@ class Link extends DOMElem
 		elem.href = href;
 		elem.target = "_blank";
 		return v;
-	}
-	
-	private function gotoSpread(e:Event) {
-		bookletEvents.gotoSpread.send(spread.num);    
 	}
 }
