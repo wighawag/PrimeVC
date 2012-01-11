@@ -1,7 +1,7 @@
 package primevc.js.events;
 
 import primevc.core.dispatcher.Signals;
-import js.Dom;
+import Html5Dom;
 
 
 /**	
@@ -10,7 +10,7 @@ import js.Dom;
  */
 class UserEvents extends Signals	
 {
-	private var eventDispatcher:HtmlDom;
+	private var eventDispatcher:HTMLElement;
 	public var mouse	(getMouse,		null)	: MouseEvents;
 	public var touch	(getTouch,		null)	: TouchEvents;
 	public var focus	(getFocus,		null)	: FocusEvents;

@@ -1,6 +1,5 @@
 package primevc.js.display;
 
- import flash.display.DisplayObjectContainer;
  import flash.display.DisplayObject;
  import primevc.core.collections.iterators.IIterator;
  import primevc.core.collections.IEditableList;
@@ -29,7 +28,7 @@ class DisplayList implements IEditableList <ChildType>
 	 * Target display-object. This display-object will be controlled by the
 	 * DisplayList instance.
 	 */
-	public var target		(default, null)				: DisplayObjectContainer;
+	public var target		(default, null)				: Dynamic;
 	/**
 	 * Owner contains a reference to the object that created this displaylist
 	 * instance. Normally this reference is the same as the target property
@@ -52,7 +51,7 @@ class DisplayList implements IEditableList <ChildType>
 	public var tabEnabled	(default, setTabEnabled)	: Bool;
 	
 	
-	public function new ( target:DisplayObjectContainer, ?owner:IDisplayContainer )
+	public function new ( target:Dynamic, ?owner:IDisplayContainer )
 	{
 		Assert.notEqual( target, null, "No target given");
 		

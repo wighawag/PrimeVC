@@ -1,7 +1,7 @@
 package primevc.js.events;
 
 import primevc.core.dispatcher.Signals;
-import js.Dom;
+import Html5Dom;
 
 /**	
  * @since march 2, 2011
@@ -10,15 +10,16 @@ import js.Dom;
 
 class KeyboardEvents extends Signals
 {
-	var eventDispatcher:HtmlDom;
+	var eventDispatcher:HTMLElement;
 	
 	public var keydown	(getKeydown,	null):KeyboardSignal;
 	public var keyup 	(getKeyup,		null):KeyboardSignal;
 	public var keypress (getKeypress,	null):KeyboardSignal;
 	
 	
-	public function new(eventDispatcher:HtmlDom)
+	public function new(eventDispatcher:HTMLElement)
 	{
+		super();
 		this.eventDispatcher = eventDispatcher;
 	}
 	

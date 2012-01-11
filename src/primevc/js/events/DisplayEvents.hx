@@ -1,7 +1,7 @@
 package primevc.js.events;
 
 import primevc.core.dispatcher.Signals;
-import js.Dom;
+import Html5Dom;
 
 /**
  * @since	march 8, 2011
@@ -10,7 +10,7 @@ import js.Dom;
 
 class DisplayEvents extends Signals
 {
-	private var eventDispatcher:HtmlDom;
+	private var eventDispatcher:HTMLElement;
 	
 	// IMPORTANT
 	// these events are mockups

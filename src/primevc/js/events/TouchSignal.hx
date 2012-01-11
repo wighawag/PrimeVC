@@ -1,6 +1,6 @@
 package primevc.js.events;
 
-import js.Dom;
+import Html5Dom;
 
 /**
  * @author Stanislav Sopov
@@ -50,7 +50,7 @@ class TouchEvent
 
 
 typedef Touch = {
-	public var target		(default, null):HtmlDom; // Node the touch event originated from
+	public var target		(default, null):HTMLElement; // Node the touch event originated from
 	public var identifier	(default, null):Int; // An identifying number, unique to each touch event
 	public var clientX		(default, null):Int; // X coordinate of touch relative to the viewport (excludes scroll offset)
 	public var clientY		(default, null):Int; // Y coordinate of touch relative to the viewport (excludes scroll offset)

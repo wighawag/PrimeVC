@@ -1,6 +1,6 @@
 package primevc.js.events;
 
-import js.Dom;
+import Html5Dom;
 
 /**
  * @author Stanislav Sopov
@@ -20,7 +20,7 @@ class DisplaySignal extends DOMSignal1<Type>
 class DisplayEvent
 {	
 	public var type			(default, null):String; // The type of event that occurred.
-	public var target 		(default, null):HtmlDom; // Returns the element that triggered the event
+	public var target 		(default, null):HTMLElement; // Returns the element that triggered the event
 	
 	public function new (event:Event)
 	{

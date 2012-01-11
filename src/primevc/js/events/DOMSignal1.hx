@@ -4,7 +4,7 @@ import primevc.core.dispatcher.Wire;
 import primevc.core.dispatcher.Signal1;
 import primevc.core.dispatcher.IWireWatcher;
 import primevc.core.ListNode;
-import js.Dom;
+import Html5Dom;
 
 
 /**
@@ -13,11 +13,11 @@ import js.Dom;
  */
 class DOMSignal1<Type> extends Signal1<Type>, implements IWireWatcher<Type->Void>
 {
-	var eventDispatcher:HtmlDom;
+	var eventDispatcher:HTMLElement;
 	var event:String;
 	
 	
-	public function new (eventDispatcher:HtmlDom, event:String)
+	public function new (eventDispatcher:HTMLElement, event:String)
 	{
 		super();
 		this.eventDispatcher = eventDispatcher;

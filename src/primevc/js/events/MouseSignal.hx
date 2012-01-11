@@ -1,6 +1,6 @@
 package primevc.js.events;
 
-import js.Dom;
+import Html5Dom;
 
 /**
  * @author Stanislav Sopov
@@ -21,7 +21,7 @@ class MouseSignal extends DOMSignal1<Type>
 class MouseEvent
 {	
 	public var type			(default, null):String; // The type of event that occurred.
-	public var target 		(default, null):HtmlDom; // Returns the element that triggered the event
+	public var target 		(default, null):HTMLElement; // Returns the element that triggered the event
 	public var altKey 		(default, null):Bool; // Returns whether or not the "ALT" key was pressed when an event was triggered 	
 	public var button 		(default, null):Int; // Returns which mouse button was clicked when an event was triggered 
 	public var clientX 		(default, null):Int; // Returns the horizontal coordinate of the mouse pointer when an event was triggered 	

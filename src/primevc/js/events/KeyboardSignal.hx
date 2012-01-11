@@ -1,6 +1,6 @@
 package primevc.js.events;
 
-import js.Dom;
+import Html5Dom;
 
 /**
  * @author Stanislav Sopov
@@ -22,7 +22,7 @@ class KeyboardEvent
 {	
 	public var type			(default, null):String; // The type of event that occurred.
 	public var keyCode  	(default, null):Int; // The code of the pressed key
-	public var target 		(default, null):HtmlDom; // Returns the element that triggered the event
+	public var target 		(default, null):HTMLElement; // Returns the element that triggered the event
 	public var altKey 		(default, null):Bool; // Returns whether or not the "ALT" key was pressed when an event was triggered 	
 	public var ctrlKey 		(default, null):Bool; // Returns whether or not the "CTRL" key was pressed when an event was triggered 	 	
 	public var shiftKey 	(default, null):Bool; //Returns whether or not the "SHIFT" key was pressed when an event was triggered

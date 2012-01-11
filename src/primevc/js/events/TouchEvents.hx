@@ -1,7 +1,7 @@
 package primevc.js.events;
 
 import primevc.core.dispatcher.Signals;
-import js.Dom;
+import Html5Dom;
 
 /**	
  * @since  march 2, 2011
@@ -10,7 +10,7 @@ import js.Dom;
 
 class TouchEvents extends Signals
 {
-	var eventDispatcher:HtmlDom;
+	var eventDispatcher:HTMLElement;
 	
 	public var orientationchange(getOrientationchange,	null):TouchSignal;
 	public var touchstart		(getTouchstart, 		null):TouchSignal;
@@ -22,7 +22,7 @@ class TouchEvents extends Signals
 	public var gestureend		(getGestureend,			null):TouchSignal;
 	
 	
-	public function new(eventDispatcher:HtmlDom)
+	public function new(eventDispatcher:HTMLElement)
 	{
 		this.eventDispatcher = eventDispatcher;
 	}

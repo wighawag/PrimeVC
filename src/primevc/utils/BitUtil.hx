@@ -29,7 +29,9 @@
  */
 package primevc.utils;
  
-
+#if js
+import Html5Dom;
+#end
 /**
  * Helper class for working with bit flags
  * 

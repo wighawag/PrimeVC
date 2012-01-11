@@ -34,9 +34,9 @@ package primevc.gui.display;
  import flash.events.Event;
  import primevc.avm2.events.FlashSignal0;
  import primevc.core.geom.Point;
+ import flash.display.InteractiveObject;
 #end
 #if (flash8 || flash9 || js)
- import flash.display.InteractiveObject;
  import primevc.gui.display.IInteractiveObject;
  import primevc.gui.events.DisplayEvents;
  import primevc.gui.events.UserEventTarget;

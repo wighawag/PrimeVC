@@ -27,6 +27,9 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.types;
+#if js
+import Html5Dom;
+#end
  /*
 
 typedef IntType = 
