@@ -114,7 +114,7 @@ class URLLoader implements ICommunicator
 	
 	private function onReadyStateChange(event:Event)
 	{
-		//untyped console.log(event);
+		//trace(event);
 		if (request.readyState == 4)
 		{
 			//trace("Ready state: " + request.readyState + ", status: "+ request.status); // + ", statusText: " + request.statusText);

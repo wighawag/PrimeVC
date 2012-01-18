@@ -11,17 +11,18 @@ class Link extends DOMElem
 {	
     public var bookletEvents    (default, null):BookletEvents;
 	public var href				(default, setHref):String;
-    public var spreadId         (default, setSpreadId):String;
+    public var targetSpreadIndex(default, setTargetSpreadIndex):Int;
+    public var targetSpreadId   :String;
 
 	public function new() {
 		super("a");
         bookletEvents = new BookletEvents();
 	}
 	
-	private function setSpreadId(v:String):String {
-		spreadId = v;
+	private function setTargetSpreadIndex(v:Int):Int {
+		targetSpreadIndex = v;
         elem.addEventListener("click", function() { 
-            bookletEvents.gotoSpread.send(spreadId);
+            bookletEvents.gotoSpread.send(targetSpreadIndex);
         }, false);
 		return v;
 	}
