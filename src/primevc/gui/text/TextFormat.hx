@@ -38,7 +38,7 @@ package primevc.gui.text;
  * @author Ruben Weijers
  * @creation-date Oct 26, 2010
  */
-class TextFormat #if flash9 extends flash.text.TextFormat #end
+class TextFormat #if (flash9 || jeash) extends flash.text.TextFormat #end
 {
 	public var transform (default, default)	: TextTransform;
 	

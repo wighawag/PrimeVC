@@ -139,7 +139,7 @@ class MouseState extends KeyModState, implements IClonable<MouseState>
 	var local	(default,null)		: Point;
 	var stage	(default,null)		: Point;
 	
-#if flash9
+#if (flash9 || jeash)
 	/**
 	 * A reference to a display list object that is related to the event. For 
 	 * example, when a mouseOut event occurs, relatedObject represents the 
@@ -156,12 +156,12 @@ class MouseState extends KeyModState, implements IClonable<MouseState>
 #end
 	
 	
-	public function new(f:Int, t:UserEventTarget, l:Point, s:Point #if flash9, related:UserEventTarget #end)
+	public function new(f:Int, t:UserEventTarget, l:Point, s:Point #if (flash9 || jeash), related:UserEventTarget #end)
 	{
 		super(f,t);
 		this.local		= l;
 		this.stage		= s;
-#if flash9
+#if (flash9 || jeash)
 		this.related	= related == null ? t : related;
 #end
 	}
@@ -187,7 +187,7 @@ class MouseState extends KeyModState, implements IClonable<MouseState>
 	}
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	public inline function isDispatchedBy (obj:UserEventTarget) : Bool
 	{
 		return obj != null && obj == related;
@@ -197,7 +197,7 @@ class MouseState extends KeyModState, implements IClonable<MouseState>
 	
 	public inline function clone () : MouseState
 	{
-		return new MouseState( flags, target, local, stage #if flash9, related #end);
+		return new MouseState( flags, target, local, stage #if (flash9 || jeash), related #end);
 	}
 	
 	

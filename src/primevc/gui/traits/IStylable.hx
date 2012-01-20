@@ -28,7 +28,7 @@
  */
 package primevc.gui.traits;
  import primevc.core.traits.IIdentifiable;
-#if flash9
+#if (flash9 || jeash)
  import primevc.core.collections.SimpleList;
  import primevc.core.Bindable;
  import primevc.gui.styling.UIElementStyle;
@@ -43,7 +43,7 @@ interface IStylable
 		implements IIdentifiable
 //	,	implements IDisplayable
 {
-#if flash9
+#if (flash9 || jeash)
 	public var style			(default, null)					: UIElementStyle;
 	
 	/**

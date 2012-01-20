@@ -276,7 +276,7 @@ class StyleCollectionIteratorBase implements IDisposable
 		}
 		
 		Assert.isType( cur, CellType );
-		var styleCell = cast ( cur, CellType );
+		var styleCell : CellType = cur;
 		
 		currentCell = styleCell;
 		if (!styleCell.data.has( flag ) && hasNext())	

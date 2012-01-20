@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.core;
-#if flash9
+#if (flash9 || jeash)
  import flash.text.TextFieldAutoSize;
  import primevc.core.collections.SimpleList;
  import primevc.gui.styling.UIElementStyle;
@@ -73,7 +73,7 @@ class UITextField extends TextField, implements IUIElement
 	public var system			(getSystem, never)				: ISystem;
 	public var state			(default, null)					: UIElementStates;
 	
-#if flash9
+#if (flash9 || jeash)
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList<String>;
 	public var stylingEnabled	(default, setStylingEnabled)	: Bool;
@@ -88,7 +88,7 @@ class UITextField extends TextField, implements IUIElement
 #end
 		this.id				= new Bindable<String>(id);
 		super(data);
-#if flash9
+#if (flash9 || jeash)
 		styleClasses		= new SimpleList<String>();
 		this.stylingEnabled	= stylingEnabled;
 #end
@@ -129,7 +129,7 @@ class UITextField extends TextField, implements IUIElement
 		if (layout != null)
 			layout.dispose();
 		
-#if flash9
+#if (flash9 || jeash)
 		if (style != null && style.target == this)
 			style.dispose();
 		
@@ -247,7 +247,7 @@ class UITextField extends TextField, implements IUIElement
 	}
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	override private function setTextStyle (v)
 	{
 	//	Assert.notNull(v);
@@ -373,7 +373,7 @@ class UITextField extends TextField, implements IUIElement
 	
 	private function updateSize ()
 	{
-#if flash9
+#if (flash9 || jeash)
 		if (autoSize == flash.text.TextFieldAutoSize.NONE)
 			scrollH = 0;
 #end

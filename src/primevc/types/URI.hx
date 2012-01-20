@@ -238,7 +238,7 @@ class URI #if neko implements ICodeFormattable #end
 		return string = s.toString();
 	}
 	
-	#if flash9
+	#if (flash9 || jeash)
 	public function toRequest() {
 		return new flash.net.URLRequest(this.toString());
 	}

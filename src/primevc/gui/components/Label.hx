@@ -57,7 +57,7 @@ class Label extends UIDataComponent <DataType>, implements ITextStylable
 	public var displayHTML			(default, setDisplayHTML)	: Bool;
 	public var multiline			(default, setMultiline)		: Bool;
 	
-#if flash9
+#if (flash9 || jeash)
 	public var textStyle			(default, setTextStyle)		: TextFormat;
 	public var wordWrap				: Bool;
 	public var embedFonts			: Bool;
@@ -86,7 +86,7 @@ class Label extends UIDataComponent <DataType>, implements ITextStylable
 #if debug
 		field.id.value = id.value + "TextField";
 #end
-#if flash9
+#if (flash9 || jeash)
 		field.autoSize			= flash.text.TextFieldAutoSize.NONE;
 		field.selectable		= false;
 		field.mouseWheelEnabled	= false;
@@ -116,7 +116,7 @@ class Label extends UIDataComponent <DataType>, implements ITextStylable
 	override private function removeData ()		{ field.data = null; }
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	override public function isFocusOwner (target:UserEventTarget)
 	{
 		return super.isFocusOwner(target) || field.isFocusOwner(target);
@@ -137,7 +137,7 @@ class Label extends UIDataComponent <DataType>, implements ITextStylable
 	// GETERS / SETTERS
 	//
 	
-#if flash9
+#if (flash9 || jeash)
 	private inline function setTextStyle (v:TextFormat)
 	{
 		if (field != null) {

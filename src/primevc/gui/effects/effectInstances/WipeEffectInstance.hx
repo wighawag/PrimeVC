@@ -72,7 +72,7 @@ class WipeEffectInstance extends EffectInstance < IDisplayObject, WipeEffect >
 	}
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	override private function initStartValues ()
 	{
 		var t = target;

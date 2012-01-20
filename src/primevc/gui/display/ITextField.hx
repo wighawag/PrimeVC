@@ -27,19 +27,24 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.display;
-#if flash9
+#if (flash9 || jeash)
  import flash.text.AntiAliasType;
  import flash.text.GridFitType;
+#if !jeash
  import flash.text.StyleSheet;
+ import flash.text.TextLineMetrics;
+#end
  import flash.text.TextFieldAutoSize;
  import flash.text.TextFieldType;
  import flash.text.TextFormat;
- import flash.text.TextLineMetrics;
 #end
  import primevc.core.Bindable;
  import primevc.gui.events.TextEvents;
  import primevc.gui.traits.ITextStylable;
 
+#if jeash
+ import Html5Dom;
+#end
 
 /**
  * @author Ruben Weijers
@@ -49,6 +54,12 @@ interface ITextField
 		implements IInteractiveObject
 	,	implements ITextStylable
 {
+
+#if !jeash
+	// TODO: @jeash implementation.
+	public var styleSheet							: StyleSheet;
+	public function getLineMetrics (lineIndex : Int)					: TextLineMetrics;
+#end
 	
 	public var textEvents			(default, null)			: TextEvents;
 	
@@ -70,7 +81,7 @@ interface ITextField
 	public function isEditable ()	: Bool;
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	//
 	// SIZE
 	//
@@ -115,7 +126,6 @@ interface ITextField
 	//
 	
 //	public var defaultTextFormat					: TextFormat;
-	public var styleSheet							: StyleSheet;
 	public var textColor							: UInt;
 	public var thickness							: Float;
 	
@@ -175,7 +185,6 @@ interface ITextField
 	public function getLineIndexAtPoint (x : Float, y : Float)			: Int;
 	public function getLineIndexOfChar (charIndex : Int)				: Int;
 	public function getLineLength (lineIndex : Int)						: Int;
-	public function getLineMetrics (lineIndex : Int)					: TextLineMetrics;
 	public function getLineOffset (lineIndex : Int)						: Int;
 	public function getLineText (lineIndex : Int)						: String;
 	

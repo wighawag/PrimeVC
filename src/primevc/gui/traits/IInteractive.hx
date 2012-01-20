@@ -50,7 +50,7 @@ interface IInteractive
 	public function removeFocus ()	: Void;
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	/**
 	 * Method returns true if the given target (which has focus) makes the 
 	 * IInteractive object the focus owner.

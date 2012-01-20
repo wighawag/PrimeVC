@@ -35,7 +35,7 @@ package primevc.gui.traits;
  */
 interface IScaleable
 {	
-#if flash9
+#if (flash9 || jeash)
 	var scaleX					: Float;
 	var scaleY					: Float;
 

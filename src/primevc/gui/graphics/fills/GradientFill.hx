@@ -43,7 +43,7 @@ package primevc.gui.graphics.fills;
   using primevc.utils.Formulas;
   using primevc.utils.TypeUtil;
 
-#if flash9
+#if (flash9 || jeash)
  import flash.display.InterpolationMethod;
 
 typedef FlashGradientType = flash.display.GradientType;
@@ -154,7 +154,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	{
 		Assert.that( gradientStops.length >= 2, "There should be at least be two fills in an gradient.");
 			
-#if flash9
+#if (flash9 || jeash)
 		if (lastMatrix == null || bounds != lastBounds || !bounds.isEqualTo(lastBounds))
 			lastMatrix = createMatrix(bounds);
 		
@@ -177,14 +177,14 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	
 	public inline function end (target:IGraphicsOwner, bounds:IRectangle)
 	{
-#if flash9
+#if (flash9 || jeash)
 		target.graphics.endFill();
 #end
 		isFinished = false;
 	}
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	public inline function createMatrix (bounds:IRectangle) : Matrix2D
 	{
 		var m = new Matrix2D();
@@ -195,7 +195,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 #end
 	
 
-#if flash9
+#if (flash9 || jeash)
 	public inline function getFlashType () : FlashGradientType
 	{
 		return (type == GradientType.linear) ? FlashGradientType.LINEAR : FlashGradientType.RADIAL;

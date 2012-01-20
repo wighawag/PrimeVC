@@ -33,7 +33,7 @@ package primevc.gui.text;
  * @author Ruben Weijers
  * @creation-date Aug 05, 2010
  */
-#if flash9
+#if (flash9 || jeash)
 	typedef TextAlign = flash.text.TextFormatAlign;
 #else
 	enum TextAlign {

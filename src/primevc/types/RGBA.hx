@@ -28,6 +28,9 @@
  */
 package primevc.types;
 
+#if jeash
+import Html5Dom;
+#end
 
 /**
  * Color value in the 0xRRGGBBAA format.

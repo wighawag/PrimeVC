@@ -41,7 +41,7 @@ class Line extends ShapeBase, implements IGraphicShape
 {
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void
 	{
-#if flash9
+#if (flash9 || jeash)
 		target.graphics.moveTo( bounds.left, bounds.top );
 		target.graphics.lineTo( bounds.right, bounds.bottom );
 #end
@@ -50,7 +50,7 @@ class Line extends ShapeBase, implements IGraphicShape
 	
 	public function drawFraction (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners, percentage:Float) : Void
 	{
-#if flash9
+#if (flash9 || jeash)
 		target.graphics.moveTo( bounds.left, bounds.top );
 		target.graphics.lineTo( bounds.right * percentage, bounds.bottom * percentage );
 #end

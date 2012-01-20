@@ -35,5 +35,6 @@ package primevc.gui.display;
  * @creation-date Jun 06, 2011
  */
 typedef BitmapData = #if flash9  flash.display.BitmapData;
+		    #elseif jeash flash.display.BitmapData;
                     #elseif js      Dynamic;
                     #else           Dynamic; #end

@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.display;
-#if flash9
+#if (flash9 || jeash)
  import primevc.core.geom.Point;
  import primevc.core.geom.Rectangle;
 	#if dragEnabled
@@ -50,7 +50,7 @@ interface ISprite
 	,	implements IGraphicsOwner
 	,	implements IDisplayable
 {
-#if flash9
+#if (flash9 || jeash)
 		public var buttonMode						: Bool;
 		public var useHandCursor					: Bool;
 

@@ -30,7 +30,7 @@ package primevc.gui.graphics.borders;
 
 
 
-#if flash9
+#if (flash9 || jeash)
 typedef CapsStyle = flash.display.CapsStyle;
 #else
 enum CapsStyle {

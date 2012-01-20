@@ -35,7 +35,7 @@ package primevc.gui.traits;
  */
 interface IPositionable implements IDisplayable
 {
-#if flash9
+#if (flash9 || jeash)
 	
 	var x						: Float;
 	var y						: Float;

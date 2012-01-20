@@ -42,7 +42,7 @@ class RegularRectangle extends ShapeBase, implements IGraphicShape
 {
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void
 	{
-#if flash9
+#if (flash9 || jeash)
 		if (borderRadius == null)
 			target.graphics.drawRect( bounds.left, bounds.top, bounds.width, bounds.height );
 		

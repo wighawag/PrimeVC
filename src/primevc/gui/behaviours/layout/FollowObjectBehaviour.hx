@@ -164,7 +164,7 @@ class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 		followedLayoutBinding.disable();
 		targetLayoutBinding.disable();
 		bounds.invalidatable = false;
-#if flash9
+#if (flash9 || jeash)
 		newPos 				= followedElement.container.localToGlobal( newPos );
 		var windowBounds	= target.window.as(ILayoutable).layout.innerBounds;
 		

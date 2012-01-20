@@ -57,7 +57,7 @@ class ButtonLabelSkin extends Skin<Button>
 #if debug
 		labelField.id.value		= owner.id.value + "TextField";
 #end
-#if flash9
+#if (flash9 || jeash)
 		labelField.autoSize			= flash.text.TextFieldAutoSize.NONE;
 		labelField.selectable		= false;
 		labelField.mouseEnabled		= false;
@@ -84,7 +84,7 @@ class ButtonLabelSkin extends Skin<Button>
 	}
 
 	
-#if flash9
+#if (flash9 || jeash)
 	override public function validate (changes:Int)
 	{
 		if (changes.has( Flags.TEXTSTYLE )) {

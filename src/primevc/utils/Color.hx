@@ -30,6 +30,8 @@ package primevc.utils;
 
 #if neko
 typedef Color = primevc.neko.utils.Color;
+#elseif jeash
+import Html5Dom;
 #else
  import primevc.types.RGBA;
   using primevc.utils.Color;

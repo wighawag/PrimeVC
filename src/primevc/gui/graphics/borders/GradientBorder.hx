@@ -51,7 +51,7 @@ class GradientBorder extends BorderBase <GradientFill>
 	override public function begin (target:IGraphicsOwner, bounds:IRectangle) : Void
 	{
 		super.begin(target, bounds);
-#if flash9
+#if (flash9 || jeash)
 		if (weight <= 0)
 			return;
 		

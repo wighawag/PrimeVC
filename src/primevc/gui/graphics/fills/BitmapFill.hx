@@ -80,7 +80,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 		if (matrix != null)
 			untyped matrix = null;
 		
-#if flash9
+#if (flash9 || jeash)
 		data = null;
 #end
 		super.dispose();
@@ -96,7 +96,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	{
 		if (v != asset)
 		{
-#if flash9
+#if (flash9 || jeash)
 			if (asset != null)
 				asset.state.change.unbind(this);
 			
@@ -163,7 +163,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	}
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	private inline function setData (v:BitmapData)
 	{
 		if (v != data)
@@ -186,10 +186,10 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	{
 		switch (newState) {
 			case AssetStates.ready:
-#if flash9		data = asset.toBitmapData(); #end
+#if (flash9 || jeash)		data = asset.toBitmapData(); #end
 			
 			case AssetStates.empty:
-#if flash9		data = null; #end
+#if (flash9 || jeash)		data = null; #end
 			default:
 		}
 	}
@@ -202,7 +202,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	
 	public /*inline*/ function begin (target:IGraphicsOwner, bounds:IRectangle)
 	{	
-#if flash9
+#if (flash9 || jeash)
 		isFinished = true;
 		if (assetFactory == null && asset == null)
 			return;
@@ -233,7 +233,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	public inline function end (target:IGraphicsOwner, bounds:IRectangle)
 	{	
 		isFinished = false;
-#if flash9
+#if (flash9 || jeash)
 		if (asset != null && asset.isReady())
 			target.graphics.endFill();
 #end

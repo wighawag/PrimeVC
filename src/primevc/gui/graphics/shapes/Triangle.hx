@@ -74,7 +74,7 @@ class Triangle extends ShapeBase, implements IGraphicShape
 	
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void
 	{
-#if flash9
+#if (flash9 || jeash)
 		var a = a, b = b, c = c;
 		var x = bounds.left;
 		var y = bounds.top;
@@ -161,7 +161,7 @@ class Triangle extends ShapeBase, implements IGraphicShape
 	//	var vertices : flash.Vector<Float> = [a.x, a.y];
 	//	vertices.insert( cast a.x, cast a.y, cast b.x, cast b.y, cast c.x, cast c.y );
 	//	target.graphics.drawTriangles( vertices );
-	#if flash9
+	#if (flash9 || jeash)
 		target.graphics.moveTo( a.x, a.y );
 		target.graphics.lineTo( b.x, b.y );
 		target.graphics.lineTo( c.x, c.y );

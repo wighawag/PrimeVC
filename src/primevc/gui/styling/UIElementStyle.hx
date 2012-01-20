@@ -28,7 +28,7 @@
  */
 package primevc.gui.styling;
 
-#if flash9
+#if (flash9 || jeash)
  import primevc.core.collections.FastDoubleCell;
  import primevc.core.collections.ListChange;
  import primevc.core.collections.PriorityList;

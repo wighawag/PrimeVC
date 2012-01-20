@@ -43,7 +43,7 @@ interface IDisplayObject
 			,	implements IPositionable
 			,	implements IScaleable
 			,	implements ISizeable
-#if flash9  ,	implements flash.display.IBitmapDrawable #end
+#if (flash9 || jeash)  ,	implements flash.display.IBitmapDrawable #end
 {
 	
 	public function isObjectOn			(otherObj:IDisplayObject)					: Bool;
@@ -65,7 +65,7 @@ interface IDisplayObject
 	public function changeDisplayDepth	(newDepth:Int)								: IDisplayObject;
 #end
 	
-#if flash9
+#if (flash9 || jeash)
 	public var alpha		: Float;
 	public var visible		: Bool;
 	

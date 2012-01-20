@@ -111,16 +111,16 @@ class GraphicsStyle extends StyleSubBlock
 	{
 		super(filledProps);
 		
-		#if flash9 this._shape			 #else this.shape			#end = shape;
-		#if flash9 this._background		 #else this.background	    #end = background;
-		#if flash9 this._border			 #else this.border		    #end = border;
-		#if flash9 this._skin			 #else this.skin			#end = skin;
-		#if flash9 this._visible		 #else this.visible		 	#end = visible;
-		#if flash9 this._opacity		 #else this.opacity		 	#end = opacity != Number.INT_NOT_SET ? opacity : Number.FLOAT_NOT_SET;
-		#if flash9 this._icon			 #else this.icon			#end = icon;
-		#if flash9 this._iconFill		 #else this.iconFill		#end = iconFill;
-		#if flash9 this._overflow		 #else this.overflow		#end = overflow;
-		#if flash9 this._borderRadius	 #else this.borderRadius	#end = borderRadius;
+		#if (flash9 || jeash) this._shape			 #else this.shape			#end = shape;
+		#if (flash9 || jeash) this._background		 #else this.background	    #end = background;
+		#if (flash9 || jeash) this._border			 #else this.border		    #end = border;
+		#if (flash9 || jeash) this._skin			 #else this.skin			#end = skin;
+		#if (flash9 || jeash) this._visible		 #else this.visible		 	#end = visible;
+		#if (flash9 || jeash) this._opacity		 #else this.opacity		 	#end = opacity != Number.INT_NOT_SET ? opacity : Number.FLOAT_NOT_SET;
+		#if (flash9 || jeash) this._icon			 #else this.icon			#end = icon;
+		#if (flash9 || jeash) this._iconFill		 #else this.iconFill		#end = iconFill;
+		#if (flash9 || jeash) this._overflow		 #else this.overflow		#end = overflow;
+		#if (flash9 || jeash) this._borderRadius	 #else this.borderRadius	#end = borderRadius;
 		
 #if debug
 		if (shape != null) {
@@ -352,7 +352,7 @@ class GraphicsStyle extends StyleSubBlock
 	}
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	public function getIconInstance () : Asset
 	{
 		if (iconAsset != null)	return iconAsset;

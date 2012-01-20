@@ -57,7 +57,7 @@ class Polygon extends ShapeBase, implements IGraphicShape
 	public function draw (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners) : Void
 	{
 		var radius = Formulas.getCircleRadius( bounds.width, bounds.height );
-#if flash9
+#if (flash9 || jeash)
 		target.drawPolygon( sides, bounds.left + radius, bounds.top + radius, radius );
 #end
 	}
@@ -66,7 +66,7 @@ class Polygon extends ShapeBase, implements IGraphicShape
 	public function drawFraction (target:IGraphicsOwner, bounds:IRectangle, borderRadius:Corners, percentage:Float) : Void
 	{
 		var radius = Formulas.getCircleRadius( bounds.width, bounds.height );
-#if flash9
+#if (flash9 || jeash)
 		target.drawPolygonFraction( sides, bounds.left + radius, bounds.top + radius, radius, percentage );
 #end
 	}

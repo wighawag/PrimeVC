@@ -38,7 +38,7 @@ package primevc.gui.events;
  */
 class FocusState extends KeyModState
 {
-#if flash9
+#if (flash9 || jeash)
 	/**
 	 * A reference to the complementary InteractiveObject instance that is 
 	 * affected by the change in focus.
@@ -54,10 +54,10 @@ class FocusState extends KeyModState
 	
 	
 	
-	@:keep public function new(f:Int, t:UserEventTarget #if flash9, related:UserEventTarget #end)
+	@:keep public function new(f:Int, t:UserEventTarget #if (flash9 || jeash), related:UserEventTarget #end)
 	{
 		super(f,t);
-#if flash9
+#if (flash9 || jeash)
 		this.related	= related;
 #end
 	}

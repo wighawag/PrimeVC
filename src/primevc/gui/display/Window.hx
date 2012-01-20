@@ -30,7 +30,7 @@ package primevc.gui.display;
  import primevc.core.dispatcher.Signal0;
  import primevc.core.geom.IntRectangle;
  import primevc.core.traits.IDisablable;
-#if flash9
+#if (flash9 || jeash)
  import flash.events.Event;
  import primevc.avm2.events.FlashSignal0;
  import primevc.core.geom.Point;
@@ -60,7 +60,7 @@ class Window implements IDisplayContainer, implements IDisablable
 	public static inline function startup<WindowInstance>(windowClassFactory : Stage -> WindowInstance) : WindowInstance
 	{
 		var stage:Stage = null;
-#if flash9
+#if (flash9 || jeash)
 		stage = flash.Lib.current.stage;
 		stage.scaleMode	= flash.display.StageScaleMode.NO_SCALE;
 		
@@ -128,7 +128,7 @@ class Window implements IDisplayContainer, implements IDisablable
 	 */
 	public var activated		(default, null)			: Signal0;
 	
-#if flash9
+#if (flash9 || jeash)
 	public var focus			(getFocus, setFocusOn)	: IInteractiveObject;
 #end
 	
@@ -146,7 +146,7 @@ class Window implements IDisplayContainer, implements IDisablable
 		mouse			= new Mouse( this );
 		
 		target.doubleClickEnabled = true;
-#if flash9 /*&& debug)*/
+#if (flash9 || jeash) /*&& debug)*/
 		deactivated	= new FlashSignal0( target, Event.DEACTIVATE );
 		activated	= new FlashSignal0( target, Event.ACTIVATE );
 		disable	.on( deactivated, this );
@@ -184,7 +184,7 @@ class Window implements IDisplayContainer, implements IDisablable
 	//
 	
 	public var mouseEnabled			: Bool;
-#if flash9	
+#if (flash9 || jeash)	
 	public var doubleClickEnabled	: Bool;
 	public var tabEnabled			: Bool;
 	public var tabIndex				: Int;

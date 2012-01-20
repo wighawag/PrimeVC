@@ -62,7 +62,7 @@ class EffectInstance < TargetType, PropertiesType:IEffect >
 	private var delayTimer		: Timer;
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	private var cachedFilters	: Array < Dynamic >;
 #end
 	
@@ -223,7 +223,7 @@ class EffectInstance < TargetType, PropertiesType:IEffect >
 	
 	private inline function hideFilters ()
 	{
-#if flash9
+#if (flash9 || jeash)
 		if (effect.autoHideFilters && target != null && target.is(IDisplayObject))
 		{
 			var d = target.as(IDisplayObject);
@@ -238,7 +238,7 @@ class EffectInstance < TargetType, PropertiesType:IEffect >
 	
 	private inline function applyFilters ()
 	{
-#if flash9
+#if (flash9 || jeash)
 		if (effect.autoHideFilters && target != null && target.is(IDisplayObject) && cachedFilters != null)
 		{
 			var d = target.as(IDisplayObject);

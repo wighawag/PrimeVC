@@ -56,7 +56,7 @@ package primevc.gui.core;
  import primevc.gui.traits.IStylable;
   using primevc.utils.TypeUtil;
 
-#if flash9
+#if (flash9 || jeash)
  import primevc.core.collections.SimpleList;
  import primevc.gui.display.VectorShape;
 #end
@@ -100,7 +100,7 @@ class UIWindow extends Window
 	public var id					(default, null)					: Bindable < String >;
 	public var graphicData			(default, null)					: GraphicProperties;
 	
-#if flash9
+#if (flash9 || jeash)
 	public var scaleX				: Float;
 	public var scaleY				: Float;
 	
@@ -142,7 +142,7 @@ class UIWindow extends Window
 		
 		behaviours		= new BehaviourList();
 		
-#if flash9		
+#if (flash9 || jeash)		
 		graphicData		= new GraphicProperties(rect);
 		styleClasses	= new SimpleList<String>();
 #end
@@ -153,7 +153,7 @@ class UIWindow extends Window
 		createBehaviours();
 		createLayout();
 		
-#if flash9
+#if (flash9 || jeash)
 		bgShape			= new VectorShape();
 		graphics		= bgShape.graphics;
 		children.add(bgShape);
@@ -186,7 +186,7 @@ class UIWindow extends Window
 		toolTip			.dispose();
 		rect			.dispose();
 		
-#if flash9
+#if (flash9 || jeash)
 		bgShape			.dispose();
 		style			.dispose();
 		styleClasses	.dispose();
@@ -212,7 +212,7 @@ class UIWindow extends Window
 	
 	private inline function createLayout ()
 	{
-		topLayout	=	#if flash9	new primevc.avm2.layout.StageLayout( target );
+		topLayout	=	#if (flash9 || jeash)	new primevc.avm2.layout.StageLayout( target );
 						#else		new LayoutContainer();	#end
 		
 		topLayout.children.add( layout		= new VirtualLayoutContainer( #if debug "contentLayout" #end ) );
@@ -256,7 +256,7 @@ class UIWindow extends Window
 	private inline function getPopupManager ()		{ if (popups == null) { popups = new PopupManager(this); } return popups; }
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	private function setStylingEnabled (v:Bool)
 	{
 		if (v != stylingEnabled)

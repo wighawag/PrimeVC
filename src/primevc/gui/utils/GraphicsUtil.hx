@@ -48,7 +48,7 @@ class GraphicsUtil
 	 */
 	public static inline function drawArc (target:IGraphicsOwner, x:Float = 0, y:Float = 0, radius:Float = 1, percentage:Float = 1, rotation:Float = 0)
 	{
-#if flash9
+#if (flash9 || jeash)
 		var g = target.graphics;
 		
 		// Flash uses 8 segments per circle, to match that, we draw in a maximum
@@ -89,7 +89,7 @@ class GraphicsUtil
 	 */
 	public static inline function drawEllipseArc (target:IGraphicsOwner, x:Float = 0, y:Float = 0, radiusX:Float = 1, radiusY:Float = 1, percentage:Float = 1, rotation:Float = 0)
 	{
-#if flash9
+#if (flash9 || jeash)
 		var g = target.graphics;
 		
 		// Flash uses 8 segments per circle, to match that, we draw in a maximum
@@ -130,7 +130,7 @@ class GraphicsUtil
 	 */
 	public static inline function drawPolygon (target:IGraphicsOwner, sides:Int, x:Float = 0, y:Float = 0, radius:Float = 1, rotation:Float = 0)
 	{
-#if flash9
+#if (flash9 || jeash)
 		var g = target.graphics;
 		
 		//move to the last point of the polygon
@@ -149,7 +149,7 @@ class GraphicsUtil
 	 */
 	public static inline function drawPolygonFraction (target:IGraphicsOwner, sides:Int, x:Float = 0, y:Float = 0, radius:Float = 1, percentage:Float = 1, rotation:Float = 0)
 	{
-#if flash9
+#if (flash9 || jeash)
 		var g = target.graphics;
 		//move to the center of the polygon
 		g.moveTo( x, y );
@@ -169,7 +169,7 @@ class GraphicsUtil
 	}
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	/**
 	 * Method draws a line for a polygon.
 	 * @param	target

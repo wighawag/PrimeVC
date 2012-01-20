@@ -41,10 +41,14 @@ package primevc.types;
   using primevc.utils.TypeUtil;
   using Type;
 
-#if flash9
+#if (flash9 || jeash)
  import flash.display.IBitmapDrawable;
  import primevc.core.net.URLLoader;
  import primevc.gui.display.Loader;
+
+#if jeash
+ import Html5Dom;
+#end
 
 #elseif neko
  import primevc.tools.generator.ICodeFormattable;
@@ -54,7 +58,7 @@ package primevc.types;
 #end
 
 
-private typedef FlashBitmap		= #if flash9	flash.display.Bitmap		#else Dynamic			#end;
+private typedef FlashBitmap		= #if (flash9 || jeash)	flash.display.Bitmap		#else Dynamic			#end;
 private typedef Factory			= primevc.types.Factory<Dynamic>;
 private typedef BytesData		= haxe.io.BytesData;
 
@@ -75,7 +79,7 @@ class Asset		implements IDisposable
 	// FACTORY METHODS
 	//
 	
-#if flash9
+#if (flash9 || jeash)
 	public static inline function fromFlashBitmap	(v:FlashBitmap)					: Asset	{ return fromBitmapData(v.bitmapData); }
 	public static inline function fromBitmapData	(v:BitmapData)					: Asset	{ return new BitmapAsset(v); }
 	public static inline function fromDisplayObject	(v:DisplayObject, ?f:Factory)	: Asset	{ return new DisplayAsset(v, f); }
@@ -148,7 +152,7 @@ class Asset		implements IDisposable
 		width	= height = Number.INT_NOT_SET;
 #if neko			source	= data; #end
 #if (neko || debug)	_oid	= primevc.utils.ID.getNext(); #end
-#if flash9			Assert.notNull(type); #end
+#if (flash9 || jeash)			Assert.notNull(type); #end
 	}
 	
 	
@@ -192,7 +196,7 @@ class Asset		implements IDisposable
 		if (transparant == null)	transparant = true;
 		if (fillColor == null)		fillColor	= 0x00ffffff;
 		
-#if flash9
+#if (flash9 || jeash)
 		var display = toDrawable();
 		if (display == null)
 			return null;
@@ -239,7 +243,7 @@ class Asset		implements IDisposable
 	
 //	private function setData (v:SourceType)	: SourceType		{ Assert.abstract(); return v; }
 	public  function toDisplayObject ()		: DisplayObject		{ Assert.abstract(); return null; }
-#if flash9
+#if (flash9 || jeash)
 	public  function toDrawable ()			: IBitmapDrawable	{ Assert.abstract(); return null; }
 #end
 	public  function load ()				: Void				{ Assert.abstract(); }
@@ -328,7 +332,7 @@ class BitmapAsset extends Asset
 	
 	
 	override public  function toDisplayObject () : DisplayObject	{ return new primevc.gui.display.BitmapShape( bitmapData ); }
-#if flash9
+#if (flash9 || jeash)
 	override public  function toDrawable ()		 : IBitmapDrawable	{ return bitmapData; }
 #end
 	override public  function load ()								{}
@@ -391,7 +395,7 @@ class DisplayAsset extends Asset
 			return data;
 	}
 
-#if flash9
+#if (flash9 || jeash)
 	override public  function toDrawable ()		 : IBitmapDrawable	{ return data == null ? toDisplayObject() : data; }
 #end
 	override public  function load ()								{}
@@ -412,7 +416,7 @@ class DisplayAsset extends Asset
  */
 class BytesAssetBase extends Asset
 {
-#if flash9
+#if (flash9 || jeash)
 	private var loader	: Loader;
 #end
 	
@@ -421,7 +425,7 @@ class BytesAssetBase extends Asset
 	override private function unsetData ()						{ disposeLoader(); super.unsetData(); }
 	inline	 public  function isLoaded ()						{ return loader != null && loader.isLoaded(); }
 	override public  function toDisplayObject ()				{ return isLoaded() ? loader.content : null; }
-#if flash9
+#if (flash9 || jeash)
 	override public  function toDrawable () : IBitmapDrawable	{ return toDisplayObject(); }
 #end
 	override public  function close ()							{ if (loader != null) loader.close(); }
@@ -429,7 +433,7 @@ class BytesAssetBase extends Asset
 	
 	private function loadBytes (bytes:BytesData)
 	{
-#if flash9
+#if (flash9 || jeash)
 		Assert.notNull(bytes);
 		if (loader == null)
 		{
@@ -454,7 +458,7 @@ class BytesAssetBase extends Asset
 	
 	private inline function disposeLoader ()
 	{
-#if flash9
+#if (flash9 || jeash)
 		if (loader != null)
 		{
 			if (isLoading())
@@ -473,7 +477,7 @@ class BytesAssetBase extends Asset
 	private function handleUnloaded ()				{ setLoadable(); }
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	private function setLoadedData ()
 	{
 		if (!isLoaded())

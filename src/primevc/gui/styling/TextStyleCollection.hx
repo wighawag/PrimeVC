@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.styling;
-#if flash9
+#if (flash9 || jeash)
  import flash.text.Font;
 #end
  import primevc.gui.components.ITextArea;
@@ -54,7 +54,7 @@ private typedef Flags = TextStyleFlags;
  */
 class TextStyleCollection extends StyleCollectionBase < TextStyle >
 {
-#if flash9
+#if (flash9 || jeash)
 	private static var embeddedFonts = new Hash<Font>();
 #end
 
@@ -74,7 +74,7 @@ class TextStyleCollection extends StyleCollectionBase < TextStyle >
 			return;
 		
 		var target		= elementStyle.target.as(ITextStylable);
-#if flash9
+#if (flash9 || jeash)
 		var textFormat	= target.textStyle;
 		if (textFormat == null)
 			textFormat	= new TextFormat();
@@ -106,14 +106,16 @@ class TextStyleCollection extends StyleCollectionBase < TextStyle >
 	}
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	private function applyStyleObject ( propsToSet:Int, styleObj:TextStyle, textFormat:TextFormat )
 	{
 		var empty		= styleObj == null;
 		var target		= elementStyle.target.as(ITextStylable);
 		
 		if (propsToSet.has( Flags.ALIGN ))			textFormat.align			= empty ? TextAlign.LEFT		: styleObj.align;
+#if !jeash
 		if (propsToSet.has( Flags.COLOR ))			textFormat.color			= empty ? 0x00					: styleObj.color.rgb();
+#end
 		if (propsToSet.has( Flags.DECORATION ))		textFormat.underline		= empty ? false					: styleObj.decoration == TextDecoration.underline;
 		if (propsToSet.has( Flags.INDENT ))			textFormat.indent			= empty ? 0						: styleObj.indent;
 		if (propsToSet.has( Flags.LETTER_SPACING ))	textFormat.letterSpacing	= empty ? 0						: styleObj.letterSpacing;

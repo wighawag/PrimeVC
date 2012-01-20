@@ -208,7 +208,7 @@ class SlidingToggleButtonSkin extends Skin<DataButton<Null<Bool>>>
 /*	override public function drawGraphics ()
 	{
 		trace("draw stripe");
-#if flash9
+#if (flash9 || jeash)
 		var l = slideBtn.layout.innerBounds;
 		var g = slideBtn.graphics;
 		

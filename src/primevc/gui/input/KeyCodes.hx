@@ -28,6 +28,9 @@
  */
 package primevc.gui.input;
 
+#if jeash
+import Html5Dom;
+#end
 
 /**
  * @author Ruben Weijers

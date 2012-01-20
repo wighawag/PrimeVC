@@ -104,7 +104,7 @@ class ScaleEffectInstance extends EffectInstance < IScaleable, ScaleEffect >
 	
 	override private function tweenUpdater ( tweenPos:Float )
 	{
-#if flash9
+#if (flash9 || jeash)
 		if (isXChanged())	target.scaleX = ( endX * tweenPos ) + ( startX * (1 - tweenPos) );
 		if (isYChanged())	target.scaleY = ( endY * tweenPos ) + ( startY * (1 - tweenPos) );
 #end
@@ -113,7 +113,7 @@ class ScaleEffectInstance extends EffectInstance < IScaleable, ScaleEffect >
 
 	override private function calculateTweenStartPos () : Float
 	{
-#if flash9
+#if (flash9 || jeash)
 		return if (!isXChanged() && !isYChanged())	1;
 		  else if (!isYChanged())					(target.scaleX - startX) / (endX - startX);
 		  else if (!isXChanged())					(target.scaleY - startY) / (endY - startY);

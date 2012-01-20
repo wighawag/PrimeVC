@@ -51,7 +51,7 @@ class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, 
 	public var selected		(default, null)			: Bindable<Bool>;
 	public var icon			(default, setIcon)		: Asset;
 	public var iconFill		(default, setIconFill)	: IGraphicProperty;
-#if flash9
+#if (flash9 || jeash)
 	public var textStyle	(default, setTextStyle)	: TextFormat;
 	public var wordWrap		: Bool;
 	public var embedFonts	: Bool;
@@ -99,7 +99,7 @@ class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, 
 	}
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	private inline function setTextStyle (v:TextFormat)
 	{
 		textStyle = v;

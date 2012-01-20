@@ -34,10 +34,14 @@ package primevc.core.events;
 typedef CommunicationEvents = 
 	#if		flash9	primevc.avm2.events.CommunicationEvents;
 	#elseif	flash8	primevc.avm1.events.CommunicationEvents;
+	#elseif jeash	primevc.jeash.events.CommunicationEvents;
 	#elseif	js		CommunicationSignals; //primevc.js  .events.CommunicationEvents;
 	#elseif	neko	CommunicationSignals;
 	#else	error;	#end
 
+#if jeash
+import Html5Dom;
+#end
 
 typedef TextHandler		= String -> Void;
 typedef ProgressHandler	= UInt -> UInt -> Void;

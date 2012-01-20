@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.components;
-#if flash9
+#if (flash9 || jeash)
  import flash.geom.ColorTransform;
 #end
  import primevc.gui.core.UIDataComponent;
@@ -57,7 +57,7 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 	 */
 	public var maintainAspectRatio	(default, setMaintainAspectRatio)	: Bool;
 	
-#if flash9
+#if (flash9 || jeash)
 	public var assetChild			(default, null) 					: flash.display.DisplayObject;
 	public var assetFill			(default, null) 					: BitmapFill;
 #end
@@ -96,7 +96,7 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 	
 	private function applyAsset ()
 	{
-#if flash9
+#if (flash9 || jeash)
 		Assert.notNull(data.type);
 		
 		switch (data.type)
@@ -134,7 +134,7 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 	
 	private function unsetAsset ()
 	{
-#if flash9
+#if (flash9 || jeash)
 		if (data.type == null)
 			return;
 		
@@ -162,7 +162,7 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 	
 	public function colorize (fill:IGraphicElement)
 	{
-#if flash9
+#if (flash9 || jeash)
 		if (fill == null || !fill.is(SolidFill))
 			return;
 		
@@ -177,7 +177,7 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 	
 	private function updateChildSize (changes:Int)
 	{
-#if flash9
+#if (flash9 || jeash)
 		if (changes.hasNone( LayoutFlags.SIZE ))
 			return;
 		

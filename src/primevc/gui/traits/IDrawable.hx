@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.traits;
-#if flash9
+#if (flash9 || jeash)
  import primevc.gui.graphics.GraphicProperties;
 #end
 
@@ -40,7 +40,7 @@ interface IDrawable
 			  implements ILayoutable
 			, implements IGraphicsOwner
 {
-#if flash9
+#if (flash9 || jeash)
 	/**
 	 * Object containing graphical data. One object will be enough in general
 	 * since it can be a ComposedShape that contains multiple shapes.

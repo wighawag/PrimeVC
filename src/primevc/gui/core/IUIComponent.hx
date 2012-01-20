@@ -31,7 +31,7 @@ package primevc.gui.core;
  import primevc.core.Bindable;
  import primevc.gui.display.IDisplayContainer;
  import primevc.gui.traits.ISkinnable;
-#if flash9
+#if (flash9 || jeash)
  import primevc.gui.traits.IDrawable;
 #end
  
@@ -47,7 +47,7 @@ interface IUIComponent
 			,	implements IUIElement
 			,	implements IDisablable
 			,	implements ISkinnable
-#if flash9	,	implements IDrawable	#end
+#if (flash9 || jeash)	,	implements IDrawable	#end
 {
 	public var enabled	(default, null)				: Bindable < Bool >;
 	

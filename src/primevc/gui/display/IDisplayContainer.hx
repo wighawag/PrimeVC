@@ -42,7 +42,7 @@ interface IDisplayContainer implements IInteractive, implements IDisplayable
 	var children	(default, null)			: DisplayList;
 #end
 	
-#if flash9
+#if (flash9 || jeash)
 	public function globalToLocal (point : Point) : Point;
 	public function localToGlobal (point : Point) : Point;
 #end

@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.core;
-#if flash9
+#if (flash9 || jeash)
  import primevc.core.collections.SimpleList;
  import primevc.gui.styling.UIElementStyle;
 #end
@@ -95,7 +95,7 @@ class UIVideo extends Video, implements IUIElement
 	public var system			(getSystem, never)				: ISystem;
 	public var state			(default, null)					: UIElementStates;
 	
-#if flash9
+#if (flash9 || jeash)
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList<String>;
 	public var stylingEnabled	(default, setStylingEnabled)	: Bool;
@@ -113,7 +113,7 @@ class UIVideo extends Video, implements IUIElement
 #end
 		this.id				= new Bindable<String>(id);
 		super();
-#if flash9
+#if (flash9 || jeash)
 		styleClasses		= new SimpleList<String>();
 		this.stylingEnabled	= stylingEnabled;
 #end
@@ -154,7 +154,7 @@ class UIVideo extends Video, implements IUIElement
 		if (stream != null)		stream.dispose();
 		if (layout != null)		layout.dispose();
 		
-#if flash9
+#if (flash9 || jeash)
 		if (style != null && style.target == this)
 			style.dispose();
 		
@@ -186,7 +186,7 @@ class UIVideo extends Video, implements IUIElement
 		behaviours.init();
 		
 		stream = new VideoStream();
-#if flash9
+#if (flash9 || jeash)
 		attachNetStream( stream.source );
 #end
 		handleStreamChange		.on( stream.state.change, this );
@@ -206,7 +206,7 @@ class UIVideo extends Video, implements IUIElement
 	}
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	private function setStylingEnabled (v:Bool)
 	{
 		if (v != stylingEnabled)
@@ -370,7 +370,7 @@ class UIVideo extends Video, implements IUIElement
 	
 	private function handleStreamChange (newState:VideoStates, oldState:VideoStates)
 	{
-#if flash9
+#if (flash9 || jeash)
 		if (newState == VideoStates.stopped)
 			clear();
 #end

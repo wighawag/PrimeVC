@@ -32,6 +32,7 @@ package primevc.gui.filters;
 typedef BitmapFilter = 
 	#if		flash9	flash.filters.BitmapFilter;
 	#elseif	flash8	flash.filters.BitmapFilter;
+	#elseif jeash	flash.filters.BitmapFilter;
 	#elseif	js		throw "error";
 	#else			BitmapFilterImpl;
 	

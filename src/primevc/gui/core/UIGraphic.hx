@@ -41,7 +41,7 @@ package primevc.gui.core;
  import primevc.gui.layout.LayoutClient;
  import primevc.gui.managers.ISystem;
  import primevc.gui.states.UIElementStates;
-#if flash9
+#if (flash9 || jeash)
  import primevc.core.collections.SimpleList;
  import primevc.gui.styling.UIElementStyle;
  import primevc.gui.traits.IDrawable;
@@ -59,7 +59,7 @@ package primevc.gui.core;
  */
 class UIGraphic extends VectorShape
 			,	implements IUIElement
-#if flash9	,	implements IDrawable	#end
+#if (flash9 || jeash)	,	implements IDrawable	#end
 {
 	public var prevValidatable	: IValidatable;
 	public var nextValidatable	: IValidatable;
@@ -74,7 +74,7 @@ class UIGraphic extends VectorShape
 	public var layout			(default, null)					: LayoutClient;
 	public var system			(getSystem, never)				: ISystem;
 	
-#if flash9	
+#if (flash9 || jeash)	
 	public var graphicData		(default, null)					: GraphicProperties;
 	public var style			(default, null)					: UIElementStyle;
 	public var styleClasses		(default, null)					: SimpleList< String >;
@@ -96,7 +96,7 @@ class UIGraphic extends VectorShape
 		
 		state			= new UIElementStates();
 		behaviours		= new BehaviourList();
-#if flash9		
+#if (flash9 || jeash)		
 		graphicData		= new GraphicProperties( rect );
 		styleClasses	= new SimpleList<String>();
 		stylingEnabled	= true;
@@ -130,7 +130,7 @@ class UIGraphic extends VectorShape
 		behaviours	.dispose();
 		state		.dispose();
 		id			.dispose();
-#if flash9
+#if (flash9 || jeash)
 		if (style.target == this)
 			style.dispose();
 		
@@ -141,7 +141,7 @@ class UIGraphic extends VectorShape
 		if (graphicData != null)	graphicData.dispose();
 		
 		id				= null;
-#if flash9
+#if (flash9 || jeash)
 		style			= null;
 		styleClasses	= null;
 #end
@@ -295,7 +295,7 @@ class UIGraphic extends VectorShape
 	public inline function isQueued () : Bool			{ return nextValidatable != null || prevValidatable != null; }
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	private function setStylingEnabled (v:Bool)
 	{
 		if (v != stylingEnabled)

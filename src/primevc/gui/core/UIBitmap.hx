@@ -42,7 +42,7 @@ package primevc.gui.core;
  import primevc.gui.layout.LayoutFlags;
  import primevc.gui.managers.ISystem;
  import primevc.gui.states.UIElementStates;
-#if flash9
+#if (flash9 || jeash)
  import primevc.core.collections.SimpleList;
  import primevc.gui.styling.UIElementStyle;
 #end
@@ -74,7 +74,7 @@ class UIBitmap extends BitmapShape, implements IUIElement
     public var layout           (default, null)                 : LayoutClient;
     public var system           (getSystem, never)              : ISystem;
     
-#if flash9
+#if (flash9 || jeash)
     public var style            (default, null)                 : UIElementStyle;
     public var styleClasses     (default, null)                 : SimpleList< String >;
     public var stylingEnabled   (default, setStylingEnabled)    : Bool;
@@ -95,7 +95,7 @@ class UIBitmap extends BitmapShape, implements IUIElement
         
         state           = new UIElementStates();
         behaviours      = new BehaviourList();
-#if flash9
+#if (flash9 || jeash)
         styleClasses    = new SimpleList<String>();
         stylingEnabled  = true;
 #end
@@ -128,7 +128,7 @@ class UIBitmap extends BitmapShape, implements IUIElement
         behaviours.dispose();
         state     .dispose();
         id        .dispose();
-#if flash9
+#if (flash9 || jeash)
         if (style.target == this)
             style.dispose();
         
@@ -138,7 +138,7 @@ class UIBitmap extends BitmapShape, implements IUIElement
         if (layout != null)         layout.dispose();
         
         id              = null;
-#if flash9
+#if (flash9 || jeash)
         style           = null;
         styleClasses    = null;
 #end
@@ -315,7 +315,7 @@ class UIBitmap extends BitmapShape, implements IUIElement
         var cur = getData();
         if (cur != v)
         {
-#if flash9  bitmapData  = v;
+#if (flash9 || jeash)  bitmapData  = v;
 #else       data        = v; #end
             var l       = advancedLayout();
 
@@ -331,7 +331,7 @@ class UIBitmap extends BitmapShape, implements IUIElement
     }
 
     
-#if flash9
+#if (flash9 || jeash)
     private function setStylingEnabled (v:Bool)
     {
         if (v != stylingEnabled)

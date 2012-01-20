@@ -36,6 +36,7 @@ package primevc.gui.display;
 typedef Sprite = 
 	#if		flash9	primevc.avm2.display.Sprite;
 	#elseif	flash8	primevc.avm1.display.Sprite;
+	#elseif jeash	primevc.jeash.display.Sprite;
 	#elseif	js		primevc.js  .display.Sprite;
 	#else			#error;
 

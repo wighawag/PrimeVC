@@ -64,7 +64,7 @@ class ButtonIconLabelSkin extends Skin<Button>
 		labelField.id.value		= owner.id.value + "TextField";
 		iconGraphic.id.value	= owner.id.value + "Icon";
 #end
-#if flash9
+#if (flash9 || jeash)
 		labelField.autoSize			= flash.text.TextFieldAutoSize.NONE;
 		labelField.selectable		= labelField.mouseEnabled = labelField.tabEnabled = false;
 		labelField.wordWrap			= owner.wordWrap;
@@ -103,7 +103,7 @@ class ButtonIconLabelSkin extends Skin<Button>
 		Assert.notNull(iconGraphic, owner+"; "+iconGraphic+"; "+labelField+"; "+owner.isDisposed());
 		
 		if (changes.has( Flags.ICON ))			iconGraphic.data = owner.icon;
-#if flash9
+#if (flash9 || jeash)
 		if (changes.has( Flags.ICON_FILL ))		iconGraphic.colorize( owner.iconFill );
 
 		if (changes.has( Flags.TEXTSTYLE )) {
@@ -115,7 +115,7 @@ class ButtonIconLabelSkin extends Skin<Button>
 	}
 	
 	
-#if flash9
+#if (flash9 || jeash)
 	override public function isFocusOwner (target:UserEventTarget)
 	{
 		return labelField.isFocusOwner(target);

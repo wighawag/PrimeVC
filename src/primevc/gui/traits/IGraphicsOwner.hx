@@ -35,7 +35,7 @@ package primevc.gui.traits;
  */
 interface IGraphicsOwner implements IDisplayable
 {
-#if flash9
+#if (flash9 || jeash)
 	public var graphics			(default, null)		: flash.display.Graphics;
 	
 	public var scaleX	: Float;

@@ -55,7 +55,7 @@ class InputFieldSkin extends ButtonIconLabelSkin
 		labelField.restrict				= owner.restrict;
 		labelField.maxChars				= owner.maxChars;
 		
-#if flash9
+#if (flash9 || jeash)
 		labelField.makeEditable();
 		labelField.mouseEnabled = labelField.tabEnabled = true;
 #end

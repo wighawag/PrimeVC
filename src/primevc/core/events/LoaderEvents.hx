@@ -36,6 +36,7 @@ package primevc.core.events;
 typedef LoaderEvents = 
 	#if		flash9	primevc.avm2.events.LoaderEvents;
 	#elseif	flash8	primevc.avm1.events.LoaderEvents;
+	#elseif jeash	primevc.jeash.events.LoaderEvents;
 	#elseif	js		primevc.js  .events.LoaderEvents;
 	#elseif neko	LoaderSignals;
 	#else	#error	#end
