@@ -41,7 +41,7 @@ class ApplicationStyle extends UIElementStyle
 #if (flash9 || jeash)
 	override private function init ()
 	{
-		var sheet			= new StyleSheet();
+		var sheet			= new StyleSheet2();
 		filledProperties	= filledProperties.set( sheet.allFilledProperties );
 		parentStyle			= this;
 		styles.add( sheet );

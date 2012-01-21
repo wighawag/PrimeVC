@@ -530,12 +530,13 @@ class TextStyle extends StyleSubBlock
 		}
 		return v;
 	}
-	
-	
+		
 	private function setColor (v:Null<RGBA>)
 	{
+#if !jeash
 		if (v != null)
 			v = v.validate();
+#end
 		
 		if (v != _color) {
 			_color = v;

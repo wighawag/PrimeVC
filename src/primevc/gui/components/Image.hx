@@ -162,7 +162,7 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 	
 	public function colorize (fill:IGraphicElement)
 	{
-#if (flash9 || jeash)
+#if flash9
 		if (fill == null || !fill.is(SolidFill))
 			return;
 		

@@ -32,6 +32,8 @@ package primevc.core.geom;
 typedef Matrix2D = flash.geom.Matrix;
 #elseif flash
 typedef Matrix2D = flash.geom.Matrix;
+#elseif jeash
+typedef Matrix2D = jeash.geom.Matrix;
 #elseif neko
 typedef Matrix2D = primevc.neko.geom.Matrix;
 #else

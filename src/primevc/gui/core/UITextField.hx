@@ -375,7 +375,9 @@ class UITextField extends TextField, implements IUIElement
 	{
 #if (flash9 || jeash)
 		if (autoSize == flash.text.TextFieldAutoSize.NONE)
+			#if !jeash 
 			scrollH = 0;
+			#end
 #end
 		layout.invalidatable = false;
 		if (layout.percentWidth.notSet())	layout.width	= realTextWidth.roundFloat();

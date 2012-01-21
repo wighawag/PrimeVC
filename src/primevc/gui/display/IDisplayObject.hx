@@ -67,15 +67,15 @@ interface IDisplayObject
 	
 #if (flash9 || jeash)
 	public var alpha		: Float;
-	public var visible		: Bool;
+	public var visible		#if jeash (jeashGetVisible, jeashSetVisible) #end 							: Bool;
 	
-	public var mouseX		(default, never)		: Float;
-	public var mouseY		(default, never)		: Float;
+	public var mouseX		#if jeash (jeashGetMouseX, jeashSetMouseX) #else (default, never) #end		: Float;
+	public var mouseY		#if jeash (jeashGetMouseY, jeashSetMouseY) #else (default, never) #end		: Float;
 	
-	public var filters		: Array < Dynamic >;
+	public var filters		#if jeash (jeashGetFilters, jeashSetFilters) #end							: Array < Dynamic >;
 	public var name			: String;
-	public var scrollRect	: flash.geom.Rectangle;
-	public var transform	: flash.geom.Transform; //Matrix2D;
+	public var scrollRect	#if jeash (GetScrollRect, SetScrollRect) #end						: flash.geom.Rectangle;
+	public var transform	#if jeash (GetTransform, SetTransform) #end 						: flash.geom.Transform; //Matrix2D;
 	
 	public function globalToLocal (point : Point) : Point;
 	public function localToGlobal (point : Point) : Point;

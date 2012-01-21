@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project>
+<project version="2">
   <!-- Output SWF options -->
   <output>
-    <movie disabled="False" />
+    <movie outputType="Application" />
     <movie input="" />
-    <movie path="test.swf" />
+    <movie path="test.js" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
-    <movie version="10" />
+    <movie version="1" />
+    <movie minorVersion="0" />
+    <movie platform="JavaScript" />
     <movie background="#FFFFFF" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
@@ -17,14 +19,16 @@
     <class path="tests" />
     <class path="libs\haxe" />
     <class path="styles\empty" />
+    <class path="libs\apparat" />
+    <class path="..\jeash" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="" />
+    <option directives="jeash" />
     <option flashStrict="False" />
     <option mainClass="cases.ComponentsTest" />
     <option enabledebug="False" />
-    <option additional="" />
+    <option additional="--remap flash:jeash" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
@@ -34,21 +38,19 @@
   <compileTargets>
     <compile path="tests\cases\LayoutTest.hx" />
   </compileTargets>
-  <!-- Assets to embed into the output SWF -->
-  <library>
-    <!-- example: <asset path="..." id="..." update="..." glyphs="..." mode="..." place="..." sharepoint="..." /> -->
-  </library>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
     <!-- example: <hidden path="..." /> -->
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>"C:\Program Files\Git\bin\bash" build/build-styles styles/empty</preBuildCommand>
+  <preBuildCommand />
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="True" />
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />
-    <option testMovie="Default" />
+    <option testMovie="Unknown" />
   </options>
+  <!-- Plugin storage -->
+  <storage />
 </project>

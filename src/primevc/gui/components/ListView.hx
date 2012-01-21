@@ -176,7 +176,7 @@ class ListView<ListDataType> extends UIDataContainer < IReadOnlyList < ListDataT
 		var depth = indexToDepth(oldPos);
 		if (depth > -1)
 		{
-			renderer = children.getItemAt(depth);
+			renderer = cast children.getItemAt(depth);
 		}
 		else
 		{
@@ -185,7 +185,7 @@ class ListView<ListDataType> extends UIDataContainer < IReadOnlyList < ListDataT
 			// data array. Instead all children will be checked if they have the same data as given.
 			for (i in 0...children.length)
 				if (getRendererData(cast children.getItemAt(i)) == item) {
-					renderer = children.getItemAt(i);
+					renderer = cast children.getItemAt(i);
 					break;
 				}
 		}

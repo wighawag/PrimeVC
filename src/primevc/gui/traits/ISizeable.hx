@@ -35,9 +35,12 @@ package primevc.gui.traits;
  */
 interface ISizeable implements IDisplayable
 {
-#if (flash9 || jeash)
+#if flash9
 	var height					: Float;
 	var width					: Float;
+#elseif jeash
+	var width		(jeashGetWidth,		jeashSetWidth)			: Float;
+	var height		(jeashGetHeight,	jeashSetHeight)			: Float;
 #else
 	var width		(getWidth,		setWidth)			: Float;
 	var height		(getHeight,		setHeight)			: Float;

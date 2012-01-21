@@ -101,9 +101,9 @@ class UIWindow extends Window
 	public var graphicData			(default, null)					: GraphicProperties;
 	
 #if (flash9 || jeash)
-	public var scaleX				: Float;
-	public var scaleY				: Float;
-	
+	public var scaleX	#if jeash (jeashGetScaleX, jeashSetScaleX)	#end	: Float;
+	public var scaleY	#if jeash (jeashGetScaleY, jeashSetScaleY)	#end	: Float;
+
 	
 	/**
 	 * Shape to draw the background graphics in. Stage doesn't have a Graphics
@@ -113,7 +113,7 @@ class UIWindow extends Window
 	/**
 	 * Reference to bgShape.graphics.. Needed for compatibility with IDrawable
 	 */
-	public var graphics				(default, null)					: flash.display.Graphics;
+	public var graphics				(#if jeash jeashGetGraphics #else default #end, null)					: flash.display.Graphics;
 	
 	public var style				(default, null)					: UIElementStyle;
 	public var styleClasses			(default, null)					: SimpleList<String>;
@@ -281,6 +281,30 @@ class UIWindow extends Window
 	public function toString ()
 	{
 		return id.value;
+	}
+#end
+
+#if jeash
+	private function jeashGetScaleX() {
+		return scaleX;
+	}
+	
+	private function jeashSetScaleX(v:Float) {
+		scaleX = v;
+		return v;
+	}
+	
+	private function jeashGetScaleY() {
+		return scaleY;
+	}
+	
+	private function jeashSetScaleY(v:Float) {
+		scaleY = v;
+		return v;
+	}
+	
+	private function jeashGetGraphics() {
+		return graphics;
 	}
 #end
 }

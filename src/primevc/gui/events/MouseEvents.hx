@@ -36,6 +36,7 @@ package primevc.gui.events;
 typedef MouseEvents = 
 	#if		flash9	primevc.avm2.events.MouseEvents;
 	#elseif	flash8	primevc.avm1.events.MouseEvents;
+	#elseif jeash  	primevc.jeash.events.MouseEvents;
 	#elseif	js		primevc.js  .events.MouseEvents;
 	#elseif	neko	primevc.neko.events.MouseEvents;
 	#else			Dynamic; #end
