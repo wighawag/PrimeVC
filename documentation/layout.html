@@ -26,7 +26,7 @@ asciidoc.install(2);
 <div class="sect1">
 <h2 id="_implementation">Implementation</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>Every <span class="monospaced">UIElement</span> has a property <span class="monospaced">layout</span>, typed as <span class="monospaced">LayoutClient</span>. A <span class="monospaced">LayoutClient</span> is the basic layout-class that defines the position, size, margin and padding of it&#8217;s <span class="monospaced">UIElement</span>.</p></div>
+<div class="paragraph"><p>Every <span class="monospaced">UIElement</span> has a property <span class="monospaced">layout</span>, typed as <span class="monospaced">LayoutClient</span>. A <span class="monospaced">LayoutClient</span> is the basic layout-class that defines the position, size, margin and padding of its <span class="monospaced">UIElement</span>.</p></div>
 <div class="sect2">
 <h3 id="_layoutclient">LayoutClient</h3>
 <div class="paragraph"><p><span class="image">
@@ -94,7 +94,7 @@ layoutContainer.children
 <div class="sect2">
 <h3 id="_build_instructions">Build instructions</h3>
 <div class="paragraph"><p>Below you find the commands to build the first four layout-tests. Make sure you execute these commands from the PrimeVC-root-folder.</p></div>
-<div class="paragraph"><p>Example1:</p></div>
+<div class="paragraph"><p><a href="https://github.com/touch/PrimeVC/blob/master/examples/layout/LayoutExample1.hx">Example 1</a> Bare bones layout:</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.5
 by Lorenzo Bettini
@@ -105,7 +105,7 @@ http://www.gnu.org/software/src-highlite -->
         -swf bin-debug/LayoutExample<span style="color: #993399">1</span><span style="color: #990000">.</span>swf <span style="color: #990000">\</span>
         --no-traces <span style="color: #990000">\</span>
 <span style="color: #990000">&amp;&amp;</span> open bin-debug/LayoutExample<span style="color: #993399">1</span><span style="color: #990000">.</span>swf</tt></pre></div></div>
-<div class="paragraph"><p>Example2:</p></div>
+<div class="paragraph"><p><a href="https://github.com/touch/PrimeVC/blob/master/examples/layout/LayoutExample2.hx">Example 2</a> Bare bones with the Prime display package:</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.5
 by Lorenzo Bettini
@@ -116,7 +116,7 @@ http://www.gnu.org/software/src-highlite -->
         -swf bin-debug/LayoutExample<span style="color: #993399">2</span><span style="color: #990000">.</span>swf <span style="color: #990000">\</span>
         --no-traces <span style="color: #990000">\</span>
 <span style="color: #990000">&amp;&amp;</span> open bin-debug/LayoutExample<span style="color: #993399">2</span><span style="color: #990000">.</span>swf</tt></pre></div></div>
-<div class="paragraph"><p>Example3:</p></div>
+<div class="paragraph"><p><a href="https://github.com/touch/PrimeVC/blob/master/examples/layout/LayoutExample3.hx">Example 3</a> Positioning Prime UIComponents:</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.5
 by Lorenzo Bettini
@@ -127,7 +127,8 @@ http://www.gnu.org/software/src-highlite -->
         -swf bin-debug/LayoutExample<span style="color: #993399">3</span><span style="color: #990000">.</span>swf <span style="color: #990000">\</span>
         --no-traces <span style="color: #990000">\</span>
 <span style="color: #990000">&amp;&amp;</span> open bin-debug/LayoutExample<span style="color: #993399">3</span><span style="color: #990000">.</span>swf</tt></pre></div></div>
-<div class="paragraph"><p>Example4:</p></div>
+<div class="paragraph"><p><a href="https://github.com/touch/PrimeVC/blob/master/examples/layout/LayoutExample4.hx">Example 4</a> What you want in practice, using CSS to layout UIComponents:</p></div>
+<div class="paragraph"><p>The <span class="monospaced">build/build</span> script handles building and running of the Prime CSS parser and requires <a href="http://www.gnu.org/software/bash/">Bash</a> to run. Windows users: bash is included with <a href="http://code.google.com/p/msysgit/">Git for Windows</a> - make sure it&#8217;s added to the PATH.</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.5
 by Lorenzo Bettini
@@ -143,7 +144,7 @@ http://www.gnu.org/software/src-highlite -->
 <div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-01-25 15:04:55 CET
+Last updated 2012-01-25 15:47:08 CET
 </div>
 </div>
 </body>
