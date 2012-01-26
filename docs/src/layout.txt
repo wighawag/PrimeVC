@@ -2,20 +2,268 @@
 Ruben Weijers
 :toc:
 
+== Introduction
+The primary goal of Prime's layoutsystem is to minimize the time and effort you spend on positioning, measuring and updating user-interface-elements.
+
+Secondary it tries to minimize the amount of calculations and screen-updates by carefully tracking it's own state and dirty properties.
+
+Finally, it allows you to use your own implementation, without using the GUI of Prime. For example, you could create an html-canvas with weird-shapes that are positioned in a specific order.
+
 
 == Implementation
+There are three main actors in the system:
 
-Every `UIElement` has a property `layout`, typed as `LayoutClient`. A `LayoutClient` is the basic layout-class that defines the position, size, margin and padding of its `UIElement`.
+. *Layoutclients*
++
+Main buildingblocks. Defines the size, position and children of each element.
+
+. *Algorithms*
++
+Specifies how the LayoutClients are positionated relative to each other. Also defines which property-changes requires an update and which don't.
+
+. *Owners*
++
+Elements that are represented by LayoutClients. They listen to state-changes, revalidate the clients and update their own size and position when the LayoutClient changes.
+
+["graphviz", "LayoutActors.svg","dot", "svg"]
+-------
+digraph LayoutActors {
+	node [fontname=Verdana,fontsize=8.0];
+
+	subgraph cluster_0 {
+		rank="same";
+		fontname=Verdana;
+		fontsize=10.0;
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+
+		contA		[label="MenuBar A"];
+		buttonB		[label="Button B"];
+		buttonC		[label="Button C"];
+
+		contA -> buttonB;
+		contA -> buttonC;
+		label="Application";
+	}
+
+	subgraph cluster_1 {
+		rank="same";
+		fontname=Verdana;
+		fontsize=10.0;
+		node [style=filled];
+
+		layoutA		[label="Layout A"];
+		layoutB		[label="Layout B"];
+		layoutC		[label="Layout C"];
+		algo 		[label="float-left-algorithm", shape="rectangle", color=lightblue];
+
+		layoutA -> layoutB;
+		layoutA -> layoutC;
+		layoutA -> algo [dir="none"];
+		label="LayoutClients";
+		color=blue;
+	}
+	
+	edge [dir="none",style="dashed"];
+	contA -> layoutA 		[constraint="true"];
+	buttonB -> layoutB		[constraint="true"];
+	buttonC -> layoutC		[constraint="true"];
+}
+-------
+
+.Result
+{sys:build/doc-include "diagrams/LayoutExample.ditaa"}
+
+
+In this diagram there are 3 UI-components, a menu-bar with two buttons in it. All three of them own a layout which is nested the same way. The layout-algorithm `float-left` is owned by the `LayoutA` and defines the position of the two buttons.
+
+
+=== Box Model
+The layout-model is comparibable to the http://www.w3.org/TR/css3-ui/#box-sizing[css3 box-sizing] value `border-box`. The original css-box-model can be quite frustrating when you work with liquid layouts so we tried to fix it by only implementing the `border-box` model.
+
+NOTE: Prime-developers: `border-box` is supported by all modern browsers. PrimeVC should be able to apply some automatic quircks for the html-implementation with support for IE6/7.
+
+{sys:build/doc-include "diagrams/box-model.ditaa"}
+
+
+=== Units
+Within the layout-system all position-and-size values are defined as integers without a specific unit. Floating points are not allowed and will be rounded within algorithm-calculations.
+
+
+=== Validation-process
+A LayoutClient can be in one-of-four states:
+
+. invalidated
+. validating
+. validated
+. parent_invalidated
+
+["graphviz", "LayoutValidation.svg","circo", "svg"]
+-------
+digraph LayoutValidation {
+	node	[style="filled", shape="circle",fontname=Verdana,fontsize=8.0];
+	edge	[fontname=Verdana,fontsize=6.0];
+	state1	[label="1",color="lightcoral"];
+	state2	[label="2",color="orange"];
+	state3	[label="3",color="darkolivegreen1"];
+	state4	[label="4",color="lightcoral"];
+
+	choise 	[label="",color="yellow",shape="diamond"]
+
+	state3 -> choise	[label="prop changed"];
+	choise -> state1	[label="parent stays valid"];
+	choise -> state4	[label="parent invalid"];
+	state1 -> state2	[label="validate()"];
+	state2 -> state3	[label="validated()"];
+}
+-------
+
+
+== LayoutClients
+Prime-layout implements the following layoutclients:
+
+.UML
+["graphviz", "LayoutClient_UML.svg", "dot", "svg"]
+------
+digraph LayoutClient_UML {
+	nodesep="1"
+	edge [dir="back", minlen="1.4", weight="50"]
+	node [fontname=Verdana,fontsize=8.0]
+	node [shape="box"]; LayoutClient; LayoutContainer; AdvancedLayoutClient; VirtualLayoutContainer
+	node [shape="ellipse",style=filled,color=gray86]; ILayoutClient; IAdvancedLayoutClient; ILayoutContainer; IScrollableLayout;
+	
+	subgraph cluster_0 {
+		ILayoutClient			-> IAdvancedLayoutClient	[style="dashed"];
+		ILayoutClient			-> ILayoutContainer			[style="dashed"];
+		ILayoutContainer		-> IScrollableLayout		[style="dashed"];
+		IAdvancedLayoutClient	-> IScrollableLayout		[style="dashed"];
+	}
+
+	subgraph cluster_1 {
+		LayoutClient			-> AdvancedLayoutClient;
+		AdvancedLayoutClient	-> LayoutContainer;
+		LayoutContainer			-> VirtualLayoutContainer;
+	}
+	
+	ILayoutClient			-> LayoutClient				[style="dotted"];
+	IAdvancedLayoutClient	-> AdvancedLayoutClient		[style="dotted"];
+	ILayoutContainer		-> LayoutContainer			[style="dotted"];
+	IScrollableLayout		-> LayoutContainer			[style="dotted"];
+}
+------
+
+
 
 === LayoutClient
+LayoutClient is a lightweight object storing the following basic properties:
+
+- position
+- size
+- margin
+- padding
+- innerBounds: size + padding
+- outerBounds: innerBounds + margin
+
+If you would draw a square based on the properties of a layoutclient, you should use the following properties
+[source,haxe]
+-----
+graphics.drawRect(
+	layout.outerBounds.left,  layout.outerBounds.top, 	// x + y
+	layout.innerBounds.width, layout.innerBounds.height 	// size
+);
+-----
+
+.Example
 {sys:build/doc-include "diagrams/LayoutClient.ditaa"}
 
 
 === AdvancedLayoutClient
+This class is used for more complex UI-elements. It defines two types of size-values: 
+
+. *measured-size*
++
+Size values are updated by the owner based on it's content (e.g. width/height of a text) or by a `layout-algorithm`.
+
+. *explicit-size* 
++
+Size values are specified by *you*. This value will always win over a measured value.
+
+You shouldn't read the value of the _measured_- and _explicit_-size directly but only use the inner- and outerBounds. The table below shows what the combination of values and the result of it.
+
+[options="header", cols="1m,1m,1m"]
+|=========
+| explicitWidth	| measuredWidth	| width
+| NaN 			| NaN 			| NaN
+| 50 			| NaN 			| 50
+| NaN 			| 80 			| 80
+| 50 			| 80 			| 50
+| 80 			| 50 			| 80
+|=========
+
+.Example
 {sys:build/doc-include "diagrams/AdvancedLayoutClient.ditaa"}
 
 
 === LayoutContainer
+[horizontal]
+.Implementation
+`AdvancedLayoutClient`:: defines measured- and explicit size
+`IScrollableLayout`:: defines scroll-position and the scrollable-size
+`ILayoutContainer`:: defines the support for layout-client-children
+
+`LayoutContainer` has two important features;
+
+. support for layout-algorithms
+. support for layout-children
+
+==== Layout algorithms support
+A `LayoutContainer` can have *one* layout-algorithm. The algorithm is responsible for telling the container which changes should invalidate the container and will measure and positionate the children of the container.
+
+Having only one algorithm per container is a big difference with how CSS deals with positioning UI-elements. CSS's implementation allows you for example to have a container where a first child floats right and a second floats left. In prime you can only tell all children to float left, or all children to float right.
+
+.Advantages of prime's implementation:
+. *Predictability*
++
+All children are treated the same way. Their position is therefor easy to calculate and predict.
+
+. *Simplicity*
++
+Less flexibility means fewer exceptions and therefor more *speed* and a *lower chance of bugs*.
+
+. *Usage of new algorithms*
++
+Using only one algorithm allows you to positionate children in the strangest way. E.g. it's easy to create an algorithm that will positionate the children in a sinus-wave.
+
+.Disadvantages of prime's implementation:
+. *Less flexible*
++
+Creating an exception for one child involves more boilerplate code and won't give you the same flexibility of css
+. ??
+
+==== Support for children
+A `LayoutContainer` can have an infinite amount of children, a *child* can only have one parent. By adding a child to a container, it gives the parent some of it's responsibilities:
+
+- everytime a property changes, the *child* will ask the *parent* if this change will also invalidate the *parent*.
+	* *Yes*: change state to `parent_invalidated`. parent is responsible for `validating` the child again.
+	* *No*: change state to `invalidated`. child is responsible for `validating` itself again.
+
+- *parent* must calculate the `width` or `height` when the *child* uses a `percentWidth` or `percentHeight`
+
+- *parent* is responsible for positionating the *child*
+
+==== Scrollable size
+[options="header", cols="1m,1m,1m,1m"]
+|=========
+| explicitWidth	| measuredWidth	| width	| scrollableWidth
+| NaN 			| NaN 			| NaN	| 0
+| 50 			| NaN 			| 50	| 0
+| NaN 			| 80 			| 80	| 0
+| 50 			| 80 			| 50	| 30
+| 80 			| 50 			| 80	| 0
+|=========
+
+.Example
 {sys:build/doc-include "diagrams/LayoutContainer.ditaa"}
 
 [horizontal]
@@ -23,13 +271,75 @@ Every `UIElement` has a property `layout`, typed as `LayoutClient`. A `LayoutCli
 `b-d`:: layoutContainer.children
 
 
-== Box Model
+=== VirtualLayoutContainer
+The previous chapter discussed why a `LayoutContainer` can only have one algorithm. Prime introduces a `VirtualLayoutContainer` to overcome the disadvantage of that.
 
-PrimeVC implements a layout-model comparibable to the http://www.w3.org/TR/css3-ui/#box-sizing[css3 box-sizing] value `border-box`. The original css-box-model can be quite frustrating when you work with liquid layouts so we tried to fix it by only implementing the `border-box` model.
+Until now, all the `LayoutClients` represent some kind of UI-element. A `VirtualLayoutContainer` doesn't represent a UI-element, but has the same properties as a `LayoutContainer`. That means it can define a different algorithm than it's parent-layoutcontainer, and therefor allows you to step out of the restriction of one algorithm without having the overhead of an extra (unneeded) UI-element!
 
-NOTE: Prime-developers: `border-box` is supported by all modern browsers. PrimeVC should be able to apply some automatic quirkcs for the html-implementation with support for IE6/7.
+The virtual-container will add it's own coordinates to that of each child. This will only happen when you use the methods `getHorPosition()` and getVerPosition()` to get the x&y-coordinates of `LayoutClient`.
 
-{sys:build/doc-include "diagrams/box-model.ditaa"}
+==== Example
+["graphviz", "VirtualLayoutActors.svg","dot", "svg"]
+-------
+digraph VirtualLayoutActors {
+	node [fontname=Verdana,fontsize=8.0];
+
+	subgraph cluster_0 {
+		rank="same";
+		fontname=Verdana;
+		fontsize=10.0;
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+
+		contA		[label="MenuBar A"];
+		buttonB		[label="Button B"];
+		buttonC		[label="Button C"];
+		buttonD		[label="Button D"];
+
+		contA -> buttonB;
+		contA -> buttonC;
+		contA -> buttonD;
+		label="Application";
+	}
+
+	subgraph cluster_1 {
+		rank="same";
+		fontname=Verdana;
+		fontsize=10.0;
+		node [style=filled];
+
+		layoutA		[label="Container A"];
+		layoutE 	[label="Virtual Container E", style=""]
+		layoutB		[label="Layout B"];
+		layoutC		[label="Layout C", style=""];
+		layoutD		[label="Layout D", style=""];
+		algo1 		[label="float-left-algorithm", shape="rectangle", color=lightblue];
+		algo2 		[label="float-top-algorithm", shape="rectangle", color=lightblue];
+
+		layoutA -> layoutB;
+		layoutA -> layoutE;
+		layoutE -> layoutC;
+		layoutE -> layoutD;
+		layoutA -> algo1 [dir="none", constraint="false"];
+		layoutE -> algo2 [dir="none", constraint="false"];
+		label="LayoutClients";
+		color=blue;
+	}
+	
+	edge [dir="none",style="dashed"];
+	contA -> layoutA 		[constraint="true"];
+	buttonB -> layoutB		[constraint="true"];
+	buttonC -> layoutC		[constraint="true"];
+	buttonD -> layoutD		[constraint="true"];
+}
+-------
+
+In this example there are 4 UIElements and 5 layout-elements, which would result in the following layout:
+
+.Result
+{sys:build/doc-include "diagrams/VirtualLayoutExample.ditaa"}
+
 
 
 == Examples
