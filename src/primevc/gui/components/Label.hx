@@ -59,7 +59,7 @@ class Label extends UIDataComponent <DataType>, implements ITextStylable
 	
 #if (flash9 || jeash)
 	public var textStyle			(default, setTextStyle)		: TextFormat;
-	public var wordWrap				: Bool;
+	public var wordWrap	#if jeash (default, SetWordWrap) #end : Bool;
 	public var embedFonts			: Bool;
 #end
 
@@ -89,7 +89,9 @@ class Label extends UIDataComponent <DataType>, implements ITextStylable
 #if (flash9 || jeash)
 		field.autoSize			= flash.text.TextFieldAutoSize.NONE;
 		field.selectable		= false;
+		#if !jeash
 		field.mouseWheelEnabled	= false;
+		#end
 		field.displayHTML		= displayHTML;
 		field.wordWrap			= wordWrap;
 		field.embedFonts		= embedFonts;
@@ -171,4 +173,11 @@ class Label extends UIDataComponent <DataType>, implements ITextStylable
 		}
 		return v;
 	}
+	
+#if jeash
+	private function SetWordWrap(v:Bool) {
+		wordWrap = v;
+		return v;
+	}
+#end
 }

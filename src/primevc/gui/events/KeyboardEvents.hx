@@ -33,6 +33,7 @@ package primevc.gui.events;
 typedef KeyboardEvents = 
 	#if		flash9	primevc.avm2.events.KeyboardEvents;
 	#elseif	flash8	primevc.avm1.events.KeyboardEvents;
+	#elseif jeash	primevc.jeash.events.KeyboardEvents;
 	#elseif	js		primevc.js  .events.KeyboardEvents;
 	#else	Void;	#end
 

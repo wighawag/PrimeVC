@@ -39,6 +39,7 @@ import Html5Dom;
 typedef UserEventTarget = 
 	#if		flash9	flash.display.InteractiveObject;
 	#elseif	flash8	MovieClip;
+	#elseif jeash	jeash.display.InteractiveObject;
 	#elseif js HTMLElement;
 	#else	Void;	#end
 

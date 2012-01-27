@@ -86,38 +86,41 @@ interface ITextField
 	// SIZE
 	//
 	
-	public var autoSize								: TextFieldAutoSize;
-	public var textHeight			(default, null)	: Float;
-	public var textWidth			(default, null)	: Float;
+	public var autoSize	  #if jeash (default, SetAutoSize) : String; #else	: TextFieldAutoSize; #end
+	public var textHeight	#if jeash (GetTextHeight, null) #else (default, null) #end	: Float;
+	public var textWidth	#if jeash (GetTextWidth, null) #else (default, null) #end	: Float;
 	
 	
 	//
 	// TEXT PROPERTIES
 	//
 	
-	public var text									: String;
-	public var htmlText								: String;
-	public var length				(default, null)	: Int;
-	public var restrict								: String;
+	public var text	#if jeash (GetText, SetText) #end				: String;
+	public var htmlText	#if jeash (GetHTMLText, SetHTMLText) #end 	: String;
+	public var length				(default, null)					: Int;
+	public var restrict												: String;
 	
 	
 	//
 	// FIELD SETTINGS
 	//
 	
-	public var displayAsPassword					: Bool;
-	public var embedFonts							: Bool;
-	public var type									: TextFieldType;
-	public var useRichTextClipboard					: Bool;
-	
+	public var displayAsPassword									: Bool;
+	public var embedFonts											: Bool;
+	public var type	#if jeash (GetType, SetType) : String; #else	: TextFieldType; #end
+	#if !jeash
+	public var useRichTextClipboard									: Bool;
+	#end
 	
 	//
 	// FONT SETTINGS
 	//
 	
-	public var antiAliasType						: AntiAliasType;
+	public var antiAliasType						: #if jeash String #else AntiAliasType #end;
+	#if !jeash
 	public var condenseWhite						: Bool;
-	public var gridFitType							: GridFitType;
+	#end
+	public var gridFitType							: #if jeash String #else GridFitType #end;
 	public var sharpness							: Float;
 	
 	
@@ -126,27 +129,30 @@ interface ITextField
 	//
 	
 //	public var defaultTextFormat					: TextFormat;
-	public var textColor							: UInt;
-	public var thickness							: Float;
-	
+	public var textColor	#if jeash (GetTextColour, SetTextColour) #end	: UInt;
+	#if !jeash
+	public var thickness													: Float;
+	#end
 	
 	//
 	// OBJECT STYLING
 	//
 	
-	public var background							: Bool;
-	public var border								: Bool;
-	public var backgroundColor						: UInt;
-	public var borderColor							: UInt;
+	public var background	#if jeash (default, SetBackground) #end				: Bool;
+	public var border	#if jeash (default, SetBorder) #end						: Bool;
+	public var backgroundColor	#if jeash (default, SetBackgroundColor) #end	: UInt;
+	public var borderColor	#if jeash (default, SetBorderColor) #end			: UInt;
 	
 	
 	//
 	// SELECTION
 	//
 	
+	#if !jeash
 	public var alwaysShowSelection					: Bool;
-	public var selectable							: Bool;
 	public var selectedText			(default, null)	: String;
+	#end
+	public var selectable							: Bool;
 	public var selectionBeginIndex	(default, null)	: Int;
 	public var selectionEndIndex	(default, null)	: Int;
 	
@@ -155,23 +161,26 @@ interface ITextField
 	// SCROLLING
 	//
 	
+	#if !jeash
 	public var bottomScrollV		(default, null)	: Int;
 	public var maxScrollH			(default, null)	: Int;
 	public var maxScrollV			(default, null)	: Int;
 	public var mouseWheelEnabled					: Bool;
 	public var scrollH								: Int;
 	public var scrollV								: Int;
-	
+	#end
 	
 	//
 	// LINES / CARET
 	//
 	
-	public var caretIndex			(default, null)	: Int;
-	public var maxChars								: Int;
-	public var multiline							: Bool;
-	public var numLines				(default, null)	: Int;
-	public var wordWrap								: Bool;
+	public var caretIndex			(default, null)				: Int;
+	public var maxChars											: Int;
+	public var multiline										: Bool;
+	#if !jeash
+	public var numLines				(default, null)				: Int;
+	#end
+	public var wordWrap #if jeash (default, SetWordWrap) #end 	: Bool;
 	
 	
 	
@@ -179,27 +188,31 @@ interface ITextField
 	
 	public function getCharBoundaries (charIndex : Int)					: flash.geom.Rectangle;
 	public function getCharIndexAtPoint (x : Float, y : Float)			: Int;
+	#if !jeash
 	public function getFirstCharInParagraph (charIndex : Int)			: Int;
 	public function getImageReference (id : String)						: flash.display.DisplayObject;
-	
-	public function getLineIndexAtPoint (x : Float, y : Float)			: Int;
 	public function getLineIndexOfChar (charIndex : Int)				: Int;
 	public function getLineLength (lineIndex : Int)						: Int;
 	public function getLineOffset (lineIndex : Int)						: Int;
 	public function getLineText (lineIndex : Int)						: String;
-	
 	public function getParagraphLength (charIndex : Int)				: Int;
+	#end
 	
+	public function getLineIndexAtPoint (x : Float, y : Float)			: Int;
+	
+	
+	#if !jeash
 	public function appendText (newText:String)																: Void;
 	public function getRawText ()																			: String;
+	public function getTextRuns (?beginIndex : Int = 0, ?endIndex : Int = 2147483647)						: Array<Dynamic>;
 	public function getXMLText (?beginIndex:Int = 0, ?endIndex:Int = 2147483647)							: String;
 	public function insertXMLText (beginIndex:Int, endIndex:Int, richText:String, ?pasting:Bool = false)	: Void;
 	public function replaceSelectedText (value : String)													: Void;
 	public function replaceText (beginIndex:Int, endIndex:Int, newText:String)								: Void;
+	#end
 	
 	public function getTextFormat (?beginIndex:Int = -1, ?endIndex:Int = -1)								: TextFormat;
-	public function getTextRuns (?beginIndex : Int = 0, ?endIndex : Int = 2147483647)						: Array<Dynamic>;
 	public function setSelection (beginIndex : Int, endIndex : Int)											: Void;
-	public function setTextFormat (format:TextFormat, ?beginIndex:Int = -1, ?endIndex:Int = -1)				: Void;
+	public function setTextFormat (format:TextFormat, ?beginIndex:Int = -1, ?endIndex:Int = -1)				: #if jeash TextFormat #else Void #end;
 #end
 }

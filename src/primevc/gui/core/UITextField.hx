@@ -376,8 +376,9 @@ class UITextField extends TextField, implements IUIElement
 	{
 		var l = layout;
 #if (flash9 || jeash)
-		if (autoSize == flash.text.TextFieldAutoSize.NONE)
-			scrollH = 0;
+		#if !jeash 
+		if (autoSize == flash.text.TextFieldAutoSize.NONE) scrollH = 0;
+		#end
 		if (multiline && l.changes > 0)
 			updateWordWrap.onceOn( l.changed, this );
 #end
@@ -394,7 +395,7 @@ class UITextField extends TextField, implements IUIElement
 	}
 
 
-#if flash9
+#if (flash9 || jeash)
 	private function updateWordWrap ()
 	{
 		Assert.that(multiline);

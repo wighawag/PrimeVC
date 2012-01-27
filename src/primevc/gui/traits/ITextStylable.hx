@@ -38,7 +38,7 @@ interface ITextStylable //implements IStylable
 {
 #if (flash9 || jeash)
 	public var textStyle	(default, setTextStyle)	: TextFormat;
-	public var wordWrap		: Bool;
+	public var wordWrap	#if jeash (default, SetWordWrap) #end	: Bool;
     public var embedFonts   : Bool;
 #end
 }

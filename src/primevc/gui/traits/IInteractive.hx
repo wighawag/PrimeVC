@@ -50,7 +50,7 @@ interface IInteractive
 	public function removeFocus ()	: Void;
 	
 	
-#if (flash9 || jeash)
+#if flash9
 	/**
 	 * Method returns true if the given target (which has focus) makes the 
 	 * IInteractive object the focus owner.
@@ -64,7 +64,14 @@ interface IInteractive
 	var mouseEnabled								: Bool;
 	var tabEnabled									: Bool;
 	var tabIndex									: Int;
-	
+
+#elseif jeash
+	public function isFocusOwner (target:UserEventTarget) : Bool;
+
+	var doubleClickEnabled							: Bool;
+	var mouseEnabled								: Bool;
+	var tabEnabled									: Bool;
+	var tabIndex									(jeashGetTabIndex, jeashSetTabIndex): Int;
 #elseif !neko
 	var mouseEnabled								: Bool;
 //	var mouseEnabled	(default, setEnabled)		: Bool;

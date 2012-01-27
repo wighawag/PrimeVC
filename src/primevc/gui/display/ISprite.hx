@@ -52,7 +52,7 @@ interface ISprite
 {
 #if (flash9 || jeash)
 		public var buttonMode						: Bool;
-		public var useHandCursor					: Bool;
+		public var useHandCursor					#if jeash (default, jeashSetUseHandCursor) #end : Bool;
 
 	#if dragEnabled
 		public var isDragging						: Bool;

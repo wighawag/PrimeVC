@@ -53,7 +53,7 @@ class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, 
 	public var iconFill		(default, setIconFill)	: IGraphicProperty;
 #if (flash9 || jeash)
 	public var textStyle	(default, setTextStyle)	: TextFormat;
-	public var wordWrap		: Bool;
+	public var wordWrap	#if jeash (default, SetWordWrap) #end : Bool;
 	public var embedFonts	: Bool;
 #end
 	
@@ -113,4 +113,11 @@ class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, 
 	public inline function deselect ()		{ selected.value = false; }
 	public inline function toggleSelect ()	{ selected.value = !selected.value; }
 	public inline function isSelected ()	{ return selected.value; }
+
+#if jeash
+	private function SetWordWrap(v:Bool) {
+		wordWrap = v;
+		return v;
+	}
+#end
 }

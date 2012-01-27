@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.traits;
+import jeash.accessibility.AccessibilityProperties;
 
 
 /**
@@ -35,10 +36,13 @@ package primevc.gui.traits;
  */
 interface IGraphicsOwner implements IDisplayable
 {
-#if (flash9 || jeash)
+#if flash9
 	public var graphics			(default, null)		: flash.display.Graphics;
-	
 	public var scaleX	: Float;
 	public var scaleY	: Float;
+#elseif jeash
+	public var graphics			(jeashGetGraphics, null)		: flash.display.Graphics;
+	public var scaleX	(jeashGetScaleX, jeashSetScaleX)		: Float;
+	public var scaleY	(jeashGetScaleY, jeashSetScaleY)		: Float;
 #end
 }
