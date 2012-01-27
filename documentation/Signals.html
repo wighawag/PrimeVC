@@ -182,6 +182,21 @@ Provides grouping of related events.
 </li>
 </ul></div>
 </div>
+<div class="sect2">
+<h3 id="_conventions">Conventions</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+define signals as singular, present-tence, nouns
+</p>
+</li>
+<li>
+<p>
+define handlers as a verb
+</p>
+</li>
+</ul></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -256,54 +271,236 @@ calling <span class="monospaced">signal.unbindAll();</span>
 </div>
 <div class="sect2">
 <h3 id="_syntax_sugar">Syntax sugar</h3>
-<div class="paragraph"><p>By using a small utility <span class="monospaced">prime.signals.Bind</span> it&#8217;s possible to use a more natural way to bind to signals.</p></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">rename Bind package! (currently <span class="monospaced">primevc.utils.Bind</span>)</td>
-</tr></table>
-</div>
-<div class="paragraph"><p>It goes as following:</p></div>
+<div class="paragraph"><p>By using a small utility <span class="monospaced">primevc.utils.Bind</span> it&#8217;s possible to bind to signals in a more natural and readble way.
+These are all inline, dead-code-eliminatable functions and add zero overhead over regular binding.</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.5
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt>  <span style="color: #008080">using</span> prime<span style="color: #990000">.</span>signals<span style="color: #990000">.</span>Bind<span style="color: #990000">;</span>
+<pre><tt><span style="color: #008080">using</span> prime<span style="color: #990000">.</span>utils<span style="color: #990000">.</span>Bind<span style="color: #990000">;</span>
 
+handlerFunction<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>signal<span style="color: #990000">,</span> owner<span style="color: #990000">);</span>     <span style="font-style: italic"><span style="color: #9A1900">// signal.bind(this, handlerFunction);</span></span>
+observeFunction<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>signal<span style="color: #990000">,</span> owner<span style="color: #990000">);</span>     <span style="font-style: italic"><span style="color: #9A1900">// signal.observe(this, observeFunction);</span></span>
+oneTimeFunction<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">onceOn</span></span><span style="color: #990000">(</span>signal<span style="color: #990000">,</span> owner<span style="color: #990000">);</span> <span style="font-style: italic"><span style="color: #9A1900">// signal.bindOnce(this, oneTimeFunction);</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">function</span></span><span style="color: #990000">()</span><span style="color: #FF0000">{}</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">onceOn</span></span><span style="color: #990000">(</span>signal<span style="color: #990000">,</span> owner<span style="color: #990000">);</span>    <span style="font-style: italic"><span style="color: #9A1900">// signal.observeOnce(this, function(){});</span></span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">// Example:</span></span>
 doSomething<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">onceOn</span></span><span style="color: #990000">(</span>textField<span style="color: #990000">.</span>change<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">);</span>
 <span style="font-weight: bold"><span style="color: #0000FF">function</span></span> <span style="font-weight: bold"><span style="color: #000000">doSomething</span></span> <span style="color: #990000">(</span>with<span style="color: #990000">:</span>String<span style="color: #990000">)</span> <span style="color: #990000">:</span> <span style="color: #009900">Void</span><span style="color: #990000">;</span></tt></pre></div></div>
-</div>
-<div class="sect2">
-<h3 id="_conventions">Conventions</h3>
-<div class="ulist"><ul>
-<li>
-<p>
-define signals as singular, present-tence, nouns
-</p>
-</li>
-<li>
-<p>
-define handlers as a verb
-</p>
-</li>
-</ul></div>
+<div class="paragraph"><p>This utility also provides convenience methods to wire 2 signals together:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">var</span></span> signal          <span style="color: #990000">:</span> Signal2<span style="color: #990000">&lt;</span>String<span style="color: #990000">,</span><span style="color: #009900">Int</span><span style="color: #990000">&gt;;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">var</span></span> resendingSignal <span style="color: #990000">:</span> Signal2<span style="color: #990000">&lt;</span>String<span style="color: #990000">,</span><span style="color: #009900">Int</span><span style="color: #990000">&gt;;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">// Bind a Signal to another Signal's send() method.</span></span>
+resendingSignal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>signal<span style="color: #990000">);</span>        <span style="font-style: italic"><span style="color: #9A1900">// Owner defaults to the resendingSignal</span></span>
+resendingSignal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>signal<span style="color: #990000">,</span> owner<span style="color: #990000">);</span> <span style="font-style: italic"><span style="color: #9A1900">// Specific owner</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">// Signal types must match exactly:</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">var</span></span> compileErrorSig <span style="color: #990000">:</span> Signal2<span style="color: #990000">&lt;</span><span style="color: #009900">Int</span><span style="color: #990000">,</span>String<span style="color: #990000">&gt;;</span>
+compileErrorSig<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>signal<span style="color: #990000">);</span> <span style="font-style: italic"><span style="color: #9A1900">// &lt;-- Does not compile</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">// However, you can trigger a Signal0 from any other Signal0-4</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">var</span></span> observingSignal <span style="color: #990000">:</span> Signal0<span style="color: #990000">;</span>
+observingSignal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>signal<span style="color: #990000">);</span> <span style="font-style: italic"><span style="color: #9A1900">// &lt;-- Compiles!</span></span></tt></pre></div></div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_examples">Examples</h2>
+<h2 id="_native_wrappers">Native wrappers</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>TODO</p></div>
+<div class="paragraph"><p>The Prime display package provides a cross-platform AS3 like display-list API which use Signals for event handling.
+You can also easily wrap native Flash and Javascript events yourself.</p></div>
+<div class="paragraph"><p>See:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="http://prime.vc/api/packages/primevc/gui/events/package.html">primevc.gui.events package</a>
+</p>
+</li>
+<li>
+<p>
+<a href="http://prime.vc/api/types/primevc/gui/events/DisplaySignals.html">DisplayEvents API</a>
+</p>
+</li>
+<li>
+<p>
+<a href="http://prime.vc/api/types/primevc/gui/events/KeyboardSignals.html">KeyboardEvents API</a>
+</p>
+</li>
+<li>
+<p>
+<a href="http://prime.vc/api/types/primevc/gui/events/MouseSignals.html">MouseEvents API</a>
+</p>
+</li>
+<li>
+<p>
+<a href="http://prime.vc/api/types/primevc/gui/events/TextSignals.html">TextEvents API</a>
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt> <span style="font-weight: bold"><span style="color: #000080">import</span></span> primevc<span style="color: #990000">.</span>gui<span style="color: #990000">.</span>events<span style="color: #990000">.</span>DisplayEvents<span style="color: #990000">;</span>
+ <span style="font-weight: bold"><span style="color: #000080">import</span></span> primevc<span style="color: #990000">.</span>gui<span style="color: #990000">.</span>events<span style="color: #990000">.</span>MouseEvents<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">var</span></span> keyboardEvents <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> primevc<span style="color: #990000">.</span>gui<span style="color: #990000">.</span>events<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">KeyboardEvents</span></span><span style="color: #990000">(</span>sprite <span style="color: #008080">or</span> dom<span style="color: #990000">-</span>element<span style="color: #990000">);</span>
+<span style="font-weight: bold"><span style="color: #0000FF">var</span></span> mouseEvents    <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> primevc<span style="color: #990000">.</span>gui<span style="color: #990000">.</span>events<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">MouseEvents</span></span><span style="color: #990000">(</span>sprite <span style="color: #008080">or</span> dom<span style="color: #990000">-</span>element<span style="color: #990000">);</span>
+<span style="font-style: italic"><span style="color: #9A1900">// etc...</span></span>
+
+mouseEvents<span style="color: #990000">.</span>down<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">bind</span></span><span style="color: #990000">()</span> <span style="font-style: italic"><span style="color: #9A1900">// Is triggered in Flash by a MOUSE_DOWN event</span></span></tt></pre></div></div>
+<div class="paragraph"><p>For an example how to wrap other native events yourself (patches are welcome), take a look at <a href="https://github.com/touch/PrimeVC/blob/master/src/primevc/avm2/events/FlashSignal0.hx">FlashSignal0</a>, <a href="https://github.com/touch/PrimeVC/blob/master/src/primevc/avm2/events/KeyboardSignal.hx">KeyboardSignal</a> and implement <a href="http://prime.vc/api/types/primevc/core/dispatcher/IWireWatcher.html">IWireWatcher</a>.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_signal_usage_examples">Signal usage examples</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The following example code demonstrates the power of regular functions as signal handlers.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">using</span> primevc<span style="color: #990000">.</span>utils<span style="color: #990000">.</span>Bind<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">// Provides: .on(...)</span></span></tt></pre></div></div>
+<div class="sect2">
+<h3 id="_painless_drag_n_drop_flow_handling">Painless drag-n-drop flow handling</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">function</span></span> <span style="font-weight: bold"><span style="color: #000000">drag</span></span> <span style="color: #990000">(</span>state<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        object<span style="color: #990000">.</span>x <span style="color: #990000">=</span> state<span style="color: #990000">.</span>x<span style="color: #990000">;</span>
+        object<span style="color: #990000">.</span>y <span style="color: #990000">=</span> state<span style="color: #990000">.</span>y<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">// 2nd parameter to on() is the handler 'owner'.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">var</span></span> fingerDragging <span style="color: #990000">=</span> drag<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>touch<span style="color: #990000">.</span>move<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">);</span>
+fingerDragging <span style="color: #990000">.</span>enable<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>touch<span style="color: #990000">.</span>press<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">);</span>
+fingerDragging<span style="color: #990000">.</span>disable<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>touch<span style="color: #990000">.</span>release<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">);</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_observing_events">Observing events</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">function</span></span><span style="color: #990000">()</span><span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #000000">trace</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Smudges will appear on touch screen!"</span><span style="color: #990000">);</span> <span style="color: #FF0000">}</span>
+        <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>touch<span style="color: #990000">.</span>press<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">);</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_doing_things_once">Doing things once</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>initialize<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">onceOn</span></span><span style="color: #990000">(</span>events<span style="color: #990000">.</span>addedToStage<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">);</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_recording_events">Recording events</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">Tweet</span> <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">var</span></span> sender <span style="color: #990000">:</span> String<span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">var</span></span> message <span style="color: #990000">:</span> String<span style="color: #990000">;</span> <span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">// Imagine a twitter client that sends each new tweet through a Signal</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">var</span></span> recording <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> List<span style="color: #990000">&lt;</span>Tweet<span style="color: #990000">&gt;();</span>
+<span style="font-weight: bold"><span style="color: #0000FF">var</span></span> recorder  <span style="color: #990000">=</span> recording<span style="color: #990000">.</span>add<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>twitter<span style="color: #990000">.</span>tweet<span style="color: #990000">);</span>
+
+recorder<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">disable</span></span><span style="color: #990000">();</span> <span style="font-style: italic"><span style="color: #9A1900">// Don't record the next tweets.</span></span>
+recorder<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">enable</span></span><span style="color: #990000">();</span>  <span style="font-style: italic"><span style="color: #9A1900">// Resume recording.</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">// Make sure the recorder Wire gets disposed when logging out.</span></span>
+recorder<span style="color: #990000">.</span>dispose<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>logoutButton<span style="color: #990000">.</span>click<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">);</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_type_safe_changing_of_a_wire_handler">Type-safe changing of a Wire handler</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>recorder<span style="color: #990000">.</span>handler <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">function</span></span><span style="color: #990000">(</span>tweet <span style="color: #990000">:</span> Tweet<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #000000">trace</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Recording: "</span> <span style="color: #990000">+</span> tweet<span style="color: #990000">);</span>
+        recording<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span>tweet<span style="color: #990000">);</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_replaying_events">Replaying events</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span>tweet <span style="color: #008080">in</span> recording<span style="color: #990000">)</span> twitter<span style="color: #990000">.</span>tweet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">send</span></span><span style="color: #990000">(</span>tweet<span style="color: #990000">);</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_filtering_events">Filtering events</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">var</span></span> optimusPrime <span style="color: #990000">:</span> Signal1<span style="color: #990000">&lt;</span>String<span style="color: #990000">&gt;;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">function</span></span><span style="color: #990000">(</span>tweet<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>tweet<span style="color: #990000">.</span>sender <span style="color: #990000">==</span> <span style="color: #FF0000">"Optimus Prime"</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    optimusPrime<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">send</span></span><span style="color: #990000">(</span>tweet<span style="color: #990000">.</span>message<span style="color: #990000">);</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>twitter<span style="color: #990000">.</span>tweet<span style="color: #990000">);</span>
+
+alert<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>optimusPrime<span style="color: #990000">);</span> <span style="font-style: italic"><span style="color: #9A1900">// Prime says important things.</span></span>
+optimusPrime<span style="color: #990000">.</span>enabled <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">// Unfortunately, nobody listening will hear.</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_wiring_signals_together">Wiring signals together</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>applicationShutdown<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>exitButton<span style="color: #990000">.</span>click<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">);</span> <span style="font-style: italic"><span style="color: #9A1900">// 'this' is the owner.</span></span>
+applicationShutdown<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>exitButton<span style="color: #990000">.</span>click<span style="color: #990000">);</span> <span style="font-style: italic"><span style="color: #9A1900">// applicationShutdown is the owner.</span></span>
+<span style="font-weight: bold"><span style="color: #000000">callback</span></span><span style="color: #990000">(</span>alert<span style="color: #990000">,</span> <span style="color: #FF0000">"Goodbye, world!"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">onceOn</span></span><span style="color: #990000">(</span>applicationShutdown<span style="color: #990000">);</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">// Remove the "Goodbye, World!" callback</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">// (and other handlers owned by applicationShutdown)</span></span>
+applicationShutdown<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">unbind</span></span><span style="color: #990000">(</span>exitButton<span style="color: #990000">);</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_various_ways_to_clean_up">Various ways to clean up</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">// Unbind all handlers (press,move,release) inside the touch signals group:</span></span>
+touch<span style="color: #990000">.</span>unbindAll<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">on</span></span><span style="color: #990000">(</span>applicationShutdown<span style="color: #990000">);</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">// Unbind all of this' handlers for optimusPrime:</span></span>
+optimusPrime<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">unbind</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">);</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">// Removing just 1 handler:</span></span>
+fingerDragging<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">dispose</span></span><span style="color: #990000">();</span>
+touch<span style="color: #990000">.</span>move<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">unbind</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> drag<span style="color: #990000">);</span> <span style="font-style: italic"><span style="color: #9A1900">// Same effect as fingerDragging.dispose();</span></span></tt></pre></div></div>
+</div>
 </div>
 </div>
 </div>
 <div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-01-25 22:52:31 CET
+Last updated 2012-01-27 01:16:46 CET
 </div>
 </div>
 </body>
