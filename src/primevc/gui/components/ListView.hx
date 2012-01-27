@@ -147,6 +147,7 @@ class ListView<ListDataType> extends UIDataContainer < IReadOnlyList < ListDataT
 	override private function removeData ()
 	{
 		children.disposeAll();
+		layoutContainer.removeAll();
 		data.change.unbind(this);
 	}
 	
@@ -382,10 +383,12 @@ class ListView<ListDataType> extends UIDataContainer < IReadOnlyList < ListDataT
 		var l = children.length;
 		switch (change)
 		{
-			case added( item, newPos):			addRenderer( item, newPos );
-			case removed (item, oldPos):		removeRendererFor( item, oldPos );
+			case added( item, newPos):			layoutContainer.setFixedChildLength( data.length ); addRenderer( item, newPos );
+			case removed (item, oldPos):		layoutContainer.setFixedChildLength( data.length ); removeRendererFor( item, oldPos );
 			case moved (item, newPos, oldPos):	moveRenderer( item, newPos, oldPos );
-			default:
+			case reset:
+				removeData();
+				initData();
 		}
 	}
 }

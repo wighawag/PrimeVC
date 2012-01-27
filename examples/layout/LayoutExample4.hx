@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, The PrimeVC Project Contributors
+ * Copyright (c) 2012, The PrimeVC Project Contributors
  * All rights reserved.
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -24,63 +24,27 @@
  *
  *
  * Authors:
- *  Danny Wilson	<danny @ onlinetouch.nl>
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.mvc;
+package examples.layout;
+ import primevc.gui.core.UIComponent;
+ import primevc.gui.core.UIGraphic;
 
 /**
- * Abstract Mediator class.
- * 
- * The Mediator translates requests between components.
- * Usually it acts as a layer between application-requests and the View.
- * 
- * A Mediator is not allowed to change Value-objects.
- * It can however request changes from a Proxy (defined within Model).
- * 
- * @author Danny Wilson
- * @creation-date Jun 22, 2010
+ * LayoutExample4 is identical to LayoutExample1-3, but uses css for styling.
+ *
+ * @author			Ruben Weijers
+ * @creation-date	Jan 25, 2012
  */
-class Mediator <FacadeDef, GUIType> extends MVCActor <FacadeDef>
+class LayoutExample4 extends primevc.gui.core.UIWindow
 {
-	public var gui (default, setGUI) : GUIType;
-	
-	
-	public function new (facade:FacadeDef, enabled:Bool = true, gui:GUIType = null)
-	{
-		this.gui = gui;
-		super(facade, enabled);
-	}
-	
-	
-	override public function dispose ()
-	{
-		if (isDisposed())
-			return;
-		
-		gui = null;
-		super.dispose();
-	}
-	
-	
-	/**
-	 * Set the UI element that the mediator serves.
-	 */
-	private function setGUI (v:GUIType)
-	{
-		if (v != gui)
-		{
-			var wasEnabled = isEnabled();
-			if (wasEnabled && gui != null)
-				disable();
-		
-		//	if (v == null && isListening())
-		//		stopListening();
-		
-			gui = v;
-			if (v != null && wasEnabled)
-				enable();
-		}
-		return v;
+	public static function main ()
+		primevc.gui.display.Window.startup(function (stage) { return new LayoutExample4(stage); })
+
+
+	override private function createChildren () {
+		for (i in 0...20)	attach( new UIGraphic() );
+		for (i in 0...20)	attach( new UIComponent() );
+		for (i in 0...20)	attach( new UIGraphic() );
 	}
 }
