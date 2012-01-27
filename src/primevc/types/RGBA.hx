@@ -35,7 +35,7 @@ import Html5Dom;
 /**
  * Color value in the 0xRRGGBBAA format.
  */
-#if neko
+#if (neko || jeash)
 typedef RGBA = { var color:Int; var a:Int; }
 #else
 typedef RGBA = UInt;

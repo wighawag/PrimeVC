@@ -49,10 +49,11 @@ interface IPositionable implements IDisplayable
 	var z						: Float;
 	#end
 #elseif jeash
-	var x						(jeashGetX, jeashSetX): Float;
-	var y						(jeashGetY, jeashSetY): Float;
-	var rotation				(jeashGetRotation, jeashSetRotation): Float;
-	var visible					(jeashGetVisible, jeashSetVisible): Bool;
+	var x						(jeashGetX, jeashSetX) : Float;
+	var y						(jeashGetY, jeashSetY) : Float;
+	var rotation					(jeashGetRotation, jeashSetRotation) : Float;
+	var visible					(jeashGetVisible, jeashSetVisible) : Bool;
+	
 #else
 	var x			(getX,			setX)				: Float;
 	var y			(getY,			setY)				: Float;

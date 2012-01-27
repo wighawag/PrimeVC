@@ -65,7 +65,7 @@ interface IDisplayObject
 	public function changeDisplayDepth	(newDepth:Int)								: IDisplayObject;
 #end
 	
-#if (flash9 || jeash)
+#if flash9
 	public var alpha		: Float;
 	public var visible		#if jeash (jeashGetVisible, jeashSetVisible) #end 							: Bool;
 	
@@ -76,6 +76,20 @@ interface IDisplayObject
 	public var name			: String;
 	public var scrollRect	#if jeash (GetScrollRect, SetScrollRect) #end						: flash.geom.Rectangle;
 	public var transform	#if jeash (GetTransform, SetTransform) #end 						: flash.geom.Transform; //Matrix2D;
+	
+	public function globalToLocal (point : Point) : Point;
+	public function localToGlobal (point : Point) : Point;
+#elseif jeash
+	public var alpha		: Float;
+	public var visible		(jeashGetVisible, jeashSetVisible) : Bool;
+	
+	public var mouseX		(jeashGetMouseX, jeashSetMouseX) : Float;
+	public var mouseY		(jeashGetMouseY, jeashSetMouseY) : Float;
+	
+	public var filters		(jeashGetFilters, jeashSetFilters) : Array < Dynamic >;
+	public var name			: String;
+	public var scrollRect		(GetScrollRect, SetScrollRect) : flash.geom.Rectangle;
+	public var transform		(GetTransform, SetTransform) : flash.geom.Transform; //Matrix2D;
 	
 	public function globalToLocal (point : Point) : Point;
 	public function localToGlobal (point : Point) : Point;

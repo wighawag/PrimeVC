@@ -55,7 +55,7 @@ class EditEvents extends EditSignals
 		paste		= new FlashSignal0 (eventDispatcher, Event.PASTE );
 		remove		= new FlashSignal0 (eventDispatcher, Event.CLEAR );
 		selectAll	= new FlashSignal0 (eventDispatcher, Event.SELECT_ALL );
-#elseif flash9
+#elseif (flash9 || jeash)
 		cut			= new Signal0();
 		copy		= new Signal0();
 		paste		= new Signal0();
@@ -68,7 +68,7 @@ class EditEvents extends EditSignals
 	}
 	
 	
-#if (flash9 && !flash10)
+#if (flash9 && !flash10 && jeash)
 	private var dispatcher : IEventDispatcher;
 	
 	

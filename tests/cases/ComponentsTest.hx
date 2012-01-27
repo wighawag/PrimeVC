@@ -74,7 +74,9 @@ class ComponentsTest extends UIWindow
 	
 	override private function createBehaviours ()
 	{
+		#if !jeash
 		haxe.Log.clear.on( mouse.events.doubleClick, this );
+		#end
 		super.createBehaviours();
 	}
 	

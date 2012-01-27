@@ -133,7 +133,11 @@ class FiltersCollection extends StyleCollectionBase < FiltersStyle >
 	{
 		Assert.notNull(filter);
 		
-		var pos = #if flash10 filterPositions.indexOf(flag); #else Lambda.indexOf(filterPositions, flag); #end
+#if flash
+		var pos = filterPositions.indexOf(flag);
+#else
+		var pos = Lambda.indexOf(filterPositions, flag);
+#end
 		if (pos == -1)
 		{
 			//add filter
@@ -150,7 +154,11 @@ class FiltersCollection extends StyleCollectionBase < FiltersStyle >
 	private function unsetFilter ( filters:Array<Dynamic>, flag:Int )
 	{
 		//remove filter
-		var pos = #if flash10 filterPositions.indexOf( flag ); #else Lambda.indexOf(filterPositions, flag); #end
+#if flash
+		var pos = filterPositions.indexOf(flag);
+#else
+		var pos = Lambda.indexOf(filterPositions, flag);
+#end
 		if (pos > -1)
 		{
 			if (pos == 0) {

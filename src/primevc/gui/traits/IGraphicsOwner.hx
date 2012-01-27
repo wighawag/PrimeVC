@@ -37,12 +37,14 @@ import jeash.accessibility.AccessibilityProperties;
 interface IGraphicsOwner implements IDisplayable
 {
 #if flash9
-	public var graphics			(default, null)		: flash.display.Graphics;
+	public var graphics	(default, null) : flash.display.Graphics;
+	
 	public var scaleX	: Float;
 	public var scaleY	: Float;
 #elseif jeash
-	public var graphics			(jeashGetGraphics, null)		: flash.display.Graphics;
-	public var scaleX	(jeashGetScaleX, jeashSetScaleX)		: Float;
-	public var scaleY	(jeashGetScaleY, jeashSetScaleY)		: Float;
+	public var graphics	(jeashGetGraphics, null) : flash.display.Graphics;
+	
+	public var scaleX	(jeashGetScaleX, jeashSetScaleX) : Float;
+	public var scaleY	(jeashGetScaleY, jeashSetScaleY) : Float;
 #end
 }

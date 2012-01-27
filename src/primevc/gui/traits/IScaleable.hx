@@ -42,8 +42,8 @@ interface IScaleable
 	#if flash10
 	var scaleZ					: Float;
 	#end
-#else
-	var scaleX					(jeashGetScaleX, jeashSetScaleX): Float;
-	var scaleY					(jeashGetScaleY, jeashSetScaleY): Float;
+#elseif jeash
+	var scaleX					(jeashGetScaleX, jeashSetScaleX) : Float;
+	var scaleY					(jeashGetScaleY, jeashSetScaleY) : Float;
 #end
 }

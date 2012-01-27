@@ -100,9 +100,9 @@ class UIWindow extends Window
 	public var id					(default, null)					: Bindable < String >;
 	public var graphicData			(default, null)					: GraphicProperties;
 	
-#if (flash9 || jeash)
-	public var scaleX	#if jeash (jeashGetScaleX, jeashSetScaleX)	#end	: Float;
-	public var scaleY	#if jeash (jeashGetScaleY, jeashSetScaleY)	#end	: Float;
+#if flash9
+	public var scaleX		: Float;
+	public var scaleY		: Float;
 
 	
 	/**
@@ -113,7 +113,15 @@ class UIWindow extends Window
 	/**
 	 * Reference to bgShape.graphics.. Needed for compatibility with IDrawable
 	 */
-	public var graphics				(#if jeash jeashGetGraphics #else default #end, null)					: flash.display.Graphics;
+	public var graphics				(default, null)					: flash.display.Graphics;
+#elseif jeash
+	public var scaleX				(jeashGetScaleX, jeashSetScaleX) : Float;
+	public var scaleY				(jeashGetScaleY, jeashSetScaleY) : Float;
+	public var bgShape				: VectorShape;
+	public var graphics				(jeashGetGraphics, null)					: flash.display.Graphics;
+#end
+
+#if (flash9 || jeash)
 	
 	public var style				(default, null)					: UIElementStyle;
 	public var styleClasses			(default, null)					: SimpleList<String>;

@@ -35,7 +35,7 @@ package ;
 /**
  * Empty class to simulate a skin-style-sheet
  */
-class StyleSheet extends StyleBlock
+class StyleSheet2 extends StyleBlock
 {
 	public function new ()
 	{

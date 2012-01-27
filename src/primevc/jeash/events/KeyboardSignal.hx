@@ -96,7 +96,6 @@ class KeyboardSignal extends Signal1<KeyboardState>, implements IWireWatcher<Key
 #elseif air?
 		flags = //TODO: Implement AIR support
 #else
-		error
 #end
 		
 		return new KeyboardState(flags, e.target);

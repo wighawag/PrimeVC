@@ -64,14 +64,15 @@ interface IInteractive
 	var mouseEnabled								: Bool;
 	var tabEnabled									: Bool;
 	var tabIndex									: Int;
-
 #elseif jeash
 	public function isFocusOwner (target:UserEventTarget) : Bool;
-
+	
+	
 	var doubleClickEnabled							: Bool;
 	var mouseEnabled								: Bool;
 	var tabEnabled									: Bool;
-	var tabIndex									(jeashGetTabIndex, jeashSetTabIndex): Int;
+	var tabIndex									(jeashGetTabIndex, jeashSetTabIndex) : Int;
+	
 #elseif !neko
 	var mouseEnabled								: Bool;
 //	var mouseEnabled	(default, setEnabled)		: Bool;
