@@ -67,6 +67,11 @@ TODO: Write a nice story here.
 - Provides grouping of related events.
 
 
+=== Conventions
+- define signals as singular, present-tence, nouns
+- define handlers as a verb
+
+
 == Usage
 === Listening
 After binding a handler to a signal, the handler will be called every time the signal is dispatched. The handler must accept all parameters defined for the signal. The bind method of a signal needs two parameters, the object owning the signal and the handler which will be called.
@@ -113,24 +118,183 @@ This will unbind all handlers of the signal
 
 
 === Syntax sugar
-By using a small utility `prime.signals.Bind` it's possible to use a more natural way to bind to signals.
+By using a small utility `primevc.utils.Bind` it's possible to bind to signals in a more natural and readble way.
+These are all inline, dead-code-eliminatable functions and add zero overhead over regular binding.
 
-NOTE: rename Bind package! (currently `primevc.utils.Bind`)
-
-It goes as following:
 [source,haxe]
 -------
-  using prime.signals.Bind;
+using prime.utils.Bind;
 
+handlerFunction.on(signal, owner);     // signal.bind(this, handlerFunction);
+observeFunction.on(signal, owner);     // signal.observe(this, observeFunction);
+oneTimeFunction.onceOn(signal, owner); // signal.bindOnce(this, oneTimeFunction);
+function(){}.onceOn(signal, owner);    // signal.observeOnce(this, function(){});
+
+
+// Example:
 doSomething.onceOn(textField.change, this);
 function doSomething (with:String) : Void;
 -------
 
+This utility also provides convenience methods to wire 2 signals together:
 
-=== Conventions
-- define signals as singular, present-tence, nouns
-- define handlers as a verb
+[source,haxe]
+-------
+var signal          : Signal2<String,Int>;
+var resendingSignal : Signal2<String,Int>;
+
+// Bind a Signal to another Signal's send() method.
+resendingSignal.on(signal);        // Owner defaults to the resendingSignal
+resendingSignal.on(signal, owner); // Specific owner
+
+// Signal types must match exactly:
+var compileErrorSig : Signal2<Int,String>;
+compileErrorSig.on(signal); // <-- Does not compile
+
+// However, you can trigger a Signal0 from any other Signal0-4
+var observingSignal : Signal0;
+observingSignal.on(signal); // <-- Compiles!
+-------
 
 
-== Examples
-TODO
+== Native wrappers
+
+The Prime display package provides a cross-platform AS3 like display-list API which use Signals for event handling.
+You can also easily wrap native Flash and Javascript events yourself.
+
+See:
+
+- http://prime.vc/api/packages/primevc/gui/events/package.html[primevc.gui.events package]
+- http://prime.vc/api/types/primevc/gui/events/DisplaySignals.html[DisplayEvents API]
+- http://prime.vc/api/types/primevc/gui/events/KeyboardSignals.html[KeyboardEvents API]
+- http://prime.vc/api/types/primevc/gui/events/MouseSignals.html[MouseEvents API]
+- http://prime.vc/api/types/primevc/gui/events/TextSignals.html[TextEvents API]
+
+[source,haxe]
+-------
+ import primevc.gui.events.DisplayEvents;
+ import primevc.gui.events.MouseEvents;
+
+var keyboardEvents = new primevc.gui.events.KeyboardEvents(sprite or dom-element);
+var mouseEvents    = new primevc.gui.events.MouseEvents(sprite or dom-element);
+// etc...
+
+mouseEvents.down.bind() // Is triggered in Flash by a MOUSE_DOWN event
+-------
+
+For an example how to wrap other native events yourself (patches are welcome), take a look at https://github.com/touch/PrimeVC/blob/master/src/primevc/avm2/events/FlashSignal0.hx[FlashSignal0], https://github.com/touch/PrimeVC/blob/master/src/primevc/avm2/events/KeyboardSignal.hx[KeyboardSignal] and implement http://prime.vc/api/types/primevc/core/dispatcher/IWireWatcher.html[IWireWatcher].
+
+
+== Signal usage examples
+
+The following example code demonstrates the power of regular functions as signal handlers.
+
+[source,haxe]
+-------
+using primevc.utils.Bind; // Provides: .on(...)
+-------
+
+=== Painless drag-n-drop flow handling
+
+[source,haxe]
+-------
+function drag (state) {
+	object.x = state.x;
+	object.y = state.y;
+}
+
+// 2nd parameter to on() is the handler 'owner'.
+var fingerDragging = drag.on(touch.move, this);
+fingerDragging .enable.on(touch.press, this);
+fingerDragging.disable.on(touch.release, this);
+-------
+
+=== Observing events
+
+[source,haxe]
+-------
+function(){ trace("Smudges will appear on touch screen!"); }
+	.on(touch.press, this);
+-------
+
+=== Doing things once
+
+[source,haxe]
+-------
+initialize.onceOn(events.addedToStage, this);
+-------
+
+=== Recording events
+
+[source,haxe]
+-------
+class Tweet { var sender : String; var message : String; }
+
+// Imagine a twitter client that sends each new tweet through a Signal
+var recording = new List<Tweet>();
+var recorder  = recording.add.on(twitter.tweet);
+
+recorder.disable(); // Don't record the next tweets.
+recorder.enable();  // Resume recording.
+
+// Make sure the recorder Wire gets disposed when logging out.
+recorder.dispose.on(logoutButton.click, this);
+-------
+
+=== Type-safe changing of a Wire handler
+
+[source,haxe]
+-------
+recorder.handler = function(tweet : Tweet) {
+	trace("Recording: " + tweet);
+	recording.add(tweet);
+}
+-------
+
+=== Replaying events
+
+[source,haxe]
+-------
+for (tweet in recording) twitter.tweet.send(tweet);
+-------
+
+=== Filtering events
+
+[source,haxe]
+-------
+var optimusPrime : Signal1<String>;
+function(tweet) if (tweet.sender == "Optimus Prime") {
+    optimusPrime.send(tweet.message);
+}.on(twitter.tweet);
+
+alert.on(optimusPrime); // Prime says important things.
+optimusPrime.enabled = false; // Unfortunately, nobody listening will hear.
+-------
+
+=== Wiring signals together
+
+[source,haxe]
+-------
+applicationShutdown.on(exitButton.click, this); // 'this' is the owner.
+applicationShutdown.on(exitButton.click); // applicationShutdown is the owner.
+callback(alert, "Goodbye, world!").onceOn(applicationShutdown);
+
+// Remove the "Goodbye, World!" callback
+// (and other handlers owned by applicationShutdown)
+applicationShutdown.unbind(exitButton);
+-------
+
+=== Various ways to clean up
+
+[source,haxe]
+-------
+// Unbind all handlers (press,move,release) inside the touch signals group:
+touch.unbindAll.on(applicationShutdown);
+
+// Unbind all of this' handlers for optimusPrime:
+optimusPrime.unbind(this);
+
+// Removing just 1 handler:
+fingerDragging.dispose();
+touch.move.unbind(this, drag); // Same effect as fingerDragging.dispose();
+-------
