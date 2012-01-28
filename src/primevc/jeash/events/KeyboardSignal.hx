@@ -37,6 +37,10 @@ package primevc.jeash.events;
  import flash.events.KeyboardEvent;
   using primevc.core.ListNode;
 
+#if jeash
+  import Html5Dom;
+#end
+
 /**
  * Signal<-->flash.KeyboardEvent Proxy implementation
  * 

@@ -60,8 +60,7 @@ package primevc.types;
 
 private typedef FlashBitmap		= #if (flash9 || jeash)	flash.display.Bitmap		#else Dynamic			#end;
 private typedef Factory			= primevc.types.Factory<Dynamic>;
-private typedef BytesData		= haxe.io.BytesData;
-
+private typedef BytesData		= flash.utils.ByteArray;
 
 /**
  * This class makes it easy to load images from several sources, e.g. load from

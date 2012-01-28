@@ -186,10 +186,17 @@ class Window implements IDisplayContainer, implements IDisablable
 	//
 	
 	public var mouseEnabled			: Bool;
-#if (flash9 || jeash)	
+#if flash9
 	public var doubleClickEnabled	: Bool;
 	public var tabEnabled			: Bool;
 	public var tabIndex				: Int;
+#elseif jeash
+	public var doubleClickEnabled		: Bool;
+	public var tabEnabled			: Bool;
+	public var tabIndex		(jeashGetTabIndex, jeashSetTabIndex)	: Int;
+#end
+
+#if (flash9 || jeash)	
 	
 	
 	public inline function globalToLocal (point:Point) : Point		{ return target.globalToLocal(point); }
@@ -220,6 +227,11 @@ class Window implements IDisplayContainer, implements IDisablable
 	
 	private inline function setWindow (v)		{ return window = this; }
 	private inline function setContainer (v)	{ return container = this; }
+
+#if jeash
+	private function jeashGetTabIndex () return tabIndex
+	private function jeashSetTabIndex (value:Int)  return tabIndex = value
+#end
 }
 
 #else

@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.net;
- import haxe.io.BytesData;
+ import flash.utils.ByteArray;
  import primevc.core.events.LoaderEvents;
  import primevc.core.traits.IDisposable;
  import primevc.core.Bindable;
@@ -43,7 +43,7 @@ package primevc.core.net;
 interface ICommunicator implements IDisposable
 {
 	public var events		(default,				null)		: LoaderSignals;
-	public var bytes		(getBytes,				setBytes)	: BytesData;
+	public var bytes		(getBytes,				setBytes)	: ByteArray;
 	public var type			(default,				null)		: CommunicationType;
 	
 	/**

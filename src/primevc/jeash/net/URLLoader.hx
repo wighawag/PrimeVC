@@ -29,8 +29,7 @@
 package primevc.jeash.net;
  import flash.net.URLLoaderDataFormat;
  import flash.net.URLRequest;
-
- import haxe.io.BytesData;
+ import flash.utils.ByteArray;
 
  import primevc.core.events.LoaderEvents;
 
@@ -112,7 +111,7 @@ class URLLoader implements ICommunicator
 	private var isFinished											: Bool;
 	
 	public  var data			(getData,			setData)		: Dynamic;
-	public  var bytes			(getBytes,			setBytes)		: BytesData;
+	public  var bytes			(getBytes,			setBytes)		: ByteArray;
 	public  var dataFormat		(getDataFormat,		setDataFormat)	: URLLoaderDataFormat;
 	private var loader			: FlashLoader;
 #if debug
@@ -286,8 +285,8 @@ class URLLoader implements ICommunicator
 			data = v;
 			
 			if (v != null) {
-				if		(Std.is(v, URLVariables))	setVariables();
-				else if (Std.is(v, BytesData))		setBinary();
+				if	(Std.is(v, URLVariables))	setVariables();
+				else if (Std.is(v, ByteArray))		setBinary();
 				else								setText();
 			}
 			bytesProgress = bytesTotal = Number.INT_NOT_SET;
@@ -296,8 +295,8 @@ class URLLoader implements ICommunicator
 	}
 	
 	
-	private inline function getBytes () : BytesData	{ return isBinary() ? cast(data, BytesData) : null; }
-	private inline function setBytes (v:BytesData)
+	private inline function getBytes () : ByteArray	{ return isBinary() ? cast(data, ByteArray) : null; }
+	private inline function setBytes (v:ByteArray)
 	{
 		data = v;
 		

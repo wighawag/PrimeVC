@@ -35,8 +35,7 @@ package primevc.jeash.display;
 #end
  import flash.net.URLRequest;
  import flash.system.LoaderContext;
-
- import haxe.io.BytesData;
+ import flash.utils.ByteArray;
 
  import primevc.core.events.LoaderEvents;
  import primevc.core.geom.Rectangle;
@@ -224,7 +223,7 @@ class Loader implements ICommunicator
 	
 	public  var events			(default,			null)		: LoaderSignals;
 	
-	public  var bytes			(getBytes,			setBytes)	: BytesData;
+	public  var bytes			(getBytes,			setBytes)	: ByteArray;
 	public  var bytesProgress	(getBytesProgress,	never)		: Int;
 	public  var bytesTotal		(getBytesTotal,		never)		: Int;
 	public  var type			(default,			null)		: CommunicationType;
@@ -352,7 +351,7 @@ class Loader implements ICommunicator
 	}
 	
 	
-	public inline function loadBytes (v:BytesData, ?c:LoaderContext) : BytesData
+	public inline function loadBytes (v:ByteArray, ?c:LoaderContext) : ByteArray
 	{
 		Assert.notNull(v);
 		if (isStarted)
@@ -422,7 +421,7 @@ class Loader implements ICommunicator
 	//
 	
 	private inline function getBytes ()				{ return info.bytes; }
-	private inline function setBytes (v:BytesData)	{ return loadBytes(v); }
+	private inline function setBytes (v:ByteArray)	{ return loadBytes(v); }
 	
 	private inline function getInfo ()				{ return loader.contentLoaderInfo; }
 	private inline function getBytesProgress ()		{ return info.bytesLoaded; }

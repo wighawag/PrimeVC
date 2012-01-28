@@ -127,7 +127,7 @@ class DisplayList implements IEditableList <ChildType>
 	public function forwardIterator () : IIterator <ChildType>	{ return new DisplayListForwardIterator(this); }
 	public function reversedIterator () : IIterator <ChildType>	{ return new DisplayListReversedIterator(this); }
 	
-	public inline function getItemAt	(pos:Int)				{ var v = target.getChildAt( pos ); return v.is(ChildType) ? v.as(ChildType) : null; }
+	public inline function getItemAt	(pos:Int):ChildType				{ var v = target.getChildAt( pos ); return v.is(ChildType) ? v.as(ChildType) : null; }
 	public inline function has			(item:ChildType)		{ return target.contains( item.as( TargetChildType ) ); } 
 	public inline function indexOf		(item:ChildType)		{ return target.getChildIndex( item.as( TargetChildType ) ); }
 	
@@ -177,6 +177,10 @@ class DisplayList implements IEditableList <ChildType>
 		change.send( ListChange.moved( item, newPos, curPos ) );
 		return item;
 	}
+
+#if jeash
+	public function duplicate () return cast {}
+#end
 
 #if debug
 	public var name : String;

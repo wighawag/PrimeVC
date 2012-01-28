@@ -29,10 +29,11 @@
 package primevc.jeash.events;
 #if flash10
  import flash.events.Event;
-#elseif flash9
+#elseif (flash9 || jeash)
  import flash.events.IEventDispatcher;
  import flash.events.KeyboardEvent;
  import primevc.core.dispatcher.Signal0;
+ import primevc.gui.input.KeyCodes;
 #end
  import primevc.gui.events.EditEvents;
 
@@ -68,7 +69,7 @@ class EditEvents extends EditSignals
 	}
 	
 	
-#if (flash9 && !flash10 && jeash)
+#if (flash9 && !flash10)
 	private var dispatcher : IEventDispatcher;
 	
 	
@@ -95,6 +96,24 @@ class EditEvents extends EditSignals
 		dispatcher.removeEventListener( KeyboardEvent.KEY_DOWN, dispatch, false );
 		dispatcher = null;
 		super.dispose();
+	}
+#elseif jeash
+	private var dispatcher : IEventDispatcher;
+
+	private function dispatch (e:KeyboardEvent) : Void
+	{
+		var key = e.keyCode;
+		
+		if (key == KeyCodes.BACKSPACE || key == KeyCodes.DELETE)
+			remove.send();
+		else if (e.ctrlKey)
+			switch (key)
+			{
+				case KeyCodes.A:	selectAll.send();
+				case KeyCodes.X:	cut.send();
+				case KeyCodes.C:	copy.send();
+				case KeyCodes.V:	paste.send();
+			}
 	}
 #end
 }
