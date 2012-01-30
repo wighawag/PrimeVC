@@ -24,8 +24,44 @@ asciidoc.install(2);
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_horizontal_float">Horizontal float</h2>
+<h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
+<div class="paragraph"><p>The main goal of <span class="monospaced">Layoutalgorithms</span> is to tell a <span class="monospaced">LayoutContainer</span> where to position it&#8217;s children. It does this by implementing a set of methods with the following functionality:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+measuring
+</p>
+</li>
+<li>
+<p>
+positioning
+</p>
+</li>
+<li>
+<p>
+validating
+</p>
+</li>
+<li>
+<p>
+mapping positions to depths
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>The measuring and positioning of the children are done in two steps; horizontally and vertically. This way it&#8217;s easy to combine two layout-algorithms to create a new algortihm.</p></div>
+<div class="imageblock mscgen">
+<div class="content">
+<img src="LayoutFlow.png" alt="LayoutFlow.png">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_float_8217_s">Float&#8217;s</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_horizontal_float">Horizontal float</h3>
 <div class="paragraph"><div class="title">Left-to-right</div><p><span class="image">
 <img src="diagrams/Algorithm_HorFloat_LtR.png" alt="diagrams/Algorithm_HorFloat_LtR.png">
 </span></p></div>
@@ -81,22 +117,19 @@ LayoutContainer - HorizontalFloat(right-to-left)
 </tr>
 </table></div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_vertical_float">Vertical float</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_vertical_float">Vertical float</h3>
 <div class="paragraph"><p><span class="image">
 <img src="diagrams/Algorithm_VerFloat.png" alt="diagrams/Algorithm_VerFloat.png">
 </span></p></div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_diagonal_float">Diagonal Float</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_diagonal_float">Diagonal Float</h3>
 <div class="paragraph"><p><span class="monospaced">Dynamic(horizontal-float, vertical-float)</span>
 <span class="image">
 <img src="diagrams/Algorithm_DiagonalFloat.png" alt="diagrams/Algorithm_DiagonalFloat.png">
 </span></p></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -106,92 +139,289 @@ LayoutContainer - HorizontalFloat(right-to-left)
 <span class="image">
 <img src="diagrams/Algorithm_Circle.png" alt="diagrams/Algorithm_Circle.png">
 </span></p></div>
+<div class="olist arabic"><div class="title">Properties</div><ol class="arabic">
+<li>
+<p>
+equal width/height values
+</p>
+</li>
+<li>
+<p>
+no measuring, uses explicit-size properties
+</p>
+</li>
+</ol></div>
+<div class="sect2">
+<h3 id="_horizontal_circle">Horizontal circle</h3>
+<div class="paragraph"><p>Algorithm responsible for positioning the x-coordinates in a circle. Results in a a sinus if you combine it with a vertical-float-algorithm.</p></div>
 </div>
+<div class="sect2">
+<h3 id="_vertical_circle">Vertical circle</h3>
+<div class="paragraph"><p>Algorithm responsible for positioning the y-coordinates in a circle.</p></div>
 </div>
-<div class="sect1">
-<h2 id="_ellipse">Ellipse</h2>
-<div class="sectionbody">
-<div class="paragraph"><p><span class="monospaced">Dynamic(horizontal-ellipse, vertical-ellipse)</span>
-<span class="image">
-<img src="diagrams/Algorithm_Ellipse.png" alt="diagrams/Algorithm_Ellipse.png">
-</span></p></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_horizontal_circle">Horizontal circle</h2>
-<div class="sectionbody">
-<div class="paragraph"><p><span class="image">
-<img src="diagrams/Algorithm_HorCircle.png" alt="diagrams/Algorithm_HorCircle.png">
-</span></p></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_vertical_circle">Vertical circle</h2>
-<div class="sectionbody">
-<div class="paragraph"><p><span class="image">
-<img src="diagrams/Algorithm_VerCircle.png" alt="diagrams/Algorithm_VerCircle.png">
-</span></p></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_horizontal_ellipse">Horizontal ellipse</h2>
-<div class="sectionbody">
-<div class="paragraph"><p><span class="image">
-<img src="diagrams/Algorithm_HorEllipse.png" alt="diagrams/Algorithm_HorEllipse.png">
-</span></p></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_vertical_ellipse">Vertical ellipse</h2>
-<div class="sectionbody">
-<div class="paragraph"><p><span class="image">
-<img src="diagrams/Algorithm_VerEllipse.png" alt="diagrams/Algorithm_VerEllipse.png">
-</span></p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_dynamic">Dynamic</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>TODO</p></div>
+<div class="paragraph"><p>Dynamic algorithm combines two sub-algorithms (1 horizontal and 1 vertical) to create new ways of positioning layout-children.</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_relative">Relative</h2>
 <div class="sectionbody">
-<div class="paragraph"><p><span class="image">
-<img src="diagrams/Algorithm_Relative.png" alt="diagrams/Algorithm_Relative.png">
-</span></p></div>
+<div class="paragraph"><p>Relative algorithm uses the relative values of a child to position it within the parent. In CSS2 the relative position is applied after a box has been laid out according to the normal flow. With relative-algorithm you can&#8217;t combine these to layout-algorithms.</p></div>
+<div class="paragraph"><p>The relative values of a <span class="monospaced">LayoutClient</span> are stored in <span class="monospaced">LayoutClient.relative</span> using a <span class="monospaced">Box</span></p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">add references to class-documentation.</td>
+</tr></table>
+</div>
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<caption class="title">Table 1. Properties</caption>
+<col style="width:11%;">
+<col style="width:22%;">
+<col style="width:66%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" >Property       </th>
+<th class="tableblock halign-left valign-top" >Direction      </th>
+<th class="tableblock halign-left valign-top" >Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">top</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">vertical</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Number of <span class="monospaced">px</span> between top-side of parent and the top-side of the child</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">bottom</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">vertical</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Number of <span class="monospaced">px</span> between bottom-side of parent and the bottom-side of the child</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">v-center</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">vertical</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Number of <span class="monospaced">px</span> the vertical between vertical-center of parent and the vertical-center of the child</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">left</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">horizontal</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Number of <span class="monospaced">px</span> between left-side of parent and the left-side of the child</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">right</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">horizontal</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Number of <span class="monospaced">px</span> between right-side of parent and the right-side of the child</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">h-center</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">horizontal</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Number of <span class="monospaced">px</span> between horizontal-center of parent and the horizontal-center of the child</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist"><ul>
+<li>
+<p>
+Using only one horizontal or vertical property will affect only the x- or y-coordinate
+</p>
+</li>
+<li>
+<p>
+Combining <span class="monospaced">top</span> and <span class="monospaced">bottom</span>, or <span class="monospaced">left</span> and <span class="monospaced">right</span>, will also affect the <span class="monospaced">width</span>/<span class="monospaced">height</span>
+</p>
+</li>
+<li>
+<p>
+Setting <span class="monospaced">v-center</span> will unset the values for <span class="monospaced">bottom</span> and <span class="monospaced">top</span>. Idem with setting <span class="monospaced">h-center</span> and <span class="monospaced">left</span> and <span class="monospaced">right</span>
+</p>
+</li>
+</ul></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<caption class="title">Table 2. Horizontal Example</caption>
+<col style="width:12%;">
+<col style="width:12%;">
+<col style="width:12%;">
+<col style="width:12%;">
+<col style="width:12%;">
+<col style="width:37%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" >parent-width   </th>
+<th class="tableblock halign-left valign-top" >child-width    </th>
+<th class="tableblock halign-left valign-top" >left   </th>
+<th class="tableblock halign-left valign-top" >h-center       </th>
+<th class="tableblock halign-left valign-top" >right  </th>
+<th class="tableblock halign-left valign-top" >result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">100px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">40px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">5px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">NaN</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">NaN</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">x=5px, width=40px</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">100px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">40px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">NaN</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">NaN</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">15px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">x=(100-40-15)=45px, width=40px</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">100px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">40px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">10px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">NaN</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">15px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">x=10px, width=(100-15-10)=75px</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">100px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">40px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">NaN</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">0px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">NaN</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">x=(100-40)/2=30px, width=40px</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">100px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">40px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">NaN</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">10px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">NaN</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">x=(100-40)/2+10=40px, width=40px</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">100px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">40px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">NaN</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">-10px</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">NaN</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock monospaced">x=(100-40)/2-10=20px, width=40px</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_tile">Tile</h2>
+<h2 id="_tiles">Tiles</h2>
 <div class="sectionbody">
+<div class="paragraph"><p>Currently there are 3 tiling-layout-algorithms, basicly they all position the children in rows/columns until a row/column is full and then continue on new row/column. Each algorithm allows you to specify the start-direction (<span class="monospaced">horizontal</span> or <span class="monospaced">vertical</span>).</p></div>
+<div class="sect2">
+<h3 id="_simple_tile">Simple Tile</h3>
+<div class="paragraph"><p>This algorithm is the most straight forward and simple tile-algorithm. It will position the children in rows (<span class="monospaced">horizontal</span>) or in columns (`vertical) and tries to put as many children as posible one row/column.</p></div>
+<div class="olist arabic"><div class="title">Properties</div><ol class="arabic">
+<li>
+<p>
+Only support left-to-right or top-to-bottom directions
+</p>
+</li>
+<li>
+<p>
+all cells in a row have the same y-coordinate (horizontal direction) or all cells in a column have the same x-coordinate (vertical direction)
+</p>
+</li>
+<li>
+<p>
+iterates all children when re-validating the layout
+</p>
+</li>
+</ol></div>
 <div class="paragraph"><p><span class="image">
 <img src="diagrams/Algorithm_Tile.png" alt="diagrams/Algorithm_Tile.png">
 </span></p></div>
 </div>
+<div class="sect2">
+<h3 id="_fixed_tile">Fixed-Tile</h3>
+<div class="paragraph"><p>Fixed-tile-algorithm uses a fixed number of columns (or rows if the start direction is vertical) to position it&#8217;s children instead of trying to put as many children as possible in a row/column. The algorithm will position the children like a table, it uses the heighest cell in a row to define the row-height and widest cell in a column to define to column-width.</p></div>
+<div class="olist arabic"><div class="title">Properties</div><ol class="arabic">
+<li>
+<p>
+support <span class="monospaced">left-to-right</span>, <span class="monospaced">right-to-left</span>, <span class="monospaced">top-to-bottom</span> and <span class="monospaced">bottom-to-top</span> directions
+</p>
+</li>
+<li>
+<p>
+only iterates rows/columns which have children that are changed when re-validating the layout
+</p>
+</li>
+<li>
+<p>
+all cells in a row have the same y-coordinate
+</p>
+</li>
+<li>
+<p>
+all cells in a column have the same x-coordinate
+</p>
+</li>
+<li>
+<p>
+smart but not light-weight
+</p>
+</li>
+</ol></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">This algorithm has the highest performance-cost of the three, even though the algorithm will only update rows and columns that are changed.</td>
+</tr></table>
 </div>
-<div class="sect1">
-<h2 id="_dynamic_tile">Dynamic-Tile</h2>
-<div class="sectionbody">
-<div class="paragraph"><p><span class="image">
-<img src="diagrams/Algorithm_DynamicTile.png" alt="diagrams/Algorithm_DynamicTile.png">
-</span></p></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_fixed_tile">Fixed-Tile</h2>
-<div class="sectionbody">
 <div class="paragraph"><p><span class="image">
 <img src="diagrams/Algorithm_FixedTile.png" alt="diagrams/Algorithm_FixedTile.png">
 </span></p></div>
+</div>
+<div class="sect2">
+<h3 id="_dynamic_tile">Dynamic-Tile</h3>
+<div class="paragraph"><p>Dynamic-tile-algorithm is a combination between <span class="monospaced">fixed-tile</span> and <span class="monospaced">simple-tile</span>. Internally it works the same way as <span class="monospaced">fixed-tile</span> except that the number of columns (or rows) is <strong>dynamic</strong> and based on the measured/explicit size of the layout-container. This also means the number of children in a row can differ per row.</p></div>
+<div class="olist arabic"><div class="title">Properties</div><ol class="arabic">
+<li>
+<p>
+support <span class="monospaced">left-to-right</span>, <span class="monospaced">right-to-left</span>, <span class="monospaced">top-to-bottom</span> and <span class="monospaced">bottom-to-top</span> directions
+</p>
+</li>
+<li>
+<p>
+only iterates rows/columns which have children that are changed when re-validating the layout
+</p>
+</li>
+<li>
+<p>
+all cells in a row have the same y-coordinate (horizontal direction) or all cells in a column have the same x-coordinate (vertical direction)
+</p>
+</li>
+<li>
+<p>
+smart but not light-weight
+</p>
+</li>
+</ol></div>
+</div>
 </div>
 </div>
 </div>
 <div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-01-25 15:04:55 CET
+Last updated 2012-01-30 16:03:01 CET
 </div>
 </div>
 </body>
