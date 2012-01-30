@@ -119,6 +119,13 @@ digraph LayoutValidation {
 }
 -------
 
+`LayoutContainer` tries to find the most efficient way in validating the parent and it's children but the validation-process still is delicate and expensive:
+
+- it's recursive (starting at the highest invalidated layout-container to the lowest invalidated layout-client) 
+- of the dependencies between the parent and children.
++
+I.e. some children define their size as a percentage of the parent, while the parents size can be based on the size of the children.
+
 
 == LayoutClients
 Prime-layout implements the following layoutclients:
