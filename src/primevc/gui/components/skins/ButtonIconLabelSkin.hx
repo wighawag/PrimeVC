@@ -60,7 +60,7 @@ class ButtonIconLabelSkin extends Skin<Button>
 		
 		//change properties of new UIElements
 		iconGraphic.maintainAspectRatio = true;
-		if (owner.icon != null)
+	//	if (owner.icon != null)
 			owner.attach(iconGraphic);
 		
 		owner.attach(labelField);
@@ -83,13 +83,13 @@ class ButtonIconLabelSkin extends Skin<Button>
 	
 	override public function validate (changes:Int)
 	{
+#if debug
 		Assert.notNull(iconGraphic, owner+"; "+iconGraphic+"; "+labelField+"; "+owner.isDisposed());
-		
-		if (changes.has( Flags.ICON )) {
+#end	if (changes.has( Flags.ICON )) {
 			iconGraphic.data = owner.icon;
-			if 		(owner.icon == null)		iconGraphic.detach();
+	/*		if 		(owner.icon == null)		iconGraphic.detach();
 			else if (!iconGraphic.isOnStage()) 	iconGraphic.attachTo(owner, 0);
-		}
+	*/	}
 #if flash9
 		if (changes.has( Flags.ICON_FILL ))		iconGraphic.colorize( owner.iconFill );
 

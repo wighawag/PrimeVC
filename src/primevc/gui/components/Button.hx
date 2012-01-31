@@ -65,6 +65,7 @@ class Button extends UIDataContainer <Bindable<String>>, implements IIconOwner, 
 		
 		this.icon	= icon;
 		selected	= new Bindable<Bool>(false);
+		styleClasses.add("formElement");
 	}
 	
 	

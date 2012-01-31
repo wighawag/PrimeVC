@@ -51,7 +51,7 @@ class BasicPanelSkin extends Skin<Panel>
 	override public function createChildren ()
 	{
 		chrome		= new UIContainer("chrome");
-		title		= new Label("title", owner.title);
+		title		= new Label("panelTitle", owner.title);
 		title.disable();
 		
 		title.attachTo(chrome);
