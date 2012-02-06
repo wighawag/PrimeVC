@@ -225,6 +225,7 @@ class BaseMediaStream implements IMediaStream
     public inline function isPaused ()  : Bool  { return state.current == MediaStates.paused; }
     public inline function isPlaying () : Bool  { return state.current == MediaStates.playing; }
     public inline function isEmpty ()   : Bool  { return state.current == MediaStates.empty; }
+    public inline function hasError ()  : Bool    return switch(state.current) { case MediaStates.error(s): true; default: false; }
     public inline function isMuted ()   : Bool  { return volume.value == 0; }
     public inline function isFrozen ()  : Bool
     {
