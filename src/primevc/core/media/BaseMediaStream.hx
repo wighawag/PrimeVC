@@ -111,8 +111,7 @@ class BaseMediaStream implements IMediaStream
         totalTime       = new Bindable<Float>(0.0);
         
         cachedVolume    = Number.FLOAT_NOT_SET;
-        var curState    = streamUrl == null ? MediaStates.empty : MediaStates.stopped;
-        state           = new SimpleStateMachine<MediaStates>( MediaStates.empty, curState );
+        state           = new SimpleStateMachine<MediaStates>( MediaStates.empty, streamUrl == null ? MediaStates.empty : MediaStates.stopped );
 
         validateURL.on( url.change, this );
     }
@@ -225,6 +224,7 @@ class BaseMediaStream implements IMediaStream
     public inline function isPaused ()  : Bool  { return state.current == MediaStates.paused; }
     public inline function isPlaying () : Bool  { return state.current == MediaStates.playing; }
     public inline function isEmpty ()   : Bool  { return state.current == MediaStates.empty; }
+    public inline function isDisposed (): Bool  { return state == null; }
     public inline function hasError ()  : Bool    return switch(state.current) { case MediaStates.error(s): true; default: false; }
     public inline function isMuted ()   : Bool  { return volume.value == 0; }
     public inline function isFrozen ()  : Bool

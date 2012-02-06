@@ -169,6 +169,7 @@ class AudioStream extends BaseMediaStream
     
     override public function stop ()
     {
+        Assert.that(!isDisposed());
         if (isEmpty() || hasError())
             return;
         

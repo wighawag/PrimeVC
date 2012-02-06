@@ -47,7 +47,7 @@ package primevc.gui.components;
 class UploadPanel extends ConfirmPanel
 {
     private var fileBrowser : IFileReference;
-    private var fileTypes   : Array<FileFilter>;
+    public  var fileTypes   : Array<FileFilter>;
     /**
      * Maximum number of files. Default: -1 (unlimited)
      */
