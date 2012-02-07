@@ -1,0 +1,3 @@
+git config -f .git/config pivotal.project-id 462243
+git config -f .git/config pivotal.append-name true
+git config -f .git/config pivotal.integration-branch master
