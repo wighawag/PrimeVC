@@ -75,11 +75,20 @@ interface ILayoutAlgorithm
 	 */
 	public function validate ()								: Void;
 	
+	/**
+	 * Measure the width of the group according to the rules of the algorithm.
+	 * Call LayoutAlgorithmBase.setGroupWidth() to apply the value to the group.
+	 */
 	public function validateHorizontal ()					: Void;
+	/**
+	 * Measure the height of the group according to the rules of the algorithm.
+	 * Call LayoutAlgorithmBase.setGroupHeight() to apply the value to the group.
+	 */
 	public function validateVertical ()					 	: Void;
 	
 	/**
-	 * Method will apply it's layout algorithm on the given target.
+	 * Method will reposition the children in the group according to the rulse of 
+	 * the algorithm.
 	 */
 	public function apply ()								: Void;
 	

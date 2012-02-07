@@ -1,0 +1,169 @@
+= Layout Algorithms =
+Ruben Weijers
+:toc:
+
+== Introduction
+The main goal of `Layoutalgorithms` is to tell a `LayoutContainer` where to position it's children. It does this by implementing a set of methods with the following functionality:
+
+. measuring
+. positioning
+. validating
+. mapping positions to depths
+
+The measuring and positioning of the children are done in two steps; horizontally and vertically. This way it's easy to combine two layout-algorithms to create a new algortihm.
+
+["mscgen", "LayoutFlow.png"]
+-----
+msc {
+	o [label="Owner"], lc [label="LayoutContainer"], la [label="LayoutAlgorithm"];
+
+	o->lc 	[label="change property"];
+	lc=>lc 	[label="invalidate()"];
+	lc=>la 	[label="isInvalid(change)"];
+	lc=>>o 	[label="invalidated"];
+	o=>lc 	[label="validate"];
+	lc=>la 	[label="prepareValidate()"];
+	lc=>lc 	[label="validateHorizontal()"];
+	lc=>la 	[label="validateHorizontal()"];
+	lc=>lc 	[label="validateVertical()"];
+	lc=>la 	[label="validateVertical()"];
+	lc=>lc 	[label="validated()"];
+	lc->o 	[label="validated"];
+}
+-----
+
+
+
+
+== Float's
+=== Horizontal float
+
+.Left-to-right
+{sys:build/doc-include "diagrams/Algorithm_HorFloat_LtR.ditaa"}
+
+[horizontal]
+`a-d`:: LayoutClient's
+`E`:: LayoutContainer - HorizontalFloat(left-to-right)
+
+.Right-to-left
+{sys:build/doc-include "diagrams/Algorithm_HorFloat_RtL.ditaa"}
+
+[horizontal]
+`a-d`:: LayoutClient's
+`E`:: LayoutContainer - HorizontalFloat(right-to-left)
+
+=== Vertical float
+{sys:build/doc-include "diagrams/Algorithm_VerFloat.ditaa"}
+
+=== Diagonal Float
+`Dynamic(horizontal-float, vertical-float)`
+{sys:build/doc-include "diagrams/Algorithm_DiagonalFloat.ditaa"}
+
+== Circle
+`Dynamic(horizontal-circle, vertical-circle)`
+{sys:build/doc-include "diagrams/Algorithm_Circle.ditaa"}
+
+.Properties
+. equal width/height values
+. no measuring, uses explicit-size properties
+
+=== Horizontal circle
+Algorithm responsible for positioning the x-coordinates in a circle. Results in a a sinus if you combine it with a vertical-float-algorithm.
+//////////////////////////////////////////
+{sys:build/doc-include "diagrams/Algorithm_HorCircle.ditaa"}
+//////////////////////////////////////////
+
+=== Vertical circle
+Algorithm responsible for positioning the y-coordinates in a circle.
+//////////////////////////////////////////
+{sys:build/doc-include "diagrams/Algorithm_VerCircle.ditaa"}
+//////////////////////////////////////////
+
+
+== Dynamic
+Dynamic algorithm combines two sub-algorithms (1 horizontal and 1 vertical) to create new ways of positioning layout-children.
+
+== Relative
+Relative algorithm uses the relative values of a child to position it within the parent. In CSS2 the relative position is applied after a box has been laid out according to the normal flow. With relative-algorithm you can't combine these to layout-algorithms.
+
+The relative values of a `LayoutClient` are stored in `LayoutClient.relative` using a `Box`
+
+NOTE: add references to class-documentation.
+
+.Properties
+[options="header", cols="1m,2,6"]
+|=====
+|Property 	|Direction	|Details
+|top		|vertical	|Number of `px` between top-side of parent and the top-side of the child
+|bottom		|vertical	|Number of `px` between bottom-side of parent and the bottom-side of the child
+|v-center	|vertical	|Number of `px` the vertical between vertical-center of parent and the vertical-center of the child
+|left		|horizontal	|Number of `px` between left-side of parent and the left-side of the child
+|right		|horizontal	|Number of `px` between right-side of parent and the right-side of the child
+|h-center	|horizontal	|Number of `px` between horizontal-center of parent and the horizontal-center of the child
+|=====
+
+- Using only one horizontal or vertical property will affect only the x- or y-coordinate
+- Combining `top` and `bottom`, or `left` and `right`, will also affect the `width`/`height`
+- Setting `v-center` will unset the values for `bottom` and `top`. Idem with setting `h-center` and `left` and `right`
+
+.Horizontal Example
+[options="header", cols="1m,1m,1m,1m,1m,3m"]
+|=====
+|parent-width	|child-width	|left	|h-center	|right	|result
+|100px			|40px			|5px	|NaN		|NaN	|x=5px, width=40px
+|100px			|40px			|NaN	|NaN		|15px	|x=(100-40-15)=45px, width=40px
+|100px			|40px			|10px	|NaN		|15px	|x=10px, width=(100-15-10)=75px
+|100px			|40px			|NaN	|0px		|NaN	|x=(100-40)/2=30px, width=40px
+|100px			|40px			|NaN	|10px		|NaN	|x=(100-40)/2+10=40px, width=40px
+|100px			|40px			|NaN	|-10px		|NaN	|x=(100-40)/2-10=20px, width=40px
+|=====
+
+
+//////////////////////////////////////////
+{sys:build/doc-include "diagrams/Algorithm_Relative.ditaa"}
+//////////////////////////////////////////
+
+
+== Tiles
+Currently there are 3 tiling-layout-algorithms, basicly they all position the children in rows/columns until a row/column is full and then continue on new row/column. Each algorithm allows you to specify the start-direction (`horizontal` or `vertical`).
+
+=== Simple Tile
+This algorithm is the most straight forward and simple tile-algorithm. It will position the children in rows (`horizontal`) or in columns (`vertical) and tries to put as many children as posible one row/column.
+
+.Properties
+. Only support left-to-right or top-to-bottom directions
+. all cells in a row have the same y-coordinate (horizontal direction) or all cells in a column have the same x-coordinate (vertical direction)
+. iterates all children when re-validating the layout
+
+{sys:build/doc-include "diagrams/Algorithm_Tile.ditaa"}
+
+
+=== Fixed-Tile
+Fixed-tile-algorithm uses a fixed number of columns (or rows if the start direction is vertical) to position it's children instead of trying to put as many children as possible in a row/column. The algorithm will position the children like a table, it uses the heighest cell in a row to define the row-height and widest cell in a column to define to column-width.
+
+.Properties
+. support `left-to-right`, `right-to-left`, `top-to-bottom` and `bottom-to-top` directions
+. only iterates rows/columns which have children that are changed when re-validating the layout
+. all cells in a row have the same y-coordinate
+. all cells in a column have the same x-coordinate
+. smart but not light-weight
+
+NOTE: This algorithm has the highest performance-cost of the three, even though the algorithm will only update rows and columns that are changed.
+
+{sys:build/doc-include "diagrams/Algorithm_FixedTile.ditaa"}
+
+
+=== Dynamic-Tile
+Dynamic-tile-algorithm is a combination between `fixed-tile` and `simple-tile`. Internally it works the same way as `fixed-tile` except that the number of columns (or rows) is *dynamic* and based on the measured/explicit size of the layout-container. This also means the number of children in a row can differ per row.
+
+.Properties
+. support `left-to-right`, `right-to-left`, `top-to-bottom` and `bottom-to-top` directions
+. only iterates rows/columns which have children that are changed when re-validating the layout
+. all cells in a row have the same y-coordinate (horizontal direction) or all cells in a column have the same x-coordinate (vertical direction)
+. smart but not light-weight
+
+
+//////////////////////////////////////////
+{sys:build/doc-include "diagrams/Algorithm_DynamicTile.ditaa"}
+//////////////////////////////////////////
+
