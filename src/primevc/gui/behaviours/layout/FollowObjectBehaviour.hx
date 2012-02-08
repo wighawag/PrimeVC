@@ -133,7 +133,7 @@ class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 	private function checkTargetChanges (changes:Int)
 	{
 		if (changes.has( LayoutFlags.SIZE | LayoutFlags.RELATIVE ))
-			updatePosition();
+			updatePosition.onceOn( target.displayEvents.enterFrame, this );		//FIXME: wait one frame, otherwise the width/height is possibly applied wrong
 	}
 	
 	
