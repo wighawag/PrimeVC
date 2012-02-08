@@ -3477,6 +3477,8 @@ class CSSParser
 	{
 		if (isColor(v))
 			createGraphicsBlock().iconFill = new SolidFill(parseColor(v));
+		else if (isNone(v))
+			createGraphicsBlock().markProperty( GraphicFlags.ICON_FILL, true );
 	}
 	
 	
