@@ -138,6 +138,9 @@ package primevc.tools;
  * 
  * @author Ruben Weijers
  * @creation-date Sep 04, 2010
+ *
+ * Known issues:
+ * - selectors with a space before it won't get parsed (Feb 8, 2012 - Ruben Weijers)
  */
 class CSSParser
 {
