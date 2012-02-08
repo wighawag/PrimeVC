@@ -118,11 +118,12 @@ class UploadPanel extends ConfirmPanel
 
     private function sendUpload ()
     {
-        if (maxFiles == 1)
+        if (maxFiles == 1) {
             upload.send([fileBrowser.as(FileReference)]);
-        else {
+            fileBrowser = null;
+        } else {
             upload.send(fileBrowser.as(FileReferenceList).list);
-            unsetBrowser();
+            unsetBrowser(); //only dispose a FileReferenceList, it's too early to dispose a FileReference
         }
     }
 
