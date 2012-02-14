@@ -61,6 +61,8 @@ class InputFieldSkin extends ButtonIconLabelSkin
 		(untyped owner).field	= labelField;
 		checkToUpdateVO.on( labelField.userEvents.key.down, this );
 		resetHorScroll .on( owner.userEvents.blur, this );		// make sure the inputfield scrolls back when it loses focus
+
+		labelField.setFocus.on( owner.userEvents.mouse.click, this );
 	}
 
 

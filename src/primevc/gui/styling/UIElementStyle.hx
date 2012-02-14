@@ -301,7 +301,7 @@ class UIElementStyle implements IUIElementStyle
 	 */
 	private function enableStyleListeners ()
 	{
-		Assert.notNull( owner.container );
+		Assert.notNull( owner.container, "container of "+owner+" is null" );
 		Assert.that( owner.container.is( IStylable ) );
 		Assert.notNull( owner.container.as( IStylable ).style );
 		

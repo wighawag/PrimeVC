@@ -116,8 +116,9 @@ class Sprite extends flash.display.Sprite, implements ISprite
 	}
 	
 	
-	public inline function setFocus ()		{ if (window.notNull())							{ window.focus = this; } }
-	public inline function removeFocus ()	{ if (window.notNull() && window.focus == this)	{ window.focus = null; } }
+	public inline function focussed ()		{ return window.notNull() && window.focus == this; }
+	public inline function setFocus ()		{ if (window.notNull())		{ window.focus = this; } }
+	public inline function removeFocus ()	{ if (focussed())			{ window.focus = null; } }
 	
 	
 	

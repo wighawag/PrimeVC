@@ -56,7 +56,7 @@ package primevc.gui.behaviours.layout;
  */
 class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 {
-	private var followedElement : IUIElement;
+	public  var followedElement 		(default, setFollowedElement) : IUIElement;
 	
 	private var followedLayoutBinding	: Wire<Dynamic>;
 	private var containerLayoutBinding	: Wire<Dynamic>;
@@ -72,16 +72,16 @@ class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 	
 	override private function init ()
 	{
-		Assert.notNull(followedElement, "followed-element can't be null for "+target);
-		followedLayoutBinding	= checkChanges			.on( followedElement.layout.changed,					this );
+		if (followedElement != null)
+			createFollowBindings();
 		containerLayoutBinding	= checkChanges			.on( target.container.as(ILayoutable).layout.changed,	this );
 		targetLayoutBinding		= checkTargetChanges	.on( target.layout.changed,								this );
 		
 		updateTarget	.on( target.displayEvents.addedToStage, this );
 		disableWires	.on( target.displayEvents.removedFromStage, this );
 		
-		if (target.window == null)	disableWires();
-		else						updateTarget();
+		if (target.window == null)			disableWires();
+		else if (followedElement != null)	updatePosition();
 	}
 	
 	
@@ -95,6 +95,18 @@ class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 		e.addedToStage.unbind( this );
 		e.removedFromStage.unbind( this );
 		followedElement = null;
+	}
+
+
+	private inline function removeFollowBindings () {
+		followedElement.layout.changed.unbind(this);
+	}
+
+
+	private inline function createFollowBindings ()
+	{
+		Assert.notNull(followedElement, "followed-element can't be null for "+target);
+		followedLayoutBinding = checkChanges.on( followedElement.layout.changed, this );
 	}
 	
 	
@@ -111,7 +123,8 @@ class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 		followedLayoutBinding	.enable();
 		containerLayoutBinding	.enable();
 		targetLayoutBinding		.enable();
-		updatePosition();
+		if (target.window != null)
+			updatePosition();
 	}
 	
 	
@@ -182,7 +195,19 @@ class FollowObjectBehaviour extends BehaviourBase<IUIElement>
 		bounds.invalidatable = true;
 		followedLayoutBinding.enable();
 		targetLayoutBinding.enable();
-		
-	//	trace(target+"; final \t"+bounds);
+	}
+
+
+	private function setFollowedElement (v:IUIElement)
+	{
+		if (v != followedElement) {
+			if (initialized) {
+				if (followedElement != null) {	removeFollowBindings();		disableWires(); }
+				followedElement = v;
+				if (followedElement != null) {	createFollowBindings();		updateTarget(); }
+			} else
+				followedElement = v;
+		}
+		return v;
 	}
 }

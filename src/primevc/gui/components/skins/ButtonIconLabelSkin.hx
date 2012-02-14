@@ -56,6 +56,7 @@ class ButtonIconLabelSkin extends Skin<Button>
 	{
 		//create children
 		iconGraphic	= new Image(#if debug owner.id.value + "Icon" #else null #end, owner.icon);
+		iconGraphic.mouseEnabled = false;
 		labelField	= UITextField.createLabelField(owner.id.value + "TextField", owner.data, owner);
 		
 		//change properties of new UIElements
