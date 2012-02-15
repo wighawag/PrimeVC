@@ -214,6 +214,7 @@ class UIElementEffects implements IDisposable
 		if (enabled && show.notNull())
 		{
 			if (hide.notNull()) {
+				hide.ended.unbind(target);
 				if (hide.isWaiting())	{ hide.stop(); }
 				if (hide.isPlaying())	{ hide.stop(); }
 				else					target.visible = false;
