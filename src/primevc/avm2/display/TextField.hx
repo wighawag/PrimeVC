@@ -50,6 +50,7 @@ package primevc.avm2.display;
  import primevc.gui.text.TextTransform;
 
   using primevc.utils.Bind;
+  using primevc.utils.IfUtil;
   using primevc.utils.NumberUtil;
   using primevc.utils.StringUtil;
   using primevc.utils.TypeUtil;
@@ -374,9 +375,9 @@ class TextField extends flash.text.TextField, implements ITextField
 	// FOCUS METHODS
 	//
 	
-	
-	public inline function setFocus ()		{ if (window != null)							{ window.focus = this; } }
-	public inline function removeFocus ()	{ if (window != null && window.focus == this)	{ window.focus = null; } }
+	public inline function focussed ()		{ return window.notNull() && window.focus == this; }
+	public inline function setFocus ()		{ if (window.notNull())		{ window.focus = this; } }
+	public inline function removeFocus ()	{ if (focussed())			{ window.focus = null; } }
 	
 	
 	/**
