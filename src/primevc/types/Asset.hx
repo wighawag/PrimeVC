@@ -197,6 +197,7 @@ class Asset		implements IDisposable
 		if (display == null)
 			return null;
 		
+		Assert.that( width > 0 && height > 0, "invalid size for "+display+"; size: "+width+", "+height);
 		bitmapData = new BitmapData( width, height, transparant, fillColor );
 		bitmapData.draw( display, matrix );
 		return bitmapData;

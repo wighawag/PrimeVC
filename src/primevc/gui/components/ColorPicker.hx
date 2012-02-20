@@ -117,8 +117,7 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 
 		Assert.notNull(data);
 		moveToColorWire = moveToColor.on( data.change, this );
-	//	moveToColor();
-		trace(data.value);
+	//	moveToColor.onceOn( displayEvents.enterFrame, this );
 	}
 	
 	
@@ -150,13 +149,18 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 		return spectrum.toBitmapData();
 	}
 
+
 	
 	/**
 	 * method wil find the new color-value in the spectrum and move the selection-circle around
 	 */
-	private function moveToColor ()
+	public function moveToColor ()
 	{
-		trace(data.value.rgbaToString());
+		if (!isInitialized() || width == 0 || height == 0) {
+			moveToColor.onceOn( displayEvents.enterFrame, this );
+			return;
+		}
+		
 		var b = getSpectrum();
 		var w = b.width;
 		var h = b.height;
@@ -191,7 +195,6 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	private function beginUpdating (mouse:MouseState) : Void
 	{
 		setFocus();
-		trace("begin updating "+mouse.target+"; "+mouse.local);
 		moveToColorWire.disable();
 		beginBinding.disable();
 		updateBinding.enable();
@@ -214,7 +217,6 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	
 	private function stopUpdating (mouse:MouseState) : Void 
 	{
-		trace("stoping updating");
 		beginBinding.enable();
 		updateBinding.disable();
 		stopBinding.disable();
@@ -222,8 +224,7 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 		data.commitEdit();
 		moveToColorWire.enable();
 		data.beginEdit();
-		setFocus();
-		trace("stopped updating");
+	//	setFocus();
 	}
 
 
