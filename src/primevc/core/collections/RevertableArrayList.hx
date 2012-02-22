@@ -236,4 +236,10 @@ class RevertableArrayList < DataType > extends ReadOnlyArrayList < DataType >, i
 		
 		return item;
 	}
+
+
+#if debug
+	public inline function readFlags ()
+		return Flags.readProperties(flags)
+#end
 }
