@@ -47,27 +47,32 @@ package primevc.gui.components;
  */
 class Form
 {
-    public static function addHorLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, direction:Horizontal = null) : Void
+    public static function addHorLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, direction:Horizontal = null)
     {
-        createLabelRow( form, labelStr, input, createHorizontalRow(direction) );
+        return createLabelRow( form, labelStr, input, createHorizontalRow(direction), "verLabel" );
     }
 
 
-    public static function addVerLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, direction:Vertical = null) : Void
+    public static function addVerLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, direction:Vertical = null, percentWidth:Float = 1.0)
     {
-        createLabelRow( form, labelStr, input, createVerticalRow(direction) );
+        return createLabelRow( form, labelStr, input, createVerticalRow(direction, percentWidth), "verLabel" );
     }
 
 
-    private static inline function createLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, row:LayoutContainer)
+    private static inline function createLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, row:LayoutContainer, labelStyleClass:String = null)
     {
         var label = createLabel(input, labelStr);
+        label.styleClasses.add(labelStyleClass);
         row.dispose.on( input.state.disposed.entering, row );
 
         // attach row
         row .attach(label.layout).attach(input.layout);
         form.attachLayout( row );
         form.attachDisplay( label ).attachDisplay( input );
+
+    //  if (labelWidth >= 0)
+    //      label.layout.percentWidth = labelWidth;
+        return row;
     }
 
 
