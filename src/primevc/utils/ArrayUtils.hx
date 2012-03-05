@@ -59,8 +59,7 @@ class ArrayUtils
 	static public inline function indexOf<T> ( list:Array<T>, item:T, ?startPos:Int = 0 ) : Int
 	{
 		var pos:Int = -1;
-		var l		= list.length;
-		for (i in startPos...l) {
+		for (i in startPos...list.length) {
 			if (list[i] == item) {
 				pos = i;
 				break;
@@ -74,7 +73,7 @@ class ArrayUtils
 	{
 		var pos:Int = -1;
 		var i = list.length;
-		while (l-- >= startPos) {
+		while (i-- >= startPos) {
 			if (list[i] == item) {
 				pos = i;
 				break;
