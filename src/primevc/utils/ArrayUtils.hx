@@ -39,6 +39,7 @@ class ArrayUtils
 		#end
 	}
 	
+
 	public static function compareAlphabetically(x:String,y:String)
 	{
 		var s = x.length <= y.length? x : y;
@@ -52,5 +53,33 @@ class ArrayUtils
 		}
 		
 		return x == s? -1 : 1;
+	}
+
+
+	static public inline function indexOf<T> ( list:Array<T>, item:T, ?startPos:Int = 0 ) : Int
+	{
+		var pos:Int = -1;
+		var l		= list.length;
+		for (i in startPos...l) {
+			if (list[i] == item) {
+				pos = i;
+				break;
+			}
+		}
+		return pos;
+	}
+	
+
+	static public inline function lastIndexOf<T> ( list:Array<T>, item:T, ?startPos:Int = 0 ) : Int
+	{
+		var pos:Int = -1;
+		var i = list.length;
+		while (l-- >= startPos) {
+			if (list[i] == item) {
+				pos = i;
+				break;
+			}
+		}
+		return pos;
 	}
 }
