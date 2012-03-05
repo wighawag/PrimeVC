@@ -41,38 +41,75 @@ package primevc.gui.components;
   using primevc.utils.TypeUtil;
 
 
-/* 
+/**
  * @author Ruben Weijers
  * @creation-date Oct 5, 2011
  */
 class Form
 {
-    public static function addHorLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, direction:Horizontal = null)
+    public static inline function addHorLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, direction:Horizontal = null)
     {
         return createLabelRow( form, labelStr, input, createHorizontalRow(direction), "verLabel" );
     }
 
 
-    public static function addVerLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, direction:Vertical = null, percentWidth:Float = 1.0)
+    public static inline function addVerLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, direction:Vertical = null, percentWidth:Float = 1.0)
     {
         return createLabelRow( form, labelStr, input, createVerticalRow(direction, percentWidth), "verLabel" );
     }
 
 
-    private static inline function createLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, row:LayoutContainer, labelStyleClass:String = null)
+    private static function createLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, row:LayoutContainer, labelStyleClass:String = null)
     {
         var label = createLabel(input, labelStr);
         label.styleClasses.add(labelStyleClass);
         row.dispose.on( input.state.disposed.entering, row );
+        
+        var added   = input.displayEvents.addedToStage.observe( form, null );
+        var removed = input.displayEvents.removedFromStage.observe( form, null );
 
         // attach row
-        row .attach(label.layout).attach(input.layout);
-        form.attachLayout( row );
-        form.attachDisplay( label ).attachDisplay( input );
+        var attach = function () {
+            if (input.layout.parent == row)
+                return;
+
+            removed.disable();
+            added  .disable();
+
+            var disDepth = input.container.children.indexOf(input);
+            var layDepth = input.layout.parent.children.indexOf(input.layout);
+            trace(labelStr+" at "+disDepth+" | "+layDepth);
+            
+            input.detach();
+            row .attach(label.layout).attach(input.layout);
+            row .attachTo(form.layoutContainer, layDepth);
+            label.attachDisplayTo( form, disDepth );
+            input.attachDisplayTo( form, disDepth + 1 );
+
+            removed.enable();
+            added  .enable();
+        };
+        var detach = function () {
+            trace("detach "+labelStr+"; "+(input.layout.parent == row)+"; "+input.parent+"; "+input.container);
+            if (input.layout.parent == row) return;
+            row.detach();
+            label.detach();
+        };
+
+        added  .handler = attach;
+        removed.handler = detach;
+        input.attachTo(form);
 
     //  if (labelWidth >= 0)
     //      label.layout.percentWidth = labelWidth;
         return row;
+    }
+
+
+    public static inline function rowIndexOf (input:UIComponent) : Int
+    {
+        var form = input.container.as(IUIContainer);
+        return form.layoutContainer.children.indexOf( cast input.layout.parent ) + 1;
     }
 
 
@@ -97,7 +134,7 @@ class Form
     }
 
 
-    public static inline function createHorizontalRow (direction:Horizontal = null, percentWidth:Float = 1.0) : LayoutContainer
+    public static /*inline*/ function createHorizontalRow (direction:Horizontal = null, percentWidth:Float = 1.0) : LayoutContainer
     {
         var row          = new VirtualLayoutContainer();
         row.percentWidth = percentWidth;
@@ -106,7 +143,7 @@ class Form
     }
 
 
-    public static inline function createVerticalRow (direction:Vertical = null, percentWidth:Float = 1.0) : LayoutContainer
+    public static /*inline*/ function createVerticalRow (direction:Vertical = null, percentWidth:Float = 1.0) : LayoutContainer
     {
         var row          = new VirtualLayoutContainer();
         row.percentWidth = percentWidth;

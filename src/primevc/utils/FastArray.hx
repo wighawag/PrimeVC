@@ -62,7 +62,7 @@ typedef FastArray<T> =
 #end
 	}
 	
-	static public inline function toVector<T> ( array:Array<T> ) return ofArray(array) 		//alias for ofArray
+	static public inline function toVector<T> ( array:Array<T> ) : FastArray<T> return ofArray(array) 		//alias for ofArray
 	static public inline function ofArray<T>  ( array:Array<T> ) : FastArray<T>
 	{
 	#if flash10
