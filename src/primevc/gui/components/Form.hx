@@ -78,20 +78,18 @@ class Form
 
             var disDepth = input.container.children.indexOf(input);
             var layDepth = input.layout.parent.children.indexOf(input.layout);
-            trace(labelStr+" at "+disDepth+" | "+layDepth);
             
             input.detach();
             row .attach(label.layout).attach(input.layout);
             row .attachTo(form.layoutContainer, layDepth);
+            input.attachDisplayTo( form, disDepth );
             label.attachDisplayTo( form, disDepth );
-            input.attachDisplayTo( form, disDepth + 1 );
 
             removed.enable();
             added  .enable();
         };
         var detach = function () {
-            trace("detach "+labelStr+"; "+(input.layout.parent == row)+"; "+input.parent+"; "+input.container);
-            if (input.layout.parent == row) return;
+            if (input.container != null) return;
             row.detach();
             label.detach();
         };
