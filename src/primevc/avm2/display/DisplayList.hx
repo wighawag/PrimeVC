@@ -197,6 +197,7 @@ class DisplayList implements IEditableList <ChildType>
 		else if (pos < 0)		pos = length; // -pos;
 		
 		item.container = owner;
+		item.window    = owner.window;
 		target.addChildAt( item.as( TargetChildType ), pos );
 		change.send( ListChange.added( item, pos ) );
 		return item;
@@ -210,8 +211,9 @@ class DisplayList implements IEditableList <ChildType>
 		if (oldPos == -1)
 			oldPos = indexOf(item);
 		
+		item.container 	= null;
 		target.removeChild(item.as( TargetChildType ));
-		item.container = null;
+		item.window 	= null;
 		
 		change.send( ListChange.removed( item, oldPos ) );
 		return item;

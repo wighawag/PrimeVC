@@ -61,7 +61,7 @@ class Sprite extends flash.display.Sprite, implements ISprite
 	public var children			(default, null)			: DisplayList;
 	
 	public var window			(default, setWindow)	: Window;
-	public var container		(default, setContainer)	: IDisplayContainer;
+	public var container		(default, default)		: IDisplayContainer;
 	
 	public var userEvents		(default, null)			: UserEvents;
 	public var displayEvents	(default, null)			: DisplayEvents;
@@ -144,7 +144,7 @@ class Sprite extends flash.display.Sprite, implements ISprite
 	// GETTERS / SETTERS
 	//
 	
-	private inline function setContainer (newV:IDisplayContainer)
+	/*private inline function setContainer (newV:IDisplayContainer)
 	{
 		if (container != newV)
 		{
@@ -161,14 +161,14 @@ class Sprite extends flash.display.Sprite, implements ISprite
 			
 			//if the container prop is set to null, remove the sprite from it's previous container and set the window prop to null.
 			else if (oldV.notNull()) {
-				if (oldV.children.has(this))
-					oldV.children.remove(this);
+			//	if (oldV.children.has(this))
+			//		oldV.children.remove(this);
 				
 				window = null;
 			}
 		}
 		return newV;
-	}
+	}*/
 	
 	
 	private inline function setWindow (v)

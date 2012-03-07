@@ -111,7 +111,7 @@ class Window implements IDisplayContainer, implements IDisablable
 	//
 	
 	public var window			(default, setWindow)	: Window;
-	public var container		(default, setContainer)	: IDisplayContainer;
+	public var container		(default, default)		: IDisplayContainer;
 	public var rect				(default, null)			: IntRectangle;
 	public var displayEvents	(default, null)			: DisplayEvents;
 	
@@ -226,7 +226,7 @@ class Window implements IDisplayContainer, implements IDisablable
 	
 	
 	private inline function setWindow (v)		{ return window = this; }
-	private inline function setContainer (v)	{ return container = this; }
+//	private inline function setContainer (v)	{ return container = this; }
 }
 
 #else

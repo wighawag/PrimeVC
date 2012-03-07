@@ -467,7 +467,7 @@ class UIComponent extends Sprite, implements IUIComponent
 	 */
 	private function removeValidation () : Void
 	{
-		if (isQueued() &&isOnStage())
+		if (isQueued() && isOnStage())
 			system.invalidation.remove(this);
 
 		if (!isDisposed() && changes > 0)
