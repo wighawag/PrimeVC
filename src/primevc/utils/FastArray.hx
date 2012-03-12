@@ -115,6 +115,10 @@ typedef FastArray<T> =
 	}
 
 
+	static public #if flash10 inline #end function validateNewIndex<T>( list:FastArray<T>, pos:Int ) : Int
+		return pos < 0 || pos > list.length.int() ? list.length : pos
+
+
 	static public inline function add<T>( list:FastArray<T>, item:T ) : T
 	{
 		list.push(item);

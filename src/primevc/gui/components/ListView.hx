@@ -451,6 +451,7 @@ class ListView<ListDataType> extends UIDataContainer < IReadOnlyList < ListDataT
 		switch (change)
 		{
 			case added( item, newPos):
+				Assert.that(newPos >= 0, item + ": "+newPos);
 				layoutContainer.setFixedChildLength( data.length );
 				var newDepth = indexToDepth(newPos);
 				

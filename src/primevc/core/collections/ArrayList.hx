@@ -63,9 +63,11 @@ class ArrayList <DataType> extends ReadOnlyArrayList <DataType>, implements IEdi
 	
 	public function add (item:DataType, pos:Int = -1) : DataType
 	{
+		pos = list.validateNewIndex(pos);
 		var msg = ListChange.added( item, pos );
 		beforeChange.send( msg );
-		pos = list.insertAt(item, pos);
+		var p = list.insertAt(item, pos);
+#if debug Assert.equal( p, pos ); #end
 		change.send( msg );
 		return item;
 	}
