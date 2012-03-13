@@ -189,6 +189,11 @@ class ListView<ListDataType> extends UIDataContainer < IReadOnlyList < ListDataT
 	
 	override private function removeData ()
 	{
+		var layout = layoutContainer;
+		layout.scrollPos.xProp.change.unbind(this);
+		layout.scrollPos.yProp.change.unbind(this);
+		layout.changed.unbind(this);
+		
 		children.disposeAll();
 	//	layoutContainer.removeAll();
 		data.change.unbind(this);
