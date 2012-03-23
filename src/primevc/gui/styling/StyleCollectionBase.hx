@@ -315,6 +315,7 @@ class StyleCollectionForwardIterator < StyleGroupType > extends StyleCollectionI
 			,	implements IIterator < StyleGroupType >
 #if flash9	,	implements haxe.rtti.Generic #end
 {
+	public function new (elementStyle:IUIElementStyle, groupFlag:Int) { super(elementStyle, groupFlag); }	//FIXME: NEEDED FOR HAXE NIGHTLY (http://code.google.com/p/haxe/issues/detail?id=671)
 	override public function rewind () : Void	{ setCurrent( elementStyle.styles.first ); }
 	public function next () : StyleGroupType	{ Assert.abstract(); return null; }
 	public function value () : StyleGroupType	{ Assert.abstract(); return null; }
@@ -361,6 +362,7 @@ class StyleCollectionReversedIterator < StyleGroupType > extends StyleCollection
 			,	implements IIterator < StyleGroupType >
 #if flash9	,	implements haxe.rtti.Generic #end
 {
+	public function new (elementStyle:IUIElementStyle, groupFlag:Int) { super(elementStyle, groupFlag); }	//FIXME: NEEDED FOR HAXE NIGHTLY (http://code.google.com/p/haxe/issues/detail?id=671)
 	override public function rewind () : Void	{ setCurrent( elementStyle.styles.last ); }
 	public function next () : StyleGroupType	{ Assert.abstract(); return null; }
 	public function value () : StyleGroupType	{ Assert.abstract(); return null; }
