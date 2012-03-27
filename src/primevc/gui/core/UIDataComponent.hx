@@ -77,15 +77,16 @@ class UIDataComponent <DataType> extends UIComponent, implements IUIDataElement 
 	override public function validate ()
 	{
 		if (changes.has( UIElementFlags.DATA ))
-		{
-			if (data != null)
+			if (data != null && !dataInitialized) {
 				initData();
-		}
+				dataInitialized = true;
+			}
 		
 		super.validate();
 	}
 	
 	
+	private var dataInitialized : Bool;
 	/**
 	 * Method in which childcomponents can be bound to the data of the component.
 	 * This method can be called on two moments:
@@ -127,8 +128,11 @@ class UIDataComponent <DataType> extends UIComponent, implements IUIDataElement 
 	{
 		if (v != data)
 		{
-			if (isInitialized() && data != null)// && window != null)
+			if (dataInitialized && data != null) {// && window != null)
+#if debug		Assert.that(isInitialized()); #end
+				dataInitialized = false;
 				removeData();
+			}
 			
 			data = v;
 			invalidate( UIElementFlags.DATA );

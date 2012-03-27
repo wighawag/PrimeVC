@@ -115,9 +115,11 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 		if (!sender.is(LayoutClient))
 			return super.invalidateCall( childChanges, sender );
 		
-		var isInvalid = false;
-		if (isInvalid = childChanges.has(Flags.INCLUDE))
+		var isInvalid = childChanges.has(Flags.INCLUDE);
+		if (isInvalid)
 			invalidate( Flags.LIST );
+	//	else if (childChanges.has(Flags.ALGORITHM))
+	//		isInvalid = true;
 		
 		if (isInvalid || algorithm == null || algorithm.isInvalid(childChanges))
 		{

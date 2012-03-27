@@ -47,9 +47,9 @@ package primevc.gui.components;
  */
 class Form
 {
-    public static inline function addHorLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, direction:Horizontal = null)
+    public static inline function addHorLabelRow (form:IUIContainer, labelStr:String, input:UIComponent, direction:Horizontal = null, percentWidth:Float = 1.0)
     {
-        return createLabelRow( form, labelStr, input, createHorizontalRow(direction), "verLabel" );
+        return createLabelRow( form, labelStr, input, createHorizontalRow(direction, percentWidth), "horLabel" );
     }
 
 
@@ -113,7 +113,7 @@ class Form
 
     public static function createLabel(input:UIComponent, labelStr:String) : Label
     {
-        var label = new Label(input.id.value+"Label", new Bindable<String>(labelStr+":"));
+        var label = new Label(input.id.value+"Label", new Bindable<String>(labelStr));
         
         // bind hover events together
         var inputEvents = input.userEvents.mouse;
