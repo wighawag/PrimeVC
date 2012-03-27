@@ -33,6 +33,7 @@ package primevc.avm2.events;
  import flash.events.IEventDispatcher;
  import flash.events.KeyboardEvent;
  import primevc.core.dispatcher.Signal0;
+ import primevc.gui.input.KeyCodes;
 #end
  import primevc.gui.events.EditEvents;
 
@@ -74,11 +75,11 @@ class EditEvents extends EditSignals
 	
 	private function dispatch (e:KeyboardEvent) : Void
 	{
-		var key = keyObj.keyCode();
+		var key = e.keyCode;
 		
 		if (key == KeyCodes.BACKSPACE || key == KeyCodes.DELETE)
 			remove.send();
-		else if (keyObj.ctrlKey())
+		else if (e.ctrlKey)
 			switch (key)
 			{
 				case KeyCodes.A:	selectAll.send();
