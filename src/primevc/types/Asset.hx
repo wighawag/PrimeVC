@@ -480,15 +480,15 @@ class BytesAssetBase extends Asset
 		if (!isLoaded())
 			return;
 		
-		try {
+	#if !debug	try { #end
 			width	= loader.width.roundFloat();
 			height	= loader.height.roundFloat();
 			setReady();
-		}
+	#if !debug }
 		catch (e:flash.errors.Error) {
 			handleLoadError("Loading asset error. Check policy settings. "+e.message);
 		}
-		
+	#end
 	//	trace(loader.content+"; size: "+loader.width+", "+loader.height+"; "+width+", "+height+"; mime: "+loader.info.contentType);
 	}	
 #end
