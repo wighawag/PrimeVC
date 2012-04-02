@@ -250,9 +250,9 @@ class CodeGenerator implements ICodeGenerator
 		else if (v.is( Float ))					type = tFloat(v);
 		else if (v.is( Bool ))					type = tBool(v);
 	//	else if (Std.is( v, Hash ))				type = formatHash(v);
-		else if (null != v.getEnum())			type = convertEnum(v);
-		else if (null != v.getClassName())		type = tClass( addImportFor( Type.getClassName(cast v) ) );
-		else if (null != v.getClass())			type = createClassNameConstructor( v.getClass().getClassName(), null );
+		else if (null != Type.getEnum(v))		type = convertEnum(v);
+		else if (null != Type.getClassName(v))	type = tClass( addImportFor( Type.getClassName(cast v) ) );
+		else if (null != Type.getClass(v))		type = createClassNameConstructor( v.getClass().getClassName(), null );
 		
 		if (type == null)
 			type = convertType( Type.typeof(v), v );
