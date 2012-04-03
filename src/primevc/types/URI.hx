@@ -32,7 +32,9 @@ package primevc.types;
  import primevc.tools.generator.ICodeGenerator;
  import primevc.utils.ID;
 #end
-
+#if flash9
+ import primevc.core.net.RequestMethod;
+#end
   using primevc.utils.FileUtil;
   using primevc.utils.IfUtil;
   using primevc.utils.NumberUtil;
@@ -238,11 +240,19 @@ class URI #if neko implements ICodeFormattable #end
 		return string = s.toString();
 	}
 	
-	#if flash9
-	public function toRequest() {
-		return new flash.net.URLRequest(this.toString());
+#if flash9
+	public function toRequest(method:RequestMethod = null)
+	{
+		var r = new flash.net.URLRequest(this.toString());
+		if (method != null && method != get)
+		{
+			r.method = "POST";
+			if (method != post)
+				r.requestHeaders.push(new flash.net.URLRequestHeader("X-HTTP-Method-Override", Std.string(method).toUpperCase()));
+		}
+		return r;
 	}
-	#end
+#end
 	
 	public function parse(str:String) : URI
 	{

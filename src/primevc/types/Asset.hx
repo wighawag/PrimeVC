@@ -576,7 +576,7 @@ class ExternalAsset extends BytesAssetBase
 		setLoading();
 		
 		if		(externalLoader.isCompleted())		loadBytes( externalLoader.bytes );	
-		else if (externalLoader.is(URLLoader))		externalLoader.as(URLLoader).load( data );
+		else if (externalLoader.is(URLLoader))		externalLoader.as(URLLoader).request(data);
 	}
 	
 	

@@ -36,6 +36,7 @@ package primevc.avm2.net;
 
  import primevc.core.net.CommunicationType;
  import primevc.core.net.ICommunicator;
+ import primevc.core.net.RequestMethod;
  import primevc.core.net.URLVariables;
  import primevc.core.Bindable;
 
@@ -162,33 +163,35 @@ class URLLoader implements ICommunicator
 #if debug	uri	= null; #end
 	}
 	
-	public function binaryGET  (uri:URI) { setBinary(); load(uri); }
+	public function requestBinary (uri:URI, method:RequestMethod = null) 
+	{
+		setBinary();
+		request(uri, method);
+	}
+
 	
-	public function binaryPOST (uri:URI, mimetype:String = "application/octet-stream")
+	public function sendBinary		(uri:URI, mimetype:String = "application/octet-stream")
 	{
 			this.type	= CommunicationType.sending;
 #if debug	this.uri	= uri; #end
 		
-		var request		= uri.toRequest();
+		var request		= uri.toRequest(RequestMethod.post);
+		request.data	= bytes;
 		request.requestHeaders.push(new flash.net.URLRequestHeader("Content-type", mimetype));
-	//	request.requestHeaders.push(new flash.net.URLRequestHeader("Content-Length", bytes.length.string()));	<-- not allowed in as3
 		request.requestHeaders.push(new flash.net.URLRequestHeader("Cache-Control", "no-cache"));
-		request.method = flash.net.URLRequestMethod.POST;
-		request.data   = bytes;
+	//	request.requestHeaders.push(new flash.net.URLRequestHeader("Content-Length", bytes.length.string()));	<-- not allowed in as3
 		
-	//	trace(request);
 		loadRequest(request);
 	}
 	
 	
-	public function formPOST (uri:URI, vars:URLVariables)
+	public function postForm 		(uri:URI, vars:URLVariables)
 	{
 			this.type	= CommunicationType.sending;
 #if debug	this.uri	= uri; #end
 		
-		var request		= uri.toRequest();
+		var request		= uri.toRequest(RequestMethod.post);
 		request.requestHeaders.push(new flash.net.URLRequestHeader("Content-type", "multipart/form-data"));
-		request.method = flash.net.URLRequestMethod.POST;
 		request.data   = vars;
 		
 		setBinary();
@@ -196,7 +199,7 @@ class URLLoader implements ICommunicator
 	}
 	
 	
-	public inline function load (v:URI)
+	public inline function request (v:URI, method:RequestMethod = null)
 	{
 #if debug
 		var total:Int = (untyped this).bytesTotal;
@@ -210,7 +213,7 @@ class URLLoader implements ICommunicator
 	
 	private var lastRequest : URLRequest;
 	
-	private inline function loadRequest(request:URLRequest)
+	private function loadRequest(request:URLRequest)
 	{
 		if (isStarted)
 			close();
@@ -238,7 +241,7 @@ class URLLoader implements ICommunicator
 	}
 	
 	
-	public inline function close ()
+	public function close ()
 	{
 		//loader will throw an error if it wasn't loading
 		try {
