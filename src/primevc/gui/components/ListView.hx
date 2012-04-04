@@ -501,8 +501,10 @@ class ListView<ListDataType> extends UIDataContainer < IReadOnlyList < ListDataT
 				if (isOnStage())
 					initData();
 		}
-
-		if (update)
+		
+		if (update) {
+#if debug	Assert.notNull(l, "LayoutContainer of listview can't be null; "+container); Assert.notNull(l.algorithm, "algorithm of listview can't be null; "+container+"; onstage? "+this.isOnStage()); #end
 			updateVisibleItemRenderers( start, l.algorithm.getMaxVisibleChildren() );
+		}
 	}
 }
