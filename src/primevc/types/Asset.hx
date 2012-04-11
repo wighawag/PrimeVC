@@ -298,13 +298,13 @@ class BitmapAsset extends Asset
 	}
 	
 	
-	override private function unsetData ()
+	/*override private function unsetData ()
 	{
 		if (data != null)
 			data.dispose();
 		
 		super.unsetData();
-	}
+	}*/
 	
 	
 	private function setData (v:BitmapData)
@@ -318,7 +318,7 @@ class BitmapAsset extends Asset
 			data = v;
 			if (v != null)
 			{
-				bitmapData = v;
+				bitmapData = v.clone();
 				width	= v.width;
 				height	= v.height;
 				setReady();
