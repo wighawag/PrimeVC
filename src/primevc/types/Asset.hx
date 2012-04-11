@@ -298,13 +298,11 @@ class BitmapAsset extends Asset
 	}
 	
 	
-	/*override private function unsetData ()
+	override public function dispose ()
 	{
-		if (data != null)
-			data.dispose();
-		
-		super.unsetData();
-	}*/
+		data = null;
+		super.dispose();
+	}
 	
 	
 	private function setData (v:BitmapData)
