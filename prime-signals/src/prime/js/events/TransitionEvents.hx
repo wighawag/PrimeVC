@@ -1,5 +1,5 @@
-package primevc.js.events;
- import primevc.core.dispatcher.Signals;
+package prime.js.events;
+ import prime.signal.Signals;
 
 
 /**	

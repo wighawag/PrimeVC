@@ -1,9 +1,9 @@
-package primevc.js.events;
+package prime.js.events;
 
-import primevc.core.dispatcher.Wire;
-import primevc.core.dispatcher.Signal0;
-import primevc.core.dispatcher.IWireWatcher;
-import primevc.core.ListNode;
+import prime.signal.Wire;
+import prime.signal.Signal0;
+import prime.signal.IWireWatcher;
+import prime.core.ListNode;
 import js.Dom;
 
 /**
@@ -24,7 +24,7 @@ class DOMSignal0 extends Signal0, implements IWireWatcher<Void->Void>
 	
 	public function wireEnabled (wire:Wire<Void->Void>):Void
 	{	
-		Assert.that(n != null);
+		Assert.isNotNull(n);
 		
 		if (ListUtil.next(n) == null) // First wire connected
 		{

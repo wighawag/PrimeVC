@@ -1,6 +1,6 @@
-package primevc.js.events;
- import primevc.core.geom.Point;
- import primevc.gui.events.TouchEvents;
+package prime.js.events;
+ import prime.core.geom.Point;
+ import prime.gui.events.TouchEvents;
  import js.Dom;
 
 /**
@@ -28,7 +28,7 @@ class TouchSignal extends DOMSignal1<TouchState>
  * @since march 2, 2011
  */
 /*class TouchSignal extends DOMSignal1<Type>
-import primevc.js.events.DOMSignal1;
+import prime.js.events.DOMSignal1;
 import js.Dom;
 
 typedef TouchEvent = 

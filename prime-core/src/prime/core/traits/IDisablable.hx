@@ -26,7 +26,7 @@
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.traits;
+package prime.core.traits;
 
 
 /**

@@ -26,9 +26,9 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.events;
- import primevc.core.collections.ListChange;
- import primevc.core.dispatcher.Signal1;
+package prime.core.events;
+ import prime.core.collections.ListChange;
+ import prime.signal.Signal1;
 
 
 /**

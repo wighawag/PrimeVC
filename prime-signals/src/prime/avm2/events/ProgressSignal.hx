@@ -26,14 +26,14 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
  import flash.events.IEventDispatcher;
  import flash.events.ProgressEvent;
- import primevc.core.dispatcher.IWireWatcher;
- import primevc.core.dispatcher.Signal2;
- import primevc.core.dispatcher.Wire;
- import primevc.core.ListNode;
- import primevc.core.events.CommunicationEvents;		// needed for ProgressHandler typedef
+ import prime.signal.IWireWatcher;
+ import prime.signal.Signal2;
+ import prime.signal.Wire;
+ import prime.core.ListNode;
+ import prime.core.events.CommunicationEvents;		// needed for ProgressHandler typedef
   using Std;
 
 
@@ -61,7 +61,7 @@ class ProgressSignal extends Signal2<Int, Int>, implements IWireWatcher < Progre
 	}
 
 	public function wireEnabled (wire:Wire<ProgressHandler>) : Void {
-		Assert.that(n != null);
+		Assert.isNotNull(n);
 		if (ListUtil.next(n) == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}

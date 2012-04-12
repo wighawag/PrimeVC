@@ -26,14 +26,14 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
  import flash.events.IEventDispatcher;
  import flash.events.DataEvent;
- import primevc.core.dispatcher.IWireWatcher;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.dispatcher.Wire;
- import primevc.core.ListNode;
- import primevc.gui.events.TextEvents;
+ import prime.signal.IWireWatcher;
+ import prime.signal.Signal1;
+ import prime.signal.Wire;
+ import prime.core.ListNode;
+ import prime.gui.events.TextEvents;
 
 
 
@@ -57,7 +57,7 @@ class DataSignal extends Signal1 <String>, implements IWireWatcher < TextHandler
 	}
 
 	public function wireEnabled (wire:Wire<TextHandler>) : Void {
-		Assert.that(n != null);
+		Assert.isNotNull(n);
 		if (ListUtil.next(n) == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}

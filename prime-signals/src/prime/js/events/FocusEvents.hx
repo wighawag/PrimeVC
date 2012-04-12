@@ -1,6 +1,6 @@
-package primevc.js.events;
- import primevc.core.dispatcher.Signals;
- import primevc.gui.events.UserEventTarget;
+package prime.js.events;
+ import prime.signal.Signals;
+ import prime.gui.events.UserEventTarget;
 
 /**
  * @author	Stanislav Sopov

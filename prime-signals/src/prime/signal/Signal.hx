@@ -26,13 +26,13 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
- import primevc.core.traits.IDisablable;
- import primevc.core.traits.IDisposable;
-  using primevc.core.ListNode;
-  using primevc.utils.IfUtil;
-  using primevc.utils.TypeUtil;
-  using primevc.core.dispatcher.Wire;
+package prime.signal;
+ import prime.core.traits.IDisablable;
+ import prime.core.traits.IDisposable;
+  using prime.core.ListNode;
+  using prime.utils.IfUtil;
+  using prime.utils.TypeUtil;
+  using prime.signal.Wire;
 
 /**
  * Abstract internal base class for all Signals.
@@ -42,19 +42,18 @@ package primevc.core.dispatcher;
  */
 class Signal <FunctionSignature> extends WireList<FunctionSignature>, implements IUnbindable<FunctionSignature>, implements IDisposable, implements IDisablable
 {
-	static public inline function notifyEnabled<T>(s:Signal<T>, w:Wire<T>) : Void
+	static public inline function notifyEnabled<T>( s:Signal<T>, w:Wire<T> ) : Void
 	{
-		Assert.that(s != null);
-		Assert.that(w != null);
+		Assert.isNotNull(s);
+		Assert.isNotNull(w);
 		
 		if (s.is(IWireWatcher)) {
-			//trace(Type.getClassName(Type.getClass(s)));
 			var x:IWireWatcher<T> = cast s;
 			x.wireEnabled(w);
 		}
 	}
 
-	static public inline function notifyDisabled<T>(s:Signal<T>, w:Wire<T>) : Void
+	static public inline function notifyDisabled<T>( s:Signal<T>, w:Wire<T> ) : Void
 	{
 		if (s.is(IWireWatcher)) {
 			var x:IWireWatcher<T> = cast s;
@@ -77,8 +76,8 @@ class Signal <FunctionSignature> extends WireList<FunctionSignature>, implements
 	public var nextSendable : Wire<FunctionSignature>;
 	
 	
-	public inline function  enable()	enabled = true
-	public inline function disable()	enabled = false
+	public inline function    enable()	enabled = true
+	public inline function   disable()	enabled = false
 	public inline function isEnabled()	return enabled
 	
 	
@@ -87,7 +86,7 @@ class Signal <FunctionSignature> extends WireList<FunctionSignature>, implements
 	 */
 	public function unbind( listener : Dynamic, ?handler : Null<FunctionSignature> ) : Void
 	{
-		Assert.that(listener != null);
+		Assert.isNotNull(listener);
 		
 		var b = this.n; //, count = 0;
 		
@@ -111,7 +110,7 @@ class Signal <FunctionSignature> extends WireList<FunctionSignature>, implements
 	}
 	
 	
-	public function unbindAll ()
+	public function unbindAll()
 	{
 		var b = this.n;
 		while(b.notNull()) {
@@ -122,7 +121,7 @@ class Signal <FunctionSignature> extends WireList<FunctionSignature>, implements
 	}
 
 
-	public inline function hasListeners () : Bool
+	public inline function hasListeners() : Bool
 	{
 		return n.notNull();
 	}
@@ -142,7 +141,7 @@ class Signal <FunctionSignature> extends WireList<FunctionSignature>, implements
 	 * 
 	 * - Calling:
 	 *  	var send (default,null) : FunctionSignature;
-	 *	 is 4 times slower then:
+	 *	 is 4 times slower than:
 	 *  	public function send( FunctionSignature );
 	 * 
 	 * - haxe.rtti.Generic not required for Signal subclasses

@@ -26,16 +26,16 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
  import primevc .gui.events.KeyboardEvents;
  import primevc .gui.events.KeyModState;
- import primevc.core.dispatcher.Wire;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.dispatcher.IWireWatcher;
+ import prime.signal.Wire;
+ import prime.signal.Signal1;
+ import prime.signal.IWireWatcher;
 // import flash.display.InteractiveObject;
  import flash.events.IEventDispatcher;
  import flash.events.KeyboardEvent;
-  using primevc.core.ListNode;
+  using prime.core.ListNode;
 
 /**
  * Signal<-->flash.KeyboardEvent Proxy implementation
@@ -56,7 +56,7 @@ class KeyboardSignal extends Signal1<KeyboardState>, implements IWireWatcher<Key
 	}
 	
 	public function wireEnabled	(wire:Wire<KeyboardHandler>) : Void {
-		Assert.that(n != null);
+		Assert.isNotNull(n);
 		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}

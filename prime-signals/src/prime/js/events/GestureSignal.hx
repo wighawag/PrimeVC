@@ -1,6 +1,6 @@
-package primevc.js.events;
+package prime.js.events;
 
-import primevc.js.events.DOMSignal1;
+import prime.js.events.DOMSignal1;
 import js.Dom;
 
 typedef GestureEvent = 

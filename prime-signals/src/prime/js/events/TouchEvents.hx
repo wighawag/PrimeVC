@@ -1,7 +1,7 @@
-package primevc.js.events;
- private typedef TouchSignal = primevc.js.events.TouchSignal; // override import
- import primevc.gui.events.TouchEvents;
- import primevc.gui.events.UserEventTarget;
+package prime.js.events;
+ private typedef TouchSignal = prime.js.events.TouchSignal; // override import
+ import prime.gui.events.TouchEvents;
+ import prime.gui.events.UserEventTarget;
 
 /**	
  * @creation-date mar 2, 2011

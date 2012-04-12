@@ -26,9 +26,9 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
- import primevc.core.traits.IDisablable;
- import primevc.core.traits.IDisposable;
+package prime.signal;
+ import prime.core.traits.IDisablable;
+ import prime.core.traits.IDisposable;
 
 
 /**
@@ -51,40 +51,27 @@ package primevc.core.dispatcher;
  * @creation-date jun 10, 2010
  */
 #if !macro
-@:autoBuild(primevc.utils.MacroUtils.autoEnable())
-@:autoBuild(primevc.utils.MacroUtils.autoDisable())
-@:autoBuild(primevc.utils.MacroUtils.autoUnbind())
-@:autoBuild(primevc.utils.MacroUtils.autoUnbindAll())
-@:autoBuild(primevc.utils.MacroUtils.autoDispose())
+@:autoBuild(prime.utils.MacroUtils.autoEnable())
+@:autoBuild(prime.utils.MacroUtils.autoDisable())
+@:autoBuild(prime.utils.MacroUtils.autoUnbind())
+@:autoBuild(prime.utils.MacroUtils.autoUnbindAll())
+@:autoBuild(prime.utils.MacroUtils.autoDispose())
 #end
 class Signals implements IUnbindable<Dynamic>, implements IDisposable, implements IDisablable, implements haxe.Public
 {
 	private var _enabled : Bool;
 	
-	public function new ()		{ _enabled = true; }
-	public function disable ()	{ _enabled = false; }
-	public function enable ()	{ _enabled = true; }
-	public function dispose ()	{}
+	public function new    () _enabled = true
+	public function dispose() {}
+
+	public inline function isEnabled() return _enabled
+	public inline function   enable () _enabled = true
+	public inline function  disable () _enabled = false
 	
 	/**
 	 * @param	listener
 	 * @param	handler
 	 */
-	public function unbind (listener:Dynamic, ?handler:Null<Dynamic>) {}
-	public function unbindAll () {}
-	
-	public inline function isEnabled ()	{ return _enabled; }
-	
-/*	public function dispose()	{ MacroUtils.disposeFields(); }
-	public function enable()	{ MacroUtils.enableFields(); }
-	public function disable()	{ MacroUtils.disableFields(); }
-	
-	/**
-	 * Uses reflection to find all IUbindable properties of this class and forwards the arguments to them.
-	 * @see		Signal.unbind
-	 */
-/*	public function unbind( listener : Dynamic, ?handler : Dynamic ) : Void
-	{
-		MacroUtils.unbindFields();
-	}*/
+	public function unbind( listener:Dynamic, ?handler:Null<Dynamic> ) {}
+	public function unbindAll() {}
 }

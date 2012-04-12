@@ -1,13 +1,13 @@
 package cases;
  import Benchmark;
- import primevc.core.dispatcher.Signal;
- import primevc.core.dispatcher.Signals;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.dispatcher.Signal2;
- import primevc.core.dispatcher.Signal3;
- import primevc.core.dispatcher.Signal4;
-  using primevc.utils.Bind;
+ import prime.signal.Signal;
+ import prime.signal.Signals;
+ import prime.signal.Signal0;
+ import prime.signal.Signal1;
+ import prime.signal.Signal2;
+ import prime.signal.Signal3;
+ import prime.signal.Signal4;
+  using prime.utils.Bind;
 
 /**
  * Tests for the Pipe sub-system

@@ -26,11 +26,11 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
-  using primevc.core.ListNode;
-  using primevc.core.dispatcher.Wire;
-  using primevc.utils.BitUtil;
-  using primevc.utils.IfUtil;
+package prime.signal;
+  using prime.core.ListNode;
+  using prime.signal.Wire;
+  using prime.utils.BitUtil;
+  using prime.utils.IfUtil;
 
 /**
  * Signal with 4 arguments to send()
@@ -42,7 +42,7 @@ class Signal4 <A,B,C,D> extends Signal<A->B->C->D->Void>, implements ISender4<A,
 {
 	public function new() enabled = true
 	
-	public #if !debug inline #end function send(_1:A, _2:B, _3:C, _4:D) if (enabled)
+	public #if !debug inline #end function send( _1:A, _2:B, _3:C, _4:D ) if (enabled)
 	{
 		//TODO: Run benchmarks and tests if this should really be inlined...
 		
@@ -51,8 +51,8 @@ class Signal4 <A,B,C,D> extends Signal<A->B->C->D->Void>, implements ISender4<A,
 		{
 			nextSendable = w.next();
 			Assert.that(w.isEnabled());
-			Assert.that(w != nextSendable);
-			Assert.that(w.flags != 0);
+			Assert.notEqual(w, nextSendable);
+			Assert.notEqual(w.flags, 0);
 				
 			if (w.flags.has(Wire.SEND_ONCE))
 				w.disable();
@@ -71,10 +71,10 @@ class Signal4 <A,B,C,D> extends Signal<A->B->C->D->Void>, implements ISender4<A,
 		nextSendable = null;
 	}
 	
-	public inline function bind 			(owner:Dynamic, handler:A->B->C->D->Void)	return Wire.make( this, owner, handler, Wire.ENABLED )
-	public inline function bindOnce 		(owner:Dynamic, handler:A->B->C->D->Void)	return Wire.make( this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE)
-	public inline function bindDisabled 	(owner:Dynamic, handler:A->B->C->D->Void)	return Wire.make( this, owner, cast handler, 0)
-	public inline function observe 			(owner:Dynamic, handler:Void->Void)			return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER)
-	public inline function observeOnce		(owner:Dynamic, handler:Void->Void)			return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER | Wire.SEND_ONCE)
-	public inline function observeDisabled 	(owner:Dynamic, handler:Void->Void)			return Wire.make( this, owner, cast handler, Wire.VOID_HANDLER)
+	public inline function bind           ( owner:Dynamic, handler:A->B->C->D->Void) return Wire.make(this, owner, handler, Wire.ENABLED)
+	public inline function bindOnce       ( owner:Dynamic, handler:A->B->C->D->Void) return Wire.make(this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE)
+	public inline function bindDisabled   ( owner:Dynamic, handler:A->B->C->D->Void) return Wire.make(this, owner, cast handler, 0)
+	public inline function observe        ( owner:Dynamic, handler:Void->Void      ) return Wire.make(this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER)
+	public inline function observeOnce    ( owner:Dynamic, handler:Void->Void      ) return Wire.make(this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER | Wire.SEND_ONCE)
+	public inline function observeDisabled( owner:Dynamic, handler:Void->Void      ) return Wire.make(this, owner, cast handler, Wire.VOID_HANDLER)
 }

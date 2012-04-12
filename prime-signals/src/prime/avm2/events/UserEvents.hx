@@ -26,13 +26,13 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
  import flash.events.IEventDispatcher;
- import primevc.core.dispatcher.INotifier;
- import primevc.gui.events.EditEvents;
- import primevc.gui.events.KeyboardEvents;
- import primevc.gui.events.MouseEvents;
- import primevc.gui.events.UserEvents;
+ import prime.signal.INotifier;
+ import prime.gui.events.EditEvents;
+ import prime.gui.events.KeyboardEvents;
+ import prime.gui.events.MouseEvents;
+ import prime.gui.events.UserEvents;
 
 
 /**	
@@ -42,7 +42,7 @@ package primevc.avm2.events;
  * @author			Danny Wilson
  * @author			Ruben Weijers
  */
-class UserEvents extends primevc.gui.events.UserSignals	
+class UserEvents extends prime.gui.events.UserSignals
 {
 	/**
 	 * source flash-object that is actually dispatching the events

@@ -26,14 +26,14 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
  import flash.events.ErrorEvent;
  import flash.events.IEventDispatcher;
- import primevc.core.dispatcher.IWireWatcher;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.dispatcher.Wire;
- import primevc.core.Error;
- import primevc.core.ListNode;
+ import prime.signal.IWireWatcher;
+ import prime.signal.Signal1;
+ import prime.signal.Wire;
+ import prime.core.Error;
+ import prime.core.ListNode;
 
 
 
@@ -61,7 +61,7 @@ class ErrorSignal extends Signal1 <Error>, implements IWireWatcher < EventHandle
 	}
 
 	public function wireEnabled (wire:Wire<EventHandler>) : Void {
-		Assert.that(n != null);
+		Assert.isNotNull(n);
 		if (ListUtil.next(n) == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}

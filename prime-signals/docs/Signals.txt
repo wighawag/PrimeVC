@@ -118,7 +118,7 @@ This will unbind all handlers of the signal
 
 
 === Syntax sugar
-By using a small utility `primevc.utils.Bind` it's possible to bind to signals in a more natural and readble way.
+By using a small utility `prime.utils.Bind` it's possible to bind to signals in a more natural and readble way.
 These are all inline, dead-code-eliminatable functions and add zero overhead over regular binding.
 
 [source,haxe]
@@ -164,7 +164,7 @@ You can also easily wrap native Flash and Javascript events yourself.
 
 See:
 
-- http://prime.vc/api/packages/primevc/gui/events/package.html[primevc.gui.events package]
+- http://prime.vc/api/packages/primevc/gui/events/package.html[prime.gui.events package]
 - http://prime.vc/api/types/primevc/gui/events/DisplaySignals.html[DisplayEvents API]
 - http://prime.vc/api/types/primevc/gui/events/KeyboardSignals.html[KeyboardEvents API]
 - http://prime.vc/api/types/primevc/gui/events/MouseSignals.html[MouseEvents API]
@@ -172,11 +172,11 @@ See:
 
 [source,haxe]
 -------
- import primevc.gui.events.DisplayEvents;
- import primevc.gui.events.MouseEvents;
+ import prime.gui.events.DisplayEvents;
+ import prime.gui.events.MouseEvents;
 
-var keyboardEvents = new primevc.gui.events.KeyboardEvents(sprite or dom-element);
-var mouseEvents    = new primevc.gui.events.MouseEvents(sprite or dom-element);
+var keyboardEvents = new prime.gui.events.KeyboardEvents(sprite or dom-element);
+var mouseEvents    = new prime.gui.events.MouseEvents(sprite or dom-element);
 // etc...
 
 mouseEvents.down.bind() // Is triggered in Flash by a MOUSE_DOWN event
@@ -191,7 +191,7 @@ The following example code demonstrates the power of regular functions as signal
 
 [source,haxe]
 -------
-using primevc.utils.Bind; // Provides: .on(...)
+using prime.utils.Bind; // Provides: .on(...)
 -------
 
 === Painless drag-n-drop flow handling

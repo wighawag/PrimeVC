@@ -26,12 +26,12 @@
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.utils;
+package prime.utils;
  import haxe.macro.Context;
  import haxe.macro.Expr;
  import haxe.macro.Type;
 #if macro
-  using primevc.utils.MacroUtils;
+  using prime.utils.MacroUtils;
 #end
 
 
@@ -211,9 +211,9 @@ class MacroUtils
 	//	macroCallback(0);
 			
 		/*	var macroCall = autoRemoveMethod
-				?	"primevc.utils.MacroUtils.removeEmptyMethod('"+methodName+"', "+ id +")"
-				:	"primevc.utils.MacroUtils.macroCallback("+id+")";*/
-			var macroCall = "primevc.utils.MacroUtils.macroCallback("+id+")";
+				?	"prime.utils.MacroUtils.removeEmptyMethod('"+methodName+"', "+ id +")"
+				:	"prime.utils.MacroUtils.macroCallback("+id+")";*/
+			var macroCall = "prime.utils.MacroUtils.macroCallback("+id+")";
 	//*/
 		return Context.parse(macroCall, pos);
 	}

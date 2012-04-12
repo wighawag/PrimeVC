@@ -26,16 +26,16 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
 #if flash10
  import flash.events.Event;
 #elseif flash9
  import flash.events.IEventDispatcher;
  import flash.events.KeyboardEvent;
- import primevc.core.dispatcher.Signal0;
- import primevc.gui.input.KeyCodes;
+ import prime.signal.Signal0;
+ import prime.gui.input.KeyCodes;
 #end
- import primevc.gui.events.EditEvents;
+ import prime.gui.events.EditEvents;
 
 
 /**

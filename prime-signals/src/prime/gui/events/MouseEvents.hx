@@ -26,23 +26,22 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.gui.events;
- import primevc.core.dispatcher.Signals;
- import primevc.core.geom.Point;
- import primevc.core.traits.IClonable;
- import primevc.gui.events.KeyModState;
+package prime.gui.events;
+ import prime.signal.Signals;
+ import prime.core.geom.Point;
+ import prime.core.traits.IClonable;
+ import prime.gui.events.KeyModState;
 
 
 typedef MouseEvents = 
-	#if		flash9	primevc.avm2.events.MouseEvents;
-	#elseif	flash	primevc.avm1.events.MouseEvents;
-	#elseif	js		primevc.js  .events.MouseEvents;
-	#elseif	neko	primevc.neko.events.MouseEvents;
-	#else			#error; #end
+	#if     flash9  prime.avm2.events.MouseEvents;
+	#elseif flash   prime.avm1.events.MouseEvents;
+	#elseif js      prime.js  .events.MouseEvents;
+	#elseif neko    prime.neko.events.MouseEvents;
+	#else   #error; #end
 
 typedef MouseHandler	= MouseState -> Void;
-typedef MouseSignal		= primevc.core.dispatcher.Signal1<MouseState>;
-//typedef MouseSignal		= primevc.core.dispatcher.INotifier<MouseHandler>;
+typedef MouseSignal		= prime.signal.Signal1<MouseState>;
 
 /**
  * Cross-platform mouse events.

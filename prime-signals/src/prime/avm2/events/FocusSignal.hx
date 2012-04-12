@@ -26,15 +26,15 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
  import flash.events.IEventDispatcher;
  import flash.events.FocusEvent;
- import primevc.core.dispatcher.IWireWatcher;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.dispatcher.Wire;
- import primevc.gui.events.FocusState;
- import primevc.gui.events.KeyModState;
-  using primevc.core.ListNode;
+ import prime.signal.IWireWatcher;
+ import prime.signal.Signal1;
+ import prime.signal.Wire;
+ import prime.gui.events.FocusState;
+ import prime.gui.events.KeyModState;
+  using prime.core.ListNode;
 
 
 private typedef FocusHandler = FocusState -> Void;
@@ -60,7 +60,7 @@ class FocusSignal extends Signal1<FocusState>, implements IWireWatcher<FocusHand
 	
 	
 	public function wireEnabled	(wire:Wire<FocusHandler>) : Void {
-		Assert.that(n != null);
+		Assert.isNotNull(n);
 		if ( n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}

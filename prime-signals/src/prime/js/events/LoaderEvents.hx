@@ -1,11 +1,11 @@
-package primevc.js.events;
+package prime.js.events;
 
-import primevc.core.events.CommunicationEvents;
-import primevc.js.net.URLLoader;
-import primevc.core.events.LoaderEvents;
-import primevc.core.dispatcher.Signal0;
-import primevc.core.dispatcher.Signal1;
-import primevc.js.net.XMLHttpRequest;
+import prime.core.events.CommunicationEvents;
+import prime.js.net.URLLoader;
+import prime.core.events.LoaderEvents;
+import prime.signal.Signal0;
+import prime.signal.Signal1;
+import prime.js.net.XMLHttpRequest;
 import js.Dom;
 import js.Lib;
 

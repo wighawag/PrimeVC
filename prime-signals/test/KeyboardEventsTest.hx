@@ -1,7 +1,7 @@
 package cases;
- import primevc.gui.events.KeyboardEvents;
- import primevc.gui.events.KeyLocation;
- import primevc.avm2.events.KeyboardEvents;
+ import prime.gui.events.KeyboardEvents;
+ import prime.gui.events.KeyLocation;
+ import prime.avm2.events.KeyboardEvents;
 
 /**
  * 
@@ -36,7 +36,7 @@ class KeyboardEventsTest
 	
 	static function testState(test)
 	{
-		var m = primevc.avm2.events.KeyboardSignal.stateFromFlashEvent(test);
+		var m = prime.avm2.events.KeyboardSignal.stateFromFlashEvent(test);
 		
 		Assert.that(test.altKey  == m.altKey(),			 "alt: "+m.altKey() +" - "+ StringTools.hex(m.flags));
 		Assert.that(test.ctrlKey == m.ctrlKey(),		 "ctrl: "+m.ctrlKey() +" - "+ StringTools.hex(m.flags));

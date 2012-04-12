@@ -26,15 +26,15 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.events;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.dispatcher.Signals;
+package prime.core.events;
+ import prime.signal.Signal0;
+ import prime.signal.Signals;
 
 
 typedef CommunicationEvents = 
-	#if		flash9	primevc.avm2.events.CommunicationEvents;
-	#elseif	flash8	primevc.avm1.events.CommunicationEvents;
-	#elseif	js		primevc.js  .events.CommunicationEvents;
+	#if		flash9	prime.avm2.events.CommunicationEvents;
+	#elseif	flash8	prime.avm1.events.CommunicationEvents;
+	#elseif	js		prime.js  .events.CommunicationEvents;
 	#else	Dynamic	#end 	// #error prevents CSSParser from begin compiled
 
 
@@ -42,8 +42,8 @@ typedef CommunicationEvents =
 
 typedef ErrorHandler	= String -> Void;
 typedef ProgressHandler	= UInt -> UInt -> Void;
-typedef ErrorSignal		= primevc.core.dispatcher.Signal1<String>;
-typedef ProgressSignal	= primevc.core.dispatcher.Signal2<UInt,UInt>;
+typedef ErrorSignal		= prime.signal.Signal1<String>;
+typedef ProgressSignal	= prime.signal.Signal2<UInt,UInt>;
 
 
 /**

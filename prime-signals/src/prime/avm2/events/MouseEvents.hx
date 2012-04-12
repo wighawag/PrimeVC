@@ -26,11 +26,11 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.avm2.events;
-private typedef MouseSignal = primevc.avm2.events.MouseSignal; // override import
- import primevc.core.geom.Point;
- import primevc.gui.events.MouseEvents;
- import primevc.gui.events.KeyModState;
+package prime.avm2.events;
+private typedef MouseSignal = prime.avm2.events.MouseSignal; // override import
+ import prime.core.geom.Point;
+ import prime.gui.events.MouseEvents;
+ import prime.gui.events.KeyModState;
  import flash.events.IEventDispatcher;
  import flash.events.MouseEvent;
 

@@ -26,13 +26,13 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
  import flash.events.DataEvent;
  import flash.events.IEventDispatcher;
  import flash.events.Event;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.events.CommunicationEvents;
- import primevc.core.events.LoaderEvents;
+ import prime.signal.Signal0;
+ import prime.core.events.CommunicationEvents;
+ import prime.core.events.LoaderEvents;
 
 
 
@@ -40,7 +40,7 @@ package primevc.avm2.events;
 /**
  * AVM2 implementation of loader-events.
  * 
- * @see	primevc.core.events.LoaderEvents
+ * @see	prime.core.events.LoaderEvents
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */

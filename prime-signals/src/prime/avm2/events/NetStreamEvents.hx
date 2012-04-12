@@ -26,11 +26,11 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
  import flash.events.AsyncErrorEvent;
  import flash.events.IEventDispatcher;
  import flash.events.IOErrorEvent;
- import primevc.core.dispatcher.Signals;
+ import prime.signal.Signals;
 
 
 /**

@@ -26,16 +26,16 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.gui.events;
- import primevc.core.dispatcher.Signals;
- import primevc.core.dispatcher.Signal0;
+package prime.gui.events;
+ import prime.signal.Signals;
+ import prime.signal.Signal0;
 
 
 typedef EditEvents = 
-	#if		flash9	primevc.avm2.events.EditEvents;
-	#elseif	flash8	primevc.avm1.events.EditEvents;
-	#elseif	js		primevc.js  .events.EditEvents;
-	#else	#error	#end
+	#if     flash9 prime.avm2.events.EditEvents;
+	#elseif flash8 prime.avm1.events.EditEvents;
+	#elseif js     prime.js  .events.EditEvents;
+	#else   #error #end
 
 
 /**

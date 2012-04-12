@@ -26,7 +26,7 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.gui.events;
+package prime.gui.events;
 
 enum MouseButton
 {

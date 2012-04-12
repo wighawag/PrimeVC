@@ -26,9 +26,9 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.events;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.dispatcher.Signals;
+package prime.core.events;
+ import prime.signal.Signal0;
+ import prime.signal.Signals;
 
 
 /**

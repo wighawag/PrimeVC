@@ -26,7 +26,7 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
+package prime.signal;
 
 /**
  * Either a signal, a group of signals, or anything else that can unbind.
@@ -43,6 +43,6 @@ interface IUnbindable<T>
 	 * @param	listener	Handler owner object
 	 * @param	?handler	Handler method. When handler == null, all methods owned by listener will be unbound.
 	 */
-	public function unbind( listener : Dynamic, ?handler : Null<T> ) : Void;
+	public function unbind    ( listener : Dynamic, ?handler : Null<T> ) : Void;
     public function unbindAll () : Void;
 }

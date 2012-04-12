@@ -1,6 +1,6 @@
-package primevc.js.events;
- import primevc.gui.events.UserEvents;
- import primevc.gui.events.UserEventTarget;
+package prime.js.events;
+ import prime.gui.events.UserEvents;
+ import prime.gui.events.UserEventTarget;
 
 
 /**	

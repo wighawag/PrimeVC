@@ -26,11 +26,11 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
-  using primevc.core.ListNode;
-  using primevc.core.dispatcher.Wire;
-  using primevc.utils.BitUtil;
-  using primevc.utils.IfUtil;
+package prime.signal;
+  using prime.core.ListNode;
+  using prime.signal.Wire;
+  using prime.utils.BitUtil;
+  using prime.utils.IfUtil;
 
 /**
  * Signal with no arguments to send()
@@ -53,8 +53,8 @@ class Signal0 extends Signal<Void->Void>, implements ISender0, implements INotif
 			nextSendable = w.next();
 			
 			Assert.that(w.isEnabled());
-			Assert.that(w != nextSendable);
-			Assert.that(w.flags != 0);
+			Assert.notEqual(w, nextSendable);
+			Assert.notEqual(w.flags, 0);
 			if (w.flags.has(Wire.SEND_ONCE))
 				w.disable();
 			
@@ -71,10 +71,10 @@ class Signal0 extends Signal<Void->Void>, implements ISender0, implements INotif
 		nextSendable = null;
 	}
 	
-	public inline function bind				(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, handler, Wire.ENABLED)
-	public inline function bindOnce			(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE)
-	public inline function bindDisabled		(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, cast handler, 0)
-	public inline function observe			(owner:Dynamic, handler:Void->Void)		return bind(owner, handler)
-	public inline function observeOnce		(owner:Dynamic, handler:Void->Void)		return bindOnce(owner, handler)
-	public inline function observeDisabled	(owner:Dynamic, handler:Void->Void)		return bindDisabled(owner, handler)
+	public inline function bind           ( owner:Dynamic, handler:Void->Void )	return Wire.make(this, owner, handler, Wire.ENABLED)
+	public inline function bindOnce       ( owner:Dynamic, handler:Void->Void )	return Wire.make(this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE)
+	public inline function bindDisabled   ( owner:Dynamic, handler:Void->Void )	return Wire.make(this, owner, cast handler, 0)
+	public inline function observe        ( owner:Dynamic, handler:Void->Void )	return bind(owner, handler)
+	public inline function observeOnce    ( owner:Dynamic, handler:Void->Void )	return bindOnce(owner, handler)
+	public inline function observeDisabled( owner:Dynamic, handler:Void->Void )	return bindDisabled(owner, handler)
 }

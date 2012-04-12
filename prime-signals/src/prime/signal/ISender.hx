@@ -26,7 +26,7 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
+package prime.signal;
 
 /**
  * Type tag for ISender0-4
@@ -40,4 +40,5 @@ package primevc.core.dispatcher;
  * @author Danny Wilson
  * @creation-date Jun 09, 2010
  */
-@:keep interface ISender {}	//FIXME - no @:keep
+#if (haxe_207 || haxe_208) @:keep #end
+interface ISender {}

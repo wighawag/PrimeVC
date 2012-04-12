@@ -4,7 +4,7 @@
  * 
  * Usage:
  *  
- *  using primevc.utils.Bind;
+ *  using prime.utils.Bind;
  *  ...
  *  eventHandler.on(eventDispatcher);
  *  reDispatcher.on(eventDispatcher);
@@ -41,11 +41,11 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.utils;
- import primevc.core.dispatcher.Sender;
- import primevc.core.dispatcher.Notifier;
- import primevc.core.dispatcher.Observable;
- import primevc.core.dispatcher.Wire;
+package prime.utils;
+ import prime.signal.Sender;
+ import prime.signal.Notifier;
+ import prime.signal.Observable;
+ import prime.signal.Wire;
 
 
 extern class RedispatchObserveAny {

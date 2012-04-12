@@ -1,4 +1,4 @@
-package primevc.js.events;
+package prime.js.events;
 
 /**
  * @author	Stanislav Sopov

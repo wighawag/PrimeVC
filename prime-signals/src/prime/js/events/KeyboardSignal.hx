@@ -1,6 +1,6 @@
-package primevc.js.events;
- import primevc.gui.events.KeyboardEvents;
- import primevc.gui.events.KeyModState;
+package prime.js.events;
+ import prime.gui.events.KeyboardEvents;
+ import prime.gui.events.KeyModState;
 
 
 typedef KeyboardEvent = 

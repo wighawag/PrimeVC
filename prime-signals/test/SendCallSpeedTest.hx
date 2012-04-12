@@ -1,12 +1,6 @@
 package cases;
 
-import primevc.pipe.Dispatcher;
-import primevc.pipe.Dispatcher0;
-import primevc.pipe.Dispatcher1;
-import primevc.pipe.Dispatcher2;
-import primevc.pipe.Dispatcher3;
-import primevc.pipe.Dispatcher4;
- using primevc.pipe.BindUtil;
+import prime.signal.Signal4;
 
 class SendCallSpeedTest
 {
@@ -53,7 +47,7 @@ class Test {
 	
 	static function dispatcher() {
 		trace("dispatcher");
-		var dp = new Dispatcher4<Test,Test,Test,Test>();
+		var dp = new Signal4<Test,Test,Test,Test>();
 		var obj = new Test();
 		var start = flash.Lib.getTimer();
 		

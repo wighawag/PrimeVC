@@ -26,8 +26,8 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.neko.events;
- import primevc.gui.events.MouseEvents;
+package prime.neko.events;
+ import prime.gui.events.MouseEvents;
 
 
 class MouseEvents extends MouseSignals

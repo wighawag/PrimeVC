@@ -26,8 +26,8 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
- import primevc.core.traits.IDisposable;
+package prime.signal;
+ import prime.core.traits.IDisposable;
 
 
 /**

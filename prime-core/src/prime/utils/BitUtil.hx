@@ -27,7 +27,7 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.utils;
+package prime.utils;
  
 
 /**

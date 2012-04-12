@@ -26,22 +26,22 @@
  * Authors:
  *  Danny Wilson    <danny @ onlinetouch.nl>
  */
-package primevc.gui.events;
- import primevc.core.dispatcher.Signals;
- import primevc.core.geom.Point;
- import primevc.core.traits.IClonable;
- import primevc.gui.events.KeyModState;
+package prime.gui.events;
+ import prime.signal.Signals;
+ import prime.core.geom.Point;
+ import prime.core.traits.IClonable;
+ import prime.gui.events.KeyModState;
 
 
 typedef TouchEvents = 
-    #if     flash9  primevc.avm2.events.TouchEvents;
-    #elseif flash   primevc.avm1.events.TouchEvents;
-    #elseif js      primevc.js  .events.TouchEvents;
-    #elseif neko    primevc.neko.events.TouchEvents;
+    #if     flash9  prime.avm2.events.TouchEvents;
+    #elseif flash   prime.avm1.events.TouchEvents;
+    #elseif js      prime.js  .events.TouchEvents;
+    #elseif neko    prime.neko.events.TouchEvents;
     #else           #error; #end
 
 typedef TouchHandler    = TouchState -> Void;
-typedef TouchSignal     = primevc.core.dispatcher.Signal1<TouchState>;
+typedef TouchSignal     = prime.signal.Signal1<TouchState>;
 
 
 /**

@@ -26,17 +26,17 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.events;
- import primevc.core.events.CommunicationEvents;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.dispatcher.Signals;
+package prime.core.events;
+ import prime.core.events.CommunicationEvents;
+ import prime.signal.Signal0;
+ import prime.signal.Signal1;
+ import prime.signal.Signals;
 
 
 typedef LoaderEvents = 
-	#if		flash9	primevc.avm2.events.LoaderEvents;
-	#elseif	flash8	primevc.avm1.events.LoaderEvents;
-	#elseif	js		primevc.js  .events.LoaderEvents;
+	#if		flash9	prime.avm2.events.LoaderEvents;
+	#elseif	flash8	prime.avm1.events.LoaderEvents;
+	#elseif	js		prime.js  .events.LoaderEvents;
 	#elseif neko	LoaderSignals;
 	#else	#error	#end
 

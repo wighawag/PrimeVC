@@ -26,17 +26,17 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
 // import flash.display.InteractiveObject;
  import flash.events.IEventDispatcher;
  import flash.events.MouseEvent;
- import primevc.core.dispatcher.IWireWatcher;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.dispatcher.Wire;
- import primevc.core.geom.Point;
- import primevc.gui.events.KeyModState;
- import primevc.gui.events.MouseEvents;
-  using primevc.core.ListNode;
+ import prime.signal.IWireWatcher;
+ import prime.signal.Signal1;
+ import prime.signal.Wire;
+ import prime.core.geom.Point;
+ import prime.gui.events.KeyModState;
+ import prime.gui.events.MouseEvents;
+  using prime.core.ListNode;
 
 /**
  * Signal<-->flash.MouseEvent Proxy implementation
@@ -61,8 +61,8 @@ class MouseSignal extends Signal1<MouseState>, implements IWireWatcher<MouseHand
 	
 	
 	public function wireEnabled	(wire:Wire<MouseHandler>) : Void {
-		Assert.that(n != null);
-		if ( n.next() == null) // First wire connected
+		Assert.isNotNull(n);
+		if (n.next() == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}
 	

@@ -26,18 +26,17 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.gui.events;
- import primevc.core.dispatcher.Signals;
-// import primevc.gui.display.ISprite;
+package prime.gui.events;
+ import prime.signal.Signals;
 
 typedef KeyboardEvents = 
-	#if		flash9	primevc.avm2.events.KeyboardEvents;
-	#elseif	flash8	primevc.avm1.events.KeyboardEvents;
-	#elseif	js		primevc.js  .events.KeyboardEvents;
-	#else	#error;	#end
+	#if     flash9     prime.avm2.events.KeyboardEvents;
+	#elseif flash8     prime.avm1.events.KeyboardEvents;
+	#elseif js         prime.js  .events.KeyboardEvents;
+	#else   #error;    #end
 
 typedef KeyboardHandler = KeyboardState -> Void;
-typedef KeyboardSignal  = primevc.core.dispatcher.INotifier<KeyboardHandler>;
+typedef KeyboardSignal  = prime.signal.INotifier<KeyboardHandler>;
 
 /**
  * Cross-platform keyboard events.

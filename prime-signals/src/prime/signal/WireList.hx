@@ -26,12 +26,13 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
- import primevc.core.ListNode;
+package prime.signal;
+ import prime.core.ListNode;
 
 
 /**
  * @author Ruben Weijers
  * @creation-date Nov 02, 2010
  */
-@:keep class WireList < FunctionSignature > extends ListNode<Wire<FunctionSignature>> {}	//FIXME - no @:keep
+#if (haxe_207 || haxe_208) @:keep #end
+class WireList < FunctionSignature > extends ListNode<Wire<FunctionSignature>> {}

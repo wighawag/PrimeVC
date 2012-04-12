@@ -26,10 +26,10 @@
  * Authors:
  *  Ruben Weijers   <ruben @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
  import flash.events.Event;
  import flash.events.IEventDispatcher;
- import primevc.core.events.CommunicationEvents;
+ import prime.core.events.CommunicationEvents;
 
 
 /**

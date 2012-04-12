@@ -1,7 +1,7 @@
-package primevc.js.events;
-private typedef MouseSignal = primevc.js.events.MouseSignal; // override import
- import primevc.gui.events.MouseEvents;
- import primevc.gui.events.UserEventTarget;
+package prime.js.events;
+private typedef MouseSignal = prime.js.events.MouseSignal; // override import
+ import prime.gui.events.MouseEvents;
+ import prime.gui.events.UserEventTarget;
 
 
 /**	

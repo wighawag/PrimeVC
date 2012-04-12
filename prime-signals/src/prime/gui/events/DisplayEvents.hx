@@ -26,16 +26,16 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.gui.events;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.dispatcher.Signals; 
+package prime.gui.events;
+ import prime.signal.Signal0;
+ import prime.signal.Signals;
 
 
 typedef DisplayEvents = 
-	#if		flash9	primevc.avm2.events.DisplayEvents;
-	#elseif	flash8	primevc.avm1.events.DisplayEvents;
-	#elseif	js		primevc.js  .events.DisplayEvents;
-	#else	#error;	#end
+	#if     flash9    prime.avm2.events.DisplayEvents;
+	#elseif flash8    prime.avm1.events.DisplayEvents;
+	#elseif js        prime.js  .events.DisplayEvents;
+	#else   #error;   #end
 
 
 /**

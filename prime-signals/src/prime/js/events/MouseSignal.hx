@@ -1,8 +1,8 @@
-package primevc.js.events;
- import primevc.core.geom.Point;
- import primevc.gui.events.KeyModState;
- import primevc.gui.events.MouseEvents;
- import primevc.gui.events.UserEventTarget;
+package prime.js.events;
+ import prime.core.geom.Point;
+ import prime.gui.events.KeyModState;
+ import prime.gui.events.MouseEvents;
+ import prime.gui.events.UserEventTarget;
  import js.Dom;
 
 

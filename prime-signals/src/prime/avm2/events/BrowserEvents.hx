@@ -26,10 +26,10 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
  import com.asual.swfaddress.SWFAddressEvent;
  import flash.events.IEventDispatcher;
- import primevc.gui.events.BrowserEvents;
+ import prime.gui.events.BrowserEvents;
 
 
 /**

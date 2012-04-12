@@ -26,9 +26,9 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.gui.events;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.dispatcher.Signals;
+package prime.gui.events;
+ import prime.signal.Signal0;
+ import prime.signal.Signals;
 
 
 /**
@@ -36,10 +36,10 @@ package primevc.gui.events;
  * @since	Jan 24, 2011
  */
 typedef BrowserEvents = 
-	#if		flash9	primevc.avm2.events.BrowserEvents;
-	#elseif	flash8	primevc.avm1.events.BrowserEvents;
-	#elseif	js		primevc.js  .events.BrowserEvents;
-	#else	#error	#end
+	#if     flash9    prime.avm2.events.BrowserEvents;
+	#elseif flash8    prime.avm1.events.BrowserEvents;
+	#elseif js        prime.js  .events.BrowserEvents;
+	#else   #error    #end
 
 
 /**

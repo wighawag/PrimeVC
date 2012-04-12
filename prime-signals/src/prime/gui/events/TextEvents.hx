@@ -26,20 +26,20 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.gui.events;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.dispatcher.Signals;
+package prime.gui.events;
+ import prime.signal.Signal0;
+ import prime.signal.Signals;
 
 
 typedef TextEvents = 
-	#if		flash9	primevc.avm2.events.TextEvents;
-	#elseif	flash8	primevc.avm1.events.TextEvents;
-	#elseif	js		primevc.js  .events.TextEvents;
-	#else	#error	#end
+	#if     flash9 prime.avm2.events.TextEvents;
+	#elseif flash8 prime.avm1.events.TextEvents;
+	#elseif js     prime.js  .events.TextEvents;
+	#else   #error #end
 
 
 typedef TextHandler	= String -> Void;
-typedef TextSignal  = primevc.core.dispatcher.INotifier<TextHandler>;
+typedef TextSignal  = prime.signal.INotifier<TextHandler>;
 
 /**
  * Cross-platform text events.

@@ -26,7 +26,7 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
+package prime.signal;
 
 /**
  * A Sender is an object which allows sending of messages trough a dynamic method of type: <FunctionSignature>

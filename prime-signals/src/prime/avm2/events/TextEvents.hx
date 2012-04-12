@@ -26,11 +26,11 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.avm2.events;
-private typedef TextSignal = primevc.avm2.events.TextSignal;		// override import
+package prime.avm2.events;
+private typedef TextSignal = prime.avm2.events.TextSignal;		// override import
  import flash.events.Event;
  import flash.events.TextEvent;
- import primevc.gui.events.TextEvents;
+ import prime.gui.events.TextEvents;
 
 
 

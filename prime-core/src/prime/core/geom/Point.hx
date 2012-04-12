@@ -26,7 +26,7 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.geom;
+package prime.core.geom;
 
 /**
  * @creation-date	Jun 11, 2010
@@ -44,7 +44,7 @@ class Point
 /*	#if js
 		private static function __init__() : Void untyped {
 		if( __js__("WebKitPoint") )
-			primevc.core.geom["Point"] = __js__("WebKitPoint");
+			prime.core.geom["Point"] = __js__("WebKitPoint");
 	}
 	#end
 */

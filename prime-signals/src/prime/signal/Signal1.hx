@@ -26,11 +26,11 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
-  using primevc.core.ListNode;
-  using primevc.core.dispatcher.Wire;
-  using primevc.utils.BitUtil;
-  using primevc.utils.IfUtil;
+package prime.signal;
+  using prime.core.ListNode;
+  using prime.signal.Wire;
+  using prime.utils.BitUtil;
+  using prime.utils.IfUtil;
 
 /**
  * Signal with 1 argument to send()
@@ -42,7 +42,7 @@ class Signal1 <A> extends Signal<A->Void>, implements ISender1<A>, implements IN
 {
 	public function new() enabled = true
 	
-	public #if !debug inline #end function send(_1:A) if (enabled)
+	public #if !debug inline #end function send( _1:A ) if (enabled)
 	{
 		//TODO: Run benchmarks and tests if this should really be inlined...
 		
@@ -52,8 +52,8 @@ class Signal1 <A> extends Signal<A->Void>, implements ISender1<A>, implements IN
 		{
 			nextSendable = w.next();
 			Assert.that(w.isEnabled());
-			Assert.that(w != nextSendable);
-			Assert.that(w.flags != 0);
+			Assert.notEqual(w, nextSendable);
+			Assert.notEqual(w.flags, 0);
 				
 			if (w.flags.has(Wire.SEND_ONCE))
 				w.disable();
@@ -72,12 +72,12 @@ class Signal1 <A> extends Signal<A->Void>, implements ISender1<A>, implements IN
 		nextSendable = null;
 	}
 	
-	public inline function bind 			(owner:Dynamic, handler:A->Void) 		return Wire.make( this, owner, handler, Wire.ENABLED )
-	public inline function bindOnce 		(owner:Dynamic, handler:A->Void) 		return Wire.make( this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE)
-	public inline function bindDisabled 	(owner:Dynamic, handler:A->Void)		return Wire.make( this, owner, cast handler, 0)
-	public inline function observe 			(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER)
-	public inline function observeOnce 		(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER | Wire.SEND_ONCE)
-	public inline function observeDisabled	(owner:Dynamic, handler:Void->Void)		return Wire.make( this, owner, cast handler, Wire.VOID_HANDLER)
+	public inline function bind           ( owner:Dynamic, handler:A->Void    ) return Wire.make(this, owner, handler, Wire.ENABLED)
+	public inline function bindOnce       ( owner:Dynamic, handler:A->Void    ) return Wire.make(this, owner, handler, Wire.ENABLED | Wire.SEND_ONCE)
+	public inline function bindDisabled   ( owner:Dynamic, handler:A->Void    ) return Wire.make(this, owner, cast handler, 0)
+	public inline function observe        ( owner:Dynamic, handler:Void->Void ) return Wire.make(this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER)
+	public inline function observeOnce    ( owner:Dynamic, handler:Void->Void ) return Wire.make(this, owner, cast handler, Wire.ENABLED | Wire.VOID_HANDLER | Wire.SEND_ONCE)
+	public inline function observeDisabled( owner:Dynamic, handler:Void->Void ) return Wire.make(this, owner, cast handler, Wire.VOID_HANDLER)
 	
 #if DebugEvents
 	@:keep static function __init__()
@@ -126,60 +126,60 @@ class Signal1 <A> extends Signal<A->Void>, implements ISender1<A>, implements IN
 		
 		handlersCalled = 0; trace("0");
 		d.send("a");
-		Assert.that(handlersCalled == 2);
+		Assert.isEqual(handlersCalled, 2);
 		
 		b2.disable();
-		Assert.that(b2.isEnabled() == false);
+		Assert.not(b2.isEnabled());
 		handlersCalled = 0; trace("0 - b");
 		d.send("a");
-		Assert.that(handlersCalled == 1);
+		Assert.isEqual(handlersCalled, 1);
 		
 		b2.enable();
 		Assert.that(b2.isEnabled());
 		handlersCalled = 0; trace("0 - c");
 		d.send("a");
-		Assert.that(handlersCalled == 2);
+		Assert.isEqual(handlersCalled, 2);
 
 		// Disable in handler test
 		var disablingHandler = null;
-		disablingHandler = function(s) { trace("b3 disablingHandler(): "+linkedWires()); handlersCalled++; b3.disable(); Assert.that(d.n != b3); }
+		disablingHandler = function(s) { trace("b3 disablingHandler(): "+linkedWires()); handlersCalled++; b3.disable(); Assert.notEqual(d.n, b3); }
 		b3 = d.bind(o, disablingHandler);
 
 		handlersCalled = 0; trace("1");
 		d.send("a");
-		Assert.that(handlersCalled == 3, ""+handlersCalled);
+		Assert.isEqual(handlersCalled, 3);
 		d.send("a");
-		Assert.that(handlersCalled == 5, ""+handlersCalled);
+		Assert.isEqual(handlersCalled, 5);
 		d.send("a");
-		Assert.that(handlersCalled == 7, ""+handlersCalled);
+		Assert.isEqual(handlersCalled, 7);
 
 		var enablingHandler = null;
-		enablingHandler = function(s) { trace("b4 enablingHandler(): "+linkedWires()); handlersCalled++; b3.enable(); Assert.that(d.n == b3); }
+		enablingHandler = function(s) { trace("b4 enablingHandler(): "+linkedWires()); handlersCalled++; b3.enable(); Assert.isEqual(d.n, b3); }
 		b4 = d.bind(o, enablingHandler);
 
 		handlersCalled = 0; trace("2 ----------------");
 		d.send("a");
-		Assert.that(handlersCalled == 3, ""+handlersCalled);
+		Assert.isEqual(handlersCalled, 3);
 		trace(": 2b --------------");
 		d.send("a");
-		Assert.that(handlersCalled == 7, ""+handlersCalled);
+		Assert.isEqual(handlersCalled, 7);
 		trace(": 2c --------------");
 		d.send("a");
-		Assert.that(handlersCalled == 11, ""+handlersCalled);
+		Assert.isEqual(handlersCalled, 11);
 		
 		var togglingHandler = null;
 		togglingHandler = function(s) { 
 			trace("togglingHandler()");
 			handlersCalled++;
 			Assert.that(b5.isEnabled());
-			Assert.that(d.n == b5);
+			Assert.isEqual(d.n, b5);
 
 			b5.disable();
-			Assert.that(d.n != b5);
+			Assert.notEqual(d.n, b5);
 			Assert.that(!b5.isEnabled());
 
 			b5.enable();
-			Assert.that(d.n == b5);
+			Assert.isEqual(d.n, b5);
 			Assert.that(b5.isEnabled());
 		}
 		b5 = d.bind(o, togglingHandler);
@@ -188,9 +188,9 @@ class Signal1 <A> extends Signal<A->Void>, implements ISender1<A>, implements IN
 		Assert.that(b3.isEnabled());
 		Assert.that(b4.isEnabled());
 		Assert.that(b5.isEnabled());
-		num = linkedWires(); Assert.that(num == 5, "" + num);
+		num = linkedWires(); Assert.isEqual(num, 5);
 		d.send("a");
-		Assert.that(handlersCalled == 5, ""+handlersCalled);
+		Assert.isEqual(handlersCalled, 5);
 
 		handlersCalled = 0; trace("4");
 		Assert.that(b1.isEnabled());
@@ -198,17 +198,17 @@ class Signal1 <A> extends Signal<A->Void>, implements ISender1<A>, implements IN
 		Assert.that(b3.isEnabled());
 		Assert.that(b4.isEnabled());
 		Assert.that(b5.isEnabled());
-		num = linkedWires(); Assert.that(num == 5, "" + num);
+		num = linkedWires(); Assert.isEqual(num, 5);
 		d.send("a");
-		Assert.that(handlersCalled == 5, ""+handlersCalled);
+		Assert.isEqual(handlersCalled, 5);
 
 		handlersCalled = 0; trace("5");
 		Assert.that(b3.isEnabled());
 		Assert.that(b4.isEnabled());
 		Assert.that(b5.isEnabled());
-		num = linkedWires(); Assert.that(num == 5, "" + num);
+		num = linkedWires(); Assert.isEqual(num, 5);
 		d.send("a");
-		Assert.that(handlersCalled == 5, ""+handlersCalled);
+		Assert.isEqual(handlersCalled, 5);
 		
 		trace("Pass!");
 	}

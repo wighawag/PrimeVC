@@ -1,5 +1,5 @@
-package primevc.js.events;
- import primevc.js.events.DOMSignal1;
+package prime.js.events;
+ import prime.js.events.DOMSignal1;
 
 
 /**

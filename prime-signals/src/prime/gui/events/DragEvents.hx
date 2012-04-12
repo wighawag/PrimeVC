@@ -26,10 +26,10 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.gui.events;
- import primevc.core.dispatcher.Signals;
- import primevc.core.dispatcher.Signal1;
- import primevc.gui.behaviours.drag.DragInfo;
+package prime.gui.events;
+ import prime.signal.Signals;
+ import prime.signal.Signal1;
+ import prime.gui.behaviours.drag.DragInfo;
 
 
 /**

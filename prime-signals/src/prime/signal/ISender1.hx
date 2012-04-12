@@ -26,7 +26,7 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
+package prime.signal;
 
 /**
  * An ISender1 facilitates dispatching of messages.

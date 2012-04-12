@@ -26,8 +26,8 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.neko.events;
- import primevc.gui.events.UserEvents;
+package prime.neko.events;
+ import prime.gui.events.UserEvents;
 
 
 class UserEvents extends UserSignals

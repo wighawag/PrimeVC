@@ -1,8 +1,8 @@
 package cases;
  import Benchmark;
- import primevc.core.dispatcher.Wire;
- import primevc.core.dispatcher.Signal0;
-  using primevc.utils.Bind;
+ import prime.signal.Wire;
+ import prime.signal.Signal0;
+  using prime.utils.Bind;
 
 /**
  * Tests for the Pipe sub-system

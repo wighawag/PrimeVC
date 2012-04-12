@@ -26,10 +26,11 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core;
+package prime.core;
 
 
-@:keep class ListNode <T> implements haxe.rtti.Generic	//FIXME - no @:keep
+#if (haxe_207 || haxe_208) @:keep #end
+class ListNode <T> implements haxe.rtti.Generic
 {
 	/** Pointer to the next ListNode object **/
 	private var n : T;

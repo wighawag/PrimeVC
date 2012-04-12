@@ -1,6 +1,6 @@
-package primevc.js.events;
- import primevc.gui.events.DisplayEvents;
- import primevc.gui.events.UserEventTarget;
+package prime.js.events;
+ import prime.gui.events.DisplayEvents;
+ import prime.gui.events.UserEventTarget;
 
 
 /**
@@ -28,7 +28,7 @@ class DisplayEvents extends DisplaySignals
  * @author Ruben Weijers
  * @creation-date Nov 22, 2011
  */
-private class EnterFrameSignal extends prime.core.dispatcher.Signal0
+private class EnterFrameSignal extends prime.signal.Signal0
 {
 	private static inline var INTERVAL = 33; 	//30fps
 	private var timer : Timer;

@@ -26,9 +26,9 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.avm2.events;
-private typedef KeyboardSignal = primevc.avm2.events.KeyboardSignal; // override import
- import primevc.gui.events.KeyboardEvents;
+package prime.avm2.events;
+private typedef KeyboardSignal = prime.avm2.events.KeyboardSignal; // override import
+ import prime.gui.events.KeyboardEvents;
  import flash.events.KeyboardEvent;
 
 /**

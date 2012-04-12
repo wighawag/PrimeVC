@@ -26,14 +26,14 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.avm2.events;
+package prime.avm2.events;
  import flash.events.IEventDispatcher;
  import flash.events.NetStatusEvent;
- import primevc.avm2.net.stream.NetStreamInfo;
- import primevc.core.dispatcher.IWireWatcher;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.dispatcher.Wire;
- import primevc.core.ListNode;
+ import prime.avm2.net.stream.NetStreamInfo;
+ import prime.signal.IWireWatcher;
+ import prime.signal.Signal1;
+ import prime.signal.Wire;
+ import prime.core.ListNode;
 
 
 private typedef Handler = NetStreamInfo -> Void;
@@ -59,7 +59,7 @@ class NetStatusSignal extends Signal1<NetStreamInfo>, implements IWireWatcher <H
 	
 	public function wireEnabled (wire:Wire<Handler>) : Void
 	{
-		Assert.that(n != null);
+		Assert.isNotNull(n);
 		if (ListUtil.next(n) == null) // First wire connected
 			eventDispatcher.addEventListener(event, dispatch, false, 0, true);
 	}

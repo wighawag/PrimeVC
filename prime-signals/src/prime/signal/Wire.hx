@@ -26,21 +26,18 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
- import primevc.core.traits.IDisablable;
- import primevc.core.traits.IDisposable;
- import primevc.core.ListNode;
-#if DebugEvents
-  using primevc.core.ListNode;
-#end
-  using primevc.utils.BitUtil;
+package prime.signal;
+ import prime.core.traits.IDisablable;
+ import prime.core.traits.IDisposable;
+ import prime.core.ListNode;
+  using prime.utils.BitUtil;
 
 /**
  * A Wire is the connection between a Signal0-4 dispatcher, and a handler object+function.
  * 
  * This allows to quickly (temporarily) disconnect (disable) the handler from the signal dispatcher.
  * 
- * Implementation detail: Wires are added to a bounded freelist (max 256 free objects) to reduce garbage collector pressure.
+ * Implementation detail: Wires are added to a bounded freelist (max MAX_WIRES free objects) to reduce garbage collector pressure.
  * This means you should never reuse a Wire after calling dispose() and/or after unbinding the handler from the signal (which returned this Wire).
  */
 class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements IDisposable, implements IDisablable
@@ -57,18 +54,6 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	static private var free : Wire<Dynamic>;
 	static public  var freeCount : Int = 0;
 	
-/*	static function __init__()
-	{	X_WIRES) {
-			var b  = new Wire();
-			b.n	   = W.free;
-		var W = Wire;
-		// Pre-allocate Wires
-		for (i in 0 ... MA
-			W.free = b;
-			++W.freeCount;
-		}
-	}*/
-		
 	static public function make<T>( dispatcher:Signal<T>, owner:Dynamic, handlerFn:T, flags:Int #if debug, ?pos : haxe.PosInfos #end ) : Wire<T>
 	{
 		var w:Wire<Dynamic>,
@@ -77,16 +62,16 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 		if (W.free == null)
 			w = new Wire<T>(flags);
 		else {
-			W.free = (w = W.free).n; // i know it's unreadable.. but it's faster.
+			W.free = (w = W.free).n; // I know it's unreadable.. but it's faster.
 			--W.freeCount;
 			w.n = null;
 			Assert.that(w.owner == null && w.handler == null && w.signal == null && w.n == null);
-			w.flags	  = flags;
+			w.flags	= flags;
 		}
 		
 		w.owner   = owner;
 		w.signal  = dispatcher;
-		(untyped w).handler = handlerFn; // Unsets VOID_HANDLER (!!)
+		(untyped w).handler = handlerFn;
 		if (flags.has(ENABLED))
 			w.doEnable();
 		
@@ -136,15 +121,15 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	
 	
 	
+	private function new( f:Int = 0 ) {
+		flags = f;
+		#if debug instanceNum = ++instanceCount; #end
+	}
+
 	
 	//
 	// INLINE PROPERTIES
 	//
-	
-	private function new(f:Int = 0) {
-		flags = f;
-		#if debug instanceNum = ++instanceCount; #end
-	}
 	
 	public inline function isEnabled() : Bool
 	{
@@ -245,7 +230,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 			W.free = this;
 		}
 		else
-		 	Assert.that(n == null);
+		 	Assert.isEqual(n, null);
 	}
 	
 	
@@ -263,8 +248,8 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	}
 	
 	
-	public inline function isDisposed () : Bool
+	public inline function isDisposed() : Bool
 	{
-		return signal == null || owner == null || handler == null;
+		return signal == null && owner == null;
 	}
 }

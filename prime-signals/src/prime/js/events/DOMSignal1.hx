@@ -1,9 +1,9 @@
-package primevc.js.events;
- import primevc.core.dispatcher.Wire;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.dispatcher.IWireWatcher;
- import primevc.core.ListNode;
- import primevc.gui.events.UserEventTarget;
+package prime.js.events;
+ import prime.signal.Wire;
+ import prime.signal.Signal1;
+ import prime.signal.IWireWatcher;
+ import prime.core.ListNode;
+ import prime.gui.events.UserEventTarget;
  import js.Dom;
 
 

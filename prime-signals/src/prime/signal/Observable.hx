@@ -26,10 +26,10 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.dispatcher;
+package prime.signal;
 
 /**
- * Used by primevc.utils.Bind
+ * Used by prime.utils.Bind
  * 
  * @author Danny Wilson
  * @creation-date Jun 09, 2010
