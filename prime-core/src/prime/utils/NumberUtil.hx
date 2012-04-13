@@ -26,10 +26,10 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.utils;
+package prime.utils;
  import apparat.math.FastMath;
- import primevc.types.Number;
-  using primevc.utils.NumberUtil;
+ import prime.types.Number;
+  using prime.utils.NumberUtil;
   using Std;
  
 

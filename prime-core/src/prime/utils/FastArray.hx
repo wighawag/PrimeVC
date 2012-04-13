@@ -27,11 +27,11 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.utils;
- import primevc.core.traits.IDisposable;
- import primevc.utils.DuplicateUtil;
-  using primevc.utils.FastArray;
-  using primevc.utils.TypeUtil;
+package prime.utils;
+ import prime.core.traits.IDisposable;
+ import prime.utils.DuplicateUtil;
+  using prime.utils.FastArray;
+  using prime.utils.TypeUtil;
   using Std;
 
 typedef FastArray<T> =

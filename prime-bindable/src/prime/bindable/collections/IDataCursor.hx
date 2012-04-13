@@ -26,8 +26,8 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections;
- import primevc.core.traits.IDisposable;
+package prime.bindable.collections;
+ import prime.core.traits.IDisposable;
 
 
 /**

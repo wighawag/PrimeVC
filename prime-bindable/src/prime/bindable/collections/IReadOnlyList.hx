@@ -26,23 +26,22 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections;
- import primevc.core.collections.iterators.IIterator;
- import primevc.core.events.ListChangeSignal;
- import primevc.core.traits.IClonable;
- import primevc.core.traits.IDuplicatable;
- import primevc.core.traits.IValueObject;
- import primevc.core.traits.IDisposable;
+package prime.bindable.collections;
+ import prime.bindable.collections.iterators.IIterator;
+ import prime.core.events.ListChangeSignal;
+ import prime.core.traits.IClonable;
+ import prime.core.traits.IDuplicatable;
+ import prime.core.traits.IDisposable;
 
 /**
  * @author Ruben Weijers
  * @creation-date Nov 16, 2010
  */
 interface IReadOnlyList < DataType >
-		implements IClonable < IReadOnlyList < DataType > >
-	,	implements IDuplicatable < IReadOnlyList < DataType > >
-	,	implements IValueObject
-	,	implements IDisposable
+	implements IClonable < IReadOnlyList<DataType> >,
+	implements IDuplicatable < IReadOnlyList<DataType> >,
+	implements IDisposable
+	#if prime_data, implements prime.core.traits.IValueObject #end
 {
 	public var change		(default, null)									: ListChangeSignal<DataType>;
 	/**

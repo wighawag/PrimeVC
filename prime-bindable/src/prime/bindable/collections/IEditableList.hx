@@ -26,9 +26,7 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections;
- import primevc.core.traits.IEditEnabledValueObject;
- 
+package prime.bindable.collections;
 
 /**
  * @creation-date	Jun 29, 2010
@@ -36,7 +34,7 @@ package primevc.core.collections;
  */
 interface IEditableList <DataType>
 		implements IReadOnlyList <DataType>	
-	,	implements IEditEnabledValueObject
+	#if prime_data, implements prime.core.traits.IEditEnabledValueObject #end
 {
 	//
 	// LIST MANIPULATION METHODS

@@ -26,11 +26,11 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.utils;
- import primevc.core.traits.IDuplicatable;
- import primevc.utils.FastArray;
-  using primevc.utils.FastArray;
-  using primevc.utils.TypeUtil;
+package prime.utils;
+ import prime.core.traits.IDuplicatable;
+ import prime.utils.FastArray;
+  using prime.utils.FastArray;
+  using prime.utils.TypeUtil;
 
 
 /**

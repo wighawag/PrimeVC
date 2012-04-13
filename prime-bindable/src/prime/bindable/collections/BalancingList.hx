@@ -26,9 +26,9 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections;
- import primevc.core.collections.IEditableList;
- import primevc.utils.DuplicateUtil;
+package prime.bindable.collections;
+ import prime.bindable.collections.IEditableList;
+ import prime.utils.DuplicateUtil;
  
 
 /**
