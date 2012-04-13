@@ -20,21 +20,21 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.
+ * DAMAGE.s
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.net;
+package prime.net;
+
 
 
 /**
- * @author	Ruben Weijers
- * @since	Mar 29, 2011
+ * @author Ruben Weijers
+ * @creation-date Apr 01, 2011
  */
-typedef FileReference = 
-	#if		flash9	primevc.avm2.net.FileReference;
-	#elseif	flash8	primevc.avm1.net.FileReference;
-	#elseif	js		primevc.js  .net.FileReference;
-	#else			error; #end
+enum CommunicationType {
+	sending;
+	loading;
+}

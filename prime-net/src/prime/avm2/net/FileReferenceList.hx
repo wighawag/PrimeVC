@@ -24,17 +24,63 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.net;
+package prime.avm2.net;
+ import prime.gui.events.SelectEvents;
+ import prime.net.FileFilter;
+ import prime.net.FileReference;
+ import prime.net.IFileReference;
+
+
+private typedef FlashFileReferenceList = flash.net.FileReferenceList;
 
 
 /**
- * @author	Ruben Weijers
- * @since	Mar 29, 2011
+ * AVM2 file reference list implementation
+ * 
+ * @author Ruben Weijers
+ * @creation-date Mar 30, 2011
  */
-typedef FileReferenceList = 
-	#if		flash9	primevc.avm2.net.FileReferenceList;
-	#elseif	flash8	primevc.avm1.net.FileReferenceList;
-	#elseif	js		primevc.js  .net.FileReferenceList;
-	#else			error; #end
+class FileReferenceList extends SelectEvents, implements IFileReference
+{
+	private var target	: FlashFileReferenceList;
+	public var list		(getList, null)	: Array<FileReference>;
+	
+	
+	public function new (target:FlashFileReferenceList = null)
+	{
+		if (target == null)
+			target = new FlashFileReferenceList();
+		
+		this.target = target;
+		super(target);
+	}
+	
+	
+	override public function dispose ()
+	{
+		target = null;
+		super.dispose();
+	}
+	
+	
+	public inline function browse (?types:Array<FileFilter>)
+	{
+		return target.browse(types);
+	}
+	
+	
+	private function getList () : Array<FileReference>
+	{
+		if (list != null)
+			return list;
+		
+		list		= new Array();
+		var oldList = target.fileList;
+		for (i in 0...oldList.length)
+			list[i] = new FileReference(oldList[i]);
+		
+		return list;
+	}
+}

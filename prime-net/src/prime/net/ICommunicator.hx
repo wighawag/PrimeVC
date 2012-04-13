@@ -24,13 +24,13 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.net;
+package prime.net;
  import haxe.io.BytesData;
- import primevc.core.events.LoaderEvents;
- import primevc.core.traits.IDisposable;
- import primevc.core.Bindable;
+ import prime.bindable.Bindable;
+ import prime.core.events.LoaderEvents;
+ import prime.core.traits.IDisposable;
 
 
 /**

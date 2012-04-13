@@ -24,19 +24,35 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.net;
-
+package prime.avm2.net;
+ import prime.avm2.events.NetStreamEvents;
+ import prime.core.traits.IDisposable;
 
 
 /**
+ * Flash netstream object with primevc events
+ * 
  * @author Ruben Weijers
- * @creation-date Mar 31, 2011
+ * @creation-date Jan 07, 2011
  */
-typedef URLVariables = 
-	#if		flash9	flash.net.URLVariables;
-	#elseif	flash8	primevc.avm1.net.URLVariables;
-	#elseif	js		primevc.js  .net.URLVariables;
-	#elseif	neko	primevc.neko.net.URLVariables;
-	#else			error; #end
+class NetStream extends flash.net.NetStream, implements IDisposable
+{
+	public var events (default, null)	: NetStreamEvents;
+	
+	
+	public function new (netConnection:NetConnection = null, peerId:String = null)
+	{
+		super( netConnection, peerId );
+		events = new NetStreamEvents(this);
+	}
+	
+	
+	public function dispose ()
+	{
+		close();
+		events.dispose();
+		events = null;
+	}
+}

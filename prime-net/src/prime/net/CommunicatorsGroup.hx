@@ -24,16 +24,16 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.net;
+package prime.net;
  import haxe.io.BytesData;
  import haxe.FastList;
- import primevc.core.events.LoaderEvents;
- import primevc.core.Bindable;
- import primevc.types.Number;
-  using primevc.utils.Bind;
-  using primevc.utils.NumberUtil;
+ import prime.core.events.LoaderEvents;
+ import prime.bindable.Bindable;
+ import prime.types.Number;
+  using prime.utils.Bind;
+  using prime.utils.NumberUtil;
 
 
 
@@ -219,10 +219,10 @@ class CommunicatorsGroup implements ICommunicator
 
 
 
- import primevc.core.dispatcher.Signal0;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.dispatcher.Signal2;
- import primevc.core.events.CommunicationEvents;
+ import prime.core.dispatcher.Signal0;
+ import prime.core.dispatcher.Signal1;
+ import prime.core.dispatcher.Signal2;
+ import prime.core.events.CommunicationEvents;
 
 
 /**

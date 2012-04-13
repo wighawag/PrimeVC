@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, The PrimeVC Project Contributors
+ * Copyright (c) 2012, The PrimeVC Project Contributors
  * All rights reserved.
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -20,23 +20,28 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.s
+ * DAMAGE.
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.net;
+package prime.net;
 
 
 /**
- * @author Ruben Weijers
- * @creation-date Mar 29, 2011
+ * @author 			Ruben Weijers
+ * @creation-date 	Jan 12, 2012
  */
-class MimeType
-{
-	public static inline var flash	= "application/x-shockwave-flash";
-	public static inline var jpeg	= "image/jpeg";
-	public static inline var gif	= "image/gif";
-	public static inline var png	= "image/png";
+enum RequestMethod {
+	post;
+	get;
+	put;
+	delete;
+
+	options;
+	head;
+	trace;
+	connect;
+	patch;
 }

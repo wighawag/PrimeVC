@@ -1,61 +1,61 @@
-package primevc.js.net;
+package prime.js.net;
+ import prime.core.events.LoaderEvents;
+ import prime.net.ICommunicator;
+ import prime.net.CommunicationType;
+ import prime.core.Bindable;
+ import prime.js.net.XMLHttpRequest;
+ import prime.types.URI;
+ import haxe.io.BytesData;
+ import js.Dom;
+ import js.Lib;
 
-import primevc.core.events.LoaderEvents;
-import primevc.core.net.ICommunicator;
-import primevc.core.net.CommunicationType;
-import primevc.core.Bindable;
-import primevc.js.net.XMLHttpRequest;
-import primevc.types.URI;
-import haxe.io.BytesData;
-import js.Dom;
-import js.Lib;
 
-/*
-Possible state values (XMLHttpRequest.readyState)
-
-Name				Value	Description	
-UNSENT				0		The object has been constructed. 
-OPENED				1		The open() method has been successfully invoked. During this state request headers can be set using setRequestHeader() and the request can be made using the send() method. 
-HEADERS_RECEIVED	2		All redirects (if any) have been followed and all HTTP headers of the final response have been received. Several response members of the object are now available. 
-LOADING				3		The response entity body is being received. 
-DONE				4		The data transfer has been completed or something went wrong during the transfer (e.g. infinite redirects). 
-
-Possible status values (XMLHttpRequest.status)
-
-Name				Value	Description	
-OK					200		The request has succeeded.
-Bad Request			400 	The request could not be understood by the server due to malformed syntax.
-Unauthorized		401		The request requires user authentication. 
-Forbidden			403 	The server understood the request, but is refusing to fulfill it. 
-Not Found			404		The server has not found anything matching the Request-URI.
-
-For a complete status value reference see http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-
-Possible header request values
-
-HTTP/1.1 200 OK
-Server: Microsoft-IIS/4.0
-Cache-Control: max-age=172800
-Expires: Sat, 06 Apr 2002 11:34:01 GMT
-Date: Thu, 04 Apr 2002 11:34:01 GMT
-Content-Type: text/html
-Accept-Ranges: bytes
-Last-Modified: Thu, 14 Mar 2002 12:06:30 GMT
-ETag: "0a7ccac50cbc11:1aad"
-Content-Length: 52282
-
-Events available in Webkit
-
-Name				Description
-readystatechange	XMLHttpRequest.readyState has changed
-progress			In progress.
-loadstart			Progression has begun. 
-load				Progression successful.
-error				Progression has failed.
-abort				Progression has terminated.
-timeout				Progression has timed out.
-loadend				Progression has stopped. 
-*/
+/**
+ * Possible state values (XMLHttpRequest.readyState)
+ * 
+ * Name				Value	Description	
+ * UNSENT				0		The object has been constructed. 
+ * OPENED				1		The open() method has been successfully invoked. During this state request headers can be set using setRequestHeader() and the request can be made using the send() method. 
+ * HEADERS_RECEIVED	2		All redirects (if any) have been followed and all HTTP headers of the final response have been received. Several response members of the object are now available. 
+ * LOADING				3		The response entity body is being received. 
+ * DONE				4		The data transfer has been completed or something went wrong during the transfer (e.g. infinite redirects). 
+ * 
+ * Possible status values (XMLHttpRequest.status)
+ * 
+ * Name				Value	Description	
+ * OK					200		The request has succeeded.
+ * Bad Request			400 	The request could not be understood by the server due to malformed syntax.
+ * Unauthorized		401		The request requires user authentication. 
+ * Forbidden			403 	The server understood the request, but is refusing to fulfill it. 
+ * Not Found			404		The server has not found anything matching the Request-URI.
+ * 
+ * For a complete status value reference see http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+ * 
+ * Possible header request values
+ * 
+ * HTTP/1.1 200 OK
+ * Server: Microsoft-IIS/4.0
+ * Cache-Control: max-age=172800
+ * Expires: Sat, 06 Apr 2002 11:34:01 GMT
+ * Date: Thu, 04 Apr 2002 11:34:01 GMT
+ * Content-Type: text/html
+ * Accept-Ranges: bytes
+ * Last-Modified: Thu, 14 Mar 2002 12:06:30 GMT
+ * ETag: "0a7ccac50cbc11:1aad"
+ * Content-Length: 52282
+ * 
+ * Events available in Webkit
+ * 
+ * Name				Description
+ * readystatechange	XMLHttpRequest.readyState has changed
+ * progress			In progress.
+ * loadstart			Progression has begun. 
+ * load				Progression successful.
+ * error				Progression has failed.
+ * abort				Progression has terminated.
+ * timeout				Progression has timed out.
+ * loadend				Progression has stopped. 
+ */
 
 /**
  * JS URLrequest implementation

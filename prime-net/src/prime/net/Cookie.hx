@@ -24,16 +24,16 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.net;
-
+package prime.net;
 #if flash9
  import flash.Error;
  import flash.events.NetStatusEvent;
  import flash.net.SharedObject;
  import flash.net.SharedObjectFlushStatus;
 #end
+
 
 /**
  * @since	feb 16, 2010

@@ -24,17 +24,17 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.net;
-
+package prime.net;
 
 
 /**
- * @author Ruben Weijers
- * @creation-date Apr 01, 2011
+ * @author	Ruben Weijers
+ * @since	Mar 29, 2011
  */
-enum CommunicationType {
-	sending;
-	loading;
-}
+typedef FileReferenceList = 
+	#if		flash9	prime.avm2.net.FileReferenceList;
+	#elseif	flash8	prime.avm1.net.FileReferenceList;
+	#elseif	js		prime.js  .net.FileReferenceList;
+	#else			error; #end

@@ -20,17 +20,39 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.
+ * DAMAGE.s
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.net;
+package prime.avm2.net;
+ import prime.avm2.events.NetConnectionEvents;
+ import prime.core.traits.IDisposable;
 
-typedef URLLoader = 
-	#if		flash9	primevc.avm2.net.URLLoader;
-	#elseif	flash8	primevc.avm1.net.URLLoader;
-	#elseif	js		primevc.js  .net.URLLoader;
-	#elseif	neko	primevc.neko.net.URLLoader;
-	#else			error; #end
+
+/**
+ * AVM2 NetConnection class with PrimeVC events
+ * 
+ * @author Ruben Weijers
+ * @creation-date Jan 07, 2011
+ */
+class NetConnection extends flash.net.NetConnection, implements IDisposable 
+{
+	public var events (default, null)	: NetConnectionEvents;
+	
+	
+	public function new ()
+	{
+		super();
+		connect(null);
+		events = new NetConnectionEvents(this);
+	}
+	
+	
+	public function dispose ()
+	{
+		events.dispose();
+		events = null;
+	}
+}

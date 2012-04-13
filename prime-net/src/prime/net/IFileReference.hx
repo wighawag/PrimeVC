@@ -26,10 +26,10 @@
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.net;
- import primevc.core.dispatcher.IUnbindable;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.traits.IDisposable;
+package prime.net;
+ import prime.core.dispatcher.IUnbindable;
+ import prime.core.traits.IDisposable;
+ import prime.signal.Signal0;
 
 
 /**
