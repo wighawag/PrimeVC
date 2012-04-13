@@ -26,40 +26,42 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections.iterators;
- import primevc.core.collections.FastDoubleCell;
+package prime.bindable.collections.iterators;
+ import prime.bindable.collections.FastDoubleCell;
 
 
 /**
  * Iterate object for the DoubleFastList implementation
  * 
- * @creation-date	Jul 23, 2010
+ * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
  */
-class FastDoubleCellReversedIterator <DataType> implements IIterator <DataType>
+class FastDoubleCellForwardIterator <DataType> implements IIterator <DataType>
 	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
-	private var last (default, null)	: FastDoubleCell<DataType>;
+	private var first (default, null)	: FastDoubleCell<DataType>;
 	public var current (default, null)	: FastDoubleCell<DataType>;
-
-	public function new (last:FastDoubleCell<DataType>) 
+	
+	public function new (first:FastDoubleCell<DataType>) 
 	{
-		this.last = last;
+		this.first = first;
 		rewind();
 #if (unitTesting && debug)
 		test();
 #end
 	}
-
+	
+	
 	public inline function setCurrent (val:Dynamic)	{ current = val; }
-	public inline function rewind ()				{ current = last; }
-	public inline function hasNext ()				{ return current != null; }
+	public inline function rewind ()				{ current = first; }
+	public inline function hasNext () 				{ return current != null; }
 	public inline function value ()					{ return current.data; }
-
+	
+	
 	public inline function next () : DataType
 	{
 		var c = current;
-		current = current.prev;
+		current = current.next;
 		return c.data;
 	}
 	
@@ -67,14 +69,14 @@ class FastDoubleCellReversedIterator <DataType> implements IIterator <DataType>
 #if (unitTesting && debug)
 	public function test ()
 	{
-		var cur = last, prev:FastDoubleCell<DataType> = null;
+		var cur = first, prev:FastDoubleCell<DataType> = null;
 		while (cur != null)
 		{
-			if (prev == null)	Assert.null( cur.next );
-			else				Assert.equal( cur.next, prev );
+			if (prev == null)	Assert.null( cur.prev, "first incorrect" );
+			else				Assert.equal( cur.prev, prev, "previous incorrect" );
 			
 			prev	= cur;
-			cur		= cur.prev;
+			cur		= cur.next;
 		}
 	}
 #end

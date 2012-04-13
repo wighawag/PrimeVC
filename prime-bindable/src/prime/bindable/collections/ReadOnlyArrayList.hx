@@ -26,16 +26,16 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections;
+package prime.bindable.collections;
  import haxe.FastList;
- import primevc.core.collections.iterators.FastArrayForwardIterator;
- import primevc.core.collections.iterators.FastArrayReversedIterator;
- import primevc.core.collections.iterators.IIterator;
- import primevc.core.events.ListChangeSignal;
- import primevc.utils.FastArray;
-  using primevc.utils.Bind;
-  using primevc.utils.FastArray;
-  using primevc.utils.IfUtil;
+ import prime.bindable.collections.iterators.FastArrayForwardIterator;
+ import prime.bindable.collections.iterators.FastArrayReversedIterator;
+ import prime.bindable.collections.iterators.IIterator;
+ import prime.core.events.ListChangeSignal;
+ import prime.utils.FastArray;
+  using prime.utils.FastArray;
+  using prime.utils.IfUtil;
+  using prime.utils.Bind;
 
 
 

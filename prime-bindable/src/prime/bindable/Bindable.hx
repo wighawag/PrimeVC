@@ -27,12 +27,12 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core;
- import primevc.core.IBindableReadonly;
- import primevc.core.dispatcher.Signal2;
- import primevc.core.traits.IClonable;
+package prime.core;
+ import prime.core.IBindableReadonly;
+ import prime.signal.Signal2;
+ import prime.core.traits.IClonable;
  import haxe.FastList;
-  using primevc.utils.IfUtil;
+  using prime.utils.IfUtil;
 
 
 /**
@@ -55,7 +55,7 @@ package primevc.core;
  * 
  * You can trigger a method when the property is changed:
  * 		
- * 		using primevc.utils.BindUtil;
+ * 		using prime.utils.Bind;
  * 
  * 		function updateLabel (newLabel:String) : Void {
  * 			textField.text = newLabel;

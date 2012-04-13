@@ -26,13 +26,13 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections;
- import primevc.core.collections.iterators.IIterator;
- import primevc.core.collections.iterators.FastDoubleCellForwardIterator;
- import primevc.core.collections.iterators.FastDoubleCellReversedIterator;
- import primevc.core.events.ListChangeSignal;
- import primevc.utils.DuplicateUtil;
-  using primevc.utils.NumberUtil;
+package prime.bindable.collections;
+ import prime.bindable.collections.iterators.IIterator;
+ import prime.bindable.collections.iterators.FastDoubleCellForwardIterator;
+ import prime.bindable.collections.iterators.FastDoubleCellReversedIterator;
+ import prime.core.events.ListChangeSignal;
+ import prime.utils.DuplicateUtil;
+  using prime.utils.NumberUtil;
  
 
 /**

@@ -26,38 +26,18 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections.iterators;
- import primevc.utils.FastArray;
-  using Std;
+package prime.bindable.collections.iterators;
 
 
 /**
- * Forward iterator for a fast-array
- * 
- * @creation-date	Jul 1, 2010
- * @author			Ruben Weijers
+ * @author Ruben Weijers
+ * @creation-date Jul 23, 2010
  */
-class FastArrayForwardIterator <DataType> implements IIterator <DataType>
-	#if flash9	,	implements haxe.rtti.Generic #end
+interface IIterator <DataType>
 {
-	private var target	(default, null)	: FastArray<DataType>;
-	public var current	(default, null)	: Int;
-	
-	
-	public function new (target:FastArray<DataType>)
-	{
-		this.target	= target;
-		rewind();
-	}
-	
-	public inline function setCurrent (val:Dynamic)	{ current = val; }
-	public inline function rewind ()				{ current = 0; }
-	public inline function hasNext ()				{ return current < target.length.int(); }		// <- Vector.length is defined as UInt, but since haXe damns it to implement UInt, we have to cast it :-(
-	public inline function next ()					{ return target[ current++ ]; }
-	public inline function value ()					{ return target[ current ]; }
-	
-//	public inline function hasPrev ()				{ return (current - 1) >= 0 ; }
-//	public inline function prev ()					{ current -= 2; return value(); }
-	
-//	public inline function isValid (val:Dynamic)	{ return val >= 0 && val < target.length.int(); }
+	public function setCurrent	(newPos:Dynamic)	: Void;
+	public function rewind ()						: Void;
+	public function hasNext ()						: Bool;
+	public function next ()							: DataType;
+	public function value ()						: DataType;
 }

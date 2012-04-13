@@ -26,12 +26,10 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core;
- import primevc.core.Bindable;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.traits.IEditableValueObject;
- import haxe.FastList;
-  using primevc.utils.BitUtil;
+package prime.core;
+ import prime.core.Bindable;
+ import prime.signal.Signal1;
+  using prime.utils.BitUtil;
 
 
 private typedef Flags = RevertableBindableFlags;
@@ -59,7 +57,9 @@ private typedef Flags = RevertableBindableFlags;
  * @creation-date	Jun 18, 2010
  * @author			Danny Wilson
  */
-class RevertableBindable <DataType> extends Bindable<DataType>, implements IEditableValueObject, implements haxe.rtti.Generic
+class RevertableBindable <DataType> extends Bindable<DataType>,
+	#if prime_data implements prime.core.traits.IEditableValueObject, #end
+	implements haxe.rtti.Generic
 {
 	/**
 	 * Keeps track of settings.

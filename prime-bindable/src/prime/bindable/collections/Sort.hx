@@ -26,10 +26,10 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections;
- import primevc.utils.FastArray;
-  using primevc.utils.Bind;
-  using primevc.utils.FastArray;
+package prime.bindable.collections;
+ import prime.utils.FastArray;
+  using prime.utils.FastArray;
+  using prime.utils.Bind;
 
 
 

@@ -26,12 +26,12 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections;
- import primevc.core.RevertableBindableFlags;
- import primevc.utils.FastArray;
-  using primevc.utils.BitUtil;
-  using primevc.tools.valueobjects.ChangesUtil;
-  using primevc.utils.FastArray;
+package prime.core.collections;
+ import prime.core.RevertableBindableFlags;
+ import prime.utils.FastArray;
+  using prime.utils.FastArray;
+  using prime.utils.BitUtil;
+  using prime.core.collections.ListChange;
 
 
 private typedef Flags = RevertableBindableFlags;

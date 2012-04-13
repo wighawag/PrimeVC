@@ -26,9 +26,9 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core;
-  using primevc.utils.BitUtil;
-  using primevc.utils.IfUtil;
+package prime.core;
+  using prime.utils.BitUtil;
+  using prime.utils.IfUtil;
 
 /**
  * @creation-date	Jun 18, 2010

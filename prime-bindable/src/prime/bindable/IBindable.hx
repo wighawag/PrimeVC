@@ -26,8 +26,7 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core;
- import primevc.core.traits.IEditEnabledValueObject;
+package prime.core;
 
 /**
  * Read/write interface for 'data-binding'.
@@ -36,7 +35,8 @@ package primevc.core;
  * @author Danny Wilson
  * @creation-date Jun 25, 2010
  */
-interface IBindable <DataType> implements IBindableReadonly<DataType>, implements IEditEnabledValueObject
+interface IBindable <DataType> implements IBindableReadonly<DataType>
+#if prime_data, implements prime.core.traits.IEditableValueObject, #end
 //	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
 	/**
@@ -65,5 +65,5 @@ interface IBindable <DataType> implements IBindableReadonly<DataType>, implement
 	 * - update this when otherBindable.value changes
 	 * - update otherBindable when this.value changes
 	 */
-	public function pair (otherBindable:IBindable<DataType>) : Void;
+	public function pair( otherBindable:IBindable<DataType> ) : Void;
 }

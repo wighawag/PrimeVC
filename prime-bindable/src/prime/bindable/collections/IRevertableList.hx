@@ -26,16 +26,16 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections;
- import primevc.core.traits.IEditableValueObject;
- import primevc.utils.FastArray;
+package prime.core.collections;
+ import prime.utils.FastArray;
 
 
 /**
  * @author Ruben Weijers
  * @creation-date Nov 18, 2010
  */
-interface IRevertableList < DataType > implements IEditableList < DataType >, implements IEditableValueObject
+interface IRevertableList < DataType > implements IEditableList < DataType >
+	#if prime_data, implements prime.core.traits.IEditableValueObject #end
 {
 	/**
 	 * List with all the changes that are made when the list is in editing mode.

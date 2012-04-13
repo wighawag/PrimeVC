@@ -26,15 +26,15 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections;
- import primevc.core.collections.iterators.IIterator;
- import primevc.core.collections.IEditableList;
- import primevc.core.collections.SimpleList;
- import primevc.core.dispatcher.Signal1;
- import primevc.utils.DuplicateUtil;
- import primevc.utils.NumberUtil;
-  using primevc.utils.NumberUtil;
-  using primevc.utils.TypeUtil; 
+package prime.bindable.collections;
+ import prime.bindable.collections.iterators.IIterator;
+ import prime.bindable.collections.IEditableList;
+ import prime.bindable.collections.SimpleList;
+ import prime.signal.Signal1;
+ import prime.utils.DuplicateUtil;
+ import prime.utils.NumberUtil;
+  using prime.utils.NumberUtil;
+  using prime.utils.TypeUtil;
 
 
 /**

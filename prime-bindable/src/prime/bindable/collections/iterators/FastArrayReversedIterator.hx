@@ -26,20 +26,31 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections;
+package prime.bindable.collections.iterators;
+ import prime.utils.FastArray;
 
-
-typedef OldPos = Int;
-typedef NewPos = Int;
 
 /**
+ * Reversed iterator for a fast-array
+ * 
+ * @creation-date	Jul 23, 2010
  * @author			Ruben Weijers
- * @creation-date	Oct 26, 2010
  */
-enum ListChange <T>
+class FastArrayReversedIterator <DataType> implements IIterator <DataType>
+	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
-	added ( item:T, newPos:NewPos );
-	removed ( item:T, oldPos:OldPos );
-	moved ( item:T, newPos:NewPos, oldPos:OldPos );
-	reset;
+	private var target	(default, null)	: FastArray<DataType>;
+	public var current	(default, null)	: Int;
+	
+	
+	public function new (target:FastArray<DataType>)
+	{
+		this.target = target;
+		rewind();
+	}
+	public inline function setCurrent (val:Dynamic)	{ current = val; }
+	public inline function rewind ()				{ current = target.length - 1; }
+	public inline function hasNext ()				{ return current >= 0; }
+	public inline function next ()					{ return target[ current-- ]; }
+	public inline function value ()					{ return target[ current ]; }
 }

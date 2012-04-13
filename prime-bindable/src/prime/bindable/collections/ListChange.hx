@@ -26,31 +26,46 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections.iterators;
- import primevc.utils.FastArray;
+package prime.core.collections;
 
+
+typedef OldPos = Int;
+typedef NewPos = Int;
 
 /**
- * Reversed iterator for a fast-array
- * 
- * @creation-date	Jul 23, 2010
  * @author			Ruben Weijers
+ * @creation-date	Oct 26, 2010
  */
-class FastArrayReversedIterator <DataType> implements IIterator <DataType>
-	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
+enum ListChange <T>
 {
-	private var target	(default, null)	: FastArray<DataType>;
-	public var current	(default, null)	: Int;
-	
-	
-	public function new (target:FastArray<DataType>)
+	added ( item:T, newPos:NewPos );
+	removed ( item:T, oldPos:OldPos );
+	moved ( item:T, newPos:NewPos, oldPos:OldPos );
+	reset;
+}
+
+extern class ListChangeUtil
+{
+	static inline public function undoListChange<T> (list:IEditableList<T>, change:ListChange<T>) : Void
 	{
-		this.target = target;
-		rewind();
+		switch (change)
+		{
+			case added (item, newPos):				list.remove(item);
+			case removed (item, oldPos):			list.add( item, oldPos );
+			case moved (item, newPos, oldPos):		list.move( item, oldPos, newPos );
+			default:								//what to do with a reset :-S
+		}
 	}
-	public inline function setCurrent (val:Dynamic)	{ current = val; }
-	public inline function rewind ()				{ current = target.length - 1; }
-	public inline function hasNext ()				{ return current >= 0; }
-	public inline function next ()					{ return target[ current-- ]; }
-	public inline function value ()					{ return target[ current ]; }
+
+
+	static public inline function redoListChange<T> (list:IEditableList<T>, change:ListChange<T>) : Void
+	{
+		switch (change)
+		{
+			case added (item, newPos):				list.add(item, newPos);
+			case removed (item, oldPos):			list.remove( item, oldPos );
+			case moved (item, newPos, oldPos):		list.move( item, newPos, oldPos );
+			default:								//what to do with a reset :-S
+		}
+	}
 }

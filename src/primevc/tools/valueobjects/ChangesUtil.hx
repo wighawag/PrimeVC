@@ -31,6 +31,7 @@ package primevc.tools.valueobjects;
  import primevc.core.collections.ListChange;
  import primevc.core.traits.IEditableValueObject;
  import primevc.core.traits.IValueObject;
+  using prime.core.collections.ListChange;
   using primevc.utils.TypeUtil;
   using Reflect;
   using Std;
@@ -46,32 +47,6 @@ package primevc.tools.valueobjects;
  */
 class ChangesUtil
 {
-	public static function undoListChange<T> (list:IEditableList<T>, change:ListChange<T>) : Void
-	{
-		switch (change)
-		{
-			case added (item, newPos):				list.remove(item);
-			case removed (item, oldPos):			list.add( item, oldPos );
-			case moved (item, newPos, oldPos):		list.move( item, oldPos, newPos );
-			default:								//what to do with a reset :-S
-		}
-	}
-	
-	
-	public static function redoListChange<T> (list:IEditableList<T>, change:ListChange<T>) : Void
-	{
-		switch (change)
-		{
-			case added (item, newPos):				list.add(item, newPos);
-			case removed (item, oldPos):			list.remove( item, oldPos );
-			case moved (item, newPos, oldPos):		list.move( item, newPos, oldPos );
-			default:								//what to do with a reset :-S
-		}
-	}
-	
-	
-	
-	
 	public static function undo (changes:ChangeSet) : Void
 	{
 	//	trace("undo changes "+Date.fromTime(changes.timestamp) + ", " + changes);
@@ -142,7 +117,7 @@ class ChangesUtil
 		var changes 	= changesVO.changes;
 		
 		for (i in 0...changes.length)
-			undoListChange( list, cast changes[i] );
+			list.undoListChange( cast changes[i] );
 	}
 	
 	
@@ -152,7 +127,7 @@ class ChangesUtil
 		var changes = changesVO.changes;
 		
 		for (i in 0...changes.length)
-			redoListChange( list, cast changes[i] );
+			list.redoListChange( cast changes[i] );
 	}
 	
 	

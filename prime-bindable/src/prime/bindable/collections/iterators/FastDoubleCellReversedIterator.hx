@@ -26,18 +26,56 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.collections.iterators;
+package prime.bindable.collections.iterators;
+ import prime.bindable.collections.FastDoubleCell;
 
 
 /**
- * @author Ruben Weijers
- * @creation-date Jul 23, 2010
+ * Iterate object for the DoubleFastList implementation
+ * 
+ * @creation-date	Jul 23, 2010
+ * @author			Ruben Weijers
  */
-interface IIterator <DataType>
+class FastDoubleCellReversedIterator <DataType> implements IIterator <DataType>
+	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
-	public function setCurrent	(newPos:Dynamic)	: Void;
-	public function rewind ()						: Void;
-	public function hasNext ()						: Bool;
-	public function next ()							: DataType;
-	public function value ()						: DataType;
+	private var last (default, null)	: FastDoubleCell<DataType>;
+	public var current (default, null)	: FastDoubleCell<DataType>;
+
+	public function new (last:FastDoubleCell<DataType>) 
+	{
+		this.last = last;
+		rewind();
+#if (unitTesting && debug)
+		test();
+#end
+	}
+
+	public inline function setCurrent (val:Dynamic)	{ current = val; }
+	public inline function rewind ()				{ current = last; }
+	public inline function hasNext ()				{ return current != null; }
+	public inline function value ()					{ return current.data; }
+
+	public inline function next () : DataType
+	{
+		var c = current;
+		current = current.prev;
+		return c.data;
+	}
+	
+	
+#if (unitTesting && debug)
+	public function test ()
+	{
+		var cur = last, prev:FastDoubleCell<DataType> = null;
+		while (cur != null)
+		{
+			if (prev == null)	Assert.null( cur.next );
+			else				Assert.equal( cur.next, prev );
+			
+			prev	= cur;
+			cur		= cur.prev;
+		}
+	}
+#end
 }
