@@ -26,44 +26,15 @@
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.mvc;
- import primevc.core.traits.IDisposable;
-  using primevc.utils.BitUtil;
+package prime.mvc;
 
 
 /**
- * Base class for controllers, mediators and proxy's. It defines that the objects
- * can send events.
- * 
  * @author Ruben Weijers
- * @creation-date Nov 16, 2010
+ * @creation-date May 25, 2011
  */
-class MVCNotifier implements IMVCNotifier
-{
-	private var state : Int;
-	
-	
-	public function new (enabled = true)
-	{
-#if !flash9
-		state = 0;
-#end
-		if (enabled)
-			enable();
-	}
-	
-	
-	public function dispose ()
-	{
-		if (isDisposed())	return;
-		if (isEnabled())	disable();
-		state = state.set( MVCFlags.DISPOSED );
-	}
-	
-	
-	
-	public function enable ()				{ state = state.set( MVCFlags.ENABLED ); }
-	public function disable ()				{ state = state.unset( MVCFlags.ENABLED ); }
-	public inline function isDisposed ()	{ return state.has( MVCFlags.DISPOSED ); }
-	public inline function isEnabled ()		{ return state.has( MVCFlags.ENABLED ); }
-}
+@:autoBuild(prime.utils.MacroUtils.autoDisable())
+@:autoBuild(prime.utils.MacroUtils.autoEnable())
+@:autoBuild(prime.utils.MacroUtils.autoDispose())
+@:keep
+interface IMVCCore implements IMVCNotifier {}

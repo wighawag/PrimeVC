@@ -26,26 +26,49 @@
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.mvc.events;
- import primevc.core.dispatcher.Signals;
- import primevc.core.dispatcher.Signal1;
+package prime.mvc;
+ import prime.signal.Signals;
+ import prime.core.traits.IDisposable;
+
 
 
 /**
- * Defines 2 events to open or close something
+ * Parent facade is the main-application facade that will be started up as first.
+ * The parent facade is responsible for creating the channels object that will
+ * be distributed to the ChildFacades
+ * 
  * @author Ruben Weijers
- * @creation-date May 17, 2011
+ * @creation-date May 25, 2011
  */
-class OpenCloseEvents<DataType> extends Signals
+class ParentFacade <
+		EventsType		: Signals,
+		ModelType		: IMVCCore,
+		StatesType		: IDisposable,
+		ControllerType	: IMVCCoreActor,
+		ViewType		: IMVCCoreActor,
+		ChannelsType	: Signals
+	> extends Facade <EventsType, ModelType, StatesType, ControllerType, ViewType>
 {
-	public var open		(default, null)	: Signal1<DataType>;
-	public var close	(default, null)	: Signal1<DataType>;
+	public var channels		(default, null) : ChannelsType;
 	
 	
 	public function new ()
 	{
+		setupChannels();
 		super();
-		open	= new Signal1();
-		close	= new Signal1();
 	}
+	
+	
+	override public function dispose ()
+	{
+		super.dispose();
+		channels.dispose();
+		channels = null;
+	}
+	
+	
+	/**
+	 * Can instantiate the channels for this Facade.
+	 */
+	function setupChannels()	{ Assert.abstract(); }
 }

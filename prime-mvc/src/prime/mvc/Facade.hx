@@ -27,10 +27,10 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.mvc;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.dispatcher.Signals;
- import primevc.core.traits.IDisposable;
+package prime.mvc;
+ import prime.signal.Signal0;
+ import prime.signal.Signals;
+ import prime.core.traits.IDisposable;
 
 
 /**

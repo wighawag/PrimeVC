@@ -20,21 +20,24 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.s
+ * DAMAGE.
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ rubenw.nl>
+ *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.mvc;
+package prime.mvc;
+ import prime.core.traits.IEditEnabledValueObject;
 
 
 /**
  * @author Ruben Weijers
- * @creation-date May 25, 2011
+ * @creation-date Dec 14, 2010
  */
-@:autoBuild(primevc.utils.MacroUtils.autoDisable())
-@:autoBuild(primevc.utils.MacroUtils.autoEnable())
-@:autoBuild(primevc.utils.MacroUtils.autoDispose())
-@:keep
-interface IMVCCore implements IMVCNotifier {}
+interface IEditableProxy < EditableVOType:IEditEnabledValueObject > 
+{
+	public function beginEdit ()	: EditableVOType;
+	public function commitEdit ()	: Void;
+	public function cancelEdit ()	: Void;
+	public function isEditing ()	: Bool;
+}

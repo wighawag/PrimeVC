@@ -26,30 +26,41 @@
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.mvc;
+package prime.mvc;
+#if debug
+  using prime.utils.BitUtil;
+#end
 
 
 /**
- * The MVCActor is an object that can communicate messages to the MVC-application
- * but is also able to listen to messages from the application.
- * 
  * @author Ruben Weijers
- * @creation-date May 17, 2011
+ * @creation-date Dec 14, 2010
  */
-interface IMVCActor implements IMVCNotifier 
+#if !debug extern #end class MVCFlags
 {
-	/**
-	 * Method in which the actor can begin to listen to events of the MVC
-	 */
-	public function startListening ()	: Void;
+	public static inline var LISTENING	= 1 << 0;
+	public static inline var DISPOSED	= 1 << 1;
 	
-	/**
-	 * Method in which the actor should stop listening to messages of the MVC
-	 */
-	public function stopListening ()	: Void;
+	public static inline var ENABLED	= 1 << 2;
+	public static inline var EDITING	= 1 << 3;
+	public static inline var HAS_DATA	= 1 << 4;
+	public static inline var LOADING	= 1 << 5;
+	public static inline var SENDING	= 1 << 6;
 	
-	/**
-	 * Method returning true if the actor is listening
-	 */
-	public function isListening ()		: Bool;
+	
+#if debug
+	public static function readState (state:Int) : String
+	{
+		var str = [];
+		if (state.has(LISTENING))	str.push( "listening" );
+		if (state.has(DISPOSED))	str.push( "disposed" );
+		if (state.has(EDITING))		str.push( "editing" );
+		if (state.has(ENABLED))		str.push( "enabled" );
+		if (state.has(HAS_DATA))	str.push( "hasData" );
+		if (state.has(LOADING))		str.push( "loading" );
+		if (state.has(SENDING))		str.push( "sending" );
+		
+		return str.join(", ");
+	}
+#end
 }

@@ -1,6 +1,6 @@
 package sample;
- import primevc.mvc.MVCActor;
- import primevc.mvc.IMVCCoreActor;
+ import prime.mvc.MVCActor;
+ import prime.mvc.IMVCCoreActor;
   using primevc.utils.Bind;
 
 /**

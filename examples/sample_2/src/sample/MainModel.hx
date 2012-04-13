@@ -1,7 +1,7 @@
 package sample;
 
-import primevc.mvc.MVCNotifier;
-import primevc.mvc.IMVCCore;
+import prime.mvc.MVCNotifier;
+import prime.mvc.IMVCCore;
 
 
 /**

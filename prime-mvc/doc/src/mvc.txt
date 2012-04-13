@@ -147,12 +147,12 @@ A *facade* is the main MVC-object that contains references to all tiers of the M
 [cols="1m,2m", options="header"]
 |=====
 |Tier 		|Baseclass
-|Facade		|primevc.mvc.Facade
-|Model		|primevc.mvc.IMVCCore
-|View		|primevc.mvc.IMVCCoreActor
-|Logic		|primevc.mvc.IMVCCoreActor
-|Events		|primevc.core.dispatcher.Signals
-|States		|primevc.core.traits.IDisposable
+|Facade		|prime.mvc.Facade
+|Model		|prime.mvc.IMVCCore
+|View		|prime.mvc.IMVCCoreActor
+|Logic		|prime.mvc.IMVCCoreActor
+|Events		|prime.signals.Signals
+|States		|prime.core.traits.IDisposable
 |=====
 
 

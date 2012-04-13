@@ -20,47 +20,47 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.s
+ * DAMAGE.s/
  *
  *
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.mvc;
-#if debug
-  using primevc.utils.BitUtil;
-#end
+package prime.mvc;
+ import prime.core.traits.IDisablable;
+ import prime.core.traits.IDisposable;
 
 
 /**
+ * The MVCNotifier is an object that can send messages to the mvc-application.
+ * 
  * @author Ruben Weijers
- * @creation-date Dec 14, 2010
+ * @creation-date May 17, 2011
  */
-#if !debug extern #end class MVCFlags
+interface IMVCNotifier implements IDisposable, implements IDisablable
 {
-	public static inline var LISTENING	= 1 << 0;
-	public static inline var DISPOSED	= 1 << 1;
+	/**
+	 * State holder.. contains the flag of the current state of the notifier
+	 */
+	private var state : Int;
 	
-	public static inline var ENABLED	= 1 << 2;
-	public static inline var EDITING	= 1 << 3;
-	public static inline var HAS_DATA	= 1 << 4;
-	public static inline var LOADING	= 1 << 5;
-	public static inline var SENDING	= 1 << 6;
+	/**
+	 * Enable sending messages
+	 */
+	public function enable ()	: Void;
 	
+	/**
+	 * Disable sending messages
+	 */
+	public function disable ()	: Void;
 	
-#if debug
-	public static function readState (state:Int) : String
-	{
-		var str = [];
-		if (state.has(LISTENING))	str.push( "listening" );
-		if (state.has(DISPOSED))	str.push( "disposed" );
-		if (state.has(EDITING))		str.push( "editing" );
-		if (state.has(ENABLED))		str.push( "enabled" );
-		if (state.has(HAS_DATA))	str.push( "hasData" );
-		if (state.has(LOADING))		str.push( "loading" );
-		if (state.has(SENDING))		str.push( "sending" );
-		
-		return str.join(", ");
-	}
-#end
+	/**
+	 * Method returning true if the notifier is enabled
+	 */
+	public function isEnabled ()	: Bool;
+	
+	/**
+	 * Method returning true if the notifier is disposed
+	 */
+	public function isDisposed ()	: Bool;
 }

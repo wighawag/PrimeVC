@@ -26,49 +26,14 @@
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.mvc;
- import primevc.core.dispatcher.Signals;
- import primevc.core.traits.IDisposable;
-
+package prime.mvc;
 
 
 /**
- * Parent facade is the main-application facade that will be started up as first.
- * The parent facade is responsible for creating the channels object that will
- * be distributed to the ChildFacades
- * 
  * @author Ruben Weijers
  * @creation-date May 25, 2011
  */
-class ParentFacade <
-		EventsType		: Signals,
-		ModelType		: IMVCCore,
-		StatesType		: IDisposable,
-		ControllerType	: IMVCCoreActor,
-		ViewType		: IMVCCoreActor,
-		ChannelsType	: Signals
-	> extends Facade <EventsType, ModelType, StatesType, ControllerType, ViewType>
-{
-	public var channels		(default, null) : ChannelsType;
-	
-	
-	public function new ()
-	{
-		setupChannels();
-		super();
-	}
-	
-	
-	override public function dispose ()
-	{
-		super.dispose();
-		channels.dispose();
-		channels = null;
-	}
-	
-	
-	/**
-	 * Can instantiate the channels for this Facade.
-	 */
-	function setupChannels()	{ Assert.abstract(); }
-}
+@:autoBuild(prime.utils.MacroUtils.autoStartListening())
+@:autoBuild(prime.utils.MacroUtils.autoStopListening())
+@:keep
+interface IMVCCoreActor implements IMVCCore, implements IMVCActor {}

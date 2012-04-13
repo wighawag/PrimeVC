@@ -20,24 +20,50 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.
+ * DAMAGE.s
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.mvc;
- import primevc.core.traits.IEditEnabledValueObject;
+package prime.mvc;
+ import prime.core.traits.IDisposable;
+  using prime.utils.BitUtil;
 
 
 /**
+ * Base class for controllers, mediators and proxy's. It defines that the objects
+ * can send events.
+ * 
  * @author Ruben Weijers
- * @creation-date Dec 14, 2010
+ * @creation-date Nov 16, 2010
  */
-interface IEditableProxy < EditableVOType:IEditEnabledValueObject > 
+class MVCNotifier implements IMVCNotifier
 {
-	public function beginEdit ()	: EditableVOType;
-	public function commitEdit ()	: Void;
-	public function cancelEdit ()	: Void;
-	public function isEditing ()	: Bool;
+	private var state : Int;
+	
+	
+	public function new (enabled = true)
+	{
+#if !flash9
+		state = 0;
+#end
+		if (enabled)
+			enable();
+	}
+	
+	
+	public function dispose ()
+	{
+		if (isDisposed())	return;
+		if (isEnabled())	disable();
+		state = state.set( MVCFlags.DISPOSED );
+	}
+	
+	
+	
+	public function enable ()				{ state = state.set( MVCFlags.ENABLED ); }
+	public function disable ()				{ state = state.unset( MVCFlags.ENABLED ); }
+	public inline function isDisposed ()	{ return state.has( MVCFlags.DISPOSED ); }
+	public inline function isEnabled ()		{ return state.has( MVCFlags.ENABLED ); }
 }

@@ -1,20 +1,20 @@
-package cases;
+package;
+ import prime.signal.ISender1;
+ import prime.signal.INotifier;
+ import prime.signal.Signal1;
+ import prime.signal.Signals;
 
-import primevc.core.dispatcher.ISender1;
-import primevc.core.dispatcher.INotifier;
-import primevc.core.dispatcher.Signal1;
-import primevc.core.dispatcher.Signals;
+ import prime.mvc.Facade;
+ import prime.mvc.Model;
+ import prime.mvc.Mediator;
+ import prime.mvc.View;
+ import prime.mvc.Proxy;
+ import prime.mvc.EditProxy;
 
-import primevc.mvc.Facade;
-import primevc.mvc.Model;
-import primevc.mvc.Mediator;
-import primevc.mvc.View;
-import primevc.mvc.Proxy;
-import primevc.mvc.EditProxy;
+ import prime.core.traits.IValueObject;
+ import prime.core.traits.IEditableValueObject;
+ import prime.core.traits.IEditEnabledValueObject;
 
-import primevc.mvc.traits.IValueObject;
-import primevc.mvc.traits.IEditableValueObject;
-import primevc.mvc.traits.IEditEnabledValueObject;
 
 interface IUserVO implements IValueObject
 {

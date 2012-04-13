@@ -1,5 +1,5 @@
 package sample;
- import primevc.mvc.MVCActor;
+ import prime.mvc.MVCActor;
   using primevc.utils.Bind;
 
 /**

@@ -27,9 +27,9 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  *  Ruben Weijers	<primevc @ rubenw.nl>
  */
-package primevc.mvc;
- import primevc.core.traits.IValueObject;
-  using primevc.utils.BitUtil;
+package prime.mvc;
+ import prime.core.traits.IValueObject;
+  using prime.utils.BitUtil;
 
 
 /**

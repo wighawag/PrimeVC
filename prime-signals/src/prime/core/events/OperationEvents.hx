@@ -24,63 +24,35 @@
  *
  *
  * Authors:
- *  Danny Wilson	<danny @ onlinetouch.nl>
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.mvc;
+package prime.core.events;
+ import prime.signal.Signal0;
+ import prime.signal.Signal1;
+ import prime.signal.Signal2;
+
 
 /**
- * Abstract Mediator class.
+ * OperationEvents are used to start/stop operations and track the progress of
+ * the operations.
  * 
- * The Mediator translates requests between gui-components.
- * Usually it acts as a layer between MVC-requests and the GUI.
- * 
- * A Mediator is not allowed to change Value-objects.
- * It can however request changes from a Proxy (defined within Model).
- * 
- * @author Danny Wilson
- * @creation-date Jun 22, 2010
+ * @author Ruben Weijers
+ * @creation-date Nov 16, 2010
  */
-class Mediator <FacadeDef, GUIType> extends MVCActor <FacadeDef>
+class OperationEvents extends CommunicationSignals
 {
-	public var gui (default, setGUI) : GUIType;
+//	public var start	(default, null)		: Signal1 < DataType >;
+//	public var stop		(default, null)		: Signal0;
 	
-	
-	public function new (facade:FacadeDef, enabled:Bool = true, gui:GUIType = null)
+	public function new ()
 	{
-		this.gui = gui;
-		super(facade, enabled);
-	}
-	
-	
-	override public function dispose ()
-	{
-		if (isDisposed())
-			return;
-		
-		gui = null;
-		super.dispose();
-	}
-	
-	
-	/**
-	 * Set the UI element that the mediator serves.
-	 */
-	private function setGUI (v:GUIType)
-	{
-		if (v != gui)
-		{
-			var wasEnabled = isEnabled();
-			if (wasEnabled && gui != null)
-				disable();
-		
-		//	if (v == null && isListening())
-		//		stopListening();
-		
-			gui = v;
-			if (v != null && wasEnabled)
-				enable();
-		}
-		return v;
+		super();
+	//	start		= new Signal1();
+	//	stop		= new Signal0();
+		started		= new Signal0();
+		init		= new Signal0();
+		progress	= new Signal2();
+		completed	= new Signal0();
+		error		= new Signal1();
 	}
 }

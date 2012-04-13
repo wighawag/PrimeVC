@@ -24,35 +24,57 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.mvc.events;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.dispatcher.Signal2;
- import primevc.core.events.CommunicationEvents;
+package prime.mvc;
+ import prime.core.traits.IEditableValueObject;
+ import prime.core.traits.IEditEnabledValueObject;
+  using prime.utils.BitUtil;
 
 
 /**
- * OperationEvents are used to start/stop operations and track the progress of
- * the operations.
+ * A proxy that allows mediators to edit the VO managed by the proxy.
  * 
- * @author Ruben Weijers
- * @creation-date Nov 16, 2010
+ * @author Danny Wilson
+ * @creation-date Jul 09, 2010
  */
-class OperationEvents extends CommunicationSignals
+class EditableProxy	< VOType:IEditableValueObject, EditEnabledVOType:IEditEnabledValueObject, EventsTypedef >
+ 		extends Proxy <VOType, EventsTypedef>
+	,	implements IEditableProxy < EditEnabledVOType >
 {
-//	public var start	(default, null)		: Signal1 < DataType >;
-//	public var stop		(default, null)		: Signal0;
-	
-	public function new ()
+	public function beginEdit() : EditEnabledVOType
 	{
-		super();
-	//	start		= new Signal1();
-	//	stop		= new Signal0();
-		started		= new Signal0();
-		progress	= new Signal2();
-		completed	= new Signal0();
-		error		= new Signal1();
+		if (!isEnabled())
+			return null;
+		
+		setEditing();
+		vo.beginEdit();
+		return cast vo;
 	}
+	
+	
+	public function commitEdit() : Void
+	{
+		if (isEditing())
+		{
+			vo.commitEdit();
+			unsetEditing();
+		}
+	}
+	
+	
+	public function cancelEdit() : Void
+	{
+		if (isEditing())
+		{
+			vo.cancelEdit();
+			unsetEditing();
+		}
+	}
+	
+	
+	public  inline function isEditing ()	{ return state.has( MVCFlags.EDITING ); }
+	private inline function setEditing ()	{ state = state  .set(MVCFlags.EDITING); }
+	private inline function unsetEditing ()	{ state = state.unset(MVCFlags.EDITING); }
+	override public function disable ()	{ cancelEdit(); super.disable(); }
 }

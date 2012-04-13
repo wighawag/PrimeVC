@@ -26,44 +26,70 @@
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.mvc;
-  using primevc.utils.BitUtil;
+package prime.mvc;
+ import prime.signal.Signals;
+ import prime.core.traits.IDisposable;
 
 
 
 /**
- * Base class for mediator and controllers
+ * Child facade is a facade for sub-applications. These applications can't run
+ * standalone and need instructions from another facade. This is possible with
+ * the channels that are given to the child-facade when it's getting connected.
+ * 
+ * Only after connecting with channels, the child will start-listening. If the
+ * facade is disconnected, the child will stop-listening all it's mediators and
+ * controllers.
  * 
  * @author Ruben Weijers
- * @creation-date Nov 16, 2010
+ * @creation-date May 25, 2011
  */
-class MVCActor <FacadeDef> extends MVCNotifier, implements IMVCActor
+class ChildFacade <
+		EventsType		: Signals,
+		ModelType		: IMVCCore,
+		StatesType		: IDisposable,
+		ControllerType	: IMVCCoreActor,
+		ViewType		: IMVCCoreActor,
+		ChannelsType
+	>
+	extends Facade <EventsType, ModelType, StatesType, ControllerType, ViewType>
 {
-	//TODO: Ask Nicolas why you can't have typedefs as type constraint parameters...
-	@manual private var f : FacadeDef;
-	
-	
-	public function new (facade:FacadeDef, enabled = true)
-	{
-		this.f = facade;
-		super(enabled);
-	}
+	public var channels		(default, null) : ChannelsType;
 	
 	
 	override public function dispose ()
 	{
-		if (isDisposed())
-			return;
-		
-		if (isListening())
-			stopListening();
-		
-		f = null;
 		super.dispose();
+		channels = null;
 	}
 	
 	
-	public function startListening () : Void		{ state = state.set( 	MVCFlags.LISTENING ); }
-	public function stopListening () : Void			{ state = state.unset( 	MVCFlags.LISTENING ); if (isEnabled()) { disable(); } }
-	public inline function isListening () : Bool	{ return state.has( 	MVCFlags.LISTENING ); }
+	/**
+	 * Method for connecting a facade with channels of another facade
+	 */
+	public inline function connect (external:ChannelsType) : Void
+	{
+		Assert.that(!isConnected());
+		Assert.notNull(external);
+		channels = external;
+		start();
+	}
+	
+	
+	/**
+	 * Method for disconnecting a facade with channels of another facade
+	 */
+	public inline function disconnect () : Void
+	{
+		if (isConnected())
+			stop();
+		
+		channels = null;
+	}
+
+
+	public inline function isConnected () : Bool
+	{
+		return channels != null;
+	}
 }

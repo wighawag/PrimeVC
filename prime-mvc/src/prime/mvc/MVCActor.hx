@@ -20,47 +20,50 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.s/
+ * DAMAGE.s
  *
  *
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.mvc;
- import primevc.core.traits.IDisablable;
- import primevc.core.traits.IDisposable;
+package prime.mvc;
+  using prime.utils.BitUtil;
+
 
 
 /**
- * The MVCNotifier is an object that can send messages to the mvc-application.
+ * Base class for mediator and controllers
  * 
  * @author Ruben Weijers
- * @creation-date May 17, 2011
+ * @creation-date Nov 16, 2010
  */
-interface IMVCNotifier implements IDisposable, implements IDisablable
+class MVCActor <FacadeDef> extends MVCNotifier, implements IMVCActor
 {
-	/**
-	 * State holder.. contains the flag of the current state of the notifier
-	 */
-	private var state : Int;
+	//TODO: Ask Nicolas why you can't have typedefs as type constraint parameters...
+	@manual private var f : FacadeDef;
 	
-	/**
-	 * Enable sending messages
-	 */
-	public function enable ()	: Void;
 	
-	/**
-	 * Disable sending messages
-	 */
-	public function disable ()	: Void;
+	public function new (facade:FacadeDef, enabled = true)
+	{
+		this.f = facade;
+		super(enabled);
+	}
 	
-	/**
-	 * Method returning true if the notifier is enabled
-	 */
-	public function isEnabled ()	: Bool;
 	
-	/**
-	 * Method returning true if the notifier is disposed
-	 */
-	public function isDisposed ()	: Bool;
+	override public function dispose ()
+	{
+		if (isDisposed())
+			return;
+		
+		if (isListening())
+			stopListening();
+		
+		f = null;
+		super.dispose();
+	}
+	
+	
+	public function startListening () : Void		{ state = state.set( 	MVCFlags.LISTENING ); }
+	public function stopListening () : Void			{ state = state.unset( 	MVCFlags.LISTENING ); if (isEnabled()) { disable(); } }
+	public inline function isListening () : Bool	{ return state.has( 	MVCFlags.LISTENING ); }
 }

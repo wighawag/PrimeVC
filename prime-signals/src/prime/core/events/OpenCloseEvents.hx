@@ -26,70 +26,26 @@
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.mvc;
- import primevc.core.dispatcher.Signals;
- import primevc.core.traits.IDisposable;
-
+package primevc.core.events;
+ import primevc.signal.Signals;
+ import primevc.signal.Signal1;
 
 
 /**
- * Child facade is a facade for sub-applications. These applications can't run
- * standalone and need instructions from another facade. This is possible with
- * the channels that are given to the child-facade when it's getting connected.
- * 
- * Only after connecting with channels, the child will start-listening. If the
- * facade is disconnected, the child will stop-listening all it's mediators and
- * controllers.
- * 
+ * Defines 2 events to open or close something
  * @author Ruben Weijers
- * @creation-date May 25, 2011
+ * @creation-date May 17, 2011
  */
-class ChildFacade <
-		EventsType		: Signals,
-		ModelType		: IMVCCore,
-		StatesType		: IDisposable,
-		ControllerType	: IMVCCoreActor,
-		ViewType		: IMVCCoreActor,
-		ChannelsType
-	>
-	extends Facade <EventsType, ModelType, StatesType, ControllerType, ViewType>
+class OpenCloseEvents<DataType> extends Signals
 {
-	public var channels		(default, null) : ChannelsType;
+	public var open		(default, null)	: Signal1<DataType>;
+	public var close	(default, null)	: Signal1<DataType>;
 	
 	
-	override public function dispose ()
+	public function new ()
 	{
-		super.dispose();
-		channels = null;
-	}
-	
-	
-	/**
-	 * Method for connecting a facade with channels of another facade
-	 */
-	public inline function connect (external:ChannelsType) : Void
-	{
-		Assert.that(!isConnected());
-		Assert.notNull(external);
-		channels = external;
-		start();
-	}
-	
-	
-	/**
-	 * Method for disconnecting a facade with channels of another facade
-	 */
-	public inline function disconnect () : Void
-	{
-		if (isConnected())
-			stop();
-		
-		channels = null;
-	}
-
-
-	public inline function isConnected () : Bool
-	{
-		return channels != null;
+		super();
+		open	= new Signal1();
+		close	= new Signal1();
 	}
 }

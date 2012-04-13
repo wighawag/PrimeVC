@@ -20,61 +20,36 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.
+ * DAMAGE.s
  *
  *
  * Authors:
- *  Danny Wilson	<danny @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.mvc;
- import primevc.core.traits.IEditableValueObject;
- import primevc.core.traits.IEditEnabledValueObject;
-  using primevc.utils.BitUtil;
+package prime.mvc;
 
 
 /**
- * A proxy that allows mediators to edit the VO managed by the proxy.
+ * The MVCActor is an object that can communicate messages to the MVC-application
+ * but is also able to listen to messages from the application.
  * 
- * @author Danny Wilson
- * @creation-date Jul 09, 2010
+ * @author Ruben Weijers
+ * @creation-date May 17, 2011
  */
-class EditableProxy	< VOType:IEditableValueObject, EditEnabledVOType:IEditEnabledValueObject, EventsTypedef >
- 		extends Proxy <VOType, EventsTypedef>
-	,	implements IEditableProxy < EditEnabledVOType >
+interface IMVCActor implements IMVCNotifier 
 {
-	public function beginEdit() : EditEnabledVOType
-	{
-		if (!isEnabled())
-			return null;
-		
-		setEditing();
-		vo.beginEdit();
-		return cast vo;
-	}
+	/**
+	 * Method in which the actor can begin to listen to events of the MVC
+	 */
+	public function startListening ()	: Void;
 	
+	/**
+	 * Method in which the actor should stop listening to messages of the MVC
+	 */
+	public function stopListening ()	: Void;
 	
-	public function commitEdit() : Void
-	{
-		if (isEditing())
-		{
-			vo.commitEdit();
-			unsetEditing();
-		}
-	}
-	
-	
-	public function cancelEdit() : Void
-	{
-		if (isEditing())
-		{
-			vo.cancelEdit();
-			unsetEditing();
-		}
-	}
-	
-	
-	public  inline function isEditing ()	{ return state.has( MVCFlags.EDITING ); }
-	private inline function setEditing ()	{ state = state  .set(MVCFlags.EDITING); }
-	private inline function unsetEditing ()	{ state = state.unset(MVCFlags.EDITING); }
-	override public function disable ()	{ cancelEdit(); super.disable(); }
+	/**
+	 * Method returning true if the actor is listening
+	 */
+	public function isListening ()		: Bool;
 }
