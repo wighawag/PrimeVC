@@ -1,7 +1,7 @@
 package sample;
 
 
-import primevc.mvc.Proxy;
+import prime.mvc.Proxy;
 import primevc.core.Bindable;
 
 /**

@@ -1,7 +1,7 @@
 package sample;
  import primevc.gui.display.Window;
- import primevc.mvc.MVCActor;
- import primevc.mvc.IMVCCoreActor;
+ import prime.mvc.MVCActor;
+ import prime.mvc.IMVCCoreActor;
 
 
 /**

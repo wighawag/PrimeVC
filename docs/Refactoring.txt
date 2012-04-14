@@ -15,19 +15,21 @@ new packages
 Folders:                        New Package
 =================================================
 - avm2.display                  UI
-- avm2.events                   signals
 - avm2.input                    ??
 - avm2.layout                   layout
 - avm2.media                    ??
 
-- core.channels                 -
-- core.collections              value-objects  
-- core.dispatcher               signals
-- core.events                   signals
+	- core.collections          value-objects  
+	
+	- avm2.events               signals
+	- core.dispatcher           signals
+	- core.events               signals
+	- js.events                 signals
+
 - core.geom                     core
 - core.math                     core
 - core.media                    ??
-- core.net                      ??
+	- core.net                  ??
 - core.states                   ??
 - core.traits                   core?
 - core.validators               ??
@@ -36,25 +38,25 @@ Folders:                        New Package
 - gui.behaviours                components
 - gui.components                components
 - gui.core                      components
-- gui.display                   display
-- gui.effects                   effects
-- gui.filters                   display
-- gui.graphics                  graphics
-- gui.input                     display
-- gui.layout                    layout
 - gui.managers                  components
 - gui.states                    components
+
+- gui.display                   display
+- gui.filters                   display
+- gui.input                     display
+- js.display                    display
+
+- gui.effects                   effects
+- gui.graphics                  graphics
+- gui.layout                    layout
+
 - gui.styling                   css
 - gui.text                      css
 - gui.traits                    -- multiple --
 - gui.utils                     -- multiple --
 
-- js.display                    display
-- js.events                     signals
-- js                            ?
 
-- mvc.events                    mvc
-- mvc                           mvc
+	- mvc                       mvc
 
 - neko                          multiple
 

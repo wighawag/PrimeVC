@@ -1,7 +1,7 @@
 package sample;
 
 
-import primevc.mvc.Facade;
+import prime.mvc.Facade;
 import primevc.core.traits.IDisposable;
 
 
