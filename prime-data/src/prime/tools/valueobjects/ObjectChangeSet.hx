@@ -26,12 +26,12 @@
  * Authors:
  *  Danny Wilson    <danny @ onlinetouch.nl>
  */
-package primevc.tools.valueobjects;
- import primevc.core.collections.IRevertableList;
-  using primevc.tools.valueobjects.ChangesUtil;
-  using primevc.utils.DateUtil;
-  using primevc.utils.IfUtil;
-  using primevc.utils.TypeUtil;
+package prime.tools.valueobjects;
+ import prime.core.collections.IRevertableList;
+  using prime.tools.valueobjects.ChangesUtil;
+  using prime.utils.DateUtil;
+  using prime.utils.IfUtil;
+  using prime.utils.TypeUtil;
 
 
 /**

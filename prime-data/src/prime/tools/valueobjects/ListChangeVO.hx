@@ -26,11 +26,11 @@
  * Authors:
  *  Danny Wilson    <danny @ onlinetouch.nl>
  */
-package primevc.tools.valueobjects;
- import primevc.core.collections.ListChange;
- import primevc.utils.FastArray;
-  using primevc.utils.FastArray;
-  using primevc.utils.IfUtil;
+package prime.tools.valueobjects;
+ import prime.core.collections.ListChange;
+ import prime.utils.FastArray;
+  using prime.utils.FastArray;
+  using prime.utils.IfUtil;
 
 
 /**

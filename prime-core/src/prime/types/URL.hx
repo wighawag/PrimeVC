@@ -28,9 +28,9 @@
  *  Ruben Weijers   <ruben @ rubenw.nl>
  */
 
-package primevc.types;
-  using primevc.types.URI;
-  using primevc.utils.IfUtil;
+package prime.types;
+  using prime.types.URI;
+  using prime.utils.IfUtil;
 
 
 /**

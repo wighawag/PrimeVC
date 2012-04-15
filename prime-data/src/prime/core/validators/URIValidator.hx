@@ -26,8 +26,8 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.validators;
- import primevc.core.dispatcher.Signal0;
+package prime.core.validators;
+ import prime.signal.Signal0;
 
 
 /**

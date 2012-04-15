@@ -26,10 +26,10 @@
  * Authors:
  *  Danny Wilson    <danny @ onlinetouch.nl>
  */
-package primevc.tools.valueobjects;
- import primevc.core.collections.IRevertableList;
-  using primevc.tools.valueobjects.ChangesUtil;
-  using primevc.utils.IfUtil;
+package prime.tools.valueobjects;
+ import prime.core.collections.IRevertableList;
+  using prime.tools.valueobjects.ChangesUtil;
+  using prime.utils.IfUtil;
 
 
 /**
@@ -49,6 +49,6 @@ class ChangeSet extends ChangeVO
     
     private function new()
     {
-        timestamp = primevc.utils.TimerUtil.stamp();
+        timestamp = prime.utils.TimerUtil.stamp();
     }
 }

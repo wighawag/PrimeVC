@@ -26,9 +26,9 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.validators;
- import primevc.types.Number;
-  using primevc.utils.NumberUtil;
+package prime.core.validators;
+ import prime.types.Number;
+  using prime.utils.NumberUtil;
 
 
 /**

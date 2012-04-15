@@ -26,13 +26,13 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.tools.valueobjects;
- import primevc.core.collections.IEditableList;
- import primevc.core.collections.ListChange;
- import primevc.core.traits.IEditableValueObject;
- import primevc.core.traits.IValueObject;
+package prime.tools.valueobjects;
+ import prime.core.collections.IEditableList;
+ import prime.core.collections.ListChange;
+ import prime.core.traits.IEditableValueObject;
+ import prime.core.traits.IValueObject;
   using prime.core.collections.ListChange;
-  using primevc.utils.TypeUtil;
+  using prime.utils.TypeUtil;
   using Reflect;
   using Std;
   using Type;

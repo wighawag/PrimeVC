@@ -26,12 +26,12 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.types;
+package prime.types;
 #if neko
- import primevc.tools.generator.ICodeGenerator;
- import primevc.tools.generator.ValueType;
+ import prime.tools.generator.ICodeGenerator;
+ import prime.tools.generator.ValueType;
 #end
- import primevc.types.Factory;
+ import prime.types.Factory;
 
 
 enum Reference {

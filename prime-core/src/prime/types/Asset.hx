@@ -26,36 +26,36 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.types;
- import primevc.core.geom.Matrix2D;
- import primevc.core.net.ICommunicator;
- import primevc.core.states.SimpleStateMachine;
- import primevc.core.traits.IDisposable;
- import primevc.core.traits.IValueObject;
- import primevc.gui.display.BitmapData;
- import primevc.gui.display.DisplayObject;
- import primevc.types.Number;
- import primevc.types.URI;
-  using primevc.utils.Bind;
-  using primevc.utils.NumberUtil;
-  using primevc.utils.TypeUtil;
+package prime.types;
+ import prime.core.geom.Matrix2D;
+ import prime.core.net.ICommunicator;
+ import prime.core.states.SimpleStateMachine;
+ import prime.core.traits.IDisposable;
+ import prime.core.traits.IValueObject;
+ import prime.gui.display.BitmapData;
+ import prime.gui.display.DisplayObject;
+ import prime.types.Number;
+ import prime.types.URI;
+  using prime.utils.Bind;
+  using prime.utils.NumberUtil;
+  using prime.utils.TypeUtil;
   using Type;
 
 #if flash9
  import flash.display.IBitmapDrawable;
- import primevc.core.net.URLLoader;
- import primevc.gui.display.Loader;
+ import prime.core.net.URLLoader;
+ import prime.gui.display.Loader;
 
 #elseif neko
- import primevc.tools.generator.ICodeFormattable;
- import primevc.tools.generator.ICodeGenerator;
- import primevc.types.Reference;
-  using primevc.types.Reference;
+ import prime.tools.generator.ICodeFormattable;
+ import prime.tools.generator.ICodeGenerator;
+ import prime.types.Reference;
+  using prime.types.Reference;
 #end
 
 
 private typedef FlashBitmap		= #if flash9	flash.display.Bitmap		#else Dynamic			#end;
-private typedef Factory			= primevc.types.Factory<Dynamic>;
+private typedef Factory			= prime.types.Factory<Dynamic>;
 private typedef BytesData		= haxe.io.BytesData;
 
 
@@ -147,7 +147,7 @@ class Asset		implements IDisposable
 		state	= new SimpleStateMachine<AssetStates>(empty);
 		width	= height = Number.INT_NOT_SET;
 #if neko			source	= data; #end
-#if (neko || debug)	_oid	= primevc.utils.ID.getNext(); #end
+#if (neko || debug)	_oid	= prime.utils.ID.getNext(); #end
 #if flash9			Assert.notNull(type); #end
 	}
 	
@@ -326,7 +326,7 @@ class BitmapAsset extends Asset
 	}
 	
 	
-	override public  function toDisplayObject () : DisplayObject	{ return new primevc.gui.display.BitmapShape( bitmapData ); }
+	override public  function toDisplayObject () : DisplayObject	{ return new prime.gui.display.BitmapShape( bitmapData ); }
 #if flash9
 	override public  function toDrawable ()		 : IBitmapDrawable	{ return bitmapData; }
 #end

@@ -26,18 +26,18 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.types;
+package prime.types;
 #if neko
- import primevc.tools.generator.ICodeFormattable;
- import primevc.tools.generator.ICodeGenerator;
- import primevc.utils.ID;
+ import prime.tools.generator.ICodeFormattable;
+ import prime.tools.generator.ICodeGenerator;
+ import prime.utils.ID;
 #end
 #if flash9
- import primevc.core.net.RequestMethod;
+ import prime.core.net.RequestMethod;
 #end
-  using primevc.utils.FileUtil;
-  using primevc.utils.IfUtil;
-  using primevc.utils.NumberUtil;
+  using prime.utils.FileUtil;
+  using prime.utils.IfUtil;
+  using prime.utils.NumberUtil;
 
 
 /**

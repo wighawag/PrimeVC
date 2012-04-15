@@ -26,17 +26,17 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.types;
+package prime.types;
 #if neko
- import primevc.core.traits.IDisposable;
- import primevc.neko.traits.IHasTypeParameters;
+ import prime.core.traits.IDisposable;
+ import prime.neko.traits.IHasTypeParameters;
 
- import primevc.tools.generator.ICodeFormattable;
- import primevc.tools.generator.ICodeGenerator;
- import primevc.tools.generator.ICSSFormattable;
+ import prime.tools.generator.ICodeFormattable;
+ import prime.tools.generator.ICodeGenerator;
+ import prime.tools.generator.ICSSFormattable;
 
- import primevc.utils.ID;
-  using primevc.utils.TypeUtil;
+ import prime.utils.ID;
+  using prime.utils.TypeUtil;
   using Std;
   using Type;
 #end

@@ -26,9 +26,9 @@
  * Authors:
  *  Danny Wilson    <danny @ onlinetouch.nl>
  */
-package primevc.tools.valueobjects;
- import primevc.core.traits.IValueObject;
-  using primevc.utils.IfUtil;
+package prime.tools.valueobjects;
+ import prime.core.traits.IValueObject;
+  using prime.utils.IfUtil;
 
 
 /**

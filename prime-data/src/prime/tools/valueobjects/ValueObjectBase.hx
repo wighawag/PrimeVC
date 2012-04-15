@@ -26,14 +26,14 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.tools.valueobjects;
- import primevc.core.traits.IFlagOwner;
- import primevc.core.traits.IValueObject;
- import primevc.core.dispatcher.Signal1;
- import primevc.core.RevertableBindableFlags;
-  using primevc.utils.BitUtil;
-  using primevc.utils.IfUtil;
-  using primevc.utils.TypeUtil;
+package prime.tools.valueobjects;
+ import prime.core.traits.IFlagOwner;
+ import prime.core.traits.IValueObject;
+ import prime.signal.Signal1;
+ import prime.core.RevertableBindableFlags;
+  using prime.utils.BitUtil;
+  using prime.utils.IfUtil;
+  using prime.utils.TypeUtil;
 
 
 private typedef Flags = RevertableBindableFlags;

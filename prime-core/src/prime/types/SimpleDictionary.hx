@@ -26,20 +26,20 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.types;
- import primevc.core.collections.iterators.FastArrayForwardIterator;
- import primevc.core.traits.IClonable;
- import primevc.core.traits.IDisposable;
+package prime.types;
+ import prime.core.collections.iterators.FastArrayForwardIterator;
+ import prime.core.traits.IClonable;
+ import prime.core.traits.IDisposable;
 #if neko
- import primevc.tools.generator.ICodeFormattable;
+ import prime.tools.generator.ICodeFormattable;
 #end
- import primevc.utils.FastArray;
+ import prime.utils.FastArray;
 #if (neko || debug)
- import primevc.tools.generator.ICodeGenerator;
- import primevc.utils.ID;
- import primevc.utils.TypeUtil;
+ import prime.tools.generator.ICodeGenerator;
+ import prime.utils.ID;
+ import prime.utils.TypeUtil;
 #end
-  using primevc.utils.FastArray;
+  using prime.utils.FastArray;
   using Std;
 
 
