@@ -37,7 +37,7 @@ package examples.layout;
  import primevc.gui.layout.LayoutFlags;
  import primevc.gui.traits.IGraphicsOwner;
 
-  using primevc.core.states.SimpleStateMachine;
+  using prime.fsm.SimpleStateMachine;
   using primevc.utils.Bind;			// for writing easy-to-read signal-bindings
   using primevc.utils.BitUtil;		// for writing easy-to-read bit-flag-operations
 

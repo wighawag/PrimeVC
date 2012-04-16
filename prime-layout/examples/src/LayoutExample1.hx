@@ -41,7 +41,7 @@ package examples.layout;
 
  import primevc.utils.FastArray;
 
-  using primevc.core.states.SimpleStateMachine;
+  using prime.fsm.SimpleStateMachine;
   using primevc.utils.Bind;			// for writing easy-to-read signal-bindings
   using primevc.utils.BitUtil;		// for writing easy-to-read bit-flag-operations
   using primevc.utils.FastArray;	// for creating vectors in flash and arrays on other platforms

@@ -1,11 +1,10 @@
 package sample;
-
-import primevc.gui.events.MouseEvents;
-import prime.mvc.Mediator;
-import primevc.core.dispatcher.Signal1;
-import primevc.gui.components.Button;
-using primevc.utils.Bind;
-using primevc.utils.TypeUtil;
+ import primevc.gui.events.MouseEvents;
+ import prime.mvc.Mediator;
+ import prime.signal.Signal1;
+ import primevc.gui.components.Button;
+  using primevc.utils.Bind;
+  using primevc.utils.TypeUtil;
 
 
 /**
@@ -25,6 +24,7 @@ class ButtonMediator extends Mediator <MainFacade, Button>
         super.startListening();
     }
 
+
     override public function stopListening ()
     {
         if (!isListening())
@@ -33,6 +33,7 @@ class ButtonMediator extends Mediator <MainFacade, Button>
 		super.stopListening();
         gui.userEvents.unbind(this);
     }
+    
 	
     private function clickHandler(e)
     {
