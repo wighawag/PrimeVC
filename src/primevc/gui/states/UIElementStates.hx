@@ -27,8 +27,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.states;
- import primevc.core.states.FiniteStateMachine;
- import primevc.core.states.IState;
+ import prime.fsm.FiniteStateMachine;
+ import prime.fsm.IState;
 
 
 /**

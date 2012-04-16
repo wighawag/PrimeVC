@@ -27,7 +27,7 @@
  *  Ruben Weijers   <ruben @ onlinetouch.nl>
  */
 package primevc.gui.core;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.Bindable;
  
  import primevc.gui.behaviours.layout.ValidateLayoutBehaviour;

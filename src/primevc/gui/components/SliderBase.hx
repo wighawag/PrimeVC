@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.components;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.events.ActionEvent;
  import primevc.core.geom.space.Direction;
  import primevc.core.geom.IntPoint;

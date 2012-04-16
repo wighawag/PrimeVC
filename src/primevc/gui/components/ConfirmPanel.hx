@@ -27,7 +27,7 @@
  *  Ruben Weijers   <ruben @ onlinetouch.nl>
  */
 package primevc.gui.components;
- import primevc.core.dispatcher.Signal0;
+ import prime.signal.Signal0;
  import primevc.gui.core.IUIElement;
  import primevc.gui.events.KeyboardEvents;
  import primevc.gui.input.KeyCodes;

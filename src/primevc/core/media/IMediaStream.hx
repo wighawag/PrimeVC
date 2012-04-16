@@ -27,8 +27,8 @@
  *  Ruben Weijers   <ruben @ onlinetouch.nl>
  */
 package primevc.core.media;
- import primevc.core.states.SimpleStateMachine;
- import primevc.core.states.MediaStates;
+ import prime.fsm.SimpleStateMachine;
+ import prime.fsm.MediaStates;
  import primevc.core.traits.IDisposable;
  import primevc.core.traits.IFreezable;
  import primevc.core.Bindable;

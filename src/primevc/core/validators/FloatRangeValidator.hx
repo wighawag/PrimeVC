@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.validators;
- import primevc.core.dispatcher.Signal0;
+ import prime.signal.Signal0;
  import primevc.types.Number;
  import primevc.utils.NumberUtil;
   using primevc.utils.NumberUtil;

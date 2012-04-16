@@ -27,13 +27,12 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.styling;
-
 #if flash9
  import primevc.core.collections.FastDoubleCell;
  import primevc.core.collections.ListChange;
  import primevc.core.collections.PriorityList;
- import primevc.core.dispatcher.Signal0;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Signal0;
+ import prime.signal.Wire;
  import primevc.core.traits.IInvalidatable;
  import primevc.gui.traits.IDisplayable;
  import primevc.gui.traits.IStylable;

@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.behaviours.styling;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.gui.behaviours.BehaviourBase;
  import primevc.gui.core.IUIComponent;
  import primevc.gui.events.FocusState;

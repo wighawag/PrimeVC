@@ -28,7 +28,7 @@
  */
 package primevc.gui.components;
  import primevc.core.collections.IReadOnlyList;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.gui.behaviours.components.ButtonSelectedOpenPopup;
  import primevc.gui.behaviours.components.KeyboardListNavigation;
  import primevc.gui.behaviours.layout.FollowObjectBehaviour;

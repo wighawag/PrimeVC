@@ -27,7 +27,7 @@
  *  Ruben Weijers   <ruben @ onlinetouch.nl>
  */
 package primevc.gui.components;
- import primevc.core.dispatcher.Signal1;
+ import prime.signal.Signal1;
  import primevc.core.net.FileReferenceList;
  import primevc.core.net.FileReference;
  import primevc.core.net.FileFilter;

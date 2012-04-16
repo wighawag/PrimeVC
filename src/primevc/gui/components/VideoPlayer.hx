@@ -28,7 +28,7 @@
  */
 package primevc.gui.components;
  import primevc.core.media.VideoStream;
- import primevc.core.states.MediaStates;
+ import prime.fsm.MediaStates;
  import primevc.core.Bindable;
  import primevc.gui.core.IUIElement;
  import primevc.gui.core.UIContainer;

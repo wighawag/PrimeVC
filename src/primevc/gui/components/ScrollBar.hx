@@ -27,12 +27,12 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.components;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.geom.space.Direction;
  import primevc.gui.core.UIElementFlags;
  import primevc.gui.events.MouseEvents;
  import primevc.gui.layout.LayoutFlags;
- import primevc.gui.states.ValidateStates;
+ import prime.fsm.states.ValidateStates;
  import primevc.gui.traits.IScrollable;
  import primevc.utils.NumberUtil;
   using primevc.utils.Bind;

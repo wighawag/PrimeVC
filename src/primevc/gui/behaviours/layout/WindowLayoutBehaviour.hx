@@ -30,7 +30,7 @@ package primevc.gui.behaviours.layout;
  import primevc.gui.behaviours.ValidatingBehaviour;
  import primevc.gui.core.UIWindow;
  import primevc.gui.layout.LayoutFlags;
- import primevc.gui.states.ValidateStates;
+ import prime.fsm.states.ValidateStates;
  import primevc.gui.traits.IPropertyValidator;
   using primevc.utils.Bind;
   using primevc.utils.BitUtil;

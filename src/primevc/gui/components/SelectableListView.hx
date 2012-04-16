@@ -28,7 +28,7 @@
  */
 package primevc.gui.components;
  import primevc.core.collections.ListChange;
- import primevc.core.dispatcher.Signal0;
+ import prime.signal.Signal0;
  import primevc.core.Bindable;
  
  import primevc.gui.core.IUIDataElement;

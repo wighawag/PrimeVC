@@ -29,7 +29,7 @@
 package primevc.types;
  import primevc.core.geom.Matrix2D;
  import primevc.core.net.ICommunicator;
- import primevc.core.states.SimpleStateMachine;
+ import prime.fsm.SimpleStateMachine;
  import primevc.core.traits.IDisposable;
  import primevc.core.traits.IValueObject;
  import primevc.gui.display.BitmapData;

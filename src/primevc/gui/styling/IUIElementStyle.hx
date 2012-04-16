@@ -28,7 +28,7 @@
  */
 package primevc.gui.styling;
  import primevc.core.collections.PriorityList;
- import primevc.core.dispatcher.Signal0;
+ import prime.signal.Signal0;
  import primevc.core.traits.IInvalidateListener;
  import primevc.core.traits.IDisposable;
  import primevc.gui.styling.StyleBlock;

@@ -30,7 +30,7 @@ package primevc.gui.behaviours.scroll;
  import primevc.gui.behaviours.BehaviourBase;
  import primevc.gui.traits.IScrollable;
 #if !neko
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.geom.Point;
  import primevc.gui.behaviours.drag.DragHelper;
  import primevc.gui.events.MouseEvents;

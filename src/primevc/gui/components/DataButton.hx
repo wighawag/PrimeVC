@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.components;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.Bindable;
  import primevc.types.Asset;
   using primevc.utils.Bind;

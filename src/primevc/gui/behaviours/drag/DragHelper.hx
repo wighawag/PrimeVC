@@ -28,7 +28,7 @@
  */
 package primevc.gui.behaviours.drag;
  import haxe.Timer;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.traits.IDisablable;
  import primevc.core.traits.IDisposable;
  import primevc.gui.display.ISprite;

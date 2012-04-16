@@ -29,7 +29,7 @@
 package primevc.gui.components;
  import primevc.core.math.PercentageHelper;
  import primevc.core.net.ICommunicator;
- import primevc.core.states.SimpleStateMachine;
+ import prime.fsm.SimpleStateMachine;
 
  import primevc.gui.core.IUIContainer;
  import primevc.gui.core.UIDataContainer;

@@ -28,13 +28,13 @@
  */
 package primevc.gui.components;
  import flash.errors.Error;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.gui.core.UIContainer;
  import primevc.gui.core.UIWindow;
  import primevc.gui.layout.algorithms.LayoutAlgorithmBase;
  import primevc.gui.layout.LayoutClient;
  import primevc.gui.layout.LayoutContainer;
- import primevc.gui.states.ValidateStates;
+ import prime.fsm.states.ValidateStates;
  import primevc.gui.events.KeyboardEvents;
  import primevc.gui.input.KeyCodes;
   using primevc.utils.Bind;

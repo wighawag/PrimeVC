@@ -28,7 +28,7 @@
  */
 package primevc.gui.components;
  import primevc.core.collections.IReadOnlyList;
- import primevc.core.dispatcher.Signal1;
+ import prime.signal.Signal1;
  import primevc.core.traits.IValueObject;
  import primevc.gui.core.IUIDataElement;
  import primevc.gui.core.UIDataContainer;

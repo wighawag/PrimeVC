@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.behaviours.components;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.gui.behaviours.BehaviourBase;
  import primevc.gui.core.IUIContainer;
  //import primevc.gui.events.KeyboardEvents;

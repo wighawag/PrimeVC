@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.math;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.traits.IDisposable;
  import primevc.core.Bindable;
  import primevc.core.validators.FloatRangeValidator;

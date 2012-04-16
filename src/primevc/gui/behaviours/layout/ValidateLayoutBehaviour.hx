@@ -28,12 +28,12 @@
  */
 package primevc.gui.behaviours.layout;
  import primevc.core.collections.FastDoubleCell;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.gui.behaviours.ValidatingBehaviour;
  import primevc.gui.core.IUIElement;
  import primevc.gui.layout.LayoutClient;
  import primevc.gui.layout.LayoutFlags;
- import primevc.gui.states.ValidateStates;
+ import prime.fsm.states.ValidateStates;
  import primevc.gui.traits.IDrawable;
  import primevc.gui.traits.IPropertyValidator;
   using primevc.utils.Bind;

@@ -28,7 +28,7 @@
  */
 package primevc.avm2.display;
  import flash.display.DisplayObject;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.geom.IntRectangle;
  import primevc.core.Bindable;
 

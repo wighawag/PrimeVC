@@ -27,8 +27,8 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package primevc.core;
- import primevc.core.dispatcher.IUnbindable;
- import primevc.core.dispatcher.Signal1;
+ import prime.signal.IUnbindable;
+ import prime.signal.Signal1;
  import primevc.core.traits.IDisposable;
   using primevc.utils.Bind;
   using primevc.utils.BitUtil;

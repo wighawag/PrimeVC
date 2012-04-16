@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.display;
- import primevc.core.dispatcher.Signal0;
+ import prime.signal.Signal0;
  import primevc.core.geom.IntRectangle;
  import primevc.core.traits.IDisablable;
 #if flash9

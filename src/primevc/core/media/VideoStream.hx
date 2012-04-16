@@ -35,8 +35,8 @@ package primevc.core.media;
  import primevc.avm2.net.NetConnection;
  import primevc.avm2.net.NetStream;
 #end
- import primevc.core.states.SimpleStateMachine;
- import primevc.core.states.MediaStates;
+ import prime.fsm.SimpleStateMachine;
+ import prime.fsm.MediaStates;
  import primevc.core.Bindable;
  import primevc.core.Error;
  import primevc.types.Number;

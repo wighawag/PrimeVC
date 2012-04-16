@@ -28,7 +28,7 @@
  */
 package primevc.gui.behaviours.scroll;
 #if !neko
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.geom.IntPoint;
  import primevc.gui.events.MouseEvents;
   using primevc.utils.Bind;

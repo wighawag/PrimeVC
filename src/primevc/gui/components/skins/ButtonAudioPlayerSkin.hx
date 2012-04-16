@@ -27,7 +27,7 @@
  *  Ruben Weijers   <ruben @ rubenw.nl>
  */
 package primevc.gui.components.skins;
- import primevc.core.states.MediaStates;
+ import prime.fsm.MediaStates;
  import primevc.gui.components.AudioPlayer;
  import primevc.gui.components.Button;
  import primevc.gui.core.UIGraphic;

@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.managers;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.traits.IDisposable;
  import primevc.gui.display.Window;
  import primevc.gui.traits.IValidatable;

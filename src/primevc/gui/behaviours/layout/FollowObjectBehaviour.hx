@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.behaviours.layout;
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.geom.Point;
  import primevc.gui.behaviours.BehaviourBase;
  import primevc.gui.core.IUIElement;

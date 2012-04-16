@@ -32,7 +32,7 @@ package primevc.gui.core;
  import primevc.core.collections.SimpleList;
  import primevc.gui.styling.UIElementStyle;
 #end
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
  import primevc.core.Bindable;
  
  import primevc.gui.behaviours.layout.ValidateLayoutBehaviour;
@@ -46,7 +46,7 @@ package primevc.gui.core;
  import primevc.gui.layout.LayoutClient;
  import primevc.gui.layout.LayoutFlags;
  import primevc.gui.managers.ISystem;
- import primevc.gui.states.ValidateStates;
+ import prime.fsm.states.ValidateStates;
  import primevc.gui.states.UIElementStates;
  import primevc.gui.traits.ITextStylable;
  import primevc.gui.traits.IValidatable;

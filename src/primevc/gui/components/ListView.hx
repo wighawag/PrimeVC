@@ -29,7 +29,7 @@
 package primevc.gui.components;
  import primevc.core.collections.IReadOnlyList;
  import primevc.core.collections.ListChange;
- import primevc.core.dispatcher.Signal1;
+ import prime.signal.Signal1;
  import primevc.core.traits.IValueObject;
  import primevc.core.geom.IRectangle;
 
@@ -44,7 +44,7 @@ package primevc.gui.components;
  import primevc.gui.events.MouseEvents;
 
  import primevc.gui.layout.LayoutFlags;
- import primevc.gui.states.ValidateStates;
+ import prime.fsm.states.ValidateStates;
 
  import primevc.gui.traits.IDropTarget;
  import primevc.gui.traits.IInteractive;

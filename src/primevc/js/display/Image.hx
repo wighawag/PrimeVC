@@ -1,7 +1,7 @@
 package primevc.js.display;
 
  import js.Dom;
- import primevc.core.dispatcher.Signal1;
+ import prime.signal.Signal1;
  import primevc.js.events.DisplayEvents;
  import primevc.js.events.DisplaySignal;
   using primevc.utils.Bind;

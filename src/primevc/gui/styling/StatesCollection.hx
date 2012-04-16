@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.styling;
- import primevc.core.dispatcher.Signal1;
+ import prime.signal.Signal1;
  import primevc.gui.styling.StyleCollectionBase;
   using primevc.utils.BitUtil;
 
