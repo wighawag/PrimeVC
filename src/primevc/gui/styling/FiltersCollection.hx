@@ -93,7 +93,7 @@ class FiltersCollection extends StyleCollectionBase < FiltersStyle >
 		}
 		else
 		{
-			if (filters == null)			filters			= new Array<Dynamic>();
+			if (filters == null)			filters			= new Array<flash.filters.BitmapFilter>();
 			if (filterPositions == null)	filterPositions	= FastArrayUtil.create();
 			
 #if debug	Assert.that( target.width < 10000 );

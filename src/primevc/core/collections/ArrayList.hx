@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.collections;
+ import primevc.utils.FastArray;
   using primevc.utils.FastArray;
  
 
@@ -36,6 +37,8 @@ package primevc.core.collections;
  */
 class ArrayList <DataType> extends ReadOnlyArrayList <DataType>, implements IEditableList <DataType>, implements haxe.rtti.Generic
 {
+	public function new( wrapAroundList:FastArray<DataType> = null ) super(wrapAroundList)
+
 	override public function dispose ()
 	{
 		removeAll();

@@ -381,7 +381,7 @@ class BlocksUtil
 	 * @param	fields			array with the fields of the class
 	 * @param	typeName		interface or class name that the property to set should implement
 	 * @param	value			string-value that the matched property should be set to		//FIXME giving a string is a bit dirty!!
-	 * @param	assertNull		flag, if set to true, the method will add a Assert.null check in debug-mode for the variable to set
+	 * @param	assertNull		flag, if set to true, the method will add a Assert.isNull check in debug-mode for the variable to set
 	 */
 	public static inline function setValueOf( fields:Array<ClassField>, blocks:Array<Expr>, typeName:String, value:String, assertNull:Bool = false ) : Array<Expr>
 	{

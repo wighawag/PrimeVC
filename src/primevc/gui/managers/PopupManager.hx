@@ -76,8 +76,8 @@ class PopupManager implements IPopupManager
 	public inline function add (popup:IUIComponent, modal:Bool = false) : Int
 	{
 		var isFirst = window.popupLayout.children.length == 0;
-		Assert.null( popup.window );
-		Assert.null( popup.layout.parent );
+		Assert.isNull( popup.window );
+		Assert.isNull( popup.layout.parent );
 		window.popupLayout.children.add( popup.layout );
 		popup.visible = false;
 

@@ -100,7 +100,7 @@ class UploadPanel extends ConfirmPanel
 
     private function openFileList ()
     {
-        Assert.null(fileBrowser);
+        Assert.isNull(fileBrowser);
         fileBrowser = maxFiles == 1 ? new FileReference() : new FileReferenceList().as(IFileReference);
         sendUpload  .onceOn( fileBrowser.select, this );
         unsetBrowser.onceOn( fileBrowser.cancel, this );

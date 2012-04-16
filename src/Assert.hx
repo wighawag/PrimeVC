@@ -57,7 +57,7 @@ class Assert
 	static inline public function notThat	(expr:Bool, msg:Dynamic = "", ?pos:haxe.PosInfos)					{ #if debug if (expr)			sendError(expr+" == true", msg, pos); #end }
 	static inline public function equal		(var1:Dynamic, var2:Dynamic, msg:Dynamic = "", ?pos:haxe.PosInfos)	{ #if debug if (var1 != var2)	sendError(var1+" != "+var2, msg, pos); #end }
 	static inline public function notEqual	(var1:Dynamic, var2:Dynamic, msg:Dynamic = "", ?pos:haxe.PosInfos) 	{ #if debug	if (var1 == var2)	sendError(var1+" == "+var2, msg, pos); #end }
-	static inline public function null		(var1:Dynamic, msg:Dynamic = "", ?pos:haxe.PosInfos)				{ #if debug if (var1 != null)	sendError(var1+" != null", msg, pos); #end }
+	static inline public function isNull	(var1:Dynamic, msg:Dynamic = "", ?pos:haxe.PosInfos)				{ #if debug if (var1 != null)	sendError(var1+" != null", msg, pos); #end }
 	static inline public function notNull	(var1:Dynamic, msg:Dynamic = "", ?pos:haxe.PosInfos)				{ #if debug	if (var1 == null)	sendError(var1+" == null", msg, pos); #end }
 	
 	

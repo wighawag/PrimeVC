@@ -63,7 +63,7 @@ class EffectInstance < TargetType, PropertiesType:IEffect >
 	
 	
 #if flash9
-	private var cachedFilters	: Array < Dynamic >;
+	private var cachedFilters	: Array < flash.filters.BitmapFilter >;
 #end
 	
 	
