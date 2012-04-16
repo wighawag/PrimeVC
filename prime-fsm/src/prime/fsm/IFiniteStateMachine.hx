@@ -24,13 +24,13 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.states;
- import primevc.core.traits.IDisablable;
- import primevc.core.traits.IDisposable;
- import primevc.core.dispatcher.Signal2;
- import primevc.utils.FastArray;
+package prime.fsm;
+ import prime.core.traits.IDisablable;
+ import prime.core.traits.IDisposable;
+ import prime.signal.Signal2;
+ import prime.utils.FastArray;
 
 
 private typedef NewState = IState;

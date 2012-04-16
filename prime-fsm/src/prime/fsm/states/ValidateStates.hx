@@ -24,9 +24,9 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.gui.states;
+package prime.fsm.states;
  
 
 /**

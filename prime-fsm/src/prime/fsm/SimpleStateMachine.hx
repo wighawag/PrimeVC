@@ -24,11 +24,11 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.states;
- import primevc.core.dispatcher.Signal2;
- import primevc.core.traits.IDisposable;
+package prime.fsm;
+ import prime.signal.Signal2;
+ import prime.core.traits.IDisposable;
  
 
 /**
@@ -117,7 +117,7 @@ class SimpleStateMachine <StateType> implements IDisposable
 }
 
 
- import primevc.core.dispatcher.Wire;
+ import prime.signal.Wire;
 
 /**
  * @author 	Ruben Weijers

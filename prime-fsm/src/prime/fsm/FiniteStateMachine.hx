@@ -24,19 +24,19 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core.states;
- import primevc.core.dispatcher.Signal2;
- import primevc.utils.FastArray;
+package prime.fsm;
+ import prime.signal.Signal2;
+ import prime.utils.FastArray;
 
 
 /**
  * @author Ruben Weijers
  * @creation-date Jun 08, 2010
  */
-@:autoBuild(primevc.utils.MacroUtils.autoInstantiate("IState", "primevc.core.states.State", true))
-@:autoBuild(primevc.utils.MacroUtils.autoDispose())
+@:autoBuild(prime.utils.MacroUtils.autoInstantiate("IState", "prime.fsm.State", true))
+@:autoBuild(prime.utils.MacroUtils.autoDispose())
 class FiniteStateMachine implements IFiniteStateMachine
 {
 	@manual public var current		(default, setCurrent)		: IState;
