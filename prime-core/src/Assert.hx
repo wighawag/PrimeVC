@@ -31,12 +31,14 @@
 
 import haxe.macro.Expr;
 import haxe.macro.Context;
+ using Type;
 
 /**
  * A class of basic assertions macros that only generate code when the -debug
  * flag is used on the haxe compiler command line.
  **/
 #if !macro extern #end class Assert {
+	#if macro static private var emptyExpr = Context.makeExpr(null, Context.currentPos()); #end
 	/**
 	* Asserts that expected is equal to actual
 	* @param expected Any expression that can test against actual
@@ -45,9 +47,9 @@ import haxe.macro.Context;
 	@:macro public static function  isEqual( expected : Expr, actual : Expr ) : Expr return buildCompareAssert(expected, OpNotEq, actual)
 	@:macro public static function notEqual( expected : Expr, actual : Expr ) : Expr return buildCompareAssert(expected, OpEq, actual)
 
-	#if macro private static function buildCompareAssert( expr:Expr, assertCompareOp:EBinop, actual:Expr ) : Expr {
+	#if macro private static function buildCompareAssert( expected:Expr, assertCompareOp:Binop, actual:Expr ) : Expr {
 		if(!Context.defined("debug"))
-			return { expr : EBlock(new Array()), pos : Context.currentPos() };
+			return emptyExpr;
 		var pos = Context.currentPos();
 		return
 		{ expr : EIf(
@@ -94,17 +96,17 @@ import haxe.macro.Context;
 	* Asserts that expr evaluates to true
 	* @param expr An expression that evaluates to a Bool
 	**/
-	@:macro public static function that( expr:Expr, ?message:Expr<String> ) : Expr   return isTrue_impl(expr, message)
+	@:macro public static function that( expr:Expr, ?message:ExprRequire<String> ) : Expr   return isTrue_impl(expr, message)
 
 	/**
 	* Asserts that expr evaluates to true
 	* @param expr An expression that evaluates to a Bool
 	**/
-	@:macro public static function isTrue( expr:Expr, ?message:Expr<String> ) : Expr return isTrue_impl(expr)
+	@:macro public static function isTrue( expr:Expr, ?message:ExprRequire<String> ) : Expr return isTrue_impl(expr)
 
-	#if macro public static function isTrue_impl( expr:Expr, ?message:Expr<String> ) : Expr {
+	#if macro public static function isTrue_impl( expr:Expr, ?message:ExprRequire<String> ) : Expr {
 		if(!Context.defined("debug"))
-			return { expr : EBlock(new Array()), pos : Context.currentPos() };
+			return emptyExpr;
 		var pos = Context.currentPos();
 		return
 		{ expr : EIf(
@@ -122,7 +124,7 @@ import haxe.macro.Context;
 						params : []
 					},
 					[
-						{ expr : message != null? message else EConst(CString("Assertion failed. Expected "+ #if thx thx.macro.Macros.stringOfExpr(expr) #else "" #end +" but was false")), pos : pos }
+						message != null? message : { expr : EConst(CString("Assertion failed. Expected "+ #if thx thx.macro.Macros.stringOfExpr(expr) #else "" #end +" but was false")), pos : pos }
 					]),
 				pos : pos }),
 			pos : pos },
@@ -145,7 +147,7 @@ import haxe.macro.Context;
 
 	#if macro private static function isFalse_impl( expr:Expr ) : Expr {
 		if(!Context.defined("debug"))
-			return { expr : EBlock(new Array()), pos : Context.currentPos() };
+			return emptyExpr;
 		var pos = Context.currentPos();
 		return
 		{ expr : EIf(
@@ -176,9 +178,9 @@ import haxe.macro.Context;
 	* Checks that the passed expression is not null.
 	* @param expr A string, class or anything that can be tested for null
 	**/
-	@:macro public static function isNotNull( expr:Expr ) : Expr {
+	@:macro public static function isNotNull( expr:Expr, ?message:ExprRequire<String> ) : Expr {
 		if(!Context.defined("debug"))
-			return { expr : EBlock(new Array()), pos : Context.currentPos() };
+			return emptyExpr;
 		var pos = Context.currentPos();
 		return
 		{ expr : EIf(
@@ -196,7 +198,7 @@ import haxe.macro.Context;
 						params : []
 					},
 					[
-						{ expr : EConst(CString("Assertion failed. Expected non null value")), pos : pos }
+						message != null? message : { expr : EConst(CString("Assertion failed. Expected non null value")), pos : pos }
 					]),
 				pos : pos }),
 			pos : pos },
@@ -209,7 +211,7 @@ import haxe.macro.Context;
 	// Prime additions
 	//
 
-	static inline public function isType(var1:Dynamic, type:Class<Dynamic>, ?pos:haxe.PosInfos)
+	static inline public function isType(var1:Dynamic, type:Class<Dynamic>, ?pos:haxe.PosInfos) : Void
 	{
 #if debug
 		Assert.isNotNull( var1, "To check the type of a variable it can't be null." );
@@ -218,21 +220,21 @@ import haxe.macro.Context;
 #end
 	}
 
-	static inline public function abstract	(msg:String = "", ?pos:haxe.PosInfos) {
+	static inline public function abstract	(msg:String = "", ?pos:haxe.PosInfos) : Void {
 		#if debug sendError("Abstract method", msg, pos); #end
 	}
 
-	static inline private function sendError (error:String, msg:Dynamic, pos:haxe.PosInfos)
+	static inline private function sendError (error:String, msg:Dynamic, pos:haxe.PosInfos) : Void
 	{
 #if debug
 		var className = pos.className.split(".").pop();
 		var s = className + "." + pos.methodName + "()::" + pos.lineNumber + ": "+error + "; msg: " + Std.string(msg);
 		trace(s);
-	#if flash9
-		throw new Error(s);
-	#else
+	//#if flash9
+	//	throw new Error(s);
+	//#else
 		throw s;
-	#end
+	//#end
 #end
 	}
 }
