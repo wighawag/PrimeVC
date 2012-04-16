@@ -24,15 +24,15 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.tools;
- import primevc.gui.styling.StyleBlock;
- import primevc.gui.styling.StyleFlags;
- import primevc.tools.generator.ICodeFormattable;
- import primevc.tools.generator.CodeGenerator;
-  using primevc.tools.generator.output.HaxeOutputUtil;
-  using primevc.utils.TypeUtil;
+package prime.tools;
+ import prime.gui.styling.StyleBlock;
+ import prime.gui.styling.StyleFlags;
+ import prime.tools.generator.ICodeFormattable;
+ import prime.tools.generator.CodeGenerator;
+  using prime.tools.generator.output.HaxeOutputUtil;
+  using prime.utils.TypeUtil;
 
 
 

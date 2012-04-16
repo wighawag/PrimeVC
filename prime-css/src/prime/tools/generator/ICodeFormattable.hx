@@ -20,48 +20,40 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.s
+ * DAMAGE.
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ rubenw.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.tools.generator;
+package prime.tools.generator;
+ import prime.core.traits.IUIdentifiable;
 
 
-
+#if (neko || debug)
 /**
- * @author	Ruben Weijers
- * @since	Jun 8, 2011
+ * @author Ruben Weijers
+ * @creation-date Sep 13, 2010
  */
-enum ValueType
+interface ICodeFormattable implements IUIdentifiable
 {
-	tEmpty		(value:EmptyType);		// value indicated if it's an int, float, string or null value
-	tString		(value:String);
-	tInt		(value:Int);
-	tUInt		(value:UInt);
-	tFloat		(value:Float);
-	tBool		(value:Bool);
-	tEnum		(value:String, params:Array<ValueType>);
-	tClass		(value:String);
-	tObject		(value:Instance);		// array, object, objFactory or arrayFactory
-	tColor		(rgb:Int, alpha:Int);
-	tFunction	(value:String);			// reference to a function
-	
-	tCallStatic	(className:String, method:String, params:Array<ValueType>);
-	tCallMethod	(on:ValueType, method:String, params:Array<ValueType>);
-	tSetProperty(on:ValueType, prop:String, value:ValueType);
+	#if neko
+		/**
+		 * Method to write to content of the object as haxe code.
+		 */
+		public function toCode (c:ICodeGenerator) : Void;
+		/*
+		 * Returns true when some values within the object are set, otherwise false
+		 */
+		public function isEmpty () : Bool;
+		
+		/**
+		 * Method to remove empty properties from the object. This way, unused
+		 * code will be removed.
+		 */
+		public function cleanUp () : Void;
+	#end
 }
-
-
-/**
- * @author	Ruben Weijers
- * @since	Jun 9, 2011
- */
-enum EmptyType
-{
-	eNull;
-	eString;
-	eInt;
-	eFloat;
-}
+#else
+interface ICodeFormattable {}
+#end

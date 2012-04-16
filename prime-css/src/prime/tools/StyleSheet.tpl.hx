@@ -24,19 +24,29 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.core.traits;
+package ;
+ import prime.gui.styling.LayoutStyleFlags;
+ import prime.gui.styling.StyleChildren;
+ import prime.gui.styling.StyleBlockType;
+ import prime.gui.styling.StyleBlock;
+ import prime.types.Number;
+//imports
 
 
 /**
- * @author Ruben Weijers
- * @creation-date Oct 20, 2010
+ * This class is a template for generating UIElementStyle classes
  */
-interface IPrioritizable
+class StyleSheet extends StyleBlock
 {
-	public function getPriority () : Int;
-#if debug
-	public function getPriorityName () : String;
-#end
+	public function new ()
+	{
+		super(0, StyleBlockType.specific);
+		elementChildren		= new ChildrenList();
+		styleNameChildren	= new ChildrenList();
+		idChildren			= new ChildrenList();
+		
+		//selectors
+	}
 }

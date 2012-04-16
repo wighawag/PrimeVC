@@ -20,24 +20,30 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.s
+ * DAMAGE.
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ rubenw.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.tools.generator;
-
+package prime.tools.generator;
 
 
 /**
- * @author	Ruben Weijers
- * @since	Jun 8, 2011
+ * @author Ruben Weijers
+ * @creation-date Sep 13, 2010
  */
-enum InstanceType
+interface ICSSFormattable
 {
-	object;
-	array;
-	objFactory	(target:Instance, args:Array<String>);
-	arrayFactory(target:Instance, args:Array<String>);
+#if neko
+	/**
+	 * Method to write to content of the object as css code.
+	 */
+	public function toCSS (namePrefix:String = "") : String;
+	
+	/*
+	 * Returns true when some values within the object are set, otherwise false
+	 */
+//	public function isEmpty () : Bool;
+#end
 }

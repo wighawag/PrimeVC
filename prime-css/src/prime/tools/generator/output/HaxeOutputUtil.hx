@@ -24,13 +24,13 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ rubenw.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.tools.generator.output;
- import primevc.tools.generator.Instance;
- import primevc.tools.generator.InstanceType;
- import primevc.tools.generator.ValueType;
-  using primevc.tools.generator.output.HaxeOutputUtil;
+package prime.tools.generator.output;
+ import prime.tools.generator.Instance;
+ import prime.tools.generator.InstanceType;
+ import prime.tools.generator.ValueType;
+  using prime.tools.generator.output.HaxeOutputUtil;
   using Std;
   using StringTools;
 
@@ -42,8 +42,8 @@ package primevc.tools.generator.output;
  */
 class HaxeOutputUtil
 {
-	private static inline var EMPTY_INT	= primevc.types.Number.EMPTY;
-	private static inline var FILL_INT	= primevc.gui.styling.LayoutStyleFlags.FILL;
+	private static inline var EMPTY_INT	= prime.types.Number.EMPTY;
+	private static inline var FILL_INT	= prime.gui.styling.LayoutStyleFlags.FILL;
 	
 	
 	public static function writeValues (values:Array<ValueType>) : StringBuf

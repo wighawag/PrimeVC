@@ -20,33 +20,24 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.
+ * DAMAGE.s
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package ;
- import primevc.gui.styling.LayoutStyleFlags;
- import primevc.gui.styling.StyleChildren;
- import primevc.gui.styling.StyleBlockType;
- import primevc.gui.styling.StyleBlock;
- import primevc.types.Number;
-//imports
+package prime.tools.generator;
+
 
 
 /**
- * This class is a template for generating UIElementStyle classes
+ * @author	Ruben Weijers
+ * @since	Jun 8, 2011
  */
-class StyleSheet extends StyleBlock
+enum InstanceType
 {
-	public function new ()
-	{
-		super(0, StyleBlockType.specific);
-		elementChildren		= new ChildrenList();
-		styleNameChildren	= new ChildrenList();
-		idChildren			= new ChildrenList();
-		
-		//selectors
-	}
+	object;
+	array;
+	objFactory	(target:Instance, args:Array<String>);
+	arrayFactory(target:Instance, args:Array<String>);
 }

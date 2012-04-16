@@ -24,15 +24,15 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.core.collections;
- import primevc.core.collections.iterators.IIterator;
- import primevc.core.collections.iterators.FastDoubleCellForwardIterator;
- import primevc.core.collections.iterators.FastDoubleCellReversedIterator;
- import primevc.core.traits.IClonable;
- import primevc.core.traits.IPrioritizable;
- import primevc.core.traits.IDisposable;
+package prime.binding.collections;
+ import prime.binding.collections.iterators.IIterator;
+ import prime.binding.collections.iterators.FastDoubleCellForwardIterator;
+ import prime.binding.collections.iterators.FastDoubleCellReversedIterator;
+ import prime.core.traits.IClonable;
+ import prime.core.traits.IPrioritizable;
+ import prime.core.traits.IDisposable;
 
 
 /**
@@ -41,32 +41,32 @@ package primevc.core.collections;
  * @author Ruben Weijers
  * @creation-date Oct 20, 2010
  */
-class PriorityList < DataType : IPrioritizable >
+class PriorityList <T:IPrioritizable>
 						implements IDisposable
-					,	implements IClonable < PriorityList < DataType > >
+					,	implements IClonable<PriorityList<T>>
 #if (flash9 || cpp)	,	implements haxe.rtti.Generic #end
 {
 	public var length		(default, null)		: Int;
 	/**
 	 * Pointer to the first added cell
 	 */
-	public var first		(default, null)		: FastDoubleCell < DataType >;
+	public var first		(default, null)		: FastDoubleCell<T>;
 	/**
 	 * Pointer to the last added cell
 	 */
-	public var last			(default, null)		: FastDoubleCell < DataType >;
+	public var last			(default, null)		: FastDoubleCell<T>;
 	
 	
 	public function new ()				{ length = 0; }
 	public function dispose ()			{ removeAll(); }
-	public function iterator ()			: Iterator <DataType>	{ return forwardIterator(); }
-	public function forwardIterator ()	: IIterator <DataType>	{ return new FastDoubleCellForwardIterator <DataType> (first); }
-	public function reversedIterator ()	: IIterator <DataType>	{ return new FastDoubleCellReversedIterator <DataType> (last); }
+	public function iterator ()			: Iterator<T>	{ return forwardIterator(); }
+	public function forwardIterator ()	: IIterator<T>	{ return new FastDoubleCellForwardIterator<T> (first); }
+	public function reversedIterator ()	: IIterator<T>	{ return new FastDoubleCellReversedIterator<T> (last); }
 	
 	
 	public function clone ()
 	{
-		var l = new PriorityList<DataType>();
+		var l = new PriorityList<T>();
 		var cur = first;
 		while (cur != null)
 		{
@@ -92,7 +92,7 @@ class PriorityList < DataType : IPrioritizable >
 	}
 	
 	
-	public function has (item:DataType)
+	public function has (item:T)
 	{
 		if (item == null)
 			return false;
@@ -115,7 +115,7 @@ class PriorityList < DataType : IPrioritizable >
 	}
 	
 	
-	public function hasCell (cell:FastDoubleCell<DataType>)
+	public function hasCell (cell:FastDoubleCell<T>)
 	{
 		if (first == null && last == null)
 			return false;
@@ -136,9 +136,9 @@ class PriorityList < DataType : IPrioritizable >
 	 * Method will add the given item on the correct position in the list. 
 	 * The higher the priority, the earlier the position
 	 */
-	public function add ( item : DataType )
+	public function add ( item : T )
 	{
-		var cell	= new FastDoubleCell < DataType >( item );
+		var cell	= new FastDoubleCell < T >( item );
 		var isAdded	= false;
 		
 		if (first == null || last == null)
@@ -181,7 +181,7 @@ class PriorityList < DataType : IPrioritizable >
 	}
 	
 	
-	public function remove (item:DataType)
+	public function remove (item:T)
 	{
 		var cell = getCellForItem(item);
 		if (cell != null)
@@ -190,9 +190,9 @@ class PriorityList < DataType : IPrioritizable >
 	
 	
 	
-	public inline function addBefore (item:DataType, otherCell:FastDoubleCell<DataType>) : FastDoubleCell<DataType>
+	public inline function addBefore (item:T, otherCell:FastDoubleCell<T>) : FastDoubleCell<T>
 	{
-		var cell = new FastDoubleCell<DataType>(item);
+		var cell = new FastDoubleCell<T>(item);
 		length++;
 		
 		if (otherCell == first)
@@ -202,9 +202,9 @@ class PriorityList < DataType : IPrioritizable >
 	}
 	
 	
-	public inline function addAfter (item:DataType, otherCell:FastDoubleCell<DataType>) : FastDoubleCell<DataType>
+	public inline function addAfter (item:T, otherCell:FastDoubleCell<T>) : FastDoubleCell<T>
 	{
-		var cell = new FastDoubleCell<DataType>(item);
+		var cell = new FastDoubleCell<T>(item);
 		length++;
 		
 		if (otherCell == last)
@@ -241,7 +241,7 @@ class PriorityList < DataType : IPrioritizable >
 	}
 	
 	
-	public function removeCell (cell:FastDoubleCell < DataType >)
+	public function removeCell (cell:FastDoubleCell < T >)
 	{
 		if (cell == first)	first = cell.next;
 		if (cell == last)	last = cell.prev;
@@ -254,7 +254,7 @@ class PriorityList < DataType : IPrioritizable >
 	/**
 	 * returns the cell of the requested item
 	 */
-	public function getCellForItem (item:DataType) : FastDoubleCell < DataType >
+	public function getCellForItem (item:T) : FastDoubleCell < T >
 	{
 		var cur = first;
 		while (cur != null)
@@ -271,7 +271,7 @@ class PriorityList < DataType : IPrioritizable >
 	/**
 	 * returns the first cell with that has the given priority
 	 */
-	public function getCellWithPriority (priority:Int) : FastDoubleCell < DataType >
+	public function getCellWithPriority (priority:Int) : FastDoubleCell < T >
 	{
 		var cur = first;
 		while (cur != null)

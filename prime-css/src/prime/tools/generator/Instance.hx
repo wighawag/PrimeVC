@@ -20,40 +20,37 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.
+ * DAMAGE.s
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.tools.generator;
- import primevc.core.traits.IUIdentifiable;
+package prime.tools.generator;
 
 
-#if (neko || debug)
 /**
- * @author Ruben Weijers
- * @creation-date Sep 13, 2010
+ * @author	Ruben Weijers
+ * @since	Jun 8, 2011
  */
-interface ICodeFormattable implements IUIdentifiable
+class Instance
 {
-	#if neko
-		/**
-		 * Method to write to content of the object as haxe code.
-		 */
-		public function toCode (c:ICodeGenerator) : Void;
-		/*
-		 * Returns true when some values within the object are set, otherwise false
-		 */
-		public function isEmpty () : Bool;
+	public var count		: Int;
+	public var className	: String;
+	public var instName		: String;
+	public var params		: Array<ValueType>;
+	public var type			: InstanceType;
+	public var instantiated	: Bool;
+	
+	
+	public function new (className:String, type:InstanceType, params:Array<ValueType> = null)
+	{
+		count			= 1;
+		instName		= null;			//will be set the first time the instance is outputed
+		instantiated	= false;
 		
-		/**
-		 * Method to remove empty properties from the object. This way, unused
-		 * code will be removed.
-		 */
-		public function cleanUp () : Void;
-	#end
+		this.className	= className;
+		this.params		= params;
+		this.type		= type;
+	}
 }
-#else
-interface ICodeFormattable {}
-#end

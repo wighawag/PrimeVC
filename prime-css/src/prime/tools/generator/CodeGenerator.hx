@@ -24,15 +24,15 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ rubenw.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.tools.generator;
- import primevc.tools.generator.InstanceType;
- import primevc.tools.generator.ValueType;
- import primevc.types.Reference;
- import primevc.types.SimpleDictionary;
- import primevc.utils.NumberUtil;
-  using primevc.types.Reference;
+package prime.tools.generator;
+ import prime.tools.generator.InstanceType;
+ import prime.tools.generator.ValueType;
+ import prime.types.Reference;
+ import prime.types.SimpleDictionary;
+ import prime.utils.NumberUtil;
+  using prime.types.Reference;
   using Std;
   using Type;
 

@@ -24,13 +24,13 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ rubenw.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.tools;
- import primevc.utils.FastArray;
- import primevc.utils.TimerUtil;
-  using primevc.utils.FastArray;
-  using primevc.utils.NumberUtil;
+package prime.tools;
+ import prime.utils.FastArray;
+ import prime.utils.TimerUtil;
+  using prime.utils.FastArray;
+  using prime.utils.NumberUtil;
 
 
 

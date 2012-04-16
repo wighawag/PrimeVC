@@ -24,14 +24,14 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.tools;
+package prime.tools;
  import haxe.xml.Fast;
- import primevc.core.traits.IDisposable;
- import primevc.types.SimpleDictionary;
- import primevc.utils.FastArray;
-  using primevc.utils.FastArray;
+ import prime.core.traits.IDisposable;
+ import prime.types.SimpleDictionary;
+ import prime.utils.FastArray;
+  using prime.utils.FastArray;
   using Xml;
 
 
@@ -47,13 +47,13 @@ class Manifest implements IDisposable
 	/**
 	 * Hash containing references from single class names to their full names 
 	 * including the package.
-	 * I.e. [ "Label" => "primevc.gui.components.Label" ]
+	 * I.e. [ "Label" => "prime.gui.components.Label" ]
 	 */
 	public var classPackageMap		(default, null) : SimpleDictionary < String, String >;
 	
 	/**
 	 * Hash containing references from classes to their super classes.
-	 * I.e. [ "primevc.gui.components.Label" => "primevc.gui.core.UIDataComponent" ]
+	 * I.e. [ "prime.gui.components.Label" => "prime.gui.core.UIDataComponent" ]
 	 */
 	public var superClassMap		(default, null) : SimpleDictionary < String, String >;
 	

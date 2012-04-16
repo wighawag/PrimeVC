@@ -24,26 +24,19 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.tools.generator;
+package prime.core.traits;
 
 
 /**
  * @author Ruben Weijers
- * @creation-date Sep 13, 2010
+ * @creation-date Oct 20, 2010
  */
-interface ICSSFormattable
+interface IPrioritizable
 {
-#if neko
-	/**
-	 * Method to write to content of the object as css code.
-	 */
-	public function toCSS (namePrefix:String = "") : String;
-	
-	/*
-	 * Returns true when some values within the object are set, otherwise false
-	 */
-//	public function isEmpty () : Bool;
+	public function getPriority () : Int;
+#if debug
+	public function getPriorityName () : String;
 #end
 }
