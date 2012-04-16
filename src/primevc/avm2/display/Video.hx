@@ -48,7 +48,7 @@ package primevc.avm2.display;
  */
 class Video extends flash.media.Video, implements IVideo 
 {
-	public var container		(default, setContainer)	: IDisplayContainer;
+	public var container		(default, default)		: IDisplayContainer;
 	public var window			(default, setWindow)	: Window;
 	public var displayEvents	(default, null)			: DisplayEvents;
 	public var rect				(default, null)			: IntRectangle;
@@ -99,13 +99,13 @@ class Video extends flash.media.Video, implements IVideo
 	// GETTERS / SETTERS
 	//
 	
-	private inline function setContainer (v) {
+/*	private inline function setContainer (v) {
 		container	= v;
 		if (v != null)	window = container.window;
 		else			window = null;
 		return v;
 	}
-	
+*/	
 	
 	private inline function setWindow (v) {
 		return window = v;

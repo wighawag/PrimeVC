@@ -84,8 +84,12 @@ class Csv
 				if (char == '"')
 				{
 					var n = input.charAt(pos);
-					if (n == '"') 	{ pos++; } 								//beginning or ending of quotes.. skip one quote
-					else 			{ inString = !inString; continue; } 	//begining or ending of string.. skip character
+					if (n != '"') 	{ inString = !inString; continue; } 	//begining or ending of string.. skip character
+					else 			{ pos++;								//beginning or ending of quotes.. skip one quote
+						var n = input.charAt(pos);
+						if (n == LINE_SPLITTER || n == delimiter)
+							continue;
+					}
 				}
 				else if (!inString)
 				{
@@ -139,6 +143,7 @@ class Csv
 	private static inline function addCell (row:FastArray<String>, hasHeader:Bool, headerCols:Int, cellPos:Int, val:String)
 	{
 		if (hasHeader && headerCols == cellPos) {
+#if debug	trace("tooManyCells "+cellPos+"/"+headerCols+" -- "+row); #end
 			throw CsvError.tooManyCells;
 		}
 		

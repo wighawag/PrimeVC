@@ -114,7 +114,8 @@ class ShowScrollbarsBehaviour extends BehaviourBase<IScrollable>, implements ISc
 	private function removeScrollBar (scrollBar:ScrollBar)
 	{
 	//	parentLayout.children.remove( scrollBar.layout );
-		scrollBar.detachDisplay();
+		if (scrollBar.container != null)
+			scrollBar.detachDisplay();
 	//	target.container.children.remove( scrollBar );
 		scrollBar.target = null;
 		

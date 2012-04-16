@@ -79,7 +79,7 @@ class PopupManager implements IPopupManager
 		Assert.isNull( popup.window );
 		Assert.isNull( popup.layout.parent );
 		window.popupLayout.children.add( popup.layout );
-		popup.visible = false;
+	//	popup.visible = false;
 
 		popup.setFocus.onceOn( popup.displayEvents.addedToStage, this );	// this way (instead of calling popup.setFocus directly) the popup can override the focus behaviour
 		popup.attachToDisplayList( window );
@@ -87,7 +87,7 @@ class PopupManager implements IPopupManager
 		if (modal)
 			createModalFor(popup);
 	
-		popup.show();
+	//	popup.show();
 	//	popup.setFocus();
 		
 		if (isFirst)
@@ -102,7 +102,7 @@ class PopupManager implements IPopupManager
 		Assert.notNull( popup.window );
 		Assert.notNull( popup.layout.parent );
 		popup.detach();
-		popup.removeFocus();
+	//	popup.removeFocus();
 		removeModalFor( popup );
 		
 		if (window.popupLayout.children.length == 0)

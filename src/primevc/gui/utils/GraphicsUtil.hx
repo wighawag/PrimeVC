@@ -51,9 +51,9 @@ class GraphicsUtil
 #if flash9
 		var g = target.graphics;
 		
-		// Flash uses 8 segments per circle, to match that, we draw in a maximum
-		// of 45 degree segments. First we calculate how many segments are needed
-		// for our arc.
+		// Flash uses 8 segments per circle. Method draws in a maximum
+		// of 45 degree segments to match that. 
+		// Start with calculating how many segments are needed for the arc.
 		var segments		= (percentage * 8).ceilFloat();
 		var segAngle		= ((percentage * 360) / segments).degreesToRadians();
 		var halfSegAngle	= segAngle * .5;	//cached calculation needed to calculate the curve anchors
@@ -92,9 +92,9 @@ class GraphicsUtil
 #if flash9
 		var g = target.graphics;
 		
-		// Flash uses 8 segments per circle, to match that, we draw in a maximum
-		// of 45 degree segments. First we calculate how many segments are needed
-		// for our arc.
+		// Flash uses 8 segments per circle. Method draws in a maximum
+		// of 45 degree segments to match that. 
+		// Start with calculating how many segments are needed for the arc.
 		var segments		= (percentage * 8).ceilFloat();
 		var segAngle		= ((percentage * 360) / segments).degreesToRadians();
 		var halfSegAngle	= segAngle * .5;	//cached calculation needed to calculate the curve anchors

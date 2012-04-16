@@ -37,7 +37,7 @@ package primevc.core.collections;
  */
 class ArrayList <DataType> extends ReadOnlyArrayList <DataType>, implements IEditableList <DataType>, implements haxe.rtti.Generic
 {
-	public function new( wrapAroundList:FastArray<DataType> = null ) super(wrapAroundList)
+	public function new( wrapAroundList:FastArray<DataType> = null ) super(wrapAroundList)	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
 
 	override public function dispose ()
 	{
@@ -66,9 +66,11 @@ class ArrayList <DataType> extends ReadOnlyArrayList <DataType>, implements IEdi
 	
 	public function add (item:DataType, pos:Int = -1) : DataType
 	{
+		pos = list.validateNewIndex(pos);
 		var msg = ListChange.added( item, pos );
 		beforeChange.send( msg );
-		pos = list.insertAt(item, pos);
+		var p = list.insertAt(item, pos);
+#if debug Assert.equal( p, pos ); #end
 		change.send( msg );
 		return item;
 	}

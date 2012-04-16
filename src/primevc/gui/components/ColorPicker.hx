@@ -30,6 +30,7 @@ package primevc.gui.components;
  import primevc.core.dispatcher.Wire;
  import primevc.core.RevertableBindable;
  import primevc.gui.core.UIDataComponent;
+ import primevc.gui.core.UIGraphic;
  import primevc.gui.events.MouseEvents;
  import primevc.types.Asset;
  import primevc.types.RGBA;
@@ -52,23 +53,31 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	private var updateBinding	: Wire<Dynamic>;
 	private var stopBinding		: Wire<Dynamic>;
 	
+	private var moveToColorWire	: Wire<Dynamic>;
 	private var spectrum		: Asset;
+	private var selection 		: UIGraphic;
 	
 	
-	public function new (id:String = null, data:RevertableBindable<RGBA> = null)
+	public function new (id:String = null, d:RevertableBindable<RGBA> = null)
 	{
-		if (data == null) {
-			data = new RevertableBindable<RGBA>(0x00);
-			data.dispatchAfterCommit();
-			data.updateBeforeCommit();
-			data.beginEdit();		//force the data to be always editable..
+		if (d == null) {
+			d = new RevertableBindable<RGBA>(0x00);
+			d.dispatchAfterCommit();
+			d.updateBeforeCommit();
+			d.beginEdit();		//force the data to be always editable..
 		}
-		super(id, data);
+		super(id, d);
+		children.disable();
 	}
 	
 	
 	override public function dispose ()
 	{
+		if (moveToColorWire != null) {
+			moveToColorWire.dispose();
+			moveToColorWire = null;
+		}
+
 		if (isInitialized()) {
 			beginBinding.dispose();
 			updateBinding.dispose();
@@ -92,30 +101,29 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	}*/
 	
 	
-	override private function createBehaviours ()
+	override private function init ()
 	{
-		super.createBehaviours();
-		beginBinding	= beginUpdating.on( userEvents.mouse.down, this );
-		updateBinding	= updateColor.on( userEvents.mouse.move, this );
-		stopBinding		= stopUpdating.on( userEvents.mouse.up, this );
+		super.init();
+		beginBinding	= beginUpdating	.on( userEvents.mouse.down, this );
+		updateBinding	= updateColor	.on( userEvents.mouse.move, this );
+		stopBinding		= stopUpdating	.on( userEvents.mouse.up, this );
 		
 		beginBinding.enable();
 		updateBinding.disable();
 		stopBinding.disable();
+
+		selection = new UIGraphic("selection");
+		children.add(selection);
+
+		Assert.notNull(data);
+		moveToColorWire = moveToColor.on( data.change, this );
+	//	moveToColor.onceOn( displayEvents.enterFrame, this );
 	}
 	
 	
 	private inline function getColorAt( x:Float, y:Float ) : RGBA 
 	{
 #if flash9
-		if (spectrum == null) {
-		//	trace(layout.width+", "+layout.height);
-			//not sure if this is the best way but using the original bitmapdata from the fill doesnt give correct results since it's unscaled.
-		//	spectrum = Asset.createEmpty( layout.width, layout.height, false );
-		//	spectrum.draw(this);
-			spectrum = Asset.fromDisplayObject(this);
-			spectrum.toBitmapData(null, false);
-		}
 	//	var l = layout.innerBounds;
 	//	var b = new BitmapDataType( l.width, l.height, false );
 	//	b.draw(this);
@@ -124,8 +132,57 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	//	return b.getPixel( x.roundFloat(), y.roundFloat() ).rgbToRgba();
 	//	trace( spectrum.data.)
 		
-		return spectrum.toBitmapData().getPixel( x.roundFloat(), y.roundFloat() ).rgbToRgba();
+		return getSpectrum().getPixel( x.roundFloat(), y.roundFloat() ).rgbToRgba();
 #end
+	}
+
+
+	private inline function getSpectrum () {
+		if (spectrum == null) {
+		//	trace(layout.width+", "+layout.height);
+			//not sure if this is the best way but using the original bitmapdata from the fill doesnt give correct results since it's unscaled.
+		//	spectrum = Asset.createEmpty( layout.width, layout.height, false );
+		//	spectrum.draw(this);
+			spectrum = Asset.fromDisplayObject(this);
+			spectrum.toBitmapData(null, false);
+		}
+		return spectrum.toBitmapData();
+	}
+
+
+	
+	/**
+	 * method wil find the new color-value in the spectrum and move the selection-circle around
+	 */
+	public function moveToColor ()
+	{
+		if (!isInitialized() || width == 0 || height == 0) {
+			moveToColor.onceOn( displayEvents.enterFrame, this );
+			return;
+		}
+		
+		var b = getSpectrum();
+		var w = b.width;
+		var h = b.height;
+		var newX = 0, newY = 0;
+
+		var color = data.value.rgb();
+		var found = false;
+		
+		for (newY in 0...h) {
+			for (newX in 0...w)
+				if (b.getPixel(newX,newY) == color) {
+				//	trace(color.rgbToString() + "==> "+newX+", "+newY);
+					found = true;
+					selection.move(newX, newY);
+					break;
+				}
+			
+			if (found)
+				break;
+		}
+		
+		Assert.that(found, color.rgbToString() + " isn't in the spectrum :-O");
 	}
 	
 	
@@ -137,6 +194,8 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	
 	private function beginUpdating (mouse:MouseState) : Void
 	{
+		setFocus();
+		moveToColorWire.disable();
 		beginBinding.disable();
 		updateBinding.enable();
 		stopBinding.enable();
@@ -147,8 +206,12 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 	
 	private function updateColor (mouse:MouseState) : Void
 	{
+		var padding = layout.padding;
+		var mouseX  = mouse.local.x.within( padding.left, padding.left + width - padding.right ).roundFloat();
+		var mouseY  = mouse.local.y.within( padding.top, padding.top + height - padding.bottom ).roundFloat();
 		//get color underneath mouse
-		data.value = data.value.setRgb( getColorAt( mouse.local.x, mouse.local.y ) );
+		data.value = data.value.setRgb( getColorAt( mouseX, mouseY ) );
+		selection.move( mouseX, mouseY );
 	}
 	
 	
@@ -159,6 +222,12 @@ class ColorPicker extends UIDataComponent<RevertableBindable<RGBA>>
 		stopBinding.disable();
 		
 		data.commitEdit();
+		moveToColorWire.enable();
 		data.beginEdit();
+	//	setFocus();
 	}
+
+
+	public inline function isPicking ()
+		return updateBinding != null && updateBinding.isEnabled()
 }

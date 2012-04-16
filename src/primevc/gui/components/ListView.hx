@@ -189,6 +189,11 @@ class ListView<ListDataType> extends UIDataContainer < IReadOnlyList < ListDataT
 	
 	override private function removeData ()
 	{
+		var layout = layoutContainer;
+		layout.scrollPos.xProp.change.unbind(this);
+		layout.scrollPos.yProp.change.unbind(this);
+		layout.changed.unbind(this);
+		
 		children.disposeAll();
 	//	layoutContainer.removeAll();
 		data.change.unbind(this);
@@ -451,6 +456,7 @@ class ListView<ListDataType> extends UIDataContainer < IReadOnlyList < ListDataT
 		switch (change)
 		{
 			case added( item, newPos):
+				Assert.that(newPos >= 0, item + ": "+newPos);
 				layoutContainer.setFixedChildLength( data.length );
 				var newDepth = indexToDepth(newPos);
 				
@@ -495,8 +501,10 @@ class ListView<ListDataType> extends UIDataContainer < IReadOnlyList < ListDataT
 				if (isOnStage())
 					initData();
 		}
-
-		if (update)
+		
+		if (update) {
+#if debug	Assert.notNull(l, "LayoutContainer of listview can't be null; "+container); Assert.notNull(l.algorithm, "algorithm of listview can't be null; "+container+"; onstage? "+this.isOnStage()); #end
 			updateVisibleItemRenderers( start, l.algorithm.getMaxVisibleChildren() );
+		}
 	}
 }

@@ -63,12 +63,13 @@ class Image extends UIDataComponent<Asset>	//FIXME (Ruben @ Mar 16, '11): used t
 #end
 	
 	
-	public function new (id:String = null, data:Asset = null)
+	public function new (id:String = null, data:Asset = null, enabled:Bool = false)
 	{
 	    layout = new AdvancedLayoutClient();
 		super(id, data);
 		this.maintainAspectRatio = true;
-		mouseEnabled = children.mouseEnabled = tabEnabled = false;
+		if (!enabled)
+			disable();
 	}
 	
 	

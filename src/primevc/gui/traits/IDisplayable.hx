@@ -49,7 +49,7 @@ interface IDisplayable implements IDisposable
 	 * Reference to the object in which this displayobject is placed. It 
 	 * behaves like the 'parent' property in as3.
 	 */
-	public var container		(default, setContainer)		: IDisplayContainer;
+	public var container		(default, default)			: IDisplayContainer;
 	/**
 	 * Wrapper object for the stage.
 	 */

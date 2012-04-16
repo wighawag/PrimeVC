@@ -287,7 +287,11 @@ class UIVideo extends Video, implements IUIElement
 	
 	
 	private inline function getSystem () : ISystem		{ return window.as(ISystem); }
+#if flash9
+	public inline function isOnStage () : Bool			{ return stage != null; }			// <-- dirty way to see if the component is still on stage.. container and window will be unset after removedFromStage is fired, so if the component get's disposed on removedFromStage, we won't know that it isn't on it.
+#else
 	public inline function isOnStage () : Bool			{ return window != null; }
+#end
 	public inline function isQueued () : Bool			{ return nextValidatable != null || prevValidatable != null; }
 	
 	

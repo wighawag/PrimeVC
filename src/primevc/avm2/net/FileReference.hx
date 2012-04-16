@@ -105,7 +105,7 @@ class FileReference extends SelectEvents, implements ICommunicator, implements I
 	}
 	
 	
-	public inline function close ()								{ isStarted = false; loader.cancel(); events.uploadCanceled.send(); }
+	public inline function close ()				if (isStarted)	{ isStarted = false; loader.cancel(); events.uploadCanceled.send(); }
 	public inline function browse (?types:Array<FileFilter>)	{ return loader.browse(types); }
 	
 	

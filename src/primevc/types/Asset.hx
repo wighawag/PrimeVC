@@ -197,6 +197,7 @@ class Asset		implements IDisposable
 		if (display == null)
 			return null;
 		
+		Assert.that( width > 0 && height > 0, "invalid size for "+display+"; size: "+width+", "+height);
 		bitmapData = new BitmapData( width, height, transparant, fillColor );
 		bitmapData.draw( display, matrix );
 		return bitmapData;
@@ -297,12 +298,10 @@ class BitmapAsset extends Asset
 	}
 	
 	
-	override private function unsetData ()
+	override public function dispose ()
 	{
-		if (data != null)
-			data.dispose();
-		
-		super.unsetData();
+		data = null;
+		super.dispose();
 	}
 	
 	
@@ -317,7 +316,7 @@ class BitmapAsset extends Asset
 			data = v;
 			if (v != null)
 			{
-				bitmapData = v;
+				bitmapData = v.clone();
 				width	= v.width;
 				height	= v.height;
 				setReady();
@@ -479,15 +478,15 @@ class BytesAssetBase extends Asset
 		if (!isLoaded())
 			return;
 		
-		try {
+	#if !debug	try { #end
 			width	= loader.width.roundFloat();
 			height	= loader.height.roundFloat();
 			setReady();
-		}
+	#if !debug }
 		catch (e:flash.errors.Error) {
 			handleLoadError("Loading asset error. Check policy settings. "+e.message);
 		}
-		
+	#end
 	//	trace(loader.content+"; size: "+loader.width+", "+loader.height+"; "+width+", "+height+"; mime: "+loader.info.contentType);
 	}	
 #end
@@ -575,7 +574,7 @@ class ExternalAsset extends BytesAssetBase
 		setLoading();
 		
 		if		(externalLoader.isCompleted())		loadBytes( externalLoader.bytes );	
-		else if (externalLoader.is(URLLoader))		externalLoader.as(URLLoader).load( data );
+		else if (externalLoader.is(URLLoader))		externalLoader.as(URLLoader).request(data);
 	}
 	
 	

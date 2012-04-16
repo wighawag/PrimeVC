@@ -278,25 +278,30 @@ class UIComponent extends Sprite, implements IUIComponent
 
 	public  inline function attachToDisplayList (t:IDisplayContainer, pos:Int = -1)	: IUIElement
 	{
-		if (container != t)
-		{
-			if (effects != null && effects.isPlayingHide())
+	//	if (container != t)
+	//	{
+			var wasDetaching = isDetaching();
+			if (wasDetaching) {
+				effects.hide.ended.unbind(this);
 				effects.hide.stop();
+			}
 			
 			attachDisplayTo(t, pos);
-
 			var hasEffect = visible && effects != null && effects.show != null;
 			var isPlaying = hasEffect && effects.show.isPlaying();
 			
-			if (!isPlaying)
+			if (!hasEffect && !visible)
+				visible = true;
+			
+			else if (hasEffect && !isPlaying)
 			{
-				if (hasEffect) {
+				if (!wasDetaching)
 					visible = false;
-					if (!isInitialized()) 	haxe.Timer.delay( show, 100 ); //.onceOn( displayEvents.enterFrame, this );
-					else 					effects.playShow();
-				}
+				
+				if (!isInitialized()) 	haxe.Timer.delay( show, 100 ); //.onceOn( displayEvents.enterFrame, this );
+				else 					effects.playShow();
 			}
-		}
+	//	}
 		
 		return this;
 	}
@@ -323,6 +328,10 @@ class UIComponent extends Sprite, implements IUIComponent
 
 		return this;
 	}
+
+
+	public inline function isDetaching () 				{ return effects != null && effects.isPlayingHide(); }
+	public inline function isAttached () 				{ return window  != null; }
 	
 	
 	//
@@ -458,7 +467,7 @@ class UIComponent extends Sprite, implements IUIComponent
 	 */
 	private function removeValidation () : Void
 	{
-		if (isQueued() &&isOnStage())
+		if (isQueued() && isOnStage())
 			system.invalidation.remove(this);
 
 		if (!isDisposed() && changes > 0)

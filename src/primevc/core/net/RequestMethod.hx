@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, The PrimeVC Project Contributors
+ * Copyright (c) 2012, The PrimeVC Project Contributors
  * All rights reserved.
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -20,44 +20,28 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.s
+ * DAMAGE.
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.gui.components;
- import primevc.core.collections.IReadOnlyList;
-
+package primevc.core.net;
 
 
 /**
- * Panel with a ListView as content instead of a UIContainer.
- * 
- * @author Ruben Weijers
- * @creation-date Apr 29, 2011
+ * @author 			Ruben Weijers
+ * @creation-date 	Jan 12, 2012
  */
-class ListPanel<ListDataType> extends Panel, implements IListHolder<ListDataType>
-{
-	public var list (default, null)	: ListView<ListDataType>;
-	
-	
-	
-	public function new (id:String = null, label:String = null, data:IReadOnlyList<ListDataType> = null)
-	{
-		if (list == null)
-			content = list	= new ListView<ListDataType>("content", data);
-		
-		super(id, label);
+enum RequestMethod {
+	post;
+	get;
+	put;
+	delete;
 
-	//	mouseEnabled 	= false;
-	//	mouseChildren 	= true;
-	}
-	
-	
-	override public function dispose ()
-	{
-		super.dispose();
-		list = null;
-	}
+	options;
+	head;
+	trace;
+	connect;
+	patch;
 }

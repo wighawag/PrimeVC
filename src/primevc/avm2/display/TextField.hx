@@ -50,6 +50,7 @@ package primevc.avm2.display;
  import primevc.gui.text.TextTransform;
 
   using primevc.utils.Bind;
+  using primevc.utils.IfUtil;
   using primevc.utils.NumberUtil;
   using primevc.utils.StringUtil;
   using primevc.utils.TypeUtil;
@@ -76,7 +77,7 @@ class TextField extends flash.text.TextField, implements ITextField
 	public static inline var TEXT_HEIGHT_PADDING:Int = 4;
 	
 	
-	public var container		(default, setContainer)		: IDisplayContainer;
+	public var container		(default, default)			: IDisplayContainer;
 	public var window			(default, setWindow)		: Window;
 	
 	public var displayEvents	(default, null)				: DisplayEvents;
@@ -299,14 +300,14 @@ class TextField extends flash.text.TextField, implements ITextField
 	// GETTERS / SETTERS
 	//
 	
-	private inline function setContainer (v)
+/*	private inline function setContainer (v)
 	{
 		container	= v;
 		if (v != null)	window = container.window;
 		else			window = null;
 		return v;
 	}
-	
+*/	
 	
 	private inline function setWindow (v)
 	{
@@ -374,9 +375,9 @@ class TextField extends flash.text.TextField, implements ITextField
 	// FOCUS METHODS
 	//
 	
-	
-	public inline function setFocus ()		{ if (window != null)							{ window.focus = this; } }
-	public inline function removeFocus ()	{ if (window != null && window.focus == this)	{ window.focus = null; } }
+	public inline function focussed ()		{ return window.notNull() && window.focus == this; }
+	public inline function setFocus ()		{ if (window.notNull())		{ window.focus = this; } }
+	public inline function removeFocus ()	{ if (focussed())			{ window.focus = null; } }
 	
 	
 	/**

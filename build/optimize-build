@@ -6,17 +6,17 @@ INPUT="$1"
 # OUTPUT="build/tmp_tdsi.swf"
 
 BUILDSCRIPTDIR=`dirname "$0"`;
-APPARAT="$BUILDSCRIPTDIR/apparat-1.1.0-RC9"
+APPARAT="$BUILDSCRIPTDIR/apparat-1.0-SNAPSHOT"
 #TESTDIR="../../bin-release"
 
 # echo "input: $INPUT"
 # echo "output: $OUTPUT"
 
-cd "$APPARAT";
+#cd "$APPARAT";
 
-./tdsi -i "'$INPUT'"
-./stripper -i "'$INPUT'"
-./reducer -i "'$INPUT'"
+$APPARAT/tdsi -i "$INPUT"
+$APPARAT/stripper -i "$INPUT"
+$APPARAT/reducer -i "$INPUT"
 
 
 # if [ -f build/environment.sh ]; then
