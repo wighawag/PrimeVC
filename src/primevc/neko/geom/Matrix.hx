@@ -27,9 +27,9 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.neko.geom;
- import primevc.utils.ID;
- import primevc.tools.generator.ICodeFormattable;
+#if (prime_css && neko)
  import primevc.tools.generator.ICodeGenerator;
+#end
 
 
 /**
@@ -39,7 +39,7 @@ package primevc.neko.geom;
  * @creation-date Sep 14, 2010
  * @see http://livedocs.adobe.com/flash/9.0/ActionScriptLangRefV3/flash/geom/Matrix.html
  */
-class Matrix implements ICodeFormattable
+class Matrix #if (prime_css && neko) implements primevc.tools.generator.ICodeFormattable #end
 {
 	public var a	: Float;
 	public var b	: Float;
@@ -47,13 +47,15 @@ class Matrix implements ICodeFormattable
 	public var d 	: Float;
 	public var tx	: Float;
 	public var ty	: Float;
-	
+#if prime_css
 	public var _oid	(default, null) : Int;
-	
+#end
 	
 	public function new (a:Float = 1, b:Float = 0, c:Float = 0, d:Float = 1, tx:Float = 0, ty:Float = 0)
 	{
-		_oid = ID.getNext();
+#if (prime_css && neko)
+		_oid = primevc.utils.ID.getNext();
+#end
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -63,7 +65,7 @@ class Matrix implements ICodeFormattable
 	}
 	
 	
-#if neko
+#if (neko && prime_css)
 	public function toCode (code:ICodeGenerator)	{ code.construct( this, [ a, b, c, d, tx, ty ] ); }
 	public function isEmpty ()						{ return false; }
 	public function cleanUp () : Void				{}

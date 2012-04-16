@@ -46,7 +46,7 @@ package primevc.types;
  import primevc.core.net.URLLoader;
  import primevc.gui.display.Loader;
 
-#elseif neko
+#elseif (neko && prime_css)
  import primevc.tools.generator.ICodeFormattable;
  import primevc.tools.generator.ICodeGenerator;
  import primevc.types.Reference;
@@ -69,7 +69,8 @@ private typedef BytesData		= haxe.io.BytesData;
  */
 class Asset		implements IDisposable
 			,	implements IValueObject
-#if neko	,	implements ICodeFormattable		#end
+#if (neko && prime_css)
+			,	implements ICodeFormattable		#end
 {
 	//
 	// FACTORY METHODS
@@ -129,10 +130,10 @@ class Asset		implements IDisposable
 	 */
 	public var bitmapData	(default, null)				: BitmapData;
 
-#if neko
+#if (neko && prime_css)
 	private var source		: Dynamic;
 #end
-#if (neko || debug)
+#if ((neko && prime_css) || debug)
 	public var _oid			(default, null)				: Int;
 #end
 	public var state		(default, null)				: SimpleStateMachine<AssetStates>;
@@ -142,13 +143,15 @@ class Asset		implements IDisposable
 	
 	
 	
-	public function new ( #if neko data:Dynamic #end )
+	public function new ( #if (neko && prime_css) data:Dynamic #end )
 	{
 		state	= new SimpleStateMachine<AssetStates>(empty);
 		width	= height = Number.INT_NOT_SET;
-#if neko			source	= data; #end
-#if (neko || debug)	_oid	= primevc.utils.ID.getNext(); #end
-#if flash9			Assert.notNull(type); #end
+#if (neko && prime_css)		source	= data; #end
+#if flash9					Assert.notNull(type); #end
+#if ((neko && prime_css) || debug)
+		_oid	= primevc.utils.ID.getNext();
+#end
 	}
 	
 	
@@ -156,9 +159,11 @@ class Asset		implements IDisposable
 	{
 		unsetData();
 		state.dispose();
-		state	= null;
-#if neko				source	= null; #end
-#if (neko || debug)		_oid	= 0; #end
+		state = null;
+#if (neko && prime_css)		source	= null; #end
+#if ((neko && prime_css) || debug)
+		_oid = 0;
+#end
 	}
 	
 	
@@ -201,9 +206,7 @@ class Asset		implements IDisposable
 		bitmapData = new BitmapData( width, height, transparant, fillColor );
 		bitmapData.draw( display, matrix );
 		return bitmapData;
-#else
-		return null;
-#end
+#else	return null; #end
 	}
 	
 	
@@ -245,14 +248,14 @@ class Asset		implements IDisposable
 #end
 	public  function load ()				: Void				{ Assert.abstract(); }
 	public  function close ()				: Void				{ Assert.abstract(); }
-#if neko
+#if (neko && prime_css)
 	public  function isEmpty ()				: Bool				{ return source == null; }
 #else
 	public  function isEmpty ()				: Bool				{ Assert.abstract(); return false; }
 #end
 	
 
-#if neko
+#if (neko && prime_css)
 	public  function cleanUp () : Void				{}
 	public  function toCode (code:ICodeGenerator)
 	{
@@ -267,7 +270,7 @@ class Asset		implements IDisposable
 	}
 #end
 
-#if (neko || debug)
+#if debug
 	public  function toString ()
 	{
 		return "."+(state != null ? ""+state.current : "disposed") + " - " + _oid+"; type: "+type;

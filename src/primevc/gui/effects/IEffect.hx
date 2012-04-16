@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.effects;
-#if neko
+#if (neko && prime_css)
  import primevc.tools.generator.ICodeFormattable;
  import primevc.tools.generator.ICSSFormattable;
 #end
@@ -43,7 +43,8 @@ package primevc.gui.effects;
 interface IEffect
 				implements IDisposable
 			,	implements IInvalidatable	
-#if neko	,	implements ICSSFormattable
+#if (neko && prime_css)
+			,	implements ICSSFormattable
 			,	implements ICodeFormattable		#end
 			,	implements IClonable < IEffect >
 {

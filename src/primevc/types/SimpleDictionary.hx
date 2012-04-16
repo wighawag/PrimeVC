@@ -30,15 +30,13 @@ package primevc.types;
  import primevc.core.collections.iterators.FastArrayForwardIterator;
  import primevc.core.traits.IClonable;
  import primevc.core.traits.IDisposable;
-#if neko
+#if (neko && prime_css)
  import primevc.tools.generator.ICodeFormattable;
-#end
- import primevc.utils.FastArray;
-#if (neko || debug)
  import primevc.tools.generator.ICodeGenerator;
  import primevc.utils.ID;
  import primevc.utils.TypeUtil;
 #end
+ import primevc.utils.FastArray;
   using primevc.utils.FastArray;
   using Std;
 
@@ -52,21 +50,22 @@ package primevc.types;
 class SimpleDictionary < KType, VType > 
 				implements IDisposable
 			,	implements IClonable<SimpleDictionary<KType, VType>>
-#if !neko	,	implements haxe.rtti.Generic
+#if (!prime_css && !neko)	
+			,	implements haxe.rtti.Generic
 #else		,	implements ICodeFormattable		#end
 {
 	private var _keys	: FastArray < KType >;
 	private var _values	: FastArray < VType >;
 	public var length	(getLength, never)	: Int;
 	
-#if (neko || debug)
+#if (prime_css && neko)
 	public var _oid		(default, null)		: Int;
 #end
 	
 	
 	public function new (size:Int = 0, fixed:Bool = false)
 	{
-#if (neko || debug)
+#if (neko && prime_css)
 		_oid	= ID.getNext();
 #end
 		_keys	= FastArrayUtil.create(size, fixed);
@@ -164,7 +163,7 @@ class SimpleDictionary < KType, VType >
 	#end
 #end
 
-#if neko
+#if (neko && prime_css)
 	public function toHash () : Hash<VType>
 	{
 		var hash = new Hash<VType>();

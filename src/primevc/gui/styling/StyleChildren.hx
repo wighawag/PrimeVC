@@ -29,10 +29,10 @@
 package primevc.gui.styling;
  import primevc.core.traits.IDisposable;
  import Hash;
-#if (neko || debug)
+#if ((neko && prime_css) || debug)
  import primevc.utils.ID;
 #end
-#if neko
+#if (neko && prime_css)
  import primevc.types.SimpleDictionary;
  import primevc.tools.generator.ICodeFormattable;
  import primevc.tools.generator.ICodeGenerator;
@@ -41,7 +41,7 @@ package primevc.gui.styling;
 #end
 
 
-typedef SelectorMapType = #if neko SimpleDictionary<String, StyleBlock> #else Hash<StyleBlock> #end;
+typedef SelectorMapType = #if (neko && prime_css) SimpleDictionary<String, StyleBlock> #else Hash<StyleBlock> #end;
 
 /**
  * @author Ruben Weijers
@@ -49,7 +49,8 @@ typedef SelectorMapType = #if neko SimpleDictionary<String, StyleBlock> #else Ha
  */
 class StyleChildren 
 				implements IDisposable
-#if neko	,	implements ICSSFormattable
+#if (neko && prime_css)
+			,	implements ICSSFormattable
 			,	implements ICodeFormattable		#end
 {
 #if (neko || debug)
@@ -150,7 +151,7 @@ class StyleChildren
 	}
 	
 	
-#if neko
+#if (neko && prime_css)
 	public function toString ()	{ return toCSS(); }
 	
 	

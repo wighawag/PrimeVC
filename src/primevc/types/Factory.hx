@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.types;
-#if neko
+#if (neko && prime_css)
  import primevc.core.traits.IDisposable;
  import primevc.neko.traits.IHasTypeParameters;
 
@@ -41,7 +41,7 @@ package primevc.types;
   using Type;
 #end
 
-#if !neko
+#if (!neko || !prime_css)
 typedef Factory<C> = Void -> C;
 typedef Factory1<A, C> = A -> C;
 #else
@@ -56,9 +56,11 @@ typedef Factory1<A,C> = Factory<C>;
  */
 class Factory <InstanceType >
 				implements IDisposable		
-#if neko	,	implements ICSSFormattable
+#if (neko && prime_css)
+			,	implements ICSSFormattable
 			,	implements ICodeFormattable
-			,	implements IHasTypeParameters		#end
+			,	implements IHasTypeParameters
+#end
 {
 	public static inline var EMPTY_ARRAY = [];
 	
@@ -106,7 +108,7 @@ class Factory <InstanceType >
 	}*/
 	
 
-#if neko
+#if (neko && prime_css)
 	public function toCSS (prefix:String = "")
 	{
 		return cssValue == null ? classRef : cssValue;
