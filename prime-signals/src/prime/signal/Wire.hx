@@ -31,6 +31,7 @@ package prime.signal;
  import prime.core.traits.IDisposable;
  import prime.core.ListNode;
   using prime.utils.BitUtil;
+  using prime.signal.Signal;
 
 /**
  * A Wire is the connection between a Signal0-4 dispatcher, and a handler object+function.
@@ -167,17 +168,17 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	{
 		if (!isEnabled())
 		{
-			flags = flags.set( ENABLED );
+			flags |= ENABLED;
 			doEnable();
 		}
 	}
 	
 	private inline function doEnable()
 	{
-		var s:ListNode<Wire<FunctionSignature>> = signal;
+		var s:ListNode<Wire<FunctionSignature>> = this.signal;
 		this.n = s.n;
 		s.n = this;
-		Signal.notifyEnabled(signal, this);
+		signal.notifyEnabled(this);
 	}
 	
 	/**
