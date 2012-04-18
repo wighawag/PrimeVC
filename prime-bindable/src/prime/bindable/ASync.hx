@@ -26,20 +26,19 @@
  * Authors:
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
-package primevc.core;
+package prime.bindable;
  import prime.signal.IUnbindable;
  import prime.signal.Signal1;
- import primevc.core.traits.IDisposable;
-  using primevc.utils.Bind;
-  using primevc.utils.BitUtil;
+ import prime.core.traits.IDisposable;
+  using prime.utils.Bind;
+  using prime.utils.BitUtil;
 
 
 /**
- * 
  * @author Ruben Weijers
  * @creation-date May 16, 2011
  */
-class ASync <DataType> implements IDisposable, implements IUnbindable<DataType->Dynamic>
+class ASync<T> implements IDisposable, implements IUnbindable<T->Dynamic>
 {
 	private static inline var NONE		= 0;
 	private static inline var CANCELED	= 1 << 0;
@@ -48,14 +47,14 @@ class ASync <DataType> implements IDisposable, implements IUnbindable<DataType->
 	private static inline var DISPOSED	= 1 << 3;
 	
 	
-	private var response		: Signal1<DataType>;
+	private var response		: Signal1<T>;
 	private var error			: Signal1<String>;
 	
 	/**
 	 * Flag indicating if a request is already send or canceled
 	 */
 	private var state			: Int;
-	private var _reply			: DataType;
+	private var _reply			: T;
 	
 	public var handleRequest	(default, setHandleRequest)	: Void -> Void;
 	public var handleCancel		(default, setHandleCancel)	: Void -> Void;
@@ -97,7 +96,7 @@ class ASync <DataType> implements IDisposable, implements IUnbindable<DataType->
 	}
 	
 	
-	public function unbind(owner:Dynamic, ?handler:Null<DataType->Dynamic>) : Void
+	public function unbind(owner:Dynamic, ?handler:Null<T->Dynamic>) : Void
 	{
 		Assert.that( state.hasNone(DISPOSED) );
 		response.unbind(owner);
@@ -105,7 +104,7 @@ class ASync <DataType> implements IDisposable, implements IUnbindable<DataType->
 	}
 	
 	
-	public function get<T> (owner:Dynamic, responseHandler:DataType->T, errorHandler:String->Dynamic = null)
+	public function get<T> (owner:Dynamic, responseHandler:T->T, errorHandler:String->Dynamic = null)
 	{
 		Assert.that( state.hasNone(DISPOSED) );
 		if (state.has(REPLIED))
@@ -140,7 +139,7 @@ class ASync <DataType> implements IDisposable, implements IUnbindable<DataType->
 	}
 	
 	
-	public inline function reply (data:DataType) : ASync<DataType>
+	public inline function reply (data:T) : ASync<T>
 	{
 		Assert.that( state.hasNone(DISPOSED) );
 		if (response.hasListeners()) {
