@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ rubenw.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.avm2.net.stream;
 

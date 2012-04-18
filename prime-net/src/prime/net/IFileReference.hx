@@ -24,19 +24,19 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ rubenw.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.net;
- import prime.core.dispatcher.IUnbindable;
- import prime.core.traits.IDisposable;
  import prime.signal.Signal0;
 
 
 /**
- * @author 	Ruben Weijers
- * @since 	Dec 12, 2011
+ * @author 			Ruben Weijers
+ * @creation-date 	Dec 12, 2011
  */
-interface IFileReference implements IDisposable, implements IUnbindable<Dynamic>
+interface IFileReference 
+		implements prime.core.traits.IDisposable
+	,	implements prime.signal.IUnbindable<Dynamic>
 {
 	public var select		(default,null) : Signal0;
 	public var cancel		(default,null) : Signal0;
