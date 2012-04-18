@@ -40,7 +40,7 @@ package primevc.core.traits;
  */
 class Invalidatable implements IInvalidatable
 {
-	public var listeners		(default, null)	: FastList< IInvalidateListener >;
+	public var listeners		(default, null)	: FastList<IInvalidateListener>;
 	
 	
 	public function new ()

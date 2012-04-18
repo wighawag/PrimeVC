@@ -27,7 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.layout;
- import primevc.core.collections.IEditableList;
  import primevc.gui.layout.algorithms.ILayoutAlgorithm;
 
 
@@ -47,7 +46,7 @@ interface ILayoutContainer implements ILayoutClient
 	/**
 	 * List with all the children of the group
 	 */
-	public var children				(default, null)				: IEditableList<LayoutClient>;
+	public var children				(default, null)				: primevc.core.collections.IEditableList<LayoutClient>;
 
 	/**
 	 * Property with the actual length of the children list. Use this property
