@@ -42,65 +42,12 @@ private typedef Sound = flash.media.SoundMixer;
 #end
 
 
+
 /**
- * Singleton which collects all playing sound-objects and adds an API to apply 
- * actions on them.
- *
- * @since   Oct 3, 2011
- * @author  Ruben Weijers
+ * @creation-date   Oct 3, 2011
+ * @author          Ruben Weijers
  */
 class SoundMixer
-{
-    private function new () {}
-    
-    private static var instance (getInstance, null) : SoundMixerInstance;
-    
-    private static inline function getInstance ()
-    {
-        if (instance.isNull())
-            instance = new SoundMixerInstance();
-        
-        return instance;
-    }
-
-
-    public static inline function stopAll ()                        { instance.stopAll(); }
-    public static inline function stopAllExcept (s:BaseMediaStream) { instance.stopAllExcept(s); }
-    public static inline function freezeAll ()                      { instance.freezeAll(); }
-    public static inline function defrostAll ()                     { instance.defrostAll(); }
-
-
-    public static inline function add (s:BaseMediaStream)           { instance.add(s); }
-    public static inline function remove (s:BaseMediaStream)        { instance.remove(s); }
-
-
-    public static inline function mute ()                           { instance.mute(); }
-    public static inline function unmute ()                         { instance.unmute(); }
-    public static inline function toggleMute ()                     { instance.toggleMute(); }
-
-
-
-
-    public static var volume    (getVolume, never)                  : Bindable<Float>;
-        private static inline function getVolume ()                 { return instance.volume; }
-    
-    public static var isMuted   (getIsMuted, never)                 : Bindable<Bool>;
-        private inline static function getIsMuted()                 { return instance.isMuted; }
-    
-    public static var isFrozen  (getIsFrozen, never)                : Bool;
-        private inline static function getIsFrozen()                { return instance.isFrozen; }
-}
-
-
-
-
-
-
-
-/**
- * Singleton implemention
- */
-private class SoundMixerInstance
 {
     private var next        : BaseMediaStream;
 
@@ -177,7 +124,7 @@ private class SoundMixerInstance
     }
 
 
-    public inline function add (stream:BaseMediaStream)
+    public function add (stream:BaseMediaStream)
     {
         Assert.notNull(stream);
         if (isFrozen)
@@ -214,22 +161,18 @@ private class SoundMixerInstance
     }
 
 
-    public function mute ()
-    {
+    public inline function mute ()
         if (!isMuted.value) {
             isMuted.value = true;
             applyVolume();
         }
-    }
 
 
-    public function unmute ()
-    {
+    public inline function unmute ()
         if (isMuted.value) {
             isMuted.value = false;
             applyVolume();
         }
-    }
 
     
     /**
@@ -237,10 +180,7 @@ private class SoundMixerInstance
      * be paused instead of turning the volume to zero.
      */
     public inline function toggleMute ()
-    {
-        if (isMuted.value)  unmute();
-        else                mute();
-    }
+        isMuted.value ? unmute() : mute()
 
 
     private function applyVolume ()
@@ -252,5 +192,3 @@ private class SoundMixerInstance
 #end
     }
 }
-
-
