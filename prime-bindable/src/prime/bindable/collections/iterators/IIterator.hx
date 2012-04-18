@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections.iterators;
 
@@ -33,11 +33,11 @@ package prime.bindable.collections.iterators;
  * @author Ruben Weijers
  * @creation-date Jul 23, 2010
  */
-interface IIterator <DataType>
+interface IIterator<T>
 {
 	public function setCurrent	(newPos:Dynamic)	: Void;
 	public function rewind ()						: Void;
 	public function hasNext ()						: Bool;
-	public function next ()							: DataType;
-	public function value ()						: DataType;
+	public function next ()							: T;
+	public function value ()						: T;
 }

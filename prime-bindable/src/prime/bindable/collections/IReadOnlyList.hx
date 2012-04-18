@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
  import prime.bindable.collections.iterators.IIterator;

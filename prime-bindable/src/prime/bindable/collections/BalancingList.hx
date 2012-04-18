@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
  import prime.bindable.collections.IEditableList;
@@ -35,10 +35,10 @@ package prime.bindable.collections;
  * @creation-date	Jul 1, 2010
  * @author			Ruben Weijers
  */
-class BalancingList <DataType> extends SimpleList <DataType>
+class BalancingList<T> extends SimpleList<T>
 	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
-	public var nextList : BalancingList<DataType>;
+	public var nextList : BalancingList<T>;
 	public var listNum	: Int;
 	public var maxLists	: Int;
 	
@@ -50,9 +50,9 @@ class BalancingList <DataType> extends SimpleList <DataType>
 	}
 	
 	
-	override public function clone () : IReadOnlyList < DataType >
+	override public function clone () : IReadOnlyList<T>
 	{
-		var inst	= new BalancingList<DataType>();
+		var inst	= new BalancingList<T>();
 		var length	= this.length;
 		for (i in 0...length)
 			inst.insertAt( getItemAt(i), i );
@@ -61,9 +61,9 @@ class BalancingList <DataType> extends SimpleList <DataType>
 	}
 	
 	
-	override public function duplicate () : IReadOnlyList < DataType >
+	override public function duplicate () : IReadOnlyList<T>
 	{
-		var inst	= new BalancingList<DataType>();
+		var inst	= new BalancingList<T>();
 		var length	= this.length;
 		for (i in 0...length)
 			inst.insertAt( DuplicateUtil.duplicateItem( getItemAt(i) ), i );
@@ -72,7 +72,7 @@ class BalancingList <DataType> extends SimpleList <DataType>
 	}
 	
 	
-	override public function add (item:DataType, pos:Int = -1) : DataType
+	override public function add (item:T, pos:Int = -1) : T
 	{
 		if (nextList != null && pos < length)
 		{
@@ -98,7 +98,7 @@ class BalancingList <DataType> extends SimpleList <DataType>
 	}
 	
 	
-	override public function remove (item:DataType, oldDepth:Int = -1) : DataType
+	override public function remove (item:T, oldDepth:Int = -1) : T
 	{
 		if (oldDepth == -1)
 			oldDepth	= indexOf(item);
@@ -129,7 +129,7 @@ class BalancingList <DataType> extends SimpleList <DataType>
 	}
 	
 	
-	public  function swapAtDepth (newItem:DataType, toDepth:Int)
+	public  function swapAtDepth (newItem:T, toDepth:Int)
 	{
 		var curCell		= getCellAt(toDepth);
 #if debug

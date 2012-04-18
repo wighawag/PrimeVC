@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
  import prime.utils.FastArray;
@@ -35,9 +35,9 @@ package prime.bindable.collections;
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
  */
-class ArrayList <DataType> extends ReadOnlyArrayList <DataType>, implements IEditableList <DataType>, implements haxe.rtti.Generic
+class ArrayList<T> extends ReadOnlyArrayList<T>, implements IEditableList<T>, implements haxe.rtti.Generic
 {
-	public function new( wrapAroundList:FastArray<DataType> = null ) super(wrapAroundList)	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
+	public function new( wrapAroundList:FastArray<T> = null ) super(wrapAroundList)	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
 
 	override public function dispose ()
 	{
@@ -46,25 +46,16 @@ class ArrayList <DataType> extends ReadOnlyArrayList <DataType>, implements IEdi
 	}
 	
 	
-	public function removeAll ()
+	public function removeAll ()	if (length > 0)
 	{
-		if (length > 0)
-		{
-			var msg = ListChange.reset;
-			beforeChange.send( msg );
-			list.removeAll();
-			change.send( msg );
-		}
+		var msg = ListChange.reset;
+		beforeChange.send( msg );
+		list.removeAll();
+		change.send( msg );
 	}
 	
 	
-	public inline function isEmpty()
-	{
-		return length == 0;
-	}
-	
-	
-	public function add (item:DataType, pos:Int = -1) : DataType
+	public function add (item:T, pos:Int = -1) : T
 	{
 		pos = list.validateNewIndex(pos);
 		var msg = ListChange.added( item, pos );
@@ -76,7 +67,7 @@ class ArrayList <DataType> extends ReadOnlyArrayList <DataType>, implements IEdi
 	}
 	
 	
-	public function remove (item:DataType, curPos:Int = -1) : DataType
+	public function remove (item:T, curPos:Int = -1) : T
 	{
 		if (curPos == -1)
 			curPos = list.indexOf(item);
@@ -92,7 +83,7 @@ class ArrayList <DataType> extends ReadOnlyArrayList <DataType>, implements IEdi
 	}
 	
 	
-	public function move (item:DataType, newPos:Int, curPos:Int = -1) : DataType
+	public function move (item:T, newPos:Int, curPos:Int = -1) : T
 	{
 		if		(curPos == -1)				curPos = list.indexOf(item);
 		if		(newPos > (length - 1))		newPos = length - 1;
@@ -108,15 +99,7 @@ class ArrayList <DataType> extends ReadOnlyArrayList <DataType>, implements IEdi
 		return item;
 	}
 	
-	
-	override public function clone () : IReadOnlyList<DataType>
-	{
-		return new ArrayList<DataType>( list.clone() );
-	}
-	
-	
-	override public function duplicate () : IReadOnlyList<DataType>
-	{
-		return new ArrayList<DataType>( list.duplicate() );
-	}
+	public inline function isEmpty()							return length == 0
+	override public function clone () : IReadOnlyList<T>		return new ArrayList<T>( list.clone() )
+	override public function duplicate () : IReadOnlyList<T>	return new ArrayList<T>( list.duplicate() )
 }

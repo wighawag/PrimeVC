@@ -24,10 +24,9 @@
  *
  *
  * Authors:
- *  Danny Wilson	<danny @ onlinetouch.nl>
+ *  Danny Wilson	<danny @ prime.vc>
  */
-package prime.core;
- import prime.core.Bindable;
+package prime.bindable;
  import prime.signal.Signal1;
   using prime.utils.BitUtil;
 
@@ -57,7 +56,7 @@ private typedef Flags = RevertableBindableFlags;
  * @creation-date	Jun 18, 2010
  * @author			Danny Wilson
  */
-class RevertableBindable <DataType> extends Bindable<DataType>,
+class RevertableBindable<T> extends Bindable<T>,
 	#if prime_data implements prime.core.traits.IEditableValueObject, #end
 	implements haxe.rtti.Generic
 {
@@ -69,10 +68,10 @@ class RevertableBindable <DataType> extends Bindable<DataType>,
 	/**
 	 * The last valid value. Zero/null until this.value is changed while in editing mode.
 	 */
-	public  var shadowValue (default,null) : DataType;
+	public  var shadowValue (default,null) : T;
 	
 	
-	public  function new (?val : Null<DataType>)
+	public  function new (?val : Null<T>)
 	{
 		flags = Flags.DISPATCH_CHANGES_BEFORE_COMMIT; // | Flags.UPDATE_BINDINGS_BEFORE_COMMIT;
 		super(val);
@@ -82,13 +81,13 @@ class RevertableBindable <DataType> extends Bindable<DataType>,
 	override public  function dispose ()
 	{
 		cancelEdit();
-		(untyped this).value = null; // Int can't be set to null, so we trick it with untyped
+		set(null);
 		flags = 0;
 		super.dispose();
 	}
 
 
-	override private function setValue (newV:DataType) : DataType
+	override private function setValue (newV:T) : T
 	{
 		var f = flags;
 		
@@ -148,9 +147,8 @@ class RevertableBindable <DataType> extends Bindable<DataType>,
 	 */
 	public inline function beginEdit()
 	{
-		// Only set MAKE_SHADOW_COPY if IN_EDITMODE is not set
-		Assert.that(Flags.IN_EDITMODE << 11 == Flags.MAKE_SHADOW_COPY);
-		flags = flags.set( (((flags & Flags.IN_EDITMODE) << 11) ^ Flags.MAKE_SHADOW_COPY) | Flags.IN_EDITMODE );
+		Assert.isEqual(Flags.IN_EDITMODE << 11, Flags.MAKE_SHADOW_COPY);
+		flags = flags.set( (((flags & Flags.IN_EDITMODE) << 11) ^ Flags.MAKE_SHADOW_COPY) | Flags.IN_EDITMODE );	// Only set MAKE_SHADOW_COPY if IN_EDITMODE is not set
 	}
 	
 

@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
  import prime.core.traits.IDisposable;
@@ -34,10 +34,10 @@ package prime.bindable.collections;
  * @author			Ruben Weijers
  * @creation-date	Oct 28, 2010
  */
-interface IDataCursor < DataType > implements IDisposable
+interface IDataCursor<T> implements IDisposable
 {
-	public var list		(default, null)	: IEditableList < DataType >;
-	public var target	(default, null)	: DataType;
+	public var list		(default, null)	: IEditableList<T>;
+	public var target	(default, null)	: T;
 	public var depth	(default, null)	: Int;
 	
 	
@@ -56,5 +56,5 @@ interface IDataCursor < DataType > implements IDisposable
 	 * Method wil move the target to the given depth in the given list. If the
 	 * list is null, then the current list value will be used.
 	 */
-	public function moveTarget (newDepth:Int, newList:IEditableList < DataType > = null) : Void;
+	public function moveTarget (newDepth:Int, newList:IEditableList<T> = null) : Void;
 }

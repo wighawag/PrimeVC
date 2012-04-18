@@ -24,9 +24,9 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package prime.core.collections;
+package prime.bindable.collections;
  import prime.utils.FastArray;
 
 
@@ -34,11 +34,11 @@ package prime.core.collections;
  * @author Ruben Weijers
  * @creation-date Nov 18, 2010
  */
-interface IRevertableList < DataType > implements IEditableList < DataType >
+interface IRevertableList<T> implements IEditableList<T>
 	#if prime_data, implements prime.core.traits.IEditableValueObject #end
 {
 	/**
 	 * List with all the changes that are made when the list is in editing mode.
 	 */
-	public var changes (default,null) : FastArray<ListChange<DataType>>;
+	public var changes (default,null) : FastArray<ListChange<T>>;
 }

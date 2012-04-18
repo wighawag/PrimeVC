@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections.iterators;
  import prime.utils.FastArray;
@@ -36,21 +36,21 @@ package prime.bindable.collections.iterators;
  * @creation-date	Jul 23, 2010
  * @author			Ruben Weijers
  */
-class FastArrayReversedIterator <DataType> implements IIterator <DataType>
+class FastArrayReversedIterator<T> implements IIterator<T>
 	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
-	private var target	(default, null)	: FastArray<DataType>;
+	private var target	(default, null)	: FastArray<T>;
 	public var current	(default, null)	: Int;
 	
 	
-	public function new (target:FastArray<DataType>)
+	public function new (target:FastArray<T>)
 	{
 		this.target = target;
 		rewind();
 	}
-	public inline function setCurrent (val:Dynamic)	{ current = val; }
-	public inline function rewind ()				{ current = target.length - 1; }
-	public inline function hasNext ()				{ return current >= 0; }
-	public inline function next ()					{ return target[ current-- ]; }
-	public inline function value ()					{ return target[ current ]; }
+	public inline function setCurrent (val:Dynamic)	current = val
+	public inline function rewind ()				current = target.length - 1
+	public inline function hasNext ()				return current >= 0
+	public inline function next ()					return target[current--]
+	public inline function value ()					return target[current]
 }

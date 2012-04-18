@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
  import prime.bindable.collections.iterators.IIterator;
@@ -43,22 +43,22 @@ package prime.bindable.collections;
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
  */
-class SimpleList < DataType > implements IEditableList < DataType > 
+class SimpleList<T> implements IEditableList<T>
 	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
-	public var change		(default, null)		: ListChangeSignal<DataType>;
-	public var beforeChange	(default, null)		: ListChangeSignal<DataType>;
+	public var change		(default, null)		: ListChangeSignal<T>;
+	public var beforeChange	(default, null)		: ListChangeSignal<T>;
 	
 	private var _length		: Int;
 	public var length		(getLength, never)	: Int;
 	/**
 	 * Pointer to the first added cell
 	 */
-	public var first		(default, null)		: FastDoubleCell < DataType >;
+	public var first		(default, null)		: FastDoubleCell<T>;
 	/**
 	 * Pointer to the last added cell
 	 */
-	public var last			(default, null)		: FastDoubleCell < DataType >;
+	public var last			(default, null)		: FastDoubleCell<T>;
 	
 	
 	public function new()
@@ -100,9 +100,9 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	}
 	
 	
-	public function clone () : IReadOnlyList < DataType >
+	public function clone () : IReadOnlyList<T>
 	{
-		var inst	= new SimpleList<DataType>();
+		var inst	= new SimpleList<T>();
 		var length	= this.length;
 		for (i in 0...length)
 			inst.insertAt( getItemAt(i), i );
@@ -111,9 +111,9 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	}
 	
 	
-	public function duplicate () : IReadOnlyList < DataType >
+	public function duplicate () : IReadOnlyList<T>
 	{
-		var inst	= new SimpleList<DataType>();
+		var inst	= new SimpleList<T>();
 		var length	= this.length;
 		for (i in 0...length)
 			inst.insertAt( DuplicateUtil.duplicateItem( getItemAt(i) ), i );
@@ -122,15 +122,11 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	}
 	
 	
-	public inline function isEmpty()
-	{
-		return length == 0;
-	}
-	
-	private inline function getLength ()	: Int					{ return _length; }
-	public function iterator ()				: Iterator <DataType>	{ return forwardIterator(); }
-	public function forwardIterator ()		: IIterator <DataType>	{ return new FastDoubleCellForwardIterator <DataType> (first); }
-	public function reversedIterator ()		: IIterator <DataType>	{ return new FastDoubleCellReversedIterator <DataType> (last); }
+	public inline function isEmpty()								return length == 0;
+	private inline function getLength ()	: Int					return _length
+	public function iterator ()				: Iterator<T>	return forwardIterator()
+	public function forwardIterator ()		: IIterator<T>	return new FastDoubleCellForwardIterator<T>(first)
+	public function reversedIterator ()		: IIterator<T>	return new FastDoubleCellReversedIterator<T>(last)
 
 	
 	
@@ -141,13 +137,13 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	 * @param	pos
 	 * @return
 	 */
-	public function getItemAt (pos:Int) : DataType {
+	public function getItemAt (pos:Int) : T {
 		var cell = getCellAt(pos);
 		return (cell != null) ? cell.data : null;
 	}
 	
 	
-	public function add (item:DataType, pos:Int = -1) : DataType
+	public function add (item:T, pos:Int = -1) : T
 	{
 		beforeChange.send( ListChange.added( item, pos ) );
 		pos = insertAt( item, pos );
@@ -156,7 +152,7 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	}
 	
 	
-	public function remove (item:DataType, curPos:Int = -1) : DataType
+	public function remove (item:T, curPos:Int = -1) : T
 	{
 		if (item != null)
 		{
@@ -171,7 +167,7 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	}
 	
 	
-	public function move (item:DataType, newPos:Int, curPos:Int = -1) : DataType
+	public function move (item:T, newPos:Int, curPos:Int = -1) : T
 	{
 		if		(curPos == -1)		curPos = indexOf( item );
 		if		(newPos > length)	newPos = length;
@@ -195,7 +191,7 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	}
 	
 	
-	public function indexOf (item:DataType) : Int
+	public function indexOf (item:T) : Int
 	{
 		var cur = first;
 		var pos = -1, foundPos = -1;
@@ -207,15 +203,12 @@ class SimpleList < DataType > implements IEditableList < DataType >
 			
 			cur = cur.next;
 		}
-		
 		return foundPos;
 	}
 	
 	
-	public function has (item:DataType) : Bool
-	{
-		return indexOf(item) > -1;
-	}
+	public inline function has (item:T) : Bool
+		return indexOf(item) > -1
 	
 	
 	/**
@@ -226,13 +219,11 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	 * @param	pos
 	 * @return	position where the cell is inserted
 	 */
-	public inline function insertAt (item:DataType, ?pos:Int = -1) : Int
-	{
-		return insertCellAt( new FastDoubleCell < DataType >( item, null ), pos );
-	}
+	public inline function insertAt (item:T, ?pos:Int = -1) : Int
+		return insertCellAt( new FastDoubleCell<T>( item, null ), pos )
 
 
-	private function insertCellAt( cell:FastDoubleCell < DataType >, ?pos:Int = -1) : Int
+	private function insertCellAt( cell:FastDoubleCell<T>, ?pos:Int = -1) : Int
 	{
 		if (pos < 0 || pos > length)
 			pos = length;
@@ -267,9 +258,9 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	}
 	
 	
-	private function getCellAt (pos:Int) : FastDoubleCell<DataType>
+	private function getCellAt (pos:Int) : FastDoubleCell<T>
 	{
-		var currentCell:FastDoubleCell<DataType> = first;
+		var currentCell:FastDoubleCell<T> = first;
 		pos = pos < 0 ? length + pos : pos;
 		
 		if (pos == 0) 				return first;
@@ -305,7 +296,7 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	 * @param	item
 	 * @return	last position of the item
 	 */
-	private inline function removeItem (item:DataType, curPos:Int = -1) : Int
+	private inline function removeItem (item:T, curPos:Int = -1) : Int
 	{
 		if (curPos == -1)
 			curPos = indexOf( item );
@@ -320,7 +311,7 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	}
 	
 	
-	private function removeCell (cell:FastDoubleCell < DataType >)
+	private function removeCell (cell:FastDoubleCell<T>)
 	{
 		if (cell == first)	first = cell.next;
 		if (cell == last)	last = cell.prev;

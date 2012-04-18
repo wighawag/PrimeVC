@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
 
@@ -34,14 +34,14 @@ package prime.bindable.collections;
  * @author Ruben Weijers
  * @creation-date Oct 28, 2010
  */
-class DataCursor < DataType > implements IDataCursor < DataType > 
+class DataCursor<T> implements IDataCursor<T> 
 {
-	public var target	(default, null)		: DataType;
-	public var list		(default, setList)	: IEditableList < DataType >;
+	public var target	(default, null)		: T;
+	public var list		(default, setList)	: IEditableList<T>;
 	public var depth	(default, null)		: Int;
 	
 	
-	public function new (target:DataType, list:IEditableList < DataType > = null)
+	public function new (target:T, list:IEditableList<T> = null)
 	{
 		this.target	= target;
 		this.list	= list;
@@ -78,14 +78,12 @@ class DataCursor < DataType > implements IDataCursor < DataType >
 	public function restore ()
 	{
 		Assert.notNull( list );
-		if (!list.has(target))
-			list.add( target, depth );
-		else
-			list.move( target, depth );
+		if (!list.has(target))	list.add( target, depth );
+		else					list.move( target, depth );
 	}
 	
 	
-	public function moveTarget (newDepth:Int, newList:IEditableList < DataType > = null)
+	public function moveTarget (newDepth:Int, newList:IEditableList<T> = null)
 	{
 		Assert.notNull( list );
 	//	trace("Cursor.moveTarget "+target+" "+depth+" => "+newDepth+"; newList "+(newList == list));

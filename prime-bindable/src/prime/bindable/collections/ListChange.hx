@@ -24,13 +24,14 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package prime.core.collections;
+package prime.bindable.collections;
 
 
-typedef OldPos = Int;
-typedef NewPos = Int;
+private typedef OldPos = Int;
+private typedef NewPos = Int;
+
 
 /**
  * @author			Ruben Weijers
@@ -46,26 +47,21 @@ enum ListChange <T>
 
 extern class ListChangeUtil
 {
-	static inline public function undoListChange<T> (list:IEditableList<T>, change:ListChange<T>) : Void
-	{
-		switch (change)
-		{
-			case added (item, newPos):				list.remove(item);
-			case removed (item, oldPos):			list.add( item, oldPos );
-			case moved (item, newPos, oldPos):		list.move( item, oldPos, newPos );
-			default:								//what to do with a reset :-S
+	static inline public function undoListChange<T>(list:IEditableList<T>, change:ListChange<T>) : Void
+		switch (change) {
+			case added(item, newPos):			list.remove(item);
+			case removed(item, oldPos):			list.add( item, oldPos );
+			case moved(item, newPos, oldPos):	list.move( item, oldPos, newPos );
+			default:							//what to do with a reset :-S
 		}
 	}
 
 
-	static public inline function redoListChange<T> (list:IEditableList<T>, change:ListChange<T>) : Void
-	{
-		switch (change)
-		{
-			case added (item, newPos):				list.add(item, newPos);
-			case removed (item, oldPos):			list.remove( item, oldPos );
-			case moved (item, newPos, oldPos):		list.move( item, newPos, oldPos );
-			default:								//what to do with a reset :-S
+	static public inline function redoListChange<T>(list:IEditableList<T>, change:ListChange<T>) : Void
+		switch (change) {
+			case added(item, newPos):			list.add(item, newPos);
+			case removed(item, oldPos):			list.remove( item, oldPos );
+			case moved(item, newPos, oldPos):	list.move( item, newPos, oldPos );
+			default:							//what to do with a reset :-S
 		}
-	}
 }

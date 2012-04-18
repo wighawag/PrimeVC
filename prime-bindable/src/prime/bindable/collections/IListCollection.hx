@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
  
@@ -36,10 +36,10 @@ package prime.bindable.collections;
  * @author			Ruben Weijers
  */
 interface IListCollection <DataType, ListType:IEditableList<DataType>> 
-				implements IEditableList <DataType>
+				implements IEditableList<DataType>
 //#if flash9 ,	implements haxe.rtti.Generic #end
 {
-	public var lists		(default, null)		: ArrayList <ListType>;
+	public var lists		(default, null)		: ArrayList<ListType>;
 	public function addList (list:ListType)		: ListType;
 //	public function removeList (list:ListType)	: ListType;
 }

@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
  import prime.utils.DuplicateUtil;
@@ -42,15 +42,14 @@ package prime.bindable.collections;
  * @creation-date	Jun 30, 2010
  * @author			Ruben Weijers
  */
-class ChainedList <DataType> extends SimpleList <DataType> 
-	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
+class ChainedList<T> extends SimpleList <T> #if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
-	public var nextList							: ChainedList < DataType >;
 	/**
 	 * Maximum number of items. If there are more items, they will be moved to
 	 * the next list
 	 */
 	public var max			(default, setMax)	: Int;
+	public var nextList							: ChainedList<T>;
 	
 	
 	public function new( max:Int = -1 )
@@ -67,9 +66,9 @@ class ChainedList <DataType> extends SimpleList <DataType>
 	}
 	
 	
-	override public function clone () : IReadOnlyList < DataType >
+	override public function clone () : IReadOnlyList<T>
 	{
-		var inst	= new ChainedList<DataType>();
+		var inst	= new ChainedList<T>();
 		var length	= this.length;
 		for (i in 0...length)
 			inst.insertAt( getItemAt(i), i );
@@ -78,9 +77,9 @@ class ChainedList <DataType> extends SimpleList <DataType>
 	}
 	
 	
-	override public function duplicate () : IReadOnlyList < DataType >
+	override public function duplicate () : IReadOnlyList<T>
 	{
-		var inst	= new ChainedList<DataType>();
+		var inst	= new ChainedList<T>();
 		var length	= this.length;
 		for (i in 0...length)
 			inst.insertAt( DuplicateUtil.duplicateItem( getItemAt(i) ), i );
@@ -89,33 +88,29 @@ class ChainedList <DataType> extends SimpleList <DataType>
 	}
 	
 	
-	override public function add (item:DataType, pos:Int = -1) : DataType
+	override public function add (item:T, pos:Int = -1) : T
 	{
 		if (length < max || max == -1)
-		{
 			return super.add( item, pos );
-		}
-		else
-		{
-			moveItemToNextList( last.data );
-			super.add(item, pos);			//add the new item to this list
-			return item;
-		}
+
+		moveItemToNextList( last.data );
+		super.add(item, pos);			//add the new item to this list
+		return item;
 	}
 	
 	
-	public function moveItemToNextList (item:DataType, pos:Int = 0)
+	public function moveItemToNextList (item:T, pos:Int = 0)
 	{	
 		//create next list if it doesn't exist yet
 		if (nextList == null)
-			nextList = new ChainedList<DataType>(max);
+			nextList = new ChainedList<T>(max);
 		
 		nextList.add(item, pos);	//1. add our last item to the beginning of the next list
 		super.remove(item);			//2. remove the last item
 	}
 	
 	
-	override public function remove (item:DataType, oldPos:Int = -1) : DataType
+	override public function remove (item:T, oldPos:Int = -1) : T
 	{
 		super.remove(item, oldPos);
 		
@@ -144,7 +139,7 @@ class ChainedList <DataType> extends SimpleList <DataType>
 			{
 				//move items from this list to the next list
 				if (nextList == null)
-					nextList = new ChainedList<DataType>(max);
+					nextList = new ChainedList<T>(max);
 				
 				var removedCell = getCellAt(max);
 				var posCounter	= 0;

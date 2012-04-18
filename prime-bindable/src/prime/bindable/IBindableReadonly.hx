@@ -24,9 +24,9 @@
  *
  *
  * Authors:
- *  Danny Wilson	<danny @ onlinetouch.nl>
+ *  Danny Wilson	<danny @ prime.vc>
  */
-package prime.core;
+package prime.bindable;
  import prime.signal.Signal2;
 
 

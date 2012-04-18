@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
 
@@ -32,8 +32,7 @@ package prime.bindable.collections;
  * @creation-date	Jun 29, 2010
  * @author			Ruben Weijers
  */
-interface IEditableList <DataType>
-		implements IReadOnlyList <DataType>	
+interface IEditableList<T> implements IReadOnlyList<T>
 	#if prime_data, implements prime.core.traits.IEditEnabledValueObject #end
 {
 	//
@@ -48,14 +47,14 @@ interface IEditableList <DataType>
 	 * @param	pos		default-value: -1
 	 * @return	item
 	 */
-	public function add		(item:DataType, pos:Int = -1)						: DataType;
+	public function add		(item:T, pos:Int = -1)						: T;
 	/**
 	 * Method will try to remove the given item from the childlist.
 	 * 
 	 * @param	item
 	 * @return	item
 	 */
-	public function remove	(item:DataType, oldPos:Int = -1)					: DataType;
+	public function remove	(item:T, oldPos:Int = -1)					: T;
 	/**
 	 * Method will change the depth of the given item.
 	 * 
@@ -66,7 +65,7 @@ interface IEditableList <DataType>
 	 * 					for the original location of the item.
 	 * @return	item
 	 */
-	public function move	(item:DataType, newPos:Int, curPos:Int = -1)		: DataType;
+	public function move	(item:T, newPos:Int, curPos:Int = -1)		: T;
 	
-	public function removeAll ()												: Void;
+	public function removeAll ()										: Void;
 }

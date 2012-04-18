@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
  
@@ -35,7 +35,7 @@ package prime.bindable.collections;
  * @creation-date	Jul 1, 2010
  * @author			Ruben Weijers
  */
-class FastDoubleCell <T> #if (flash9 || cpp) implements haxe.rtti.Generic #end
+class FastDoubleCell<T> #if (flash9 || cpp) implements haxe.rtti.Generic #end
 {
 	public var data : T;
 	public var prev : FastDoubleCell<T>;

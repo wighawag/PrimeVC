@@ -24,11 +24,12 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
+ *  Danny Wilson	<danny @ prime.vc>
  */
-package prime.core;
-  using prime.utils.BitUtil;
+package prime.bindable;
   using prime.utils.IfUtil;
+
 
 /**
  * @creation-date	Jun 18, 2010
@@ -126,16 +127,17 @@ extern class RevertableBindableFlags
 	
 	
 #if debug
-	public static inline function readProperties (flags:Int) : String
-	{
-		return RevertableBindableFlagsDebug.readProperties(flags);
-	}
+	public static inline function read (flags)	return RevertableBindableFlagsDebug.readProperties(flags)
 #end
 }
 
 #if debug
+  using prime.utils.BitUtil;
+/**
+ * Seperate class for debugging flags. Method is not inline and therefor can't be part of an 'extern' class.
+ */
 private class RevertableBindableFlagsDebug {
-	public static function readProperties (flags:Int) : String
+	public static function read (flags:Int) : String
 	{
 		var props = [];
 		

@@ -24,9 +24,9 @@
  *
  *
  * Authors:
- *  Danny Wilson	<danny @ onlinetouch.nl>
+ *  Danny Wilson	<danny @ prime.vc>
  */
-package prime.core;
+package prime.bindable;
 
 /**
  * Read/write interface for 'data-binding'.
@@ -35,14 +35,14 @@ package prime.core;
  * @author Danny Wilson
  * @creation-date Jun 25, 2010
  */
-interface IBindable <DataType> implements IBindableReadonly<DataType>
+interface IBindable<T> implements IBindableReadonly<T>
 #if prime_data, implements prime.core.traits.IEditableValueObject, #end
 //	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
 	/**
 	 * Value property with write access.
 	 */
-	public var value	(default, setValue)	: DataType;
+	public var value	(default, setValue)	: T;
 	
 	/**
 	 * Makes sure this value is (and remains) equal
@@ -51,12 +51,12 @@ interface IBindable <DataType> implements IBindableReadonly<DataType>
 	 * In other words: 
 	 * - update this.value when otherBindable changes
 	 */
-	public function bind( otherBindable:IBindableReadonly<DataType> ) : Void;
+	public function bind( otherBindable:IBindableReadonly<T> ) : Void;
 	
 	/**
 	 * Internal function which tells this IBindable, another bindable is writing to it.
 	 */
-	private function registerBoundTo( otherBindable:IBindableReadonly<DataType> ) : Void;
+	private function registerBoundTo( otherBindable:IBindableReadonly<T> ) : Void;
 	
 	/** 
 	 * Makes sure this Bindable and otherBindable always have the same value.
@@ -65,5 +65,5 @@ interface IBindable <DataType> implements IBindableReadonly<DataType>
 	 * - update this when otherBindable.value changes
 	 * - update otherBindable when this.value changes
 	 */
-	public function pair( otherBindable:IBindable<DataType> ) : Void;
+	public function pair( otherBindable:IBindable<T> ) : Void;
 }

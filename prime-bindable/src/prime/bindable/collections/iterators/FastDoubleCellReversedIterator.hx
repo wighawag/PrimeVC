@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections.iterators;
  import prime.bindable.collections.FastDoubleCell;
@@ -36,13 +36,13 @@ package prime.bindable.collections.iterators;
  * @creation-date	Jul 23, 2010
  * @author			Ruben Weijers
  */
-class FastDoubleCellReversedIterator <DataType> implements IIterator <DataType>
+class FastDoubleCellReversedIterator<T> implements IIterator<T>
 	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
-	private var last (default, null)	: FastDoubleCell<DataType>;
-	public var current (default, null)	: FastDoubleCell<DataType>;
+	private var last (default, null)	: FastDoubleCell<T>;
+	public var current (default, null)	: FastDoubleCell<T>;
 
-	public function new (last:FastDoubleCell<DataType>) 
+	public function new (last:FastDoubleCell<T>) 
 	{
 		this.last = last;
 		rewind();
@@ -51,12 +51,12 @@ class FastDoubleCellReversedIterator <DataType> implements IIterator <DataType>
 #end
 	}
 
-	public inline function setCurrent (val:Dynamic)	{ current = val; }
-	public inline function rewind ()				{ current = last; }
-	public inline function hasNext ()				{ return current != null; }
-	public inline function value ()					{ return current.data; }
+	public inline function setCurrent (val:Dynamic)	current = val
+	public inline function rewind ()				current = last
+	public inline function hasNext ()				return current != null
+	public inline function value ()					return current.data
 
-	public inline function next () : DataType
+	public inline function next () : T
 	{
 		var c = current;
 		current = current.prev;
@@ -67,11 +67,11 @@ class FastDoubleCellReversedIterator <DataType> implements IIterator <DataType>
 #if (unitTesting && debug)
 	public function test ()
 	{
-		var cur = last, prev:FastDoubleCell<DataType> = null;
+		var cur = last, prev:FastDoubleCell<T> = null;
 		while (cur != null)
 		{
 			if (prev == null)	Assert.isNull( cur.next );
-			else				Assert.equal( cur.next, prev );
+			else				Assert.isEqual( cur.next, prev );
 			
 			prev	= cur;
 			cur		= cur.prev;

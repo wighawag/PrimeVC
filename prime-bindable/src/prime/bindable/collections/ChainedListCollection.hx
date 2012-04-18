@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections;
  import prime.bindable.collections.iterators.IIterator;
@@ -43,17 +43,17 @@ package prime.bindable.collections;
  * list.
  * 
  */
-class ChainedListCollection <DataType>
-				implements IEditableList <DataType>
-			,	implements IListCollection < DataType, ChainedList<DataType> > 
+class ChainedListCollection<T>
+				implements IEditableList<T>
+			,	implements IListCollection<T, ChainedList<T>> 
 #if flash9	,	implements haxe.rtti.Generic #end
 {
-	public var change		(default, null)				: Signal1 < ListChange < DataType > >;
+	public var change		(default, null)				: Signal1<ListChange<T>>;
 	
 	private var _length		: Int;
 	public var length		(getLength, never)			: Int;
 	
-	public var lists		(default, null)				: ArrayList < ChainedList < DataType > >;
+	public var lists		(default, null)				: ArrayList<ChainedList<T>>;
 	/**
 	 * Maximum number of items per chained list.
 	 */
@@ -63,7 +63,7 @@ class ChainedListCollection <DataType>
 	public function new (max:Int = -1)
 	{
 		change		= new Signal1();
-		lists		= new ArrayList<ChainedList<DataType>>();
+		lists		= new ArrayList<ChainedList<T>>();
 		maxPerList	= max;
 		_length		= 0;
 	}
@@ -82,9 +82,9 @@ class ChainedListCollection <DataType>
 	}
 	
 	
-	public function clone () : IReadOnlyList < DataType >
+	public function clone () : IReadOnlyList<T>
 	{
-		var inst	= new ChainedListCollection<DataType>(maxPerList);
+		var inst	= new ChainedListCollection<T>(maxPerList);
 		var length	= this.length;
 		for (i in 0...length)
 			inst.insertAt( getItemAt(i), i );
@@ -93,9 +93,9 @@ class ChainedListCollection <DataType>
 	}
 	
 	
-	public function duplicate () : IReadOnlyList < DataType >
+	public function duplicate () : IReadOnlyList<T>
 	{
-		var inst	= new ChainedListCollection<DataType>(maxPerList);
+		var inst	= new ChainedListCollection<T>(maxPerList);
 		var length	= this.length;
 		for (i in 0...length)
 			inst.insertAt( DuplicateUtil.duplicateItem( getItemAt(i) ), i );
@@ -121,7 +121,7 @@ class ChainedListCollection <DataType>
 	// ILISTCOLLECTION METHODS
 	//
 	
-	public function addList (list:ChainedList<DataType>)
+	public function addList (list:ChainedList<T>)
 	{
 		if (lists.length != 0) {
 			var lastList = lists.getItemAt(lists.length - 1);
@@ -134,7 +134,7 @@ class ChainedListCollection <DataType>
 	}
 	
 	
-	public function removeList (list:ChainedList<DataType>)
+	public function removeList (list:ChainedList<T>)
 	{
 		var index = lists.indexOf(list);
 		
@@ -151,7 +151,7 @@ class ChainedListCollection <DataType>
 	// LIST MANIPULATION METHODS
 	//
 	
-	public inline function add (item:DataType, pos:Int = -1) : DataType
+	public inline function add (item:T, pos:Int = -1) : T
 	{
 		pos = insertAt( item, pos );
 		change.send( ListChange.added( item, pos ) );
@@ -159,7 +159,7 @@ class ChainedListCollection <DataType>
 	}
 	
 	
-	public inline function remove (item:DataType, oldPos:Int = -1) : DataType
+	public inline function remove (item:T, oldPos:Int = -1) : T
 	{
 		oldPos = removeItem(item, oldPos);
 		if (oldPos > -1)
@@ -168,7 +168,7 @@ class ChainedListCollection <DataType>
 	}
 	
 	
-	public inline function move (item:DataType, newPos:Int, curPos:Int = -1) : DataType
+	public inline function move (item:T, newPos:Int, curPos:Int = -1) : T
 	{
 		if		(curPos == -1)				curPos = indexOf( item );
 		if		(newPos > (length - 1))		newPos = length - 1;
@@ -185,7 +185,7 @@ class ChainedListCollection <DataType>
 	}
 	
 	
-	public inline function has (item:DataType) : Bool
+	public inline function has (item:T) : Bool
 	{
 		var found:Bool	= false;
 		for (list in lists)
@@ -199,7 +199,7 @@ class ChainedListCollection <DataType>
 	}
 	
 	
-	public inline function indexOf (item:DataType) : Int
+	public inline function indexOf (item:T) : Int
 	{
 		var pos:Int = 0;
 		for (list in lists)
@@ -224,11 +224,11 @@ class ChainedListCollection <DataType>
 	 * @param	pos
 	 * @return	position where the cell is inserted
 	 */
-	private inline function insertAt (item:DataType, pos:Int = -1) : Int
+	private inline function insertAt (item:T, pos:Int = -1) : Int
 	{
 		//1. create a new list if the current lastlist is filled
 		if (lists.length == 0 || lists.getItemAt(lists.length - 1).length == maxPerList)
-			addList( new ChainedList<DataType>() );
+			addList( new ChainedList<T>() );
 		
 		if (pos < 0 || pos > length)
 			pos = length;
@@ -253,7 +253,7 @@ class ChainedListCollection <DataType>
 	 * @param	item
 	 * @return	last position of the item
 	 */
-	private function removeItem (item:DataType, itemPos:Int = -1) : Int
+	private function removeItem (item:T, itemPos:Int = -1) : Int
 	{
 		if (itemPos > -1)
 		{
@@ -287,22 +287,22 @@ class ChainedListCollection <DataType>
 	// ITERATION METHODS
 	//
 	
-	public inline function getItemAt (pos:Int) : DataType
+	public inline function getItemAt (pos:Int) : T
 	{
 		var itemPos:Int	= calculateItemPosition( pos );		//calculate the position of the item in the list
 		return getListForPosition(pos).getItemAt(itemPos);
 	}
 	
 	
-	public function iterator () : Iterator <DataType>					{ return forwardIterator(); }
-	public inline function forwardIterator () : IIterator <DataType>	{ return new ChainedListCollectionIterator<DataType>(this); }
-	public inline function reversedIterator () : IIterator <DataType>	{ return new ChainedListCollectionIterator<DataType>(this); }
+	public function iterator () : Iterator<T>					{ return forwardIterator(); }
+	public inline function forwardIterator () : IIterator<T>	{ return new ChainedListCollectionIterator<T>(this); }
+	public inline function reversedIterator () : IIterator<T>	{ return new ChainedListCollectionIterator<T>(this); }
 	
 	
 	/**
 	 * Method will return the list that has the item at the requested position
 	 */
-	private inline function getListForPosition (globalPos:Int) : ChainedList<DataType>
+	private inline function getListForPosition (globalPos:Int) : ChainedList<T>
 	{
 		return lists.getItemAt(getListNumForPosition(globalPos));
 	}
@@ -429,16 +429,16 @@ class ChainedListCollection <DataType>
  * @creation-date	Jun 30, 2010
  * @author			Ruben Weijers
  */
-class ChainedListCollectionIterator <DataType> implements IIterator <DataType>
+class ChainedListCollectionIterator<T> implements IIterator<T>
 	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
-	private var target			(default, null)					: ChainedListCollection<DataType>;
-	private var currentList 	(default, setCurrentList)		: ChainedList<DataType>;
-	private var listIterator	: IIterator<DataType>;
+	private var target			(default, null)					: ChainedListCollection<T>;
+	private var currentList 	(default, setCurrentList)		: ChainedList<T>;
+	private var listIterator	: IIterator<T>;
 	private var current			: Int;
 	
 	
-	public function new (target:ChainedListCollection<DataType>) 
+	public function new (target:ChainedListCollection<T>) 
 	{
 		this.target	= target;
 		rewind();
@@ -447,7 +447,7 @@ class ChainedListCollectionIterator <DataType> implements IIterator <DataType>
 	
 	public inline function setCurrent (val:Dynamic)	{ current = val; }
 	public inline function hasNext () : Bool		{ return current < target.length; }
-	public inline function value () : DataType		{ return cast listIterator.value; }
+	public inline function value () : T		{ return cast listIterator.value; }
 	
 	
 	public inline function rewind () {
@@ -456,9 +456,9 @@ class ChainedListCollectionIterator <DataType> implements IIterator <DataType>
 	}
 	
 	
-	public function next () : DataType
+	public function next () : T
 	{
-		var nextItem:DataType = null;
+		var nextItem:T = null;
 		
 		if (listIterator != null) {
 			if (listIterator.hasNext())

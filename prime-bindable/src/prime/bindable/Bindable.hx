@@ -24,11 +24,10 @@
  *
  *
  * Authors:
- *  Danny Wilson	<danny @ onlinetouch.nl>
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Danny Wilson	<danny @ prime.vc>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package prime.core;
- import prime.core.IBindableReadonly;
+package prime.bindable;
  import prime.signal.Signal2;
  import prime.core.traits.IClonable;
  import haxe.FastList;
@@ -72,30 +71,30 @@ package prime.core;
  * @creation-date	Jun 18, 2010
  * @author			Ruben Weijers, Danny Wilson
  */
-class Bindable <DataType> implements IBindable<DataType>, implements IClonable<Bindable<DataType>>
+class Bindable<T> implements IBindable<T>, implements IClonable<Bindable<T>>
 {
-	public var value	(default, setValue)	: DataType;
+	public var value	(default, setValue)	: T;
 	
 	/** 
 	 * Dispatched just before "value" is set to a new value.
 	 * Signal argument: The new value.
 	 */
-	public var change	(default, null)	: Signal2 < DataType, OldValue < DataType > >;
+	public var change	(default, null)	: Signal2<T, OldValue<T>>;
 	
 	/**
 	 * Keeps track of which Bindables update this.value
 	 */
-	private var boundTo : FastList < IBindableReadonly < DataType > >;
+	private var boundTo : FastList<IBindableReadonly<T>>;
 	/**
 	 * Keeps track of which Bindables should be updated when this.value changes.
 	 */
-	private var writeTo : FastList < IBindable < DataType > >;
+	private var writeTo : FastList<IBindable<T>>;
 	
 	
-	public function new (?val : Null<DataType>)
+	public function new (?val:Null<T>)
 	{
 		change = new Signal2();
-		set( val );
+		set(val);
 	}
 	
 	
@@ -115,34 +114,16 @@ class Bindable <DataType> implements IBindable<DataType>, implements IClonable<B
 	}
 	
 	
-	public inline function isEmpty () : Bool
-	{
-		return (untyped this).value == null;
-	}
-	
-	
-	public function clone ()
-	{
-		return new Bindable<DataType>(value);
-	}
+	public inline function isEmpty ()			return (untyped this).value == null
+	public function clone ()					return new Bindable<T>(value)
+	public inline function hasListeners ()		return (writeTo.notNull() && !writeTo.isEmpty()) || change.hasListeners()
 	
 	
 	/**
 	 * Sets value directly, without the requirement to be in edit mode, and without dispatching any events.
+	 * NOTE: Int can't be set to null, so we trick the compiler with untyped
 	 */
-	public inline function set (val:DataType) : Void
-	{
-		(untyped this).value = val;
-	}
-
-
-	/**
-	 * Checks if the bindable has listeners
-	 */
-	public inline function hasListeners () : Bool
-	{
-		return (writeTo.notNull() && !writeTo.isEmpty()) || change.hasListeners();
-	}
+	public inline function set (val:T) : Void	(untyped this).value = val
 	
 	
 #if debug
@@ -161,7 +142,7 @@ class Bindable <DataType> implements IBindable<DataType>, implements IClonable<B
 #end
 	
 	
-	private function setValue (newValue:DataType) : DataType
+	private function setValue (newValue:T) : T
 	{
 		if (value != newValue)	//FIXME (Ruben @ Mar 11, 2011) Will also evaluate true with NaN == NaN and (Null<Bool> = null) == false 
 		{
@@ -183,20 +164,20 @@ class Bindable <DataType> implements IBindable<DataType>, implements IClonable<B
 	 * In other words: 
 	 * - update this when otherBindable.value changes
 	 */
-	public inline function bind (otherBindable:IBindableReadonly<DataType>)
+	public inline function bind (otherBindable:IBindableReadonly<T>)
 	{
 	//	registerBoundTo(otherBindable);
 		(untyped otherBindable).keepUpdated(this);
 	}
 	
 	
-	private inline function registerBoundTo(otherBindable:IBindableReadonly<DataType>)
+	private inline function registerBoundTo(otherBindable:IBindableReadonly<T>)
 	{
 		Assert.notNull(otherBindable);
 		
 		var b = this.boundTo;
 		if (!b.notNull())
-			b = this.boundTo = new FastList<IBindableReadonly<DataType>>();
+			b = this.boundTo = new FastList<IBindableReadonly<T>>();
 		
 		addToBoundList(b, otherBindable);
 	}
@@ -220,7 +201,7 @@ class Bindable <DataType> implements IBindable<DataType>, implements IClonable<B
 	/**
 	 * @see IBindableReadonly
 	 */
-	private function keepUpdated (otherBindable:IBindable<DataType>)
+	private function keepUpdated (otherBindable:IBindable<T>)
 	{
 		Assert.that(otherBindable != null);
 		Assert.that(otherBindable != this);
@@ -230,7 +211,7 @@ class Bindable <DataType> implements IBindable<DataType>, implements IClonable<B
 		
 		var w = this.writeTo;
 		if (!w.notNull())
-			w = this.writeTo = new FastList<IBindable<DataType>>();
+			w = this.writeTo = new FastList<IBindable<T>>();
 		
 		addToBoundList(w, otherBindable);
 	}
@@ -243,7 +224,7 @@ class Bindable <DataType> implements IBindable<DataType>, implements IClonable<B
 	 * - update this when otherBindable.value changes
 	 * - update otherBindable when this.value changes
 	 */
-	public function pair (otherBindable:IBindable<DataType>)
+	public function pair (otherBindable:IBindable<T>)
 	{
 		(untyped otherBindable).keepUpdated(this);
 		keepUpdated(otherBindable);
@@ -253,7 +234,7 @@ class Bindable <DataType> implements IBindable<DataType>, implements IClonable<B
 	/**
 	 * @see IBindableReadonly
 	 */
-	public function unbind (otherBindable:IBindableReadonly<DataType>)
+	public function unbind (otherBindable:IBindableReadonly<T>)
 	{
 		Assert.that(otherBindable != null);
 		Assert.that(otherBindable != this);

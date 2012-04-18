@@ -24,7 +24,7 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable.collections.iterators;
  import prime.utils.FastArray;
@@ -37,24 +37,24 @@ package prime.bindable.collections.iterators;
  * @creation-date	Jul 1, 2010
  * @author			Ruben Weijers
  */
-class FastArrayForwardIterator <DataType> implements IIterator <DataType>
+class FastArrayForwardIterator<T> implements IIterator<T>
 	#if flash9	,	implements haxe.rtti.Generic #end
 {
-	private var target	(default, null)	: FastArray<DataType>;
+	private var target	(default, null)	: FastArray<T>;
 	public var current	(default, null)	: Int;
 	
 	
-	public function new (target:FastArray<DataType>)
+	public function new (target:FastArray<T>)
 	{
 		this.target	= target;
 		rewind();
 	}
 	
-	public inline function setCurrent (val:Dynamic)	{ current = val; }
-	public inline function rewind ()				{ current = 0; }
-	public inline function hasNext ()				{ return current < target.length.int(); }		// <- Vector.length is defined as UInt, but since haXe damns it to implement UInt, we have to cast it :-(
-	public inline function next ()					{ return target[ current++ ]; }
-	public inline function value ()					{ return target[ current ]; }
+	public inline function setCurrent (val:Dynamic)	current = val
+	public inline function rewind ()				current = 0
+	public inline function hasNext ()				return current < target.length.int()		// <- Vector.length is defined as UInt, but since haXe damns it to implement UInt, we have to cast it :-(
+	public inline function next ()					return target[current++]
+	public inline function value ()					return target[current]
 	
 //	public inline function hasPrev ()				{ return (current - 1) >= 0 ; }
 //	public inline function prev ()					{ current -= 2; return value(); }
