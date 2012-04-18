@@ -289,7 +289,7 @@ class Loader implements ICommunicator
 #end
 			removeAllListeners();
 
-			Assert.null(nextFree);
+			Assert.isNull(nextFree);
 			var L = Loader;
 			nextFree = L.free;
 			L.free	 = this;

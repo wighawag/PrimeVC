@@ -27,8 +27,6 @@
  *  Ruben Weijers	<ruben @ rubenw.nl>
  */
 package prime.layout;
- import prime.bindable.collections.IEditableList;
- import prime.layout.algorithms.ILayoutAlgorithm;
 
 
 /**
@@ -37,7 +35,7 @@ package prime.layout;
  */
 interface ILayoutContainer implements ILayoutClient
 {
-	public var algorithm			(default, setAlgorithm)		: ILayoutAlgorithm;
+	public var algorithm			(default, setAlgorithm)		: prime.layout.algorithms.ILayoutAlgorithm;
 	
 	
 	//
@@ -47,7 +45,7 @@ interface ILayoutContainer implements ILayoutClient
 	/**
 	 * List with all the children of the group
 	 */
-	public var children				(default, null)				: IEditableList<LayoutClient>;
+	public var children				(default, null)				: prime.bindable.collections.IEditableList;<LayoutClient>;
 
 	/**
 	 * Property with the actual length of the children list. Use this property

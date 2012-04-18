@@ -315,7 +315,7 @@ class StyleCollectionForwardIterator < StyleGroupType > extends StyleCollectionI
 			,	implements IIterator < StyleGroupType >
 #if flash9	,	implements haxe.rtti.Generic #end
 {
-	public function new (elementStyle:IUIElementStyle, groupFlag:Int) { super(elementStyle, groupFlag); }	//FIXME: NEEDED FOR HAXE NIGHTLY (http://code.google.com/p/haxe/issues/detail?id=671)
+	public function new (elementStyle:IUIElementStyle, groupFlag:Int) super(elementStyle, groupFlag)	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
 	override public function rewind () : Void	{ setCurrent( elementStyle.styles.first ); }
 	public function next () : StyleGroupType	{ Assert.abstract(); return null; }
 	public function value () : StyleGroupType	{ Assert.abstract(); return null; }
@@ -342,7 +342,7 @@ class StyleCollectionForwardIterator < StyleGroupType > extends StyleCollectionI
 		var cur = elementStyle.styles.first, prev:CellType = null;
 		while (cur != null)
 		{
-			if (prev == null)	Assert.null( cur.prev, "first incorrect" );
+			if (prev == null)	Assert.isNull( cur.prev, "first incorrect" );
 			else				Assert.equal( cur.prev, prev, "previous incorrect" );
 			
 			prev	= cur;
@@ -362,7 +362,7 @@ class StyleCollectionReversedIterator < StyleGroupType > extends StyleCollection
 			,	implements IIterator < StyleGroupType >
 #if flash9	,	implements haxe.rtti.Generic #end
 {
-	public function new (elementStyle:IUIElementStyle, groupFlag:Int) { super(elementStyle, groupFlag); }	//FIXME: NEEDED FOR HAXE NIGHTLY (http://code.google.com/p/haxe/issues/detail?id=671)
+	public function new (elementStyle:IUIElementStyle, groupFlag:Int) { super(elementStyle, groupFlag); }	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
 	override public function rewind () : Void	{ setCurrent( elementStyle.styles.last ); }
 	public function next () : StyleGroupType	{ Assert.abstract(); return null; }
 	public function value () : StyleGroupType	{ Assert.abstract(); return null; }
@@ -389,7 +389,7 @@ class StyleCollectionReversedIterator < StyleGroupType > extends StyleCollection
 		var cur = elementStyle.styles.last, prev:CellType = null;
 		while (cur != null)
 		{
-			if (prev == null)	Assert.null( cur.next, "last incorrect" );
+			if (prev == null)	Assert.isNull( cur.next, "last incorrect" );
 			else				Assert.equal( cur.next, prev, "next incorrect" );
 
 			prev	= cur;

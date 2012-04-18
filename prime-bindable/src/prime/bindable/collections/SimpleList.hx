@@ -226,15 +226,13 @@ class SimpleList < DataType > implements IEditableList < DataType >
 	 * @param	pos
 	 * @return	position where the cell is inserted
 	 */
-	
-
 	public inline function insertAt (item:DataType, ?pos:Int = -1) : Int
 	{
 		return insertCellAt( new FastDoubleCell < DataType >( item, null ), pos );
 	}
 
 
-	private inline function insertCellAt( cell:FastDoubleCell < DataType >, ?pos:Int = -1) : Int
+	private function insertCellAt( cell:FastDoubleCell < DataType >, ?pos:Int = -1) : Int
 	{
 		if (pos < 0 || pos > length)
 			pos = length;

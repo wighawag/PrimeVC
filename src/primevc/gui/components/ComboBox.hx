@@ -99,7 +99,7 @@ class ComboBox <DataType> extends DataButton <DataType>
 	{
 		super.createChildren();
 		
-		Assert.null(popup);
+		Assert.isNull(popup);
 		popup       = new ListHolder( id.value+"List", null, listData );
 		list        = new SelectableListView( popup.id.value+"Content", listData );
 		popup.list  = list;

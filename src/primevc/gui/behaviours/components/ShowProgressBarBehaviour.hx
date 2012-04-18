@@ -137,8 +137,8 @@ class ShowProgressBarBehaviour extends BehaviourBase<IUIContainer>
 	//	trace(this);
 		loader.events.load.unbind(this);
 		bar.dispose();
-		Assert.null(bar.window);
-		Assert.null(bar.container);
+		Assert.isNull(bar.window);
+		Assert.isNull(bar.container);
 		targetStyle.current = loader.isCompleted() ? StyleStateFlags.NONE : StyleStateFlags.ERROR;
 	}
 	

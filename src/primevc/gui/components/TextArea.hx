@@ -66,8 +66,8 @@ class TextArea<VOType> extends InputField<VOType>
         field.multiline    = true;
 #end
 		attachDisplay(field);
-		Assert.null( layoutContainer.algorithm );
-		Assert.null( skin );
+		Assert.isNull( layoutContainer.algorithm );
+		Assert.isNull( skin );
 	}
 
 

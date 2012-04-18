@@ -37,9 +37,7 @@ package prime.bindable.collections;
  */
 class ArrayList <DataType> extends ReadOnlyArrayList <DataType>, implements IEditableList <DataType>, implements haxe.rtti.Generic
 {
-	//FIXME: NEEDED FOR HAXE NIGHTLY (http://code.google.com/p/haxe/issues/detail?id=671)
-	public function new( wrapAroundList:FastArray<DataType> = null )
-		super(wrapAroundList)
+	public function new( wrapAroundList:FastArray<DataType> = null ) super(wrapAroundList)	//FIXME: NEEDED FOR HAXE 2.09 (http://code.google.com/p/haxe/issues/detail?id=671)
 
 	override public function dispose ()
 	{

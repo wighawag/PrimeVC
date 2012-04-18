@@ -72,7 +72,7 @@ class FastDoubleCellForwardIterator <DataType> implements IIterator <DataType>
 		var cur = first, prev:FastDoubleCell<DataType> = null;
 		while (cur != null)
 		{
-			if (prev == null)	Assert.null( cur.prev, "first incorrect" );
+			if (prev == null)	Assert.isNull( cur.prev, "first incorrect" );
 			else				Assert.equal( cur.prev, prev, "previous incorrect" );
 			
 			prev	= cur;

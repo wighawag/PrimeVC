@@ -139,7 +139,7 @@ else
 		-D dragEnabled \
 		${CODECOVERAGE:+-D CodeCoverage -lib mcover --macro massive.mcover.MCover.includeAll()} \
 		${XML:+-xml $OUTPUTDIR/classes.xml $MainClass} \
-		| xargs -t haxe \
+		| xargs -t haxe --connect 6543 \
 		 	|| exit 1;
 	
 	if (set -u; : $Debug) 2> /dev/null ; then

@@ -76,7 +76,7 @@ class Facade<EventsType:Signals, ModelType:IMVCCore, StatesType:IDisposable, Con
 	{
 		started = new Signal0();
 		
-		Assert.null(events);
+		Assert.isNull(events);
 		setupEvents();
 		Assert.notNull( events, "Events-collection can't be empty.");
 		

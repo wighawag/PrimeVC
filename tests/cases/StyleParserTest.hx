@@ -1267,7 +1267,7 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action";
 		var prop = parseEffectProperties(v);
-		Assert.null(prop);
+		Assert.isNull(prop);
 		var e = parseEffect(v).as(SetAction);
 		Assert.notNull(e);
 		
@@ -1275,7 +1275,7 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action alpha()";
 		var prop = parseEffectProperties(v);
-		Assert.null(prop);
+		Assert.isNull(prop);
 		
 		var v = "set-action alpha(80% 40%)";
 		var prop = parseEffectProperties(v);
@@ -1309,7 +1309,7 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action position()";
 		var prop = parseEffectProperties(v);
-		Assert.null(prop);
+		Assert.isNull(prop);
 		
 		
 		var v = "set-action position(20px,809047px 4px,6px)";
@@ -1348,7 +1348,7 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action rotation()";
 		var prop = parseEffectProperties(v);
-		Assert.null(prop);
+		Assert.isNull(prop);
 		
 		
 		var v = "set-action rotation(	4deg	987deg	)";
@@ -1382,7 +1382,7 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action size()";
 		var prop = parseEffectProperties(v);
-		Assert.null(prop);
+		Assert.isNull(prop);
 		
 		
 		var v = "set-action size(	3px,4px	 650px,40px	 )";
@@ -1421,7 +1421,7 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action scale()";
 		var prop = parseEffectProperties(v);
-		Assert.null(prop);
+		Assert.isNull(prop);
 		
 		
 		var v = "set-action scale(4% , 95% 100%  , 0.12%)";
@@ -1461,7 +1461,7 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "set-action any()";
 		var prop = parseEffectProperties(v);
-		Assert.null(prop);
+		Assert.isNull(prop);
 		
 		
 		var v = "set-action any(skewX, 10, 5)";
@@ -1486,7 +1486,7 @@ class CSSParserMethodTest extends CSSParser
 		switch (prop) {
 			case any(propName, from, to):
 				Assert.equal(propName,	"skewX",	"prop-name");
-				Assert.null(from,					"start-value");
+				Assert.isNull(from,					"start-value");
 				Assert.equal(to,		"10",		"end-value");
 			
 			default:
@@ -1553,11 +1553,11 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "parallel";
 		var e = parseEffect(v);
-		Assert.null(e);
+		Assert.isNull(e);
 		
 		var v = "parallel 4ms 30ms elastic-in";
 		var e = parseEffect(v).as(ParallelEffect);
-		Assert.null(e);
+		Assert.isNull(e);
 		
 		var v = "parallel (fade 15ms)";
 		var e = parseEffect(v).as(ParallelEffect);
@@ -1582,7 +1582,7 @@ class CSSParserMethodTest extends CSSParser
 		Assert.equal( e.effects.length,		2,					"child-length" );
 		Assert.that( e.effects.getItemAt(0).is(WipeEffect),		"first child-effect");
 		Assert.equal( e.effects.getItemAt(0).duration, 200,		"first child-effect duration");
-		Assert.null( e.effects.getItemAt(0).easingName,			"first-child-effect easing" );
+		Assert.isNull( e.effects.getItemAt(0).easingName,			"first-child-effect easing" );
 		Assert.that( e.effects.getItemAt(0).delay.notSet(),		"first child-effect delay");
 		
 		Assert.that( e.effects.getItemAt(1).is(FadeEffect),		"second child-effect");
@@ -1600,11 +1600,11 @@ class CSSParserMethodTest extends CSSParser
 		
 		var v = "sequence";
 		var e = parseEffect(v);
-		Assert.null(e);
+		Assert.isNull(e);
 		
 		var v = "sequence 4ms 30ms elastic-in";
 		var e = parseEffect(v).as(SequenceEffect);
-		Assert.null(e);
+		Assert.isNull(e);
 		
 		var v = "sequence (fade 15ms)";
 		var e = parseEffect(v).as(SequenceEffect);

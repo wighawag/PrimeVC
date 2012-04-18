@@ -472,7 +472,7 @@ class UIElementStyle implements IUIElementStyle
 	 * 								This is not the case when the styles are resetted since
 	 * 								the whole list is thrown away.
 	 */
-	public function removeStyleCell (styleCell:FastDoubleCell < StyleBlock >, isStyleStillInList:Bool = true) : Int
+	public function removeStyleCell (styleCell:FastDoubleCell<StyleBlock>, isStyleStillInList:Bool = true) : Int
 	{
 		Assert.notNull( styleCell );
 		var style = styleCell.data;

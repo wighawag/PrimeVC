@@ -73,7 +73,7 @@ interface IDisplayObject
 	public var mouseX				(default, never)		: Float;
 	public var mouseY				(default, never)		: Float;
 	
-	public var filters				: Array < Dynamic >;
+	public var filters				: Array<flash.filters.BitmapFilter>;
 	public var name					: String;
 	public var scrollRect			: flash.geom.Rectangle;
 	public var parent 				(default, null) 		: flash.display.DisplayObjectContainer;

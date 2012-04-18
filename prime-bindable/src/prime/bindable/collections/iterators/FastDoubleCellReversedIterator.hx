@@ -70,7 +70,7 @@ class FastDoubleCellReversedIterator <DataType> implements IIterator <DataType>
 		var cur = last, prev:FastDoubleCell<DataType> = null;
 		while (cur != null)
 		{
-			if (prev == null)	Assert.null( cur.next );
+			if (prev == null)	Assert.isNull( cur.next );
 			else				Assert.equal( cur.next, prev );
 			
 			prev	= cur;
