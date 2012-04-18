@@ -24,11 +24,11 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.avm2.layout;
+package prime.avm2.layout;
  import flash.display.Stage;
- import primevc.gui.layout.LayoutContainer;
+ import prime.layout.LayoutContainer;
 
 
 /**
@@ -53,7 +53,7 @@ class StageLayout extends LayoutContainer
 	
 	
 	override public function dispose ()
-	{	
+	{
 		stage.removeEventListener( "resize", stageResizeHandler );
 		stage = null;
 		super.dispose();
