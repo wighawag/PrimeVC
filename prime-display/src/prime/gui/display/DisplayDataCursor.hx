@@ -27,8 +27,8 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.gui.display;
- import prime.core.collections.DataCursor;
- import prime.core.collections.IDataCursor;
+ import prime.bindable.collections.DataCursor;
+ import prime.bindable.collections.IDataCursor;
  import prime.core.geom.Point;
  import prime.gui.traits.ILayoutable;
   using prime.utils.NumberUtil;

@@ -36,7 +36,7 @@ package prime.gui.display;
  import flash.text.TextFormat;
  import flash.text.TextLineMetrics;
 #end
- import prime.core.Bindable;
+ import prime.bindable.Bindable;
  import prime.gui.events.TextEvents;
  import prime.gui.traits.ITextStylable;
 

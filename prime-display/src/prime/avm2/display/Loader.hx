@@ -36,12 +36,12 @@ package prime.avm2.display;
 
  import haxe.io.BytesData;
 
+ import prime.bindable.Bindable;
  import prime.core.events.LoaderEvents;
  import prime.core.geom.Rectangle;
  import prime.core.net.CommunicationType;
  import prime.core.net.FileType;
  import prime.core.net.ICommunicator;
- import prime.core.Bindable;
  import prime.types.URI;
  import prime.utils.FastArray;
   using prime.utils.Bind;

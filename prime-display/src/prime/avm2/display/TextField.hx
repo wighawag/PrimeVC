@@ -28,9 +28,9 @@
  */
 package prime.avm2.display;
  import flash.display.DisplayObject;
- import prime.signal.Wire;
+ import prime.bindable.Bindable;
  import prime.core.geom.IntRectangle;
- import prime.core.Bindable;
+ import prime.signal.Wire;
 
  import prime.gui.display.DisplayDataCursor;
  import prime.gui.display.IDisplayContainer;

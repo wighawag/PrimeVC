@@ -35,7 +35,7 @@ typedef DisplayList =
 	#else			DisplayListImpl
 
 
- import prime.core.collections.ArrayList;
+ import prime.bindable.collections.ArrayList;
  import prime.gui.traits.IDisplayable;
 
 

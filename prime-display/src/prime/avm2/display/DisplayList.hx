@@ -29,10 +29,10 @@
 package prime.avm2.display;
  import flash.display.DisplayObjectContainer;
  import flash.display.DisplayObject;
- import prime.core.collections.iterators.IIterator;
- import prime.core.collections.IEditableList;
- import prime.core.collections.ListChange;
- import prime.core.collections.IReadOnlyList;
+ import prime.bindable.collections.iterators.IIterator;
+ import prime.bindable.collections.IEditableList;
+ import prime.bindable.collections.ListChange;
+ import prime.bindable.collections.IReadOnlyList;
  import prime.core.events.ListChangeSignal;
  import prime.core.traits.IDisposable;
  import prime.gui.display.IDisplayContainer;
@@ -66,7 +66,7 @@ class DisplayList implements IEditableList <ChildType>
 	public var owner		(default, null)				: IDisplayContainer;
 	
 	public var change		(default, null)				: ListChangeSignal<ChildType>;
-	public var beforeChange	(default, null)				: ListChangeSignal<ChildType>;		// FIXME: not implemented
+//	public var beforeChange	(default, null)				: ListChangeSignal<ChildType>;		// FIXME: not implemented
 	public var length		(getLength, never)			: Int;
 	
 	/**
