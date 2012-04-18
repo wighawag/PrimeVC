@@ -24,13 +24,13 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.core.states;
+package primevc.fsm.states;
 
 
 /**
- * enum with the states of a videostream
+ * enum with the states of a video/audio-stream
  * 
  * @creation-date	Jan 10, 2011
  * @author			Ruben Weijers
