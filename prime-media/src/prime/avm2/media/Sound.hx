@@ -24,13 +24,13 @@
  *
  *
  * Authors:
- *  Ruben Weijers   <ruben @ rubenw.nl>
+ *  Ruben Weijers   <ruben @ prime.vc>
  */
-package primevc.avm2.media;
+package prime.avm2.media;
  import flash.media.SoundLoaderContext;
- import primevc.avm2.events.SoundEvents;
- import primevc.core.traits.IDisposable;
- import primevc.types.URI;
+ import prime.avm2.events.SoundEvents;
+ import prime.core.traits.IDisposable;
+ import prime.types.URI;
 
 
 /**

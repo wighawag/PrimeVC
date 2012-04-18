@@ -24,15 +24,15 @@
  *
  *
  * Authors:
- *  Ruben Weijers   <ruben @ onlinetouch.nl>
+ *  Ruben Weijers   <ruben @ prime.vc>
  */
-package primevc.core.media;
+package prime.media;
  import prime.fsm.SimpleStateMachine;
  import prime.fsm.MediaStates;
- import primevc.core.traits.IDisposable;
- import primevc.core.traits.IFreezable;
- import primevc.core.Bindable;
- import primevc.types.URI;
+ import prime.core.traits.IDisposable;
+ import prime.core.traits.IFreezable;
+ import prime.core.Bindable;
+ import prime.types.URI;
 
 
 

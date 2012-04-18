@@ -24,26 +24,26 @@
  *
  *
  * Authors:
- *  Ruben Weijers   <ruben @ onlinetouch.nl>
+ *  Ruben Weijers   <ruben @ prime.vc>
  */
-package primevc.core.media;
+package prime.media;
 #if flash9
- import primevc.avm2.media.Sound;
+ import prime.avm2.media.Sound;
  import flash.events.Event;
  import flash.media.SoundChannel;
 #end
  import prime.fsm.SimpleStateMachine;
  import prime.fsm.MediaStates;
- import primevc.core.traits.IDisposable;
- import primevc.core.traits.IFreezable;
- import primevc.core.Bindable;
- import primevc.types.Number;
- import primevc.types.URI;
- import primevc.utils.NumberUtil;
+ import prime.core.traits.IDisposable;
+ import prime.core.traits.IFreezable;
+ import prime.core.Bindable;
+ import prime.types.Number;
+ import prime.types.URI;
+ import prime.utils.NumberUtil;
   using haxe.Timer;
-  using primevc.utils.Bind;
-  using primevc.utils.IfUtil;
-  using primevc.utils.NumberUtil;
+  using prime.utils.Bind;
+  using prime.utils.IfUtil;
+  using prime.utils.NumberUtil;
 
 
 

@@ -42,7 +42,7 @@ package prime.fsm;
  * @creation-date	Jun 21, 2010
  * @author			Ruben Weijers
  */
-class SimpleStateMachine <StateType> implements IDisposable
+class SimpleStateMachine<StateType> implements IDisposable
 //	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
 	public var current		(default, setCurrent)	: StateType;
@@ -53,7 +53,7 @@ class SimpleStateMachine <StateType> implements IDisposable
 	 * @param	1. new state
 	 * @param	2. old state
 	 */
-	public var change		(default, null)			: Signal2 < StateType, StateType >;
+	public var change		(default, null)			: Signal2<StateType, StateType>;
 	
 	
 	public function new(defaultState:StateType, currentState:StateType = null)
@@ -94,25 +94,10 @@ class SimpleStateMachine <StateType> implements IDisposable
 	}
 	
 	
-	
-	public inline function is (state : StateType) : Bool
-	{
-		return current == state;
-	}
-
-	
-	public function changeTo (toState:StateType) : Void -> Void
-	{
-		var self = this;
-		return function () { self.setCurrent( toState ); };
-	}
-	
-	
+	public inline function is (state:StateType)			return current == state
+	public inline function changeTo (toState:StateType) return callback(this.setCurrent, toState)
 #if debug
-	public function toString ()
-	{
-		return current;
-	}
+	public inline function toString ()					return current
 #end
 }
 

@@ -24,17 +24,17 @@
  *
  *
  * Authors:
- *  Ruben Weijers   <ruben @ onlinetouch.nl>
+ *  Ruben Weijers   <ruben @ prime.vc>
  */
-package primevc.core.media;
+package prime.media;
 #if flash9
  import flash.events.Event;
  import flash.media.SoundTransform;
 #end
- import primevc.core.Bindable;
-  using primevc.utils.IfUtil;
-  using primevc.utils.NumberUtil;
-  using primevc.utils.TypeUtil;
+ import prime.bindable.Bindable;
+  using prime.utils.IfUtil;
+  using prime.utils.NumberUtil;
+  using prime.utils.TypeUtil;
 
 
 #if flash

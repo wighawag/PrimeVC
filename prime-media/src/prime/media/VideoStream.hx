@@ -24,25 +24,25 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers   <ruben @ prime.vc>
  */
-package primevc.core.media;
+package prime.media;
  import haxe.Timer;
 #if flash9
- import primevc.avm2.net.stream.NetStreamInfo;
- import primevc.avm2.net.stream.NetStreamInfoCode;
- import primevc.avm2.net.stream.NetStreamInfoLevel;
- import primevc.avm2.net.NetConnection;
- import primevc.avm2.net.NetStream;
+ import prime.avm2.net.stream.NetStreamInfo;
+ import prime.avm2.net.stream.NetStreamInfoCode;
+ import prime.avm2.net.stream.NetStreamInfoLevel;
+ import prime.avm2.net.NetConnection;
+ import prime.avm2.net.NetStream;
 #end
  import prime.fsm.SimpleStateMachine;
  import prime.fsm.MediaStates;
- import primevc.core.Bindable;
- import primevc.core.Error;
- import primevc.types.Number;
- import primevc.types.URI;
-  using primevc.utils.Bind;
-  using primevc.utils.NumberUtil;
+ import prime.core.Bindable;
+ import prime.core.Error;
+ import prime.types.Number;
+ import prime.types.URI;
+  using prime.utils.Bind;
+  using prime.utils.NumberUtil;
   using Std;
 
 
@@ -56,12 +56,12 @@ class VideoStream extends BaseMediaStream
 	private var connection	: NetConnection;
 	public var source		(default, null)			: NetStream;
 	
-	public var onMetaData	(default, null)			: Dynamic -> Void;
-	public var onCuePoint	(default, null)			: Dynamic -> Void;
-	public var onImageData	(default, null)			: Dynamic -> Void;
-	public var onPlayStatus (default, null)			: Dynamic -> Void;
-	public var onTextData	(default, null)			: Dynamic -> Void;
-	public var onXMPData	(default, null)			: Dynamic -> Void;
+	public var onMetaData	(default, null)			: Dynamic->Void;
+	public var onCuePoint	(default, null)			: Dynamic->Void;
+	public var onImageData	(default, null)			: Dynamic->Void;
+	public var onPlayStatus (default, null)			: Dynamic->Void;
+	public var onTextData	(default, null)			: Dynamic->Void;
+	public var onXMPData	(default, null)			: Dynamic->Void;
 #end
 	
 	/**
@@ -147,8 +147,7 @@ class VideoStream extends BaseMediaStream
 	}
 	
 	
-	private inline function isInitialized ()
-	{
+	private inline function isInitialized () {
 		return #if flash9 source != null #else false #end;
 	}
 
@@ -165,7 +164,6 @@ class VideoStream extends BaseMediaStream
 		if (!isStopped())		stop();
 		if (newUrl != null)		url.value = newUrl;
 		
-		trace(url.value);
 		Assert.notNull( url.value, "There is no video-url to play" );
 		source.play( url.value.toString() );
 	}
@@ -181,9 +179,7 @@ class VideoStream extends BaseMediaStream
 	
 	override public function resume ()
 	{
-		if (!isPaused())
-			return;
-		
+		if (!isPaused())	return;
 		source.resume();
 		state.current = MediaStates.playing;
 	}
@@ -191,9 +187,7 @@ class VideoStream extends BaseMediaStream
 	
 	override public function stop ()
 	{
-		if (isEmpty())
-			return;
-		
+		if (isEmpty())		return;
 		source.close();
 		state.current = MediaStates.stopped;
 	}
@@ -201,9 +195,7 @@ class VideoStream extends BaseMediaStream
 	
 	override public function seek (newPosition:Float)
 	{
-		if (isEmpty())
-			return;
-		
+		if (isEmpty())		return;
 		newPosition = validatePosition(newPosition);
 		if (newPosition == source.time)
 			return;
@@ -231,9 +223,7 @@ class VideoStream extends BaseMediaStream
 	 */
 	override public function freeze ()
 	{
-		if (isFrozen())
-			return;
-		
+		if (isFrozen())		return;
 		source.pause();
 		freezeState();
 	}
@@ -258,15 +248,13 @@ class VideoStream extends BaseMediaStream
 	
 	override private function getCurrentTime ()
 	{
-		if (!isPlaying()) {
-			return currentTime;
-		}
+		if (!isPlaying())	return currentTime;
+		
 		if (updateTimer == null) {
 			updateTimer			= new Timer(200);
 			updateTimer.run		= updateTime;
 			updateTime();
 		}
-		
 		return currentTime;
 	}
 	
@@ -277,8 +265,7 @@ class VideoStream extends BaseMediaStream
 	//
 	
 	
-	private inline function updateTime ()
-	{
+	private inline function updateTime () {
 		currentTime.value = source.time;
 	}
 	
@@ -309,18 +296,6 @@ class VideoStream extends BaseMediaStream
 	
 	
 #if flash9
-	private function handleSecurityError (error:String)
-	{
-		trace(error);
-	}
-	
-	
-	private function handleASyncError (error:Error)
-	{
-		trace(error);
-	}
-	
-	
 	private function handleNetStatus (event:NetStreamInfo)
 	{
 		switch (event.code)
@@ -362,9 +337,6 @@ class VideoStream extends BaseMediaStream
 	private function handleMetaData ( info:Dynamic ) : Void
 	{
 		Assert.notNull(info);
-	/*	trace( "duration: " + info.duration);
-		trace( "width: " + info.width);
-		trace( "height: " + info.height);*/
 		totalTime.value	= info.duration;
 		framerate.value	= info.framerate;
 		width.value		= info.width;
@@ -372,38 +344,12 @@ class VideoStream extends BaseMediaStream
 	}
 	
 	
-	public function handleCuePoint ( metaData:Dynamic ) : Void
-	{
-	//	nl.demonsters.debugger.MonsterDebugger.inspect(metaData);
-		trace( "cuePoint: " + metaData);
-	}
-	
-	
-	public function handlePlayStatus ( metaData:Dynamic ) : Void
-	{
-	//	nl.demonsters.debugger.MonsterDebugger.inspect(metaData);
-		trace( "onPlayStatus: " + metaData);
-	}
-	
-	
-	public function handleXMPData( metaData:Dynamic ) : Void
-	{
-	//	nl.demonsters.debugger.MonsterDebugger.inspect(metaData);
-		trace( "onXMPData: " + metaData);
-	}
-	
-	
-	public function handleImageData( metaData:Dynamic ) : Void
-	{
-	//	nl.demonsters.debugger.MonsterDebugger.inspect(metaData);
-		trace( "onImageData: " + metaData);
-	}
-	
-	
-	public function handleTextData ( metaData:Dynamic ) : Void
-	{
-	//	nl.demonsters.debugger.MonsterDebugger.inspect(metaData);
-		trace( "onTextData: " + metaData);
-	}
+	private function handleSecurityError (error:String)		trace(error)
+	private function handleASyncError (error:Error)			trace(error)
+	public  function handleCuePoint (metaData:Dynamic)		trace("cuePoint: " + metaData)
+	public  function handlePlayStatus (metaData:Dynamic)	trace("onPlayStatus: " + metaData)
+	public  function handleXMPData (metaData:Dynamic)		trace("onXMPData: " + metaData)
+	public  function handleImageData (metaData:Dynamic)		trace("onImageData: " + metaData)
+	public  function handleTextData  (metaData:Dynamic)		trace("onTextData: " + metaData)
 #end
 }

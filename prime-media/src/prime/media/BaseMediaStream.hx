@@ -24,18 +24,18 @@
  *
  *
  * Authors:
- *  Ruben Weijers   <ruben @ onlinetouch.nl>
+ *  Ruben Weijers   <ruben @ prime.vc>
  */
-package primevc.core.media;
+package prime.media;
  import prime.fsm.SimpleStateMachine;
  import prime.fsm.MediaStates;
- import primevc.core.traits.IDisposable;
- import primevc.core.traits.IFreezable;
- import primevc.core.Bindable;
- import primevc.types.Number;
- import primevc.types.URI;
-  using primevc.utils.Bind;
-  using primevc.utils.NumberUtil;
+ import prime.core.traits.IDisposable;
+ import prime.core.traits.IFreezable;
+ import prime.core.Bindable;
+ import prime.types.Number;
+ import prime.types.URI;
+  using prime.utils.Bind;
+  using prime.utils.NumberUtil;
 
 
 
@@ -152,16 +152,16 @@ class BaseMediaStream implements IMediaStream
      * stream is already playing, it will be stopped.
      * If the current url is already playing, the stream will start again.
      */
-    public function play ( ?newUrl:URI )        { Assert.abstract(); }
+    public function play ( ?newUrl:URI )        Assert.abstract()
     
     
     /**
      * Method will pause the stream if it was playing
      */
-    public function pause ()                    { Assert.abstract(); }
-    public function resume ()                   { Assert.abstract(); }
-    public function stop ()                     { Assert.abstract(); }
-    public function seek (newPosition:Float)    { Assert.abstract(); }
+    public function pause ()                    Assert.abstract()
+    public function resume ()                   Assert.abstract()
+    public function stop ()                     Assert.abstract()
+    public function seek (newPosition:Float)    Assert.abstract()
 
 
     private inline function validatePosition (pos:Float) : Float
@@ -195,24 +195,20 @@ class BaseMediaStream implements IMediaStream
     
     
     private inline function freezeState ()
-    {
-        state.current = MediaStates.frozen( state.current );
-    }
+        state.current = MediaStates.frozen( state.current )
     
     
     private inline function defrostState ()
-    {
         switch (state.current)
         {
             case frozen( prevState ):   state.current = prevState;
             default:
         }
-    }
 
 
-    public  function freeze ()          { Assert.abstract(); }
-    public  function defrost ()         { Assert.abstract(); }
-    private function getCurrentTime()   { return currentTime; }
+    public  function freeze ()          Assert.abstract()
+    public  function defrost ()         Assert.abstract()
+    private function getCurrentTime()   return currentTime
     
     
     
@@ -220,20 +216,18 @@ class BaseMediaStream implements IMediaStream
     // STATE METHODS
     //
     
-    public inline function isStopped () : Bool  { return state.current == MediaStates.stopped; }
-    public inline function isPaused ()  : Bool  { return state.current == MediaStates.paused; }
-    public inline function isPlaying () : Bool  { return state.current == MediaStates.playing; }
-    public inline function isEmpty ()   : Bool  { return state.current == MediaStates.empty; }
-    public inline function isDisposed (): Bool  { return state == null; }
-    public inline function hasError ()  : Bool    return switch(state.current) { case MediaStates.error(s): true; default: false; }
-    public inline function isMuted ()   : Bool  { return volume.value == 0; }
+    public inline function isStopped () : Bool  return state.current == stopped
+    public inline function isPaused ()  : Bool  return state.current == paused
+    public inline function isPlaying () : Bool  return state.current == playing
+    public inline function isEmpty ()   : Bool  return state.current == empty
+    public inline function isDisposed (): Bool  return state == null
+    public inline function hasError ()  : Bool  return switch(state.current) { case MediaStates.error(s): true; default: false; }
+    public inline function isMuted ()   : Bool  return volume.value == 0
     public inline function isFrozen ()  : Bool
-    {
         return switch (state.current) {
             case frozen( prevState ):   true;
             default:                    false;
         }
-    }
     
     
     private function validateURL (newURL:URI, oldURL:URI)
