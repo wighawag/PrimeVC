@@ -24,35 +24,21 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.avm2.net;
- import primevc.avm2.events.NetConnectionEvents;
- import primevc.core.traits.IDisposable;
+package prime.core.traits;
 
 
 /**
- * AVM2 NetConnection class with PrimeVC events
- * 
  * @author Ruben Weijers
- * @creation-date Jan 07, 2011
+ * @creation-date Feb 15, 2011
  */
-class NetConnection extends flash.net.NetConnection, implements IDisposable 
+interface IFlagOwner
 {
-	public var events (default, null)	: NetConnectionEvents;
-	
-	
-	public function new ()
-	{
-		super();
-		connect(null);
-		events = new NetConnectionEvents(this);
-	}
-	
-	
-	public function dispose ()
-	{
-		events.dispose();
-		events = null;
-	}
+	/**
+	 * Returns true if the instance has the requested propery-flag
+	 * Default implementation can be found in 
+	 * 		prime.tools.valueobjects.ValueObjectBase
+	 */
+	public function has (propFlag:Int) : Bool;
 }

@@ -20,67 +20,27 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.s
+ * DAMAGE.
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Danny Wilson	<danny @ prime.vc>
  */
-package primevc.avm2.net;
- import primevc.gui.events.SelectEvents;
- import primevc.core.net.FileFilter;
- import primevc.core.net.FileReference;
- import primevc.core.net.IFileReference;
-
-
-private typedef FlashFileReferenceList = flash.net.FileReferenceList;
+package prime.core.traits;
+ import haxe.io.BytesOutput;
 
 
 /**
- * AVM2 file reference list implementation
+ * An object serializable to the MessagePack format.
  * 
- * @author Ruben Weijers
- * @creation-date Mar 30, 2011
+ * @author Danny Wilson
+ * @creation-date Dec 13, 2010
  */
-class FileReferenceList extends SelectEvents, implements IFileReference
+interface IMessagePackable implements IFlagOwner
 {
-	private var target	: FlashFileReferenceList;
-	public var list		(getList, null)	: Array<FileReference>;
-	
-	
-	public function new (target:FlashFileReferenceList = null)
-	{
-		if (target == null)
-			target = new FlashFileReferenceList();
-		
-		this.target = target;
-		super(target);
-	}
-	
-	
-	override public function dispose ()
-	{
-		target = null;
-		super.dispose();
-	}
-	
-	
-	public inline function browse (?types:Array<FileFilter>)
-	{
-		return target.browse(types);
-	}
-	
-	
-	private function getList () : Array<FileReference>
-	{
-		if (list != null)
-			return list;
-		
-		list		= new Array();
-		var oldList = target.fileList;
-		for (i in 0...oldList.length)
-			list[i] = new FileReference(oldList[i]);
-		
-		return list;
-	}
+	/**
+	 * Serialize this object.
+	 * @return Bytes written to Output stream.
+	 */
+	public function messagePack(o : BytesOutput)	: Int;
 }
