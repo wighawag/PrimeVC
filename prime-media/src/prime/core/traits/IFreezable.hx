@@ -24,9 +24,9 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.core.traits;
+package prime.core.traits;
 
 
 /**

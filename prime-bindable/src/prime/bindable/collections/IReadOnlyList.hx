@@ -29,27 +29,24 @@
 package prime.bindable.collections;
  import prime.bindable.collections.iterators.IIterator;
  import prime.core.events.ListChangeSignal;
- import prime.core.traits.IClonable;
- import prime.core.traits.IDuplicatable;
- import prime.core.traits.IDisposable;
 
 /**
  * @author Ruben Weijers
  * @creation-date Nov 16, 2010
  */
-interface IReadOnlyList < DataType >
-	implements IClonable < IReadOnlyList<DataType> >,
-	implements IDuplicatable < IReadOnlyList<DataType> >,
-	implements IDisposable
-	#if prime_data, implements prime.core.traits.IValueObject #end
+interface IReadOnlyList<T>
+	  implements prime.core.traits.IClonable<IReadOnlyList<T> >
+	, implements prime.core.traits.IDuplicatable<IReadOnlyList<T> >
+	, implements prime.core.traits.IDisposable
+#if prime_data, implements prime.core.traits.IValueObject #end
 {
-	public var change		(default, null)									: ListChangeSignal<DataType>;
+	public var change		(default, null)									: ListChangeSignal<T>;
 	/**
 	 * TODO - Ruben sep 5, 2011:
 	 * Maybe combine change and beforeChange to one Signal2 that has an extra parameter
 	 * to indicate if the change is before or after applying the change..
 	 */
-//	public var beforeChange	(default, null)									: ListChangeSignal<DataType>;
+//	public var beforeChange	(default, null)									: ListChangeSignal<T>;
 	public var length		(getLength, never)								: Int;
 	
 	/**
@@ -57,7 +54,7 @@ interface IReadOnlyList < DataType >
 	 * @param	item
 	 * @return	true if the item is in the list, otherwise false
 	 */
-	public function has		(item:DataType)										: Bool;
+	public function has		(item:T)									: Bool;
 	
 	/**
 	 * Method will return the index of the requested item or -1 of the item is 
@@ -65,17 +62,17 @@ interface IReadOnlyList < DataType >
 	 * @param	item
 	 * @return	position of the requested item
 	 */
-	public function indexOf	(item:DataType)										: Int;
+	public function indexOf	(item:T)									: Int;
 	
 	
 	//
 	// ITERATION METHODS
 	//
 	
-	public function getItemAt (pos:Int)		: DataType;
-	public function iterator ()				: Iterator <DataType>;
-	public function forwardIterator ()		: IIterator <DataType>;
-	public function reversedIterator ()		: IIterator <DataType>;
+	public function getItemAt (pos:Int)		: T;
+	public function iterator ()				: Iterator<T>;
+	public function forwardIterator ()		: IIterator<T>;
+	public function reversedIterator ()		: IIterator<T>;
 	
 	
 #if debug

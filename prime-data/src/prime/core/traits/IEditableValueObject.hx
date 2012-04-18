@@ -26,13 +26,19 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.traits;
+package prime.core.traits;
 
 
 /**
- * Implemented by every Value-Object class.
+ * Implemented by every Editable-Value-Object class.
  * 
  * @author Danny Wilson
  * @creation-date Jul 06, 2010
  */
-@:keep interface IValueObject implements IDisposable {}
+interface IEditableValueObject implements IEditEnabledValueObject 
+{
+	public function beginEdit()  : Void;
+	public function commitEdit() : Void;
+	public function cancelEdit() : Void;
+    public function isEditable() : Bool;
+}

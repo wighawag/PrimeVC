@@ -26,15 +26,13 @@
  * Authors:
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
-package primevc.core.traits;
+package prime.core.traits;
 
 
 /**
- * Tag-interface implemented by every Editable-Value-Object interface.
+ * Implemented by every Value-Object class.
  * 
  * @author Danny Wilson
  * @creation-date Jul 06, 2010
  */
-interface IEditEnabledValueObject implements IValueObject {
-	public function isEmpty() : Bool;
-}
+@:keep interface IValueObject implements IDisposable {}
