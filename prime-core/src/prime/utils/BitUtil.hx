@@ -28,7 +28,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.utils;
- 
+ import haxe.macro.Expr;
+ import tink.macro.tools.AST;
 
 /**
  * Helper class for working with bit flags
@@ -36,7 +37,7 @@ package prime.utils;
  * @creation-date	Jun 15, 2010
  * @author			Ruben Weijers
  */
-extern class BitUtil 
+#if !macro extern #end class BitUtil // NOTE: extern to guarantee DCE. Macro inside extern class explodes
 {
 	/**
 	 * Checks if any of the bits in 'flag' are set.
@@ -62,28 +63,6 @@ extern class BitUtil
 	public static inline function hasNone (bits:UInt, flag:UInt) : Bool
 	{
 		return (bits & flag) == 0;
-	}
-	
-	/**
-	 * Returns an UInt with the bits set in 'flag' added to 'bits'.
-	 */
-	public static inline function set (bits:UInt, flag:UInt) : UInt
-	{
-#if neko
-		Assert.that(bits != null);
-		Assert.that(flag != null);
-#end
-		return bits |= flag;
-	}
-	
-	/**
-	 * Returns an UInt with the bits set in 'flag' removed from 'bits'.
-	 */
-	public static inline function unset (bits:UInt, flag:UInt) : UInt
-	{
-		//is faster and better predictable than the commented code since there's one if statement less (6 ms faster on 7.000.000 iterations)
-		return bits &= 0xffffffff ^ flag; // has(bits, flag) ? bits ^= flag : bits;
-		//or what about (bits & -flag)
 	}
 	
 	
@@ -114,4 +93,21 @@ extern class BitUtil
 	{
 		return bits ^ 0xffffffff;
 	}
+
+	/**
+	 * Returns an UInt with the bits set in 'flag' added to 'bits'.
+	 */
+	@:macro static public function set (bits:ExprRequire<UInt>, flag:ExprRequire<UInt>) return AST.build({
+		$bits &= (0xffffffff ^ $flag);
+	})
+
+	/**
+	 * Returns an UInt with the bits set in 'flag' removed from 'bits'.
+	 */
+	@:macro static public function unset (bits:ExprRequire<UInt>, flag:ExprRequire<UInt>) return AST.build(
+		//is faster and better predictable than the commented code since there's one if statement less (6 ms faster on 7.000.000 iterations)
+		//return bits &= 0xffffffff ^ flag; // has(bits, flag) ? bits ^= flag : bits;
+		//or what about (bits & -flag)
+		$bits &= (0xffffffff ^ $flag)
+	)
 }

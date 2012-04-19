@@ -32,51 +32,43 @@ package prime.signal;
   using prime.utils.BitUtil;
   using prime.utils.IfUtil;
 
- import haxe.macro.Expr;
-
 /**
  * Signal with no arguments to send()
  * 
  * @author Danny Wilson
  * @creation-date Jun 09, 2010
  */
-class Signal0 extends Signal<Void->Void>//, implements ISender0, implements INotifier<Void->Void>
+class Signal0 extends Signal<Void->Void>, implements ISender0, implements INotifier<Void->Void>
 {
 	public function new() enabled = true
 	
-	@:macro
-	public function send(#if macro e : Expr #end) : Expr {
-		var sendExpr : Expr = haxe.macro.Context.parse('
-		if (signal.enabled)
+	public #if !debug inline #end function send() if (enabled)
+	{
+		//TODO: Run benchmarks and tests if this should really be inlined...
+		
+		var w = this.n;
+		
+		while (w.notNull())
 		{
-			var w : prime.signal.Wire<Void->Void> = (untyped signal).n;
+			nextSendable = w.next();
 			
-			while (w != null)
-			{
-				signal.nextSendable = (untyped w).n;
-				
-				Assert.that(w.isEnabled());
-				Assert.notEqual(w, signal.nextSendable);
-				Assert.notEqual(w.flags, 0);
-				if (untyped(w.flags & prime.signal.Wire.SEND_ONCE))
-					w.disable();
-				
-				w.handler();
-				
-				if (untyped(w.flags & prime.signal.Wire.SEND_ONCE))
-					w.dispose();
-				
-				w = signal.nextSendable; // Next node
-			}
-		}', haxe.macro.Context.currentPos());
-		//trace(sendExpr);
-
-		return {expr : EBlock([
-			{expr: EVars([
-				{name: "signal", type: null, expr: e}
-			]), pos: haxe.macro.Context.currentPos() },
-			sendExpr
-		]), pos: haxe.macro.Context.currentPos() }
+			Assert.that(w.isEnabled());
+			Assert.notEqual(w, nextSendable);
+			Assert.notEqual(w.flags, 0);
+			if (w.flags.has(Wire.SEND_ONCE))
+				w.disable();
+			
+#if (flash9 && debug) try { #end
+			w.handler();
+#if (flash9 && debug) } catch (e : flash.errors.TypeError) { throw "Wrong argument type ("+ e +") for " + w+";\n\tstacktrace: "+e.getStackTrace()+"\n"; } #end
+			
+			if (w.flags.has(Wire.SEND_ONCE))
+				w.dispose();
+			
+			w = nextSendable; // Next node
+		}
+		
+		nextSendable = null;
 	}
 	
 	public inline function bind           ( owner:Dynamic, handler:Void->Void )	return Wire.make(this, owner, handler, Wire.ENABLED)

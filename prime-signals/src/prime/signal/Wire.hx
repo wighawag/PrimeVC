@@ -57,27 +57,30 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	
 	static public function make<T>( dispatcher:Signal<T>, owner:Dynamic, handlerFn:T, flags:Int #if debug, ?pos : haxe.PosInfos #end ) : Wire<T>
 	{
+		Assert.isNotNull(dispatcher);
+
 		var w:Wire<Dynamic>,
 			W = Wire;
 		
 		if (W.free == null)
-			w = new Wire<T>(flags);
+			w = new Wire<T>();
 		else {
 			W.free = (w = W.free).n; // I know it's unreadable.. but it's faster.
 			--W.freeCount;
 			w.n = null;
 			Assert.that(w.owner == null && w.handler == null && w.signal == null && w.n == null);
-			w.flags	= flags;
 		}
 		
 		w.owner   = owner;
 		w.signal  = dispatcher;
-		(untyped w).handler = handlerFn;
+		w.handler = handlerFn;
+		w.flags   = flags;
 		if (flags.has(ENABLED))
 			w.doEnable();
 		
 		#if debug w.bindPos = pos; #end
-		
+		Assert.isNotNull(w.signal);
+		Assert.isNotNull(untyped w.signal.n);
 		return cast w;
 	}
 	
@@ -122,8 +125,8 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	
 	
 	
-	private function new( f:Int = 0 ) {
-		flags = f;
+	private function new() {
+		#if !flash9 flags = 0; #end
 		#if debug instanceNum = ++instanceCount; #end
 	}
 
@@ -158,7 +161,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	{
 		// setHandler only accepts functions with FunctionSignature
 		// and this is not a VOID_HANDLER for Signal1..4
-		flags = flags.unset(VOID_HANDLER);
+		flags.unset( VOID_HANDLER );
 		
 		return handler = h;
 	}
@@ -168,7 +171,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	{
 		if (!isEnabled())
 		{
-			flags |= ENABLED;
+			flags.set( ENABLED );
 			doEnable();
 		}
 	}
@@ -192,7 +195,7 @@ class Wire <FunctionSignature> extends WireList<FunctionSignature>, implements I
 	{
 		if (isEnabled())
 		{
-			flags = flags.unset( ENABLED );
+			flags.unset( ENABLED );
 			
 			// Find LinkNode before this one
 			var x:ListNode<Wire<FunctionSignature>> = signal;
