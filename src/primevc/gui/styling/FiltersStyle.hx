@@ -29,7 +29,7 @@
 package primevc.gui.styling;
  import primevc.core.traits.IInvalidatable;
  import primevc.gui.filters.BitmapFilter;
-#if neko
+#if (neko && prime_css)
  import primevc.tools.generator.ICodeGenerator;
 #end
   using primevc.utils.BitUtil;
@@ -325,7 +325,7 @@ class FiltersStyle extends StyleSubBlock
 	//
 	
 	
-#if neko
+#if (neko && prime_css)
 	override public function toCSS (prefix:String = "")
 	{
 		var css = [];

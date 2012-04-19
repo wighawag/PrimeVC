@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.styling;
-#if neko
+#if (neko && prime_css)
  import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
 #end
@@ -47,7 +47,7 @@ package primevc.gui.styling;
 
 
 private typedef Flags		= GraphicFlags;
-private typedef Shape		= #if neko primevc.types.Reference; #else IGraphicShape; #end
+private typedef Shape		= #if (neko && prime_css) primevc.types.Reference; #else IGraphicShape; #end
 private typedef Skin		= Factory<ISkin>;
 private typedef Icon		= Factory<Dynamic>;
 private typedef Overflow	= Factory1<IScrollable, IScrollBehaviour>;
@@ -484,7 +484,7 @@ class GraphicsStyle extends StyleSubBlock
 	
 	
 	
-#if neko
+#if (neko && prime_css)
 	override public function toCSS (prefix:String = "")
 	{
 		var css = [];

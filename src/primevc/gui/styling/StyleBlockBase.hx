@@ -29,10 +29,10 @@
 package primevc.gui.styling;
  import primevc.core.traits.IInvalidatable;
  import primevc.core.traits.Invalidatable;
-#if neko
+#if (neko && prime_css)
  import primevc.tools.generator.ICodeGenerator;
 #end
-#if (neko || debug)
+#if ((neko && prime_css) || debug)
  import primevc.utils.ID;
   using Type;
 #end
@@ -133,7 +133,7 @@ class StyleBlockBase extends Invalidatable, implements IStyleBlock
 #end
 	
 	
-#if neko
+#if (neko && prime_css)
 	#if	debug
 		public var cssName : String;
 		public function toString ()						{ return cssName; }

@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.styling;
-#if neko
+#if (neko && prime_css)
  import primevc.tools.generator.ICodeGenerator;
  import primevc.types.SimpleDictionary;
 #end
@@ -39,7 +39,7 @@ package primevc.gui.styling;
   using primevc.utils.HashUtil;
   using Type;
 
-#if (neko || debug)
+#if ((neko && prime_css) || debug)
   using StringTools;
 #end
 
@@ -47,7 +47,7 @@ package primevc.gui.styling;
 private typedef Flags	= StyleFlags;
 private typedef SType	= StyleBlockType;
 
-typedef ChildrenList = #if neko SimpleDictionary<String, StyleBlock> #else Hash<StyleBlock> #end;
+typedef ChildrenList = #if (neko && prime_css) SimpleDictionary<String, StyleBlock> #else Hash<StyleBlock> #end;
 
 
 /**
@@ -336,7 +336,7 @@ class StyleBlock extends StyleBlockBase
 	}*/
 	
 	
-#if neko
+#if (neko && prime_css)
 	/**
 	 * Method will search for the requested state + type in it's children or
 	 * the children of his extended / superStyle.
@@ -896,7 +896,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-#if neko
+#if (neko && prime_css)
 	override public function toCSS (namePrefix:String = "")
 	{
 		var css = "";
@@ -1099,7 +1099,7 @@ class StyleBlock extends StyleBlockBase
 	}
 #end
 	
-#if (debug && !neko)
+#if (debug && !(neko && prime_css))
 	override public function toString ()
 	{
 		return type + "("+getPriority()+")" + " - " + super.toString()
@@ -1108,7 +1108,7 @@ class StyleBlock extends StyleBlockBase
 			+ (extendedStyle 	!= null ? " - extended: "+	extendedStyle._oid 		: "")
 			+ (nestingInherited != null ? " - nested: "+	nestingInherited._oid 	: "");
 	}
-#elseif (debug && neko)
+#elseif (debug && neko && prime_css)
 	override public function toString ()
 	{
 		return parentStyle != null ? parentStyle + " " + cssName : cssName;

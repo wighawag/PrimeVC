@@ -29,13 +29,13 @@
 package primevc.gui.styling;
  import primevc.core.traits.IInvalidatable;
  import primevc.types.SimpleDictionary;
-#if neko
+#if (neko && prime_css)
  import primevc.tools.generator.ICodeGenerator;
 #end
   using primevc.utils.BitUtil;
 
 
-typedef StatesListType	= #if neko SimpleDictionary < Int, StyleBlock > #else IntHash<StyleBlock> #end;
+typedef StatesListType	= #if (neko && prime_css) SimpleDictionary < Int, StyleBlock > #else IntHash<StyleBlock> #end;
 private typedef Flags	= StyleStateFlags;
 
 
@@ -63,7 +63,7 @@ class StatesStyle extends StyleSubBlock
 	override public function dispose ()
 	{
 		if (states != null) {
-#if neko	states.dispose(); #end
+#if (neko && prime_css)	states.dispose(); #end
 			states = null;
 		}
 		super.dispose();
@@ -189,7 +189,7 @@ class StatesStyle extends StyleSubBlock
 			return;
 		
 		if (states == null)		states = new StatesListType();
-		if (state == null)		#if neko states.unset( stateName ); #else states.remove( stateName ); #end
+		if (state == null)		#if (neko && prime_css) states.unset( stateName ); #else states.remove( stateName ); #end
 		else					states.set( stateName, state );
 		
 		markProperty( stateName, state != null );
@@ -217,7 +217,7 @@ class StatesStyle extends StyleSubBlock
 	//
 	
 	
-#if neko
+#if (neko && prime_css)
 	public function keys () : Iterator < Int >				{ return states != null ? states.keys() : null; }
 	public function iterator () : Iterator < StyleBlock >	{ return states != null ? states.iterator() : null; }
 
