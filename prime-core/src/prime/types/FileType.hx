@@ -26,15 +26,14 @@
  * Authors:
  *  Ruben Weijers	<ruben @ prime.vc>
  */
-package prime.net;
+package prime.types;
 
 
 /**
  * @author	Ruben Weijers
- * @since Mar 29, 2011
+ * @creation-date Mar 29, 2011
  */
-enum FileType
-{
+enum FileType {
 	MP4;
 	SVG;
 	PNG;

@@ -63,9 +63,7 @@ class Cookie < DataType >
 				data = localObj.data;
 		}
 		catch (error : Error)
-		{
-			trace("Cookie read error! " + error);
-		}
+			trace("Cookie read error! " + error)
 #end
 	}
 	
@@ -91,9 +89,7 @@ class Cookie < DataType >
 			}
 		}
 		catch (error : Error)
-		{
-			trace("Error... Could not write SharedObject to disk. "+error);
-		}
+			trace("Error... Could not write SharedObject to disk. "+error)
 #end
 	}
 	
@@ -101,7 +97,7 @@ class Cookie < DataType >
 	/**
 	 * Method will remove the cookie-data
 	 */
-	public function delete ()
+	public inline function delete ()
 	{
 #if flash9
 		localObj.clear();

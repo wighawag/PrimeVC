@@ -24,12 +24,12 @@
  *
  *
  * Authors:
- *  Ruben Weijers	<ruben @ onlinetouch.nl>
+ *  Ruben Weijers	<ruben @ prime.vc>
  */
-package primevc.utils;
- import primevc.core.net.FileType;
- import primevc.core.net.MimeType;
-  using primevc.utils.IfUtil;
+package prime.utils;
+ import prime.types.FileType;
+ import prime.types.MimeType;
+  using prime.utils.IfUtil;
 
 
 /**
