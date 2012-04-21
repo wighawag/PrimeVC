@@ -173,8 +173,8 @@ class DynamicLayoutAlgorithm extends LayoutAlgorithmBase, implements ILayoutAlgo
 		//	invalidate(true);
 			
 			if (v != null) {
-				Assert.notNull(horAlgorithm);
-				Assert.notNull(verAlgorithm);
+				Assert.isNotNull(horAlgorithm);
+				Assert.isNotNull(verAlgorithm);
 				horAlgorithm.group	= v;
 				verAlgorithm.group	= v;
 			}

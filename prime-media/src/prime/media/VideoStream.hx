@@ -164,7 +164,7 @@ class VideoStream extends BaseMediaStream
 		if (!isStopped())		stop();
 		if (newUrl != null)		url.value = newUrl;
 		
-		Assert.notNull( url.value, "There is no video-url to play" );
+		Assert.isNotNull( url.value, "There is no video-url to play" );
 		source.play( url.value.toString() );
 	}
 	
@@ -284,7 +284,7 @@ class VideoStream extends BaseMediaStream
         }
 
 #if flash9
-		Assert.notNull(source);
+		Assert.isNotNull(source);
 		if (source.soundTransform != null && source.soundTransform.volume != newValue)
 		{
 			var sound				= source.soundTransform;
@@ -336,7 +336,7 @@ class VideoStream extends BaseMediaStream
 	 */
 	private function handleMetaData ( info:Dynamic ) : Void
 	{
-		Assert.notNull(info);
+		Assert.isNotNull(info);
 		totalTime.value	= info.duration;
 		framerate.value	= info.framerate;
 		width.value		= info.width;

@@ -70,14 +70,14 @@ class DataCursor<T> implements IDataCursor<T>
 	
 	public function removeTarget ()
 	{
-		Assert.notNull( list );
+		Assert.isNotNull( list );
 		list.remove( target, depth );
 	}
 	
 	
 	public function restore ()
 	{
-		Assert.notNull( list );
+		Assert.isNotNull( list );
 		if (!list.has(target))	list.add( target, depth );
 		else					list.move( target, depth );
 	}
@@ -85,7 +85,7 @@ class DataCursor<T> implements IDataCursor<T>
 	
 	public function moveTarget (newDepth:Int, newList:IEditableList<T> = null)
 	{
-		Assert.notNull( list );
+		Assert.isNotNull( list );
 	//	trace("Cursor.moveTarget "+target+" "+depth+" => "+newDepth+"; newList "+(newList == list));
 		if (list == newList || newList == null)
 		{

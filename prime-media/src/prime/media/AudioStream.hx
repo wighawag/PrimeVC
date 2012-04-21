@@ -138,7 +138,7 @@ class AudioStream extends BaseMediaStream
         if (!isStopped() || channel.notNull())      stop();
         if (newUrl.notNull())                       url.value = newUrl;
         
-        Assert.notNull( url.value, "There is no sound-url to play" );
+        Assert.isNotNull( url.value, "There is no sound-url to play" );
         
         state.current = MediaStates.playing;
         applyResume();
@@ -341,7 +341,7 @@ class AudioStream extends BaseMediaStream
     private inline function applyVolume ()
     {
 #if flash9
-        Assert.notNull(channel);
+        Assert.isNotNull(channel);
         if (channel.soundTransform.volume != volume.value)
         {
             var sound               = channel.soundTransform;

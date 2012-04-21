@@ -27,6 +27,7 @@
  *  Danny Wilson	<danny @ prime.vc>
  */
 package prime.bindable;
+ import prime.bindable.Bindable;
  import prime.signal.Signal1;
   using prime.utils.BitUtil;
 

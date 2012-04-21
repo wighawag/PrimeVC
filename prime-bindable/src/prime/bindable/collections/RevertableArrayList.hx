@@ -30,7 +30,7 @@ package prime.bindable.collections;
  import prime.utils.FastArray;
   using prime.utils.FastArray;
   using prime.utils.BitUtil;
-  using prime.core.collections.ListChange;
+  using prime.bindable.collections.ListChange;
 
 
 private typedef Flags = prime.bindable.RevertableBindableFlags;
@@ -90,7 +90,7 @@ class RevertableArrayList<T> extends ReadOnlyArrayList<T>, implements IRevertabl
 		if (changes != null && flags.has(RevertableArrayListFlags.REMEMBER_CHANGES) && flags.hasNone( Flags.DISPATCH_CHANGES_BEFORE_COMMIT ))
 			while (changes.length > 0) {
 				var listChange = changes.shift();
-				Assert.notNull( listChange );
+				Assert.isNotNull( listChange );
 				change.send( listChange );
 			}
 		

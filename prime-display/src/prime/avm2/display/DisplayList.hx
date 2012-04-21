@@ -185,7 +185,7 @@ class DisplayList implements IEditableList <ChildType>
 	public function add (item:ChildType, pos:Int = -1) : ChildType
 	{
 #if debug
-		Assert.notNull(owner);
+		Assert.isNotNull(owner);
 		if (pos > length)
 			Assert.that(pos <= length, "Index to add child is to high! "+pos+" instead of max "+length);
 #end

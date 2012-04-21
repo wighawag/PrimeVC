@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.core.events;
- import prime.core.collections.ListChange;
+ import prime.bindable.collections.ListChange;
  import prime.signal.Signal1;
 
 

@@ -53,7 +53,7 @@ class DOMSignal1<Type> extends Signal1<Type>, implements IWireWatcher<Type->Void
 
 	public function wireEnabled (wire:Wire<Type->Void>) : Void
 	{
-		Assert.notNull(n);
+		Assert.isNotNull(n);
 		
 		if (ListUtil.next(n) == null) // First wire connected
 		{

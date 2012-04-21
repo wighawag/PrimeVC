@@ -104,7 +104,7 @@ class ASync<T> implements IDisposable, implements IUnbindable<T->Dynamic>
 	}
 	
 	
-	public function get<T> (owner:Dynamic, responseHandler:T->T, errorHandler:String->Dynamic = null)
+	public function get(owner:Dynamic, responseHandler:T->T, errorHandler:String->Dynamic = null) : Void
 	{
 		Assert.that( state.hasNone(DISPOSED) );
 		if (state.has(REPLIED))

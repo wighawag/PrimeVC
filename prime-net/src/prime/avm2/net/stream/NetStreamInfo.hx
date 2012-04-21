@@ -48,8 +48,8 @@ class NetStreamInfo
 	
 	public function new (flashObj:Dynamic)
 	{
-		Assert.notNull( flashObj.code, "NetStreamInfo obj should have a code" );
-		Assert.notNull( flashObj.level, "NetStreamInfo obj should have a level" );
+		Assert.isNotNull( flashObj.code, "NetStreamInfo obj should have a code" );
+		Assert.isNotNull( flashObj.level, "NetStreamInfo obj should have a level" );
 		
 		level = switch (flashObj.level) {
 		 	case "status":	Level.status;

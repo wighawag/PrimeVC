@@ -20,7 +20,7 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.s
+ * DAMAGE.
  *
  *
  * Authors:
@@ -161,8 +161,8 @@ class CodeGenerator implements ICodeGenerator
 	
 	public function constructFromFactory (obj:ICodeFormattable, factoryMethod:String, ?params:Array<Dynamic>) : ValueType
 	{
-		Assert.notNull(obj);
-		Assert.notNull(factoryMethod);
+		Assert.isNotNull(obj);
+		Assert.isNotNull(factoryMethod);
 		var type = tCallStatic( addImportFor( obj.getClass().getClassName() ), factoryMethod, formatParams(params) );
 		objInstances.set( obj._oid, type );
 	//	values.push( type );
@@ -173,7 +173,7 @@ class CodeGenerator implements ICodeGenerator
 	
 	public function setAction ( obj:ICodeFormattable, name:String, ?params:Array<Dynamic>, onlyWithParams:Bool = false) : Void
 	{
-		Assert.notNull( obj );
+		Assert.isNotNull( obj );
 		var p = formatParams(params);
 		if (!onlyWithParams || p.length > 0)
 			values.push( tCallMethod( getObject( obj ), name, p ) );
@@ -182,7 +182,7 @@ class CodeGenerator implements ICodeGenerator
 	
 	public function setProp ( obj:ICodeFormattable, name:String, value:Dynamic, ignoreIfEmpty:Bool = false ) : Void
 	{
-		Assert.notNull( obj );
+		Assert.isNotNull( obj );
 		var v = formatValue(value);
 		if (ignoreIfEmpty && isEmpty(v))
 			v = null;

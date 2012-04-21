@@ -122,11 +122,11 @@ class SimpleList<T> implements IEditableList<T>
 	}
 	
 	
-	public inline function isEmpty()								return length == 0;
-	private inline function getLength ()	: Int					return _length
-	public function iterator ()				: Iterator<T>	return forwardIterator()
-	public function forwardIterator ()		: IIterator<T>	return new FastDoubleCellForwardIterator<T>(first)
-	public function reversedIterator ()		: IIterator<T>	return new FastDoubleCellReversedIterator<T>(last)
+	public  inline function isEmpty()   : Bool          return length == 0
+	private inline function getLength() : Int           return _length
+	public function iterator()          : Iterator<T>   return forwardIterator()
+	public function forwardIterator()   : IIterator<T>  return new FastDoubleCellForwardIterator<T>(first)
+	public function reversedIterator()  : IIterator<T>  return new FastDoubleCellReversedIterator<T>(last)
 
 	
 	
@@ -247,8 +247,8 @@ class SimpleList<T> implements IEditableList<T>
 			//insert item in the middle
 			cell.insertBefore( getCellAt(pos) );
 
-			Assert.notNull( cell.next, "No next cell for "+cell+" in "+this);
-			Assert.notNull( cell.prev, "No previous cell for "+cell+" in "+this+"; next = "+cell.next);
+			Assert.isNotNull( cell.next, "No next cell for "+cell+" in "+this);
+			Assert.isNotNull( cell.prev, "No previous cell for "+cell+" in "+this+"; next = "+cell.next);
 			Assert.notEqual( cell.next, cell );
 			Assert.notEqual( cell.prev, cell );
 		}

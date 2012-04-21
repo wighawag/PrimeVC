@@ -454,8 +454,8 @@ class FixedTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
 		if (group.children.length == 0 || rows == null)
 			return depth;
 		
-		Assert.notNull( rows, "rows is null; length = " + group.children.length );
-		Assert.notNull( rows.algorithm, "rows.algorithm is null; length = " + group.children.length );
+		Assert.isNotNull( rows, "rows is null; length = " + group.children.length );
+		Assert.isNotNull( rows.algorithm, "rows.algorithm is null; length = " + group.children.length );
 		var rowNum = rows.algorithm.getDepthForBounds( bounds );
 		if (rowNum < rows.children.length)
 		{

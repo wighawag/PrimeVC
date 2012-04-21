@@ -53,7 +53,7 @@ class Proxy<VOType:IValueObject, EventsTypedef> extends MVCNotifier
 	
 	public function new( events:EventsTypedef, enabled = true )
 	{
-	//	Assert.notNull(events, "Events cannot be null");	<-- not sure why it's not allowed anymore.. setting events to null is something a programmer does explicitly....
+	//	Assert.isNotNull(events, "Events cannot be null");	<-- not sure why it's not allowed anymore.. setting events to null is something a programmer does explicitly....
 		this.events = events;
 		super(enabled);
 	}

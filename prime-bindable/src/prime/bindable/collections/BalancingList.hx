@@ -133,7 +133,7 @@ class BalancingList<T> extends SimpleList<T>
 	{
 		var curCell		= getCellAt(toDepth);
 #if debug
-		Assert.notNull( curCell, "cell for depth "+toDepth + " in "+this+" is null. length: "+length);
+		Assert.isNotNull( curCell, "cell for depth "+toDepth + " in "+this+" is null. length: "+length);
 #end
 		
 		var oldData		= curCell.data;

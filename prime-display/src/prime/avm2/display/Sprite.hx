@@ -177,7 +177,7 @@ class Sprite extends flash.display.Sprite, implements ISprite
 		{
 			window = v;
 			
-			Assert.notNull(children);
+			Assert.isNotNull(children);
 			for (i in 0...children.length)
 			{
 				var child = children.getItemAt(i);

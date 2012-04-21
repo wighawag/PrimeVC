@@ -102,7 +102,7 @@ class CommunicatorsGroup implements ICommunicator
 	
 	public  function add (communicator:ICommunicator) : Void
 	{
-		Assert.notNull(communicator);
+		Assert.isNotNull(communicator);
 		list.add( communicator );
 		
 		if (communicator.isInProgress())

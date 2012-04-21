@@ -27,7 +27,7 @@
  *  Danny Wilson    <danny @ onlinetouch.nl>
  */
 package prime.tools.valueobjects;
- import prime.core.collections.ListChange;
+ import prime.bindable.collections.ListChange;
  import prime.utils.FastArray;
   using prime.utils.FastArray;
   using prime.utils.IfUtil;
