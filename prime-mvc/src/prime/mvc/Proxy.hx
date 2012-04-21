@@ -28,7 +28,12 @@
  *  Ruben Weijers	<primevc @ rubenw.nl>
  */
 package prime.mvc;
+#if prime_data
  import prime.core.traits.IValueObject;
+#else
+/** Anything that holds data. Use prime-data for a more detailed Data abstraction. */
+typedef IValueObject = Dynamic;
+#end
   using prime.utils.BitUtil;
 
 

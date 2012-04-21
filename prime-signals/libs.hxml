@@ -1,0 +1,5 @@
+-lib munit
+-lib hamcrest
+-lib tink_macros
+-cp ../prime-core/src
+-cp src

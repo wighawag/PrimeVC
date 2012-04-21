@@ -178,14 +178,17 @@ import haxe.macro.Context;
 	* Checks that the passed expression is not null.
 	* @param expr A string, class or anything that can be tested for null
 	**/
-	@:macro public static function isNotNull( expr:Expr, ?message:ExprRequire<String> ) : Expr {
+	@:macro public static function isNull   ( expr:Expr, ?message:ExprRequire<String> ) : Expr return compareNull(expr, OpNotEq, message)
+	@:macro public static function isNotNull( expr:Expr, ?message:ExprRequire<String> ) : Expr return compareNull(expr, OpEq,    message)
+
+	#if macro private static function compareNull( expr:Expr, assertCompareOp:Binop, message:Expr ) : Expr {
 		if(!Context.defined("debug"))
 			return emptyExpr;
 		var pos = Context.currentPos();
 		return
 		{ expr : EIf(
 			{ expr : EBinop(
-				OpEq,
+				assertCompareOp,
 				{ expr : EConst(CIdent("null")), pos : pos },
 				expr),
 			pos : pos},
@@ -198,14 +201,14 @@ import haxe.macro.Context;
 						params : []
 					},
 					[
-						message != null? message : { expr : EConst(CString("Assertion failed. Expected non null value")), pos : pos }
+						message != null? message : { expr : EConst(CString("Assertion failed. Expected "+ (assertCompareOp == OpEq? "non " : "") +"null value")), pos : pos }
 					]),
 				pos : pos }),
 			pos : pos },
 			null),
 		pos : pos };
 	}
-
+	#end
 
 	//
 	// Prime additions

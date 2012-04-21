@@ -70,7 +70,7 @@ class ChildFacade <
 	public inline function connect (external:ChannelsType) : Void
 	{
 		Assert.that(!isConnected());
-		Assert.notNull(external);
+		Assert.isNotNull(external);
 		channels = external;
 		start();
 	}

@@ -27,6 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.mvc;
+#if prime_data
  import prime.core.traits.IEditEnabledValueObject;
 
 
@@ -41,3 +42,4 @@ interface IEditableProxy < EditableVOType:IEditEnabledValueObject >
 	public function cancelEdit ()	: Void;
 	public function isEditing ()	: Bool;
 }
+#end
