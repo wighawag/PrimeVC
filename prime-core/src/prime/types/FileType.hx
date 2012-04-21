@@ -26,7 +26,7 @@
  * Authors:
  *  Ruben Weijers	<ruben @ prime.vc>
  */
-package prime.net;
+package prime.types;
 
 
 /**

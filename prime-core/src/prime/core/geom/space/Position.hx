@@ -26,8 +26,8 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.geom.space;
- import primevc.core.geom.IntPoint;
+package prime.core.geom.space;
+ import prime.core.geom.IntPoint;
 
 
 /**

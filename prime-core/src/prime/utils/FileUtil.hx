@@ -26,10 +26,10 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.utils;
- import primevc.core.net.FileType;
- import primevc.core.net.MimeType;
-  using primevc.utils.IfUtil;
+package prime.utils;
+ import prime.types.FileType;
+ import prime.types.MimeType;
+  using prime.utils.IfUtil;
 
 
 /**
@@ -63,7 +63,7 @@ class FileUtil
 	 */
 	public static function getExtension (fileName:String) : String
 	{
-		if (!fileName.notNull()) return "";
+		if (fileName.isNull()) return "";
 		else {
 			var idx = fileName.lastIndexOf('.');
 			var ext = idx <= 1 ? "" : fileName.substr(idx+1).toLowerCase();
@@ -80,8 +80,8 @@ class FileUtil
 	 */
 	public static function setExtension (fileName:String, ext:String) : String
 	{
-		Assert.notNull(ext);
-		Assert.notNull(fileName);
+		Assert.isNotNull(ext);
+		Assert.isNotNull(fileName);
 		
 		var idx		= fileName.lastIndexOf('.');
 		fileName	= idx <= 1

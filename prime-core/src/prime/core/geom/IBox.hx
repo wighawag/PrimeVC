@@ -26,8 +26,8 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.geom;
- import primevc.core.traits.IClonable;
+package prime.core.geom;
+ import prime.core.traits.IClonable;
 
 
 /**

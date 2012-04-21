@@ -26,15 +26,15 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.geom;
- import primevc.core.traits.IClonable;
+package prime.core.geom;
+ import prime.core.traits.IClonable;
 #if (neko && prime_css)
- import primevc.tools.generator.ICodeFormattable;
- import primevc.tools.generator.ICodeGenerator;
- import primevc.tools.generator.ICSSFormattable;
- import primevc.utils.ID;
+ import prime.tools.generator.ICodeFormattable;
+ import prime.tools.generator.ICodeGenerator;
+ import prime.tools.generator.ICSSFormattable;
+ import prime.utils.ID;
 #end
-  using primevc.utils.NumberUtil;
+  using prime.utils.NumberUtil;
  
 
 /**

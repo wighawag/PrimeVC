@@ -1,0 +1,4 @@
+-lib munit
+-lib hamcrest
+-lib tink_macros
+-cp src
