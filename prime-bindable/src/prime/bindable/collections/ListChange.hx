@@ -54,8 +54,6 @@ extern class ListChangeUtil
 			case moved(item, newPos, oldPos):	list.move( item, oldPos, newPos );
 			default:							//what to do with a reset :-S
 		}
-	}
-
 
 	static public inline function redoListChange<T>(list:IEditableList<T>, change:ListChange<T>) : Void
 		switch (change) {

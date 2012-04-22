@@ -28,6 +28,7 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package prime.bindable;
+ import prime.bindable.IBindableReadonly;
  import prime.signal.Signal2;
  import prime.core.traits.IClonable;
  import haxe.FastList;
@@ -173,7 +174,7 @@ class Bindable<T> implements IBindable<T>, implements IClonable<Bindable<T>>
 	
 	private inline function registerBoundTo(otherBindable:IBindableReadonly<T>)
 	{
-		Assert.notNull(otherBindable);
+		Assert.isNotNull(otherBindable);
 		
 		var b = this.boundTo;
 		if (!b.notNull())

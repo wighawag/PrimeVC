@@ -107,7 +107,7 @@ class Loader implements ICommunicator
 		if (!isPaused && !queueIsEmpty() && loadSlotAvailable())
 		{
 			var l = firstLoader;
-			Assert.notNull(l);
+			Assert.isNotNull(l);
 			Assert.that(!l.isLoaded());
 			Assert.that(!l.isStarted);
 			Assert.that(!l.isFinished);
@@ -151,7 +151,7 @@ class Loader implements ICommunicator
 #if debug
 			Assert.that(QUEUE_LENGTH > -1);
 			if (QUEUE_LENGTH > 0)
-				Assert.notNull(firstLoader, queueInfo());
+				Assert.isNotNull(firstLoader, queueInfo());
 #end
 		}
 	}
@@ -200,7 +200,7 @@ class Loader implements ICommunicator
 			--L.freeCount;
 			r.addListeners();
 		}
-		Assert.notNull(r);
+		Assert.isNotNull(r);
 		return r;
 	}
 
@@ -344,7 +344,7 @@ class Loader implements ICommunicator
 			c = new LoaderContext(true, new ApplicationDomain(defaultDomain));
 		
 #if debug	
-		Assert.notNull(v, this);
+		Assert.isNotNull(v, this);
 		Assert.that(!isQueued(), this);
 #end
 		isStarted = true;
@@ -355,7 +355,7 @@ class Loader implements ICommunicator
 	
 	public inline function loadBytes (v:BytesData, ?c:LoaderContext) : BytesData
 	{
-		Assert.notNull(v);
+		Assert.isNotNull(v);
 		if (isStarted)
 			close();
 		

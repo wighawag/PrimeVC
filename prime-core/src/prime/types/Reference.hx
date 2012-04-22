@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.types;
-#if neko
+#if (neko && prime_css)
  import prime.tools.generator.ICodeGenerator;
  import prime.tools.generator.ValueType;
 #end
@@ -42,7 +42,7 @@ enum Reference {
 }
 
 
-#if neko
+#if (neko && prime_css)
 class ReferenceUtil
 {
 	public static inline function toCSS (ref:Reference) : String
@@ -54,7 +54,6 @@ class ReferenceUtil
 			case func (name, css):				css != null ? css : "unkown-function";
 		}
 	}
-	
 	
 	public static inline function toCode (ref:Reference, code:ICodeGenerator) : ValueType
 	{

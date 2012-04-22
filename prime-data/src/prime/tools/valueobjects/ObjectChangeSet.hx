@@ -27,7 +27,7 @@
  *  Danny Wilson    <danny @ onlinetouch.nl>
  */
 package prime.tools.valueobjects;
- import prime.core.collections.IRevertableList;
+ import prime.bindable.collections.IRevertableList;
   using prime.tools.valueobjects.ChangesUtil;
   using prime.utils.DateUtil;
   using prime.utils.IfUtil;

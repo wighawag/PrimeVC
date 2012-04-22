@@ -26,15 +26,15 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.geom;
+package prime.core.geom;
 #if (neko && prime_css)
- import primevc.tools.generator.ICodeFormattable;
- import primevc.tools.generator.ICodeGenerator;
- import primevc.tools.generator.ICSSFormattable;
- import primevc.utils.ID;
+ import prime.tools.generator.ICodeFormattable;
+ import prime.tools.generator.ICodeGenerator;
+ import prime.tools.generator.ICSSFormattable;
+ import prime.utils.ID;
 #end
- import primevc.types.Number;
-  using primevc.utils.NumberUtil;
+ import prime.types.Number;
+  using prime.utils.NumberUtil;
 
 
 /**
@@ -104,10 +104,14 @@ class Box
 	
 	private inline function getCSSValue (v:Int) { return v == 0 ? "0" : v + "px"; }
 	public function cleanUp () : Void			{}
+
+	#if prime_css
 	public function toCode (code:ICodeGenerator)
 	{
 		if (!isEmpty())
 			code.construct( this, [ top, right, bottom, left ] );
 	}
+	#end
+
 #end
 }

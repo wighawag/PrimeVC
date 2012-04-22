@@ -751,7 +751,7 @@ class CSSParser
 	 */
 	private inline function setManifestNames ( style:StyleBlock )
 	{
-		Assert.notNull(style);
+		Assert.isNotNull(style);
 		setManifestNamesInList( style.idChildren,			false );
 		setManifestNamesInList( style.styleNameChildren,	false );
 		setManifestNamesInList( style.elementChildren,		true );
@@ -1093,7 +1093,7 @@ class CSSParser
 				styleGroup = currentBlock;
 			
 			var name = expr.matched(3);
-			Assert.notNull(name);
+			Assert.isNotNull(name);
 			
 			if (expr.matched(2) == "#")			type	= StyleBlockType.id;
 			else if (expr.matched(2) == ".")	type	= StyleBlockType.styleName;
@@ -1174,7 +1174,7 @@ class CSSParser
 		//	trace("create states style block for "+StyleStateFlags.stateToString( stateName )+"; "+stateBlock._oid);
 		}
 		
-		Assert.notNull( stateBlock );
+		Assert.isNotNull( stateBlock );
 		currentBlock = stateBlock;
 	}
 	

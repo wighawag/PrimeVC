@@ -356,7 +356,7 @@ class BalancingListCollection<T> implements IEditableList<T>, implements IListCo
 					}
 					
 					var curList = itr.next();
-					Assert.notNull(curList);
+					Assert.isNotNull(curList);
 					item		= curList.swapAtDepth( item, curDepth );
 					item		= lastList.swapAtDepth( item, lastDepth );
 					
@@ -386,7 +386,7 @@ class BalancingListCollection<T> implements IEditableList<T>, implements IListCo
 					}
 					
 					var curList	= itr.next();
-					Assert.notNull(curList);
+					Assert.isNotNull(curList);
 					Assert.that(curList.length > curDepth);
 					
 					item		= curList.swapAtDepth( item, curDepth );

@@ -1,0 +1,7 @@
+<project name="prime-bindable" url="http://prime.vc" license="BSD">
+    <user name=""/>
+    <description>Prime Bindable - Easy and powerful data binding for haXe</description>
+    <version name="0.0.0.0"></version>
+
+    <depends name="prime-signals"/>
+</project>

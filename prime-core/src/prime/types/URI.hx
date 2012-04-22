@@ -32,9 +32,6 @@ package prime.types;
  import prime.tools.generator.ICodeGenerator;
  import prime.utils.ID;
 #end
-#if flash9
- import prime.core.net.RequestMethod;
-#end
   using prime.utils.FileUtil;
   using prime.utils.IfUtil;
   using prime.utils.NumberUtil;
@@ -240,8 +237,8 @@ class URI #if (neko && prime_css) implements ICodeFormattable #end
 		return string = s.toString();
 	}
 	
-#if flash9
-	public function toRequest(method:RequestMethod = null)
+#if (flash9 && prime_net)
+	public function toRequest(method : prime.core.net.RequestMethod = null)
 	{
 		var r = new flash.net.URLRequest(this.toString());
 		if (method != null && method != get)

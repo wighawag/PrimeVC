@@ -48,7 +48,7 @@ private class EnterFrameSignal extends prime.signal.Signal0
 	{	
 		if (n == null) // No more wires connected
 		{
-#if debug 	Assert.notNull(timer); #end
+#if debug 	Assert.isNotNull(timer); #end
 			timer.stop();
 			timer.run = null;
 			timer = null;

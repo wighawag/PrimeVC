@@ -34,6 +34,6 @@ package prime.core;
  * @since Jan 11, 2011
  */
 typedef Error = 
-	#if		flash9	flash.errors.Error;
-	#elseif	flash8	flash.errors.Error;
-	#else	#error	#end
+	#if	flash9 flash.errors.Error;
+	#else      chx.lang.FatalException;
+	#end

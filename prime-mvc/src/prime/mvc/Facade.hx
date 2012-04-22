@@ -78,14 +78,14 @@ class Facade<EventsType:Signals, ModelType:IMVCCore, StatesType:IDisposable, Con
 		
 		Assert.isNull(events);
 		setupEvents();
-		Assert.notNull( events, "Events-collection can't be empty.");
+		Assert.isNotNull(events, "Events-collection can't be empty.");
 		
 		setupModel();
-		Assert.notNull(model, "Proxy-collection can't be empty.");
+		Assert.isNotNull(model, "Proxy-collection can't be empty.");
 		
 		setupStates();
 		setupView();
-		Assert.notNull(view, "Mediator-collection can't be empty.");
+		Assert.isNotNull(view, "Mediator-collection can't be empty.");
 		
 		setupController();
 	}

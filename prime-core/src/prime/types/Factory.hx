@@ -100,7 +100,7 @@ class Factory <InstanceType >
 	
 	/*public function create () : InstanceType
 	{
-		Assert.notNull(classRef);
+		Assert.isNotNull(classRef);
 		if (params == null)
 			return classRef.createInstance( EMPTY_ARRAY );
 		else

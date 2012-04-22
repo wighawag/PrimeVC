@@ -27,6 +27,7 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package prime.mvc;
+#if prime_data
  import prime.core.traits.IEditableValueObject;
  import prime.core.traits.IEditEnabledValueObject;
   using prime.utils.BitUtil;
@@ -78,3 +79,4 @@ class EditableProxy	< VOType:IEditableValueObject, EditEnabledVOType:IEditEnable
 	private inline function unsetEditing ()	{ state = state.unset(MVCFlags.EDITING); }
 	override public function disable ()	{ cancelEdit(); super.disable(); }
 }
+#end

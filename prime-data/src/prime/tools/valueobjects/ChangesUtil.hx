@@ -27,11 +27,11 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.tools.valueobjects;
- import prime.core.collections.IEditableList;
- import prime.core.collections.ListChange;
+ import prime.bindable.collections.IEditableList;
+ import prime.bindable.collections.ListChange;
  import prime.core.traits.IEditableValueObject;
  import prime.core.traits.IValueObject;
-  using prime.core.collections.ListChange;
+  using prime.bindable.collections.ListChange;
   using prime.utils.TypeUtil;
   using Reflect;
   using Std;
@@ -179,7 +179,7 @@ class ChangesUtil
 			while (path != null && !path.object.is(classType))
 				path = path.parent;
 		
-			Assert.notNull(path);
+			Assert.isNotNull(path);
 			vo = path.object;
 		}
 		return vo;

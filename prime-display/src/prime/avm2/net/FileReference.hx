@@ -111,7 +111,7 @@ class FileReference extends SelectEvents, implements ICommunicator, implements I
 	
 	public function load () : Void
 	{
-		Assert.notNull(loader);
+		Assert.isNotNull(loader);
 		if (isStarted)
 			close();
 		

@@ -26,7 +26,7 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.core.geom;
+package prime.core.geom;
 
 
 /**
@@ -42,5 +42,5 @@ interface IRectangle implements IBox
 	public var height	(getHeight, setHeight)		: Int;
 	
 	public function resize (width:Int, height:Int)	: Void;
-	public function move (left:Int, top:Int)		: Void;
+	public function move   (left:Int, top:Int)		: Void;
 }

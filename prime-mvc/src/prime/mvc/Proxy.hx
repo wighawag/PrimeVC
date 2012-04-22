@@ -28,7 +28,12 @@
  *  Ruben Weijers	<primevc @ rubenw.nl>
  */
 package prime.mvc;
+#if prime_data
  import prime.core.traits.IValueObject;
+#else
+/** Anything that holds data. Use prime-data for a more detailed Data abstraction. */
+typedef IValueObject = Dynamic;
+#end
   using prime.utils.BitUtil;
 
 
@@ -48,7 +53,7 @@ class Proxy<VOType:IValueObject, EventsTypedef> extends MVCNotifier
 	
 	public function new( events:EventsTypedef, enabled = true )
 	{
-	//	Assert.notNull(events, "Events cannot be null");	<-- not sure why it's not allowed anymore.. setting events to null is something a programmer does explicitly....
+	//	Assert.isNotNull(events, "Events cannot be null");	<-- not sure why it's not allowed anymore.. setting events to null is something a programmer does explicitly....
 		this.events = events;
 		super(enabled);
 	}

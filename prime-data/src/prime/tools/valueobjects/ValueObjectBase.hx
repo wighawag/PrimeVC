@@ -20,7 +20,7 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.s
+ * DAMAGE.
  *
  *
  * Authors:
@@ -125,8 +125,8 @@ class ValueObjectBase implements IValueObject, implements IFlagOwner
 	
 	private function objectChangedHandlerBody(propertyID : Int, pathNode : ObjectPathVO, change : ObjectChangeSet)
 	{
-    	Assert.notNull(this.change);
-		Assert.notNull(change);
+    	Assert.isNotNull(this.change);
+		Assert.isNotNull(change);
 		
 		var p = change.parent;
 		
@@ -170,7 +170,7 @@ class ValueObjectBase implements IValueObject, implements IFlagOwner
 	public static inline function addChangeListener (vo:IValueObject, owner:Dynamic, handler:ObjectChangeSet->Void)
 	{
 #if debug
-		Assert.notNull(vo);
+		Assert.isNotNull(vo);
 		Assert.that(vo.is(ValueObjectBase));
 #end
 		vo.as(ValueObjectBase).change.bind(owner, handler);
@@ -182,7 +182,7 @@ class ValueObjectBase implements IValueObject, implements IFlagOwner
 	public static inline function removeChangeListener (vo:IValueObject, owner:Dynamic)
 	{
 #if debug
-		Assert.notNull(vo);
+		Assert.isNotNull(vo);
 		Assert.that(vo.is(ValueObjectBase));
 #end
 		vo.as(ValueObjectBase).change.unbind(owner);

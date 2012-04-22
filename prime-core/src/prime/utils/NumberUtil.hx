@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package prime.utils;
- import apparat.math.FastMath;
+// import apparat.math.FastMath;
  import prime.types.Number;
   using prime.utils.NumberUtil;
   using Std;

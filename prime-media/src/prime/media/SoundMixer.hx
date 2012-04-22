@@ -126,7 +126,7 @@ class SoundMixer
 
     public function add (stream:BaseMediaStream)
     {
-        Assert.notNull(stream);
+        Assert.isNotNull(stream);
         if (isFrozen)
             for (i in 0 ... numberOfFreezes)
                 stream.freeze();
@@ -139,7 +139,7 @@ class SoundMixer
 
     public function remove (stream:BaseMediaStream)
     {
-        Assert.notNull(stream);
+        Assert.isNotNull(stream);
 
         //defrost the channel
         if (isFrozen)
