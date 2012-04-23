@@ -139,8 +139,9 @@ else
 		-D dragEnabled \
 		${CODECOVERAGE:+-D CodeCoverage -lib mcover --macro massive.mcover.MCover.includeAll()} \
 		${XML:+-xml $OUTPUTDIR/classes.xml $MainClass} \
-		| xargs -t haxe --connect 6543 \
+		| xargs -t haxe \
 		 	|| exit 1;
+# --connect 6543 \
 	
 	if (set -u; : $Debug) 2> /dev/null ; then
 		#mv ${PRIMEVC_ROOT}/tmp.swf ${PRIMEVC_ROOT}/bin-debug/app.swf &&

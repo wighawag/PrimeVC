@@ -135,9 +135,8 @@ class Form
     public static /*inline*/ function createHorizontalRow (direction:Horizontal = null, percentWidth:Float = 1.0) : LayoutContainer
     {
         var row          = new VirtualLayoutContainer();
-        if (percentWidth > 0)
-            row.percentWidth = percentWidth;
         row.algorithm    = new HorizontalFloatAlgorithm( direction == null ? Horizontal.left : direction, Vertical.center );
+        if (percentWidth > 0)   row.percentWidth = percentWidth;
         return row;
     }
 
@@ -145,9 +144,8 @@ class Form
     public static /*inline*/ function createVerticalRow (direction:Vertical = null, percentWidth:Float = 1.0) : LayoutContainer
     {
         var row          = new VirtualLayoutContainer();
-        if (percentWidth > 0)
-            row.percentWidth = percentWidth;
         row.algorithm    = new VerticalFloatAlgorithm( direction == null ? Vertical.center : direction, Horizontal.left );
+        if (percentWidth > 0)   row.percentWidth = percentWidth;
         return row;
     }
 }
