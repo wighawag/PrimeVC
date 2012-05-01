@@ -34,7 +34,9 @@ src: local('HitchCock'), url('./HitchCock.ttf') format('truetype');
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-family: @headingsFontFamily;
+  src: local('HitchCock'), url('./HitchCock.ttf') format('truetype');
+  font-family: HitchCock; 
+  // font-family: @headingsFontFamily;
   font-weight: @headingsFontWeight;
   color: @headingsColor;
   text-rendering: optimizelegibility; // Fix the character spacing for headings
