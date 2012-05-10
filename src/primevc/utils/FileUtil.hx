@@ -80,8 +80,8 @@ class FileUtil
 	 */
 	public static function setExtension (fileName:String, ext:String) : String
 	{
-		Assert.notNull(ext);
-		Assert.notNull(fileName);
+		Assert.isNotNull(ext);
+		Assert.isNotNull(fileName);
 		
 		var idx		= fileName.lastIndexOf('.');
 		fileName	= idx <= 1

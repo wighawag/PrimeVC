@@ -34,8 +34,7 @@ class Video extends DOMElem
 		return height;
 	}
     
-	private function setSrc(v:String):String
-	{
+	private function setSrc(v:String):String {
 		if (src != v) {
 			src = v;
 		}
@@ -43,9 +42,9 @@ class Video extends DOMElem
 	}
     
 	public function load() {
-		if (src != null && elem.src != src) { 
+		//if (src != null && elem.src != src) { 
             elem.src = src;
-        }
+        //}
 	}
     
     public function unload() {

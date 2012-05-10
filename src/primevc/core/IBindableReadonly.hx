@@ -42,7 +42,7 @@ typedef OldValue <V> = V;
  * @creation-date Jun 25, 2010
  */
 interface IBindableReadonly <DataType> implements primevc.core.traits.IValueObject
-//	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
+	#if (flash9 || cpp) ,implements haxe.rtti.Generic #end
 {
 	/** 
 	 * Dispatched just before "value" is set to a new value.

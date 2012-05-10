@@ -169,7 +169,8 @@ class AudioStream extends BaseMediaStream
     
     override public function stop ()
     {
-        if (isEmpty())
+        Assert.that(!isDisposed());
+        if (isEmpty() || hasError())
             return;
         
         state.current   = MediaStates.stopped;
@@ -180,7 +181,7 @@ class AudioStream extends BaseMediaStream
     
     override public function seek (newPosition:Float)
     {
-        if (isEmpty())
+        if (isEmpty() || hasError())
             return;
         
         newPosition = validatePosition(newPosition);

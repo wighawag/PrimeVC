@@ -45,7 +45,7 @@ extern class RevertableArrayListFlags
  * @author Ruben Weijers
  * @creation-date Nov 19, 2010
  */
-class RevertableArrayList < DataType > extends ReadOnlyArrayList < DataType >, implements IRevertableList < DataType >, implements haxe.rtti.Generic
+class RevertableArrayList < DataType > extends ReadOnlyArrayList < DataType >, implements IRevertableList < DataType > //, implements haxe.rtti.Generic
 {
 	/**
 	 * Keeps track of settings.
@@ -109,7 +109,7 @@ class RevertableArrayList < DataType > extends ReadOnlyArrayList < DataType >, i
 		if (changes != null && flags.has(RevertableArrayListFlags.REMEMBER_CHANGES) && flags.hasNone( Flags.DISPATCH_CHANGES_BEFORE_COMMIT ))
 			while (changes.length > 0) {
 				var listChange = changes.shift();
-				Assert.notNull( listChange );
+				Assert.isNotNull( listChange );
 				change.send( listChange );
 			}
 		
@@ -236,4 +236,10 @@ class RevertableArrayList < DataType > extends ReadOnlyArrayList < DataType >, i
 		
 		return item;
 	}
+
+
+#if debug
+	public inline function readFlags ()
+		return Flags.readProperties(flags)
+#end
 }

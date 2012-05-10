@@ -51,7 +51,7 @@ class Proxy<VOType:IValueObject, EventsTypedef> extends MVCNotifier
 	
 	public function new( events:EventsTypedef, enabled = true )
 	{
-		Assert.notNull(events, "Events cannot be null");
+		Assert.isNotNull(events, "Events cannot be null");
 		this.events = events;
 		super(enabled);
 	}

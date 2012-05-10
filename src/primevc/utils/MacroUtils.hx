@@ -249,9 +249,9 @@ class MacroUtils
 	 */
 	private static inline function disposeFieldsImpl () : Expr
 	{
-		var blocks = fields().generateMethodCalls([], "dispose()", "IDisposable");
+		var blocks = fields().generateMethodCalls([], "dispose()", "IDisposable", true);
 		if (blocks.length > 0)
-			blocks = fields().setValueOf(blocks, "IDisposable", "null", false );
+			blocks = fields().setValueOf(blocks, "IDisposable", "null" );
 		
 		return blocks.toExpr();
 	}
@@ -381,7 +381,7 @@ class BlocksUtil
 	 * @param	fields			array with the fields of the class
 	 * @param	typeName		interface or class name that the property to set should implement
 	 * @param	value			string-value that the matched property should be set to		//FIXME giving a string is a bit dirty!!
-	 * @param	assertNull		flag, if set to true, the method will add a Assert.null check in debug-mode for the variable to set
+	 * @param	assertNull		flag, if set to true, the method will add a Assert.isNull check in debug-mode for the variable to set
 	 */
 	public static inline function setValueOf( fields:Array<ClassField>, blocks:Array<Expr>, typeName:String, value:String, assertNull:Bool = false ) : Array<Expr>
 	{
@@ -399,7 +399,7 @@ class BlocksUtil
 	//			blocks.push( Context.parse("trace('===> "+field.name+" = "+value+"')", pos) );
 	//			trace(field.type);
 	//			trace(field.name+" = "+value);
-				blocks.push( Context.parse(field.name+" = "+value, Context.currentPos()) );						//TODO optimalization: don't use Context.parse but create macro typedefs instead..
+				blocks.push( Context.parse("(untyped this)."+field.name+" = "+value, Context.currentPos()) );						//TODO optimalization: don't use Context.parse but create macro typedefs instead..
 			}
 		}
 		return blocks;
@@ -423,10 +423,10 @@ class BlocksUtil
 		//	trace(field.name + ";\t\thasInterface? "+c.hasInterface(typeName)+";\t\tisClass? "+c.isClass(typeName)+"\t\t"+field.kind+" -> looking for "+typeName);
 			if (!field.meta.has("manual") && (c.hasInterface(typeName) || c.isClass(typeName)))
 			{
-				var expr = field.name+"."+method;
+				var expr = "(untyped this)."+field.name+"."+method;
 		//		trace(expr);
 				if (nullCheck)
-					expr = "if (" + field.name + " != null) { " + expr + "; }";
+					expr = "if ((untyped this)." + field.name + " != null) { " + expr + "; }";
 
 				blocks.push( Context.parse(expr, pos) );																		//TODO optimalization: don't use Context.parse but create macro typedefs instead..
 			}
@@ -803,7 +803,7 @@ class MacroExprUtil
 {
 	public static inline function getContent (field:Field) : Expr
 	{
-		Assert.notNull(field);
+		Assert.isNotNull(field);
 		return switch (field.kind) {
 			case FFun(f):	return f.expr;
 			default:		throw "wrong field.kind.. Should be FieldType.FFun instead of "+field.kind;
@@ -813,7 +813,7 @@ class MacroExprUtil
 	
 	public static inline function setContent (field:Field, content:Expr) : Expr
 	{
-		Assert.notNull(field);
+		Assert.isNotNull(field);
 		return switch (field.kind) {
 			case FFun(f):	return f.expr = content;
 			default:		throw "wrong field.kind.. Should be FieldType.FFun instead of "+field.kind;

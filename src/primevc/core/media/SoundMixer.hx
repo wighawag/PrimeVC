@@ -177,37 +177,39 @@ private class SoundMixerInstance
     }
 
 
-    public inline function add (s:BaseMediaStream)
+    public inline function add (stream:BaseMediaStream)
     {
-        Assert.notNull(s);
+        Assert.notNull(stream);
         if (isFrozen)
             for (i in 0 ... numberOfFreezes)
-                s.freeze();
+                stream.freeze();
         
-        (untyped s).next = next;
-        next = s;
+        (untyped stream).next = next;
+        next = stream;
     //    ListUtil.addNode(this, s);
     }
 
 
-    public function remove (s:BaseMediaStream)
+    public function remove (stream:BaseMediaStream)
     {
-        Assert.notNull(s);
+        Assert.notNull(stream);
 
         //defrost the channel
         if (isFrozen)
             for (i in 0 ... numberOfFreezes)
-                s.defrost();
+                stream.defrost();
         
         //remove it
-        var cur = next;
+        var prev:BaseMediaStream = null;
+        var cur  = next;
         while (cur.notNull()) {
-            if (cur.next == s) {
-                (untyped cur).next = s.next;
-                (untyped s).next   = null;
+            if (cur == stream) {
+                if (prev == null)   next = cur.next;
+                else                (untyped prev).next = cur.next;
                 break;
             }
-            cur = cur.next;
+            prev = cur;
+            cur  = cur.next;
         }
     }
 

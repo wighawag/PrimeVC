@@ -62,7 +62,8 @@ typedef FastArray<T> =
 #end
 	}
 	
-	static public inline function ofArray<T> ( array:Array<T> ) : FastArray<T>
+	static public inline function toVector<T> ( array:Array<T> ) : FastArray<T> return ofArray(array) 		//alias for ofArray
+	static public inline function ofArray<T>  ( array:Array<T> ) : FastArray<T>
 	{
 	#if flash10
 		return flash.Vector.ofArray(array);
@@ -111,6 +112,17 @@ typedef FastArray<T> =
 			newPos = pos;
 		}
 		return newPos;
+	}
+
+
+	static public #if flash10 inline #end function validateNewIndex<T>( list:FastArray<T>, pos:Int ) : Int
+		return pos < 0 || pos > list.length.int() ? list.length : pos
+
+
+	static public inline function add<T>( list:FastArray<T>, item:T ) : T
+	{
+		list.push(item);
+		return item;
 	}
 	
 	
@@ -177,6 +189,7 @@ typedef FastArray<T> =
 #if (php || cpp)
 		list.splice(0);
 #else
+	#if flash10	Assert.notThat(list.fixed); #end
 		(untyped list).length = 0;
 #end
 		/*var l = list.length;

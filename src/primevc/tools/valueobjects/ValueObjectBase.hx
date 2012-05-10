@@ -116,8 +116,8 @@ class ValueObjectBase implements IValueObject, implements IFlagOwner
 	
 	private function objectChangedHandlerBody(propertyID : Int, pathNode : ObjectPathVO, change : ObjectChangeSet)
 	{
-    	Assert.notNull(this.change);
-		Assert.notNull(change);
+    	Assert.isNotNull(this.change);
+		Assert.isNotNull(change);
 		
 		var p = change.parent;
 		

@@ -176,7 +176,7 @@ class ReadOnlyArrayList < DataType > implements IReadOnlyList < DataType >, impl
 	 */
 	public function unbind (other:ReadOnlyArrayList<DataType>)
 	{
-		Assert.notNull(other);
+		Assert.isNotNull(other);
 		Assert.notEqual(other, this);
 		
 		var removed = false;
@@ -208,7 +208,7 @@ class ReadOnlyArrayList < DataType > implements IReadOnlyList < DataType >, impl
 	
 	private inline function registerBoundTo(other:ReadOnlyArrayList<DataType>)
 	{
-		Assert.notNull(other);
+		Assert.isNotNull(other);
 		
 		var b = this.boundTo;
 		if (b.isNull())
@@ -220,7 +220,7 @@ class ReadOnlyArrayList < DataType > implements IReadOnlyList < DataType >, impl
 	
 	private inline function addToBoundList<T>(list:FastList<T>, other:T)
 	{
-		Assert.notNull(list);
+		Assert.isNotNull(list);
 		
 		// Only bind if not already bound.
 		var n = list.head;
@@ -238,7 +238,7 @@ class ReadOnlyArrayList < DataType > implements IReadOnlyList < DataType >, impl
 	 */
 	private function keepUpdated (other:ReadOnlyArrayList<DataType>)
 	{
-		Assert.notNull(other);
+		Assert.isNotNull(other);
 		Assert.notEqual(other, this);
 		
 		other.list = list.clone();
