@@ -78,7 +78,8 @@ echo -e "\tRelease libraries: $RELEASE_LIBS"
 echo -e "\tDebug libraries: $DEBUG_LIBS"
 
 if [[ ! -f "$PRIMEVC_ROOT/build/environment.sh" ]]; then
-	echo -e "\tThere's no environment file: \"`cd $PRIMEVC_ROOT/build; pwd`/environment.sh\" configured. Copy 'environment.sh.template' to 'environment.sh' and edit it."
+	cd "$PRIMEVC_ROOT/build/";
+	echo -e "\tThere's no environment file: \"`pwd`/environment.sh\" configured. Copy 'environment.sh.template' to 'environment.sh' and edit it."
 	exit 1
 else
 	if [[ ! -f "$DEBUG_OUTPUT_FILE" ]]  ||  test "$DEBUG_INPUT_FILE" -nt "$DEBUG_OUTPUT_FILE"  ||  test "$RELEASE_INPUT_FILE" -nt "$RELEASE_OUTPUT_FILE"; then

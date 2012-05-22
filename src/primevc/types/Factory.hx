@@ -60,7 +60,7 @@ class Factory <InstanceType >
 			,	implements ICodeFormattable
 			,	implements IHasTypeParameters		#end
 {
-	public static inline var EMPTY_ARRAY = [];
+	public static var EMPTY_ARRAY = [];
 	
 #if (debug || neko)
 	public var _oid (default, null)	: Int;

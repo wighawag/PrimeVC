@@ -44,12 +44,12 @@ typedef FileFilter = #if flash9 flash.net.FileFilter; #else FileFilterInst; #end
  */
 class FileFilters
 {
-	public static inline var image		= [ new FileFilter("Images (gif, png, jpg)", "*.png;*.gif;*.jpeg;*.jpg", "JPEG;jp2 ;GIFf;PNGf") ];		//FIXME add SVG support
-	public static inline var video		= [ new FileFilter("Videos (mpeg, mp4, avi, flv)", "*.mpeg;*.mp4;*.avi;*.flv", "MPEG;AVI;FLV ") ];
-	public static inline var flash		= [ new FileFilter("Flash", "*.swf", "SWFL") ];
-	public static inline var audio		= [ new FileFilter("Audio (mp3, mp2, wav)", "*.mp3;*.mp2;*.wav", "WAVE;WAV;MP3 ;Mp3 ;MPG3;MPG2;MP2 ;Mp2 ") ];
-	public static inline var data		= [ new FileFilter("Data (csv)", "*.csv;", "CSV ") ];
-	public static inline var pdf		= [ new FileFilter("Pdf (pdf)", "*.pdf;", "PDF ") ];
+	public static var image		= [ new FileFilter("Images (gif, png, jpg)", "*.png;*.gif;*.jpeg;*.jpg", "JPEG;jp2 ;GIFf;PNGf") ];		//FIXME add SVG support
+	public static var video		= [ new FileFilter("Videos (mpeg, mp4, avi, flv)", "*.mpeg;*.mp4;*.avi;*.flv", "MPEG;AVI;FLV ") ];
+	public static var flash		= [ new FileFilter("Flash", "*.swf", "SWFL") ];
+	public static var audio		= [ new FileFilter("Audio (mp3, mp2, wav)", "*.mp3;*.mp2;*.wav", "WAVE;WAV;MP3 ;Mp3 ;MPG3;MPG2;MP2 ;Mp2 ") ];
+	public static var data		= [ new FileFilter("Data (csv)", "*.csv;", "CSV ") ];
+	public static var pdf		= [ new FileFilter("Pdf (pdf)", "*.pdf;", "PDF ") ];
 }
 
 

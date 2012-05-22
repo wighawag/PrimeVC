@@ -183,14 +183,14 @@ interface ITextField
 	
 	public function appendText (newText:String)																: Void;
 	public function getRawText ()																			: String;
-	public function getXMLText (?beginIndex:Int = 0, ?endIndex:Int = 2147483647)							: String;
-	public function insertXMLText (beginIndex:Int, endIndex:Int, richText:String, ?pasting:Bool = false)	: Void;
+	public function getXMLText    (beginIndex:Int = 0, endIndex:Int = 2147483647)							: String;
+	public function insertXMLText (beginIndex:Int, endIndex:Int, richText:String, pasting:Bool = false)		: Void;
 	public function replaceSelectedText (value : String)													: Void;
 	public function replaceText (beginIndex:Int, endIndex:Int, newText:String)								: Void;
 	
-	public function getTextFormat (?beginIndex:Int = -1, ?endIndex:Int = -1)								: TextFormat;
-	public function getTextRuns (?beginIndex : Int = 0, ?endIndex : Int = 2147483647)						: Array<Dynamic>;
-	public function setSelection (beginIndex : Int, endIndex : Int)											: Void;
-	public function setTextFormat (format:TextFormat, ?beginIndex:Int = -1, ?endIndex:Int = -1)				: Void;
+	public function getTextFormat (beginIndex : Int = -1, endIndex : Int = -1)								: TextFormat;
+	public function getTextRuns   (beginIndex : Int =  0, endIndex : Int = 2147483647)						: Array<Dynamic>;
+	public function setSelection  (beginIndex : Int, endIndex : Int)										: Void;
+	public function setTextFormat (format:TextFormat, beginIndex:Int = -1, endIndex:Int = -1)				: Void;
 #end
 }
