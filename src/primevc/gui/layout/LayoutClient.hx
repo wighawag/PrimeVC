@@ -440,7 +440,7 @@ class LayoutClient extends Invalidatable
 				if (aspectRatio.notSet())
 					calculateAspectRatio( width, height );
 				
-				if (aspectRatio.isSet())
+				if (aspectRatio.isSet())	//don't change to else statement, 'calculateAspectRatio' can change the value of aspectRatio
 					updateAllWidths( calcWidthForHeight(v) );	//calling this method won't trigger the setWidth method (to prevend infinite loops)
 			}
 		}

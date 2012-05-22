@@ -96,7 +96,6 @@ class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType>, im
 		if (list == null)	list = new ListView(id.value+"Content", listData);
 		else                list.data = listData;
 		
-
 		list.setFocus.on( userEvents.focus, this );
 		list.createItemRenderer = createItemRenderer;
 		list.attachTo(this);

@@ -57,10 +57,11 @@ class MouseScrollBehaviourBase extends BehaviourBase<IScrollable>, implements IS
 	{
 		Assert.notNull( target.scrollableLayout, "target.layout of "+target+" must be a IScrollableLayout" );
 		target.enableClipping();
+		var mouse = target.container.userEvents.mouse;
 		scrollLayout = target.scrollableLayout;
-		activateBinding		= activateScrolling		.on( target.userEvents.mouse.rollOver, this );
-		deactivateBinding	= deactivateScrolling	.on( target.userEvents.mouse.rollOut, this );
-		calcScrollBinding	= calculateScroll		.on( target.container.userEvents.mouse.move, this );
+		activateBinding		= activateScrolling		.on( mouse.rollOver, this );
+		deactivateBinding	= deactivateScrolling	.on( mouse.rollOut, this );
+		calcScrollBinding	= calculateScroll		.on( mouse.move, this );
 		deactivateBinding.disable();
 		calcScrollBinding.disable();
 	}

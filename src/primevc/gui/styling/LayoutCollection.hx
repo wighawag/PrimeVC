@@ -118,8 +118,8 @@ class LayoutCollection extends StyleCollectionBase < LayoutStyle >
 		}
 		
 		
-		var maintainAspect = layout.maintainAspectRatio;
-		layout.maintainAspectRatio = false;
+	//	var maintainAspect = layout.maintainAspectRatio;
+	//	layout.maintainAspectRatio = false;
 	//	trace(target + ".applyLayoutStyling1 "+readProperties( changes )+"; changes "+changes);
 		
 		for (styleObj in this)
@@ -163,7 +163,7 @@ class LayoutCollection extends StyleCollectionBase < LayoutStyle >
 		if (heightRange != null && layout.heightValidator == null)
 			layout.heightValidator = heightRange;
 		
-		layout.maintainAspectRatio  = maintainAspect;
+	//	layout.maintainAspectRatio  = maintainAspect;
 		layout.invalidatable 		= wasInvalidatable;
 	}
 	
