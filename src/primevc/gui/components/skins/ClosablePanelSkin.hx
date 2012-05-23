@@ -27,20 +27,32 @@
  *  Ruben Weijers	<ruben @ prime.vc>
  */
 package primevc.gui.components.skins;
+ import primevc.gui.components.Button;
+  using primevc.utils.Bind;
 
 
 /**
- * Skin to create a movable panel with a close-btn (#closeBtn).
- * DELETE THIS CLASS??
+ * Skin to create a panel with a close-btn (#closeBtn).
  * 
  * @author Ruben Weijers
- * @creation-date Feb 14, 2011
+ * @creation-date May 23, 2012
  */
-class MovablePanelSkin extends ClosablePanelSkin
+class ClosablePanelSkin extends BasicPanelSkin
 {
+	private var closeBtn : Button;
+	
 	override public function createChildren ()
 	{
 		super.createChildren();
-		behaviours.add( new primevc.gui.behaviours.drag.DragMoveBehaviour(owner, null, chrome) );
+		chrome.attachTo( closeBtn = new Button("closeBtn") );
+		owner.close.on( closeBtn.userEvents.mouse.click, this );
+	}
+	
+	
+	override public function removeChildren ()
+	{
+		closeBtn.dispose();
+		closeBtn = null;
+		super.removeChildren();
 	}
 }

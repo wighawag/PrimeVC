@@ -90,9 +90,7 @@ class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType>, im
 	
 	override private function createChildren ()
 	{
-		super.createChildren();
-		
-		//check to see if list is not created yet by a skin
+		//check if listview isn't created by a skin or super-class
 		if (list == null)	list = new ListView(id.value+"Content", listData);
 		else                list.data = listData;
 		
