@@ -44,7 +44,7 @@ class ClosablePanelSkin extends BasicPanelSkin
 	override public function createChildren ()
 	{
 		super.createChildren();
-		chrome.attachTo( closeBtn = new Button("closeBtn") );
+		chrome.attach( closeBtn = new Button("closeBtn") );
 		owner.close.on( closeBtn.userEvents.mouse.click, this );
 	}
 	

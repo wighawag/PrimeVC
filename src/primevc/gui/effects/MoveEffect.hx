@@ -74,11 +74,10 @@ class MoveEffect extends Effect < IPositionable, MoveEffect >
 	public function new (duration:Int = 350, delay:Int = 0, easing:Easing = null, startX:Float = Number.INT_NOT_SET, startY:Float = Number.INT_NOT_SET, endX:Float = Number.INT_NOT_SET, endY:Float = Number.INT_NOT_SET)
 	{
 		super(duration, delay, easing);
-		
 		this.startX	= startX == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : startX;
 		this.startY	= startY == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : startY;
-		this.endX	= endX == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : endX;
-		this.endY	= endY == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : endY;
+		this.endX	= endX	 == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : endX;
+		this.endY	= endY	 == Number.INT_NOT_SET ? Number.FLOAT_NOT_SET : endY;
 	}
 	
 	

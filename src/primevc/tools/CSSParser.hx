@@ -180,6 +180,8 @@ class CSSParser
 	public static inline var R_PERC_VALUE			: String = "((" + R_FLOAT_VALUE + "%))";
 	public static inline var R_FLOAT_GROUP_VALUE	: String = R_FLOAT_UNIT_VALUE + "(" + R_SPACE_MUST + R_FLOAT_UNIT_VALUE + ")?(" + R_SPACE_MUST + R_FLOAT_UNIT_VALUE + ")?(" + R_SPACE_MUST + R_FLOAT_UNIT_VALUE + ")?";
 	public static inline var R_POINT_VALUE			: String = R_FLOAT_UNIT_VALUE + R_SPACE + "," + R_SPACE + R_FLOAT_UNIT_VALUE;
+	public static inline var R_OPTIONAL_FLOAT_VALUE	: String = "("+R_FLOAT_UNIT_VALUE + "|current)";
+	public static inline var R_OPTIONAL_POINT_VALUE	: String = R_OPTIONAL_FLOAT_VALUE + R_SPACE + "," + R_SPACE + R_OPTIONAL_FLOAT_VALUE;
 	
 	public static inline var R_SIMPLE_GRADIENT_COLOR: String = "(" + R_COLOR_EXPR + ")(" + R_SPACE_MUST + R_SIMPLE_UNIT_VALUE + ")?";
 	public static inline var R_GRADIENT_COLOR		: String = "(" + R_COLOR_EXPR + ")(" + R_SPACE_MUST + "(" + R_FLOAT_UNIT_VALUE + "|" + R_PERC_VALUE + ")|0)?";
@@ -513,10 +515,10 @@ class CSSParser
 		//parameters for a effect with 2 or 4 float-unit parameters
 		var effectFloatGroupParams = 
 			  "("
-			+		R_SPACE + R_POINT_VALUE					//start pos x = 3, y = 9
-			+		R_SPACE_MUST + R_POINT_VALUE			//end pos x = 15, y = 21
+			+		R_SPACE + R_OPTIONAL_POINT_VALUE		//start pos x = 4, y = 11
+			+		R_SPACE_MUST + R_OPTIONAL_POINT_VALUE	//end pos x = 18, y = 25
 			+ ")|("
-			+		R_SPACE + R_POINT_VALUE					//end pos x = 28, y = 34
+			+		R_SPACE + R_OPTIONAL_POINT_VALUE		//end pos x = 33, y = 40
 			+ ")";
 		
 		var fadeParams = 
@@ -3757,10 +3759,10 @@ class CSSParser
 		else if (moveEffExpr.match(v))
 		{
 		//	trace(moveEffExpr.resultToString(40));
-			var startX	= moveEffExpr.matched(2) != null ? parseUnitFloat( moveEffExpr.matched(3) )		: Number.FLOAT_NOT_SET;
-			var startY	= moveEffExpr.matched(2) != null ? parseUnitFloat( moveEffExpr.matched(9) )		: Number.FLOAT_NOT_SET;
-			var endX	= moveEffExpr.matched(2) != null ? parseUnitFloat( moveEffExpr.matched(15) )	: parseUnitFloat( moveEffExpr.matched(28) );
-			var endY	= moveEffExpr.matched(2) != null ? parseUnitFloat( moveEffExpr.matched(21) )	: parseUnitFloat( moveEffExpr.matched(34) );
+			var startX	= moveEffExpr.matched(2) != null ? parseUnitFloat( moveEffExpr.matched(4) )		: Number.FLOAT_NOT_SET;
+			var startY	= moveEffExpr.matched(2) != null ? parseUnitFloat( moveEffExpr.matched(11) )	: Number.FLOAT_NOT_SET;
+			var endX	= moveEffExpr.matched(2) != null ? parseUnitFloat( moveEffExpr.matched(18) )	: parseUnitFloat( moveEffExpr.matched(33) );
+			var endY	= moveEffExpr.matched(2) != null ? parseUnitFloat( moveEffExpr.matched(24) )	: parseUnitFloat( moveEffExpr.matched(40) );
 			effect		= new MoveEffect ( duration, delay, easing, startX, startY, endX, endY );
 			lastUsedEffectExpr = moveEffExpr;
 		}
