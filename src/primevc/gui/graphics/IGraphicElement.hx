@@ -29,10 +29,6 @@
 package primevc.gui.graphics;
  import primevc.core.traits.IInvalidatable;
  import primevc.core.traits.IDisposable;
-#if neko
- import primevc.tools.generator.ICodeFormattable;
- import primevc.tools.generator.ICSSFormattable;
-#end
 
 
 /**
@@ -42,7 +38,7 @@ package primevc.gui.graphics;
 @:keep interface IGraphicElement 	//FIXME - no @:keep
 				implements IInvalidatable
 			,	implements IDisposable
-#if neko	,	implements ICSSFormattable
-			,	implements ICodeFormattable #end
+#if CSSParser,	implements primevc.tools.generator.ICodeFormattable
+			,	implements primevc.tools.generator.ICSSFormattable #end
 {
 }

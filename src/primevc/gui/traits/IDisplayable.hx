@@ -28,7 +28,7 @@
  */
 package primevc.gui.traits;
  import primevc.core.traits.IDisposable;
-#if (flash8 || flash9 || js)
+#if !CSSParser
  import primevc.core.geom.IntRectangle;
  import primevc.gui.display.IDisplayContainer;
  import primevc.gui.display.Window;
@@ -42,7 +42,7 @@ package primevc.gui.traits;
  */
 interface IDisplayable implements IDisposable	
 {
-#if (flash8 || flash9 || js)
+#if !CSSParser
 	var displayEvents			(default, null)				: DisplayEvents;
 	
 	/**

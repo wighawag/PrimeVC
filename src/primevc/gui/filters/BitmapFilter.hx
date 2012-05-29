@@ -29,11 +29,9 @@
 package primevc.gui.filters;
 
 
-typedef BitmapFilter = 
-	#if		flash9	flash.filters.BitmapFilter;
-	#elseif	flash8	flash.filters.BitmapFilter;
-	#elseif	js		throw "error";
-	#else			BitmapFilterImpl;
+#if	(flash9 || flash8)
+typedef BitmapFilter = flash.filters.BitmapFilter;
+#else
 	
 
  import primevc.tools.generator.ICodeGenerator;
@@ -44,12 +42,8 @@ typedef BitmapFilter =
  * @author Ruben Weijers
  * @creation-date Sep 29, 2010
  */
-class BitmapFilterImpl implements IBitmapFilter
+class BitmapFilter implements IBitmapFilter
 {
-#if (neko || debug)
-	public var _oid			(default, null)	: Int;
-#end
-	
 	public function new ()
 	{
 		_oid = ID.getNext();
@@ -60,7 +54,8 @@ class BitmapFilterImpl implements IBitmapFilter
 	public function toString ()							{ return toCSS(); }
 	
 	
-#if (neko || debug)	
+#if (CSSParser || debug)	
+	public var _oid			(default, null)	: Int;
 	public function cleanUp () : Void				{}
 	public function toCode (code:ICodeGenerator)	{ Assert.abstract(); }
 	public function isEmpty () : Bool				{ Assert.abstract(); return false; }

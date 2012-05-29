@@ -28,7 +28,7 @@
  */
 package primevc.gui.events;
 
-
+#if !CSSParser
 /**
  * Base class for UI state messages with key-modifiers.
  * 
@@ -81,3 +81,5 @@ class KeyModState implements haxe.Public
 	 */
 	inline function cmdKey()		: Bool	{ return (flags & CMD)   != 0; }
 }
+
+#end

@@ -30,11 +30,11 @@ package primevc.types;
  import primevc.core.collections.iterators.FastArrayForwardIterator;
  import primevc.core.traits.IClonable;
  import primevc.core.traits.IDisposable;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeFormattable;
 #end
  import primevc.utils.FastArray;
-#if (neko || debug)
+#if (CSSParser || debug)
  import primevc.tools.generator.ICodeGenerator;
  import primevc.utils.ID;
  import primevc.utils.TypeUtil;
@@ -52,21 +52,21 @@ package primevc.types;
 class SimpleDictionary < KType, VType > 
 				implements IDisposable
 			,	implements IClonable<SimpleDictionary<KType, VType>>
-#if !neko	,	implements haxe.rtti.Generic
+#if !CSSParser,	implements haxe.rtti.Generic
 #else		,	implements ICodeFormattable		#end
 {
 	private var _keys	: FastArray < KType >;
 	private var _values	: FastArray < VType >;
 	public var length	(getLength, never)	: Int;
 	
-#if (neko || debug)
+#if (CSSParser || debug)
 	public var _oid		(default, null)		: Int;
 #end
 	
 	
 	public function new (size:Int = 0, fixed:Bool = false)
 	{
-#if (neko || debug)
+#if (CSSParser || debug)
 		_oid	= ID.getNext();
 #end
 		_keys	= FastArrayUtil.create(size, fixed);
@@ -152,7 +152,7 @@ class SimpleDictionary < KType, VType >
 
 #if debug
 	public function keysToString () : String	{ return "keys: [ " +_keys.join(", ") + " ]"; }
-	#if !neko
+	#if !CSSParser
 	public function toString ()		: String
 	{
 		var str = [];
@@ -164,7 +164,7 @@ class SimpleDictionary < KType, VType >
 	#end
 #end
 
-#if neko
+#if CSSParser
 	public function toHash () : Hash<VType>
 	{
 		var hash = new Hash<VType>();

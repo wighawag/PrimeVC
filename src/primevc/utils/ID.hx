@@ -37,11 +37,7 @@ package primevc.utils;
  */
 class ID
 {
+#if neko 	public static function __init__ ()	next = 0 #end
 	static var next : Int = 0;
-	
-	static inline public function getNext () : Int
-	{
-		#if neko if (next == null) next = 0; #end
-		return next++;
-	}
+	static inline public function getNext ()	return next++
 }

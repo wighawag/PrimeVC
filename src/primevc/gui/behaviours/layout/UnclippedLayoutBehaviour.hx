@@ -43,7 +43,7 @@ package primevc.gui.behaviours.layout;
  */
 class UnclippedLayoutBehaviour extends BehaviourBase < IScrollable >, implements IScrollBehaviour
 {
-#if !neko
+#if !CSSParser
 	override private function init ()	{ target.removeScrollRect(); }
 	override private function reset ()	{}
 #end

@@ -27,13 +27,8 @@
  *  Danny Wilson	<danny @ onlinetouch.nl>
  */
 package primevc.types;
-#if neko
- import primevc.tools.generator.ICodeFormattable;
- import primevc.tools.generator.ICodeGenerator;
- import primevc.utils.ID;
-#end
-#if flash9
- import primevc.core.net.RequestMethod;
+#if !CSSParser
+ import primevc.core.net.RequestMethod;	//also imports enums
 #end
   using primevc.utils.FileUtil;
   using primevc.utils.IfUtil;
@@ -56,7 +51,7 @@ package primevc.types;
  *
  * @author Danny Wilson
  */
-class URI #if neko implements ICodeFormattable #end
+class URI #if CSSParser implements primevc.tools.generator.ICodeFormattable #end
 {
 #if debug
 	static function __init__()
@@ -155,15 +150,15 @@ class URI #if neko implements ICodeFormattable #end
 		 	(  path.notNull() &&   path.length.not0())
 	
 	
-#if neko
+#if CSSParser
 	public var _oid (default, null)		: Int;
 #end
 	
 	
 	public function new(str:String = null)
 	{
-#if neko
-		_oid	= ID.getNext();
+#if CSSParser
+		_oid	= primevc.utils.ID.getNext();
 #end
 		port = -1;
 		parse(str);
@@ -364,9 +359,9 @@ class URI #if neko implements ICodeFormattable #end
 	}
 
 
-#if neko
-	public function cleanUp () : Void				{}
-	public function toCode (code:ICodeGenerator)	{ code.construct( this, [ getString() ] ); }
+#if CSSParser
+	public function cleanUp () : Void {}
+	public function toCode (code:primevc.tools.generator.ICodeGenerator)	code.construct( this, [ getString() ] )
 #end
 }
 

@@ -36,6 +36,7 @@ package primevc.gui.display;
 typedef Video = 
 	#if		flash9	primevc.avm2.display.Video;
 	#elseif	flash8	primevc.avm1.display.Video;
+	#elseif nodejs 	#error;
 	#elseif	js		primevc.js  .display.Video;
-	#else			Error	#end
+	#else			#error	#end
 

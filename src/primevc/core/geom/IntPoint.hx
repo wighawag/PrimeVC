@@ -28,7 +28,7 @@
  */
 package primevc.core.geom;
  import primevc.core.traits.IClonable;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeFormattable;
  import primevc.tools.generator.ICodeGenerator;
  import primevc.tools.generator.ICSSFormattable;
@@ -44,7 +44,7 @@ package primevc.core.geom;
  * @author			Ruben Weijers
  */
 class IntPoint	implements IClonable <IntPoint>	
-#if neko	,	implements ICSSFormattable
+#if CSSParser,	implements ICSSFormattable
 			,	implements ICodeFormattable		#end
 {
 	public static inline function fromFloat (x:Float, y:Float)	: IntPoint	{ return new IntPoint( x.roundFloat(), y.roundFloat() ); }
@@ -53,7 +53,7 @@ class IntPoint	implements IClonable <IntPoint>
 	public var x		(getX, setX)	: Int;
 	public var y		(getY, setY)	: Int;
 	
-#if neko
+#if CSSParser
 	public var _oid		(default, null) : Int;
 #end
 	
@@ -62,7 +62,7 @@ class IntPoint	implements IClonable <IntPoint>
 	
 	public function new(x = 0, y = 0)
 	{
-#if neko
+#if CSSParser
 		this._oid	= ID.getNext();
 #end
 		this.x		= x;
@@ -108,7 +108,7 @@ class IntPoint	implements IClonable <IntPoint>
 	}
 	
 	
-#if neko
+#if CSSParser
 	public inline function toString ()				{ return "IntPoint( "+x+", "+y+" )"; }
 	public function toCSS (prefix:String = "")		{ return x + "px, " + y + "px"; }
 	public function cleanUp () : Void				{}

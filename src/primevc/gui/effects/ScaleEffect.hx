@@ -26,15 +26,14 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.gui.effects;	
-#if (flash8 || flash9 || js)
- import primevc.gui.effects.effectInstances.IEffectInstance;
- import primevc.gui.effects.effectInstances.ScaleEffectInstance;
-#end
+package primevc.gui.effects;
  import primevc.gui.traits.IScaleable;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
+#else
+ import primevc.gui.effects.effectInstances.IEffectInstance;
+ import primevc.gui.effects.effectInstances.ScaleEffectInstance;
 #end
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
@@ -89,14 +88,6 @@ class ScaleEffect extends Effect < IScaleable, ScaleEffect >
 	}
 	
 	
-#if (flash8 || flash9 || js)
-	override public function createEffectInstance (target) : IEffectInstance<IScaleable, ScaleEffect>
-	{
-		return cast new ScaleEffectInstance( target, this );
-	}
-#end
-
-
 	override public function setValues ( v:EffectProperties ) 
 	{
 		switch (v) {
@@ -111,7 +102,14 @@ class ScaleEffect extends Effect < IScaleable, ScaleEffect >
 	}
 	
 	
-#if neko
+#if !CSSParser
+	override public function createEffectInstance (target) : IEffectInstance<IScaleable, ScaleEffect>
+	{
+		return cast new ScaleEffectInstance( target, this );
+	}
+
+#else
+
 	override public function toCSS (prefix:String = "") : String
 	{
 		var props = [];

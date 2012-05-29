@@ -32,8 +32,8 @@ package primevc.gui.filters;
 #if (flash9 || flash8)
 typedef BevelFilter = flash.filters.BevelFilter;
 
-#elseif	js
-throw "error";
+//#elseif	js
+//throw "error";
 
 #else
 
@@ -122,7 +122,7 @@ class BevelFilter extends BitmapFilter
 	}
 
 
-#if (neko || debug)
+#if (CSSParser || debug)
 	override public function toCode (code:ICodeGenerator) : Void
 	{
 		code.construct( this, [ 

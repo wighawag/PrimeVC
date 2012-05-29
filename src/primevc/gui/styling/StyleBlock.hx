@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.styling;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
  import primevc.types.SimpleDictionary;
 #end
@@ -39,7 +39,7 @@ package primevc.gui.styling;
   using primevc.utils.HashUtil;
   using Type;
 
-#if (neko || debug)
+#if (CSSParser || debug)
   using StringTools;
 #end
 
@@ -47,7 +47,7 @@ package primevc.gui.styling;
 private typedef Flags	= StyleFlags;
 private typedef SType	= StyleBlockType;
 
-typedef ChildrenList = #if neko SimpleDictionary<String, StyleBlock> #else Hash<StyleBlock> #end;
+typedef ChildrenList = #if CSSParser SimpleDictionary<String, StyleBlock> #else Hash<StyleBlock> #end;
 
 
 /**
@@ -336,7 +336,7 @@ class StyleBlock extends StyleBlockBase
 	}*/
 	
 	
-#if neko
+#if CSSParser
 	/**
 	 * Method will search for the requested state + type in it's children or
 	 * the children of his extended / superStyle.
@@ -639,7 +639,7 @@ class StyleBlock extends StyleBlockBase
 		Assert.notEqual(v, this);
 		if (v != nestingInherited)
 		{
-#if (debug && !neko)
+#if (debug && !CSSParser)
 			if (v != null && nestingInherited != null)
 				throw "Changing the nestingInherited style after it's set is not yet supported!";
 #end
@@ -656,7 +656,7 @@ class StyleBlock extends StyleBlockBase
 		Assert.notEqual(v, this);
 		if (v != superStyle)
 		{			
-#if (debug && !neko)
+#if (debug && !CSSParser)
 			if (v != null && superStyle != null)
 				throw "Changing the superStyle style after it's set is not yet supported!";
 #end
@@ -681,7 +681,7 @@ class StyleBlock extends StyleBlockBase
 		Assert.notEqual(v, this);
 		if (v != extendedStyle)
 		{
-#if (debug && !neko)
+#if (debug && !CSSParser)
 			if (v != null && extendedStyle != null)
 				throw "Changing the extendedStyle style after it's set is not yet supported!";
 #end
@@ -705,7 +705,7 @@ class StyleBlock extends StyleBlockBase
 		Assert.notEqual(v, this);
 		if (v != parentStyle)
 		{
-#if (debug && !neko)
+#if (debug && !CSSParser)
 			if (v != null && parentStyle != null)
 				throw "Changing the parentStyle style after it's set is not yet supported!";
 #end
@@ -896,7 +896,7 @@ class StyleBlock extends StyleBlockBase
 	}
 	
 	
-#if neko
+#if CSSParser
 	override public function toCSS (namePrefix:String = "")
 	{
 		var css = "";
@@ -1099,7 +1099,7 @@ class StyleBlock extends StyleBlockBase
 	}
 #end
 	
-#if (debug && !neko)
+#if (debug && !CSSParser)
 	override public function toString ()
 	{
 		return type + "("+getPriority()+")" + " - " + super.toString()
@@ -1108,7 +1108,7 @@ class StyleBlock extends StyleBlockBase
 			+ (extendedStyle 	!= null ? " - extended: "+	extendedStyle._oid 		: "")
 			+ (nestingInherited != null ? " - nested: "+	nestingInherited._oid 	: "");
 	}
-#elseif (debug && neko)
+#elseif (debug && CSSParser)
 	override public function toString ()
 	{
 		return parentStyle != null ? parentStyle + " " + cssName : cssName;

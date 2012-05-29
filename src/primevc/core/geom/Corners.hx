@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.geom;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeFormattable;
  import primevc.tools.generator.ICodeGenerator;
  import primevc.utils.ID;
@@ -44,21 +44,21 @@ package primevc.core.geom;
  * @creation-date Aug 01, 2010
  */
 class Corners	implements IClonable < Corners >
-#if neko	,	implements ICodeFormattable		#end
+#if CSSParser,	implements ICodeFormattable		#end
 {
 	public var topLeft		: Float;
 	public var topRight		: Float;
 	public var bottomLeft	: Float;
 	public var bottomRight	: Float;
 	
-#if neko
+#if CSSParser
 	public var _oid			(default, null) : Int;
 #end
 	
 	
 	public function new ( ?topLeft:Float = 0, ?topRight:Float = Number.INT_NOT_SET, ?bottomRight:Float = Number.INT_NOT_SET, ?bottomLeft:Float = Number.INT_NOT_SET )
 	{
-#if neko
+#if CSSParser
 		this._oid			= ID.getNext();
 #end
 		this.topLeft		= topLeft;
@@ -73,7 +73,7 @@ class Corners	implements IClonable < Corners >
 	@:keep
 	public inline function allCornersEqual ()	: Bool		{ return topLeft == topRight && topLeft == bottomLeft && topLeft == bottomRight; }
 	
-#if neko
+#if CSSParser
 	public function cleanUp () : Void				{}
 	public function isEmpty ()						{ return topLeft.notSet() && topRight.notSet() && bottomRight.notSet() && bottomLeft.notSet(); }
 	public function toCode (code:ICodeGenerator)	{ code.construct( this, [ topLeft, topRight, bottomRight, bottomLeft ] ); }

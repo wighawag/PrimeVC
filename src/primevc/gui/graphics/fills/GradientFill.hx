@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.graphics.fills;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
  import primevc.core.geom.IRectangle;
@@ -233,7 +233,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 	}
 	
 	
-#if neko
+#if CSSParser
 	override public function toCSS (prefix:String = "")
 	{
 		var colorStr = gradientStops.join(", ");

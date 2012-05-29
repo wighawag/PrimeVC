@@ -69,7 +69,7 @@ extern class BitUtil
 	 */
 	public static inline function set (bits:UInt, flag:UInt) : UInt
 	{
-#if neko
+#if (neko && debug)
 		Assert.that(bits != null);
 		Assert.that(flag != null);
 #end

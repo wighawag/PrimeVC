@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.graphics;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
  import primevc.core.geom.IRectangle;
@@ -54,7 +54,7 @@ class EmptyGraphicProperty extends GraphicElement, implements IGraphicProperty
 	}
 	
 	
-#if neko
+#if CSSParser
 	override public function toCSS (prefix:String = "")		{ return "none"; }
 	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [] ); }
 #end

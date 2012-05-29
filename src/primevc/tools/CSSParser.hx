@@ -134,6 +134,111 @@ package primevc.tools;
   using Type;
 
 
+extern class R {
+	public static inline var WHITESPACE				= "\\s"; //"\n\r\t ";
+	public static inline var WS						= "[" + WHITESPACE + "]*";	//can have any kind of whitespace
+	public static inline var WS_MUST				= "[" + WHITESPACE + "]+";	//must have at least one whitespace charater
+	public static inline var SPACE					= "[ \\t]*";					//can have none, one or more tab/space charater
+	public static inline var SPACE_MUST				= "[ \\t]+";					//must have at least one tab/space charater
+	
+	public static inline var HEADER_RULE			= SPACE_MUST + "(url" + SPACE + "[(])?['\"]" + SPACE + "(" + FILE_EXPR + ")" + SPACE + "['\"]" + SPACE + "[)]?;";
+	public static inline var IMPORT_SHEET			= "@import" + HEADER_RULE;
+	public static inline var IMPORT_MANIFEST		= "@manifest" + HEADER_RULE;
+	
+	public static inline var PROPERTY_NAME			= "a-z0-9-";
+	public static inline var PROPERTY_VALUE			= WHITESPACE + "a-z0-9%#.,:)(/\"_'-";
+	
+	public static inline var BLOCK_NAME				= "(([.#]?)([a-z][a-z0-9_]+)(:([a-z-]+))?)";
+	public static inline var BLOCK_NAMES			= "" + BLOCK_NAME + "(" + SPACE_MUST + BLOCK_NAME + ")*";
+	public static inline var BLOCK_VALUE			= PROPERTY_VALUE + ":;";
+	
+	public static inline var HEX_VALUE				= "0-9a-f";
+	public static inline var HEX_EXPR				= "(0x|#)(["+HEX_VALUE+"]{8}|["+HEX_VALUE+"]{6}|["+HEX_VALUE+"]{3})";
+	public static inline var RGBA_EXPR				= "(rgba)" + WS + "[(]((" + WS + DEC_OCTET + WS + "," + WS + "){3})((0[.][0-9]+)|0|1)" + WS + "[)]";
+	public static inline var COLOR_EXPR				= "("+HEX_EXPR+")|("+RGBA_EXPR+")";
+	
+	public static inline var RELATIVE_UNITS			= "px|ex|em";
+	public static inline var ABSOLUTE_UNITS			= "in|cm|mm|pt|pc";
+	public static inline var UNITS					= "(" + RELATIVE_UNITS + "|" + ABSOLUTE_UNITS + ")"; // + "|%";
+	
+	public static inline var SIMPLE_UNIT_VALUE		= FLOAT_VALUE + "[%a-z]+";			//matches floating points with a posible unit (flash player will crash if we make the search complexer...)
+	
+//	public static inline var ZERO_VALUE				= "((?![1-9]+)0)|(^0)"; // "[^1-9]+0|(?:(\\s|^)0)"; //"((" + SPACE_MUST + "|^)0)";
+	public static inline var INT_VALUE				= "([-]?[0-9]+)";
+	public static inline var FLOAT_VALUE			= "([-]?(([0-9]*[.][0-9]{1,3})|[0-9]+))";
+	public static inline var INT_UNIT_VALUE			= "((" + INT_VALUE + UNITS + "))"; //"((" + INT_VALUE + UNITS + ")|" + ZERO_VALUE + ")";
+	public static inline var FLOAT_UNIT_VALUE		= "((" + FLOAT_VALUE + UNITS + "))"; //"((" + FLOAT_VALUE + UNITS + ")|" + ZERO_VALUE + ")";
+	public static inline var PERC_VALUE				= "((" + FLOAT_VALUE + "%))";
+	public static inline var FLOAT_GROUP_VALUE		= FLOAT_UNIT_VALUE + "(" + SPACE_MUST + FLOAT_UNIT_VALUE + ")?(" + SPACE_MUST + FLOAT_UNIT_VALUE + ")?(" + SPACE_MUST + FLOAT_UNIT_VALUE + ")?";
+	public static inline var POINT_VALUE			= FLOAT_UNIT_VALUE + SPACE + "," + SPACE + FLOAT_UNIT_VALUE;
+	public static inline var OPTIONAL_FLOAT_VALUE	= "("+FLOAT_UNIT_VALUE + "|current)";
+	public static inline var OPTIONAL_POINT_VALUE	= OPTIONAL_FLOAT_VALUE + SPACE + "," + SPACE + OPTIONAL_FLOAT_VALUE;
+	
+	public static inline var SIMPLE_GRADIENT_COLOR	= "(" + COLOR_EXPR + ")(" + SPACE_MUST + SIMPLE_UNIT_VALUE + ")?";
+	public static inline var GRADIENT_COLOR			= "(" + COLOR_EXPR + ")(" + SPACE_MUST + "(" + FLOAT_UNIT_VALUE + "|" + PERC_VALUE + ")|0)?";
+	public static inline var GRADIENT_SPREAD		= "pad|reflect|repeat";
+	
+	public static inline var DOMAIN_LABEL			= "[a-z]([a-z0-9-]*[a-z0-9])?";
+	public static inline var CLASS_EXPR				= "(" + DOMAIN_LABEL + ")([.]" + DOMAIN_LABEL + ")*";
+	
+	public static inline var CUSTOM_SHAPE_EXPR		= "class" + SPACE + "[(]" + SPACE + "(" + CLASS_EXPR + ")"+SPACE+"[)]";
+	
+	public static inline var ROTATION				= FLOAT_VALUE + "deg";
+	public static inline var WORDWRAP				= "off|normal|break-word";
+	
+	
+	//
+	//URI Regexp
+	//@see http://labs.apache.org/webarch/uri/rfc/rfc3986.html
+	//
+	public static inline var URI_SCHEME				= "[a-z][a-z0-9+.-]+";										//"file|http|https|ftp|ldap|news|telnet"
+	public static inline var URI_USERINFO			= "[a-z0-9_-]+(:.+)?";										//match username and optional the password
+	public static inline var URI_DNS				= "(" + DOMAIN_LABEL + ")([.]" + DOMAIN_LABEL + ")+";
+	public static inline var DEC_OCTET				= "([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])";			//matches a number from 0 - 255
+	public static inline var URI_IPV4				= "(" + DEC_OCTET + "[.]){3}" + DEC_OCTET;
+	public static inline var URI_IPV6				= "((" + HEX_VALUE + "){4}){5}";							//TODO: not sure how to implement the full IPv6 range.. this just covers 60 bits
+	public static inline var URI_HOST				= "(" + URI_DNS + "|" + URI_IPV4 + "|" + URI_IPV6 + "|localhost)";
+	public static inline var URI_PORT				= "[0-9]{1,4}|[0-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9{2}|655[0-2][0-9]|6553[0-5]]";	//port range from 0 - 65535
+	public static inline var URI_AUTHORITY			= "(" + URI_USERINFO + "@)?(" + URI_HOST + ")(:(" + URI_PORT + "))?";
+	public static inline var URI_NAME				= "[a-z][a-z0-9+%_, -]*";
+	public static inline var URI_FOLDERNAME			= "(" + URI_NAME + ")|([.]{1,2})";
+	public static inline var URI_FILENAME			= URI_NAME + "[.][a-z0-9]+";
+	public static inline var URI_PATH				= "([a-z]:/)?((" + URI_FOLDERNAME + ")/)*((" + URI_FILENAME + ")|(" + URI_FOLDERNAME + ")/?)";		//match path with optional filename at the end
+	public static inline var URI_QUERY_VALUE		= "[a-z][a-z0-9+.?/_%-]*";
+	public static inline var URI_QUERY_VAR			= "((" + URI_QUERY_VALUE + "=" + URI_QUERY_VALUE + ")|(" + URI_QUERY_VALUE + "))";
+	public static inline var URI_QUERY				= "[?]" + URI_QUERY_VAR + "(&" + URI_QUERY_VAR + ")*";
+	public static inline var URI_FRAGMENT			= "#(" + URI_QUERY_VALUE + ")+";
+	public static inline var URI_EXPR				= "((" + URI_SCHEME + ")://)?(" + URI_AUTHORITY + ")(/" + URI_PATH + ")?(" + URI_QUERY + ")?(" + URI_FRAGMENT + ")?";
+	
+	
+	/**
+	 * Greedy stupid URI/file matcher
+	 * URI_EXPR took to much time
+	 */
+	public static inline var URI_PRETENDER			= "[/a-z0-9/&%.#+=\\;:$@?_-]+";
+	public static inline var FILE_EXPR				= URI_PATH;
+	
+	
+	public static inline var BG_REPEAT_EXPR			= "repeat-all|no-repeat";
+	
+	public static inline var FONT_STYLE_EXPR		= "normal|italic|oblique|inherit";
+	public static inline var FONT_WEIGHT_EXPR		= "normal|bolder|bold|lighter|inherit";
+	public static inline var GENERIC_FONT_FAMILIES	= "serif|sans[-]serif|monospace|cursive|fantasy";
+	public static inline var FONT_FAMILY_EXPR		= "("+GENERIC_FONT_FAMILIES+")|((embed[(])?(['\"]([a-z0-9+.,+/\\ _-]+)['\"])[)]?)|([a-z]+)";
+	
+	public static inline var HOR_DIR				= "(left|center|right)";
+	public static inline var VER_DIR				= "(top|center|bottom)";
+	public static inline var DIRECTIONS				= "(horizontal|vertical)";
+	public static inline var MOVE_DIRECTIONS		= "(top-to-bottom|bottom-to-top|left-to-right|right-to-left)";
+	public static inline var POSITIONS				= "(top[-]" + HOR_DIR + "|middle[-](left|right)|bottom[-]" + HOR_DIR + "|(" + POINT_VALUE + "))";
+	
+	public static inline var COMMA					= SPACE + "," + SPACE;
+	
+	public static inline var TIME_MS				= "([1-9][0-9]*)ms";
+	public static inline var EASING					= "(back|bounce|circ|cubic|elastic|expo|linear|quad|quart|quint|sine)[-]((in[-]out)|in|out)";
+}
+
+
 /**
  * 
  * @author Ruben Weijers
@@ -144,111 +249,6 @@ package primevc.tools;
  */
 class CSSParser
 {
-	public static inline var R_WHITESPACE			: String = "\\s"; //"\n\r\t ";
-	public static inline var R_WS					: String = "[" + R_WHITESPACE + "]*";	//can have any kind of whitespace
-	public static inline var R_WS_MUST				: String = "[" + R_WHITESPACE + "]+";	//must have at least one whitespace charater
-	public static inline var R_SPACE				: String = "[ \\t]*";					//can have none, one or more tab/space charater
-	public static inline var R_SPACE_MUST			: String = "[ \\t]+";					//must have at least one tab/space charater
-	
-	public static inline var R_HEADER_RULE			: String = R_SPACE_MUST + "(url" + R_SPACE + "[(])?['\"]" + R_SPACE + "(" + R_FILE_EXPR + ")" + R_SPACE + "['\"]" + R_SPACE + "[)]?;";
-	public static inline var R_IMPORT_SHEET			: String = "@import" + R_HEADER_RULE;
-	public static inline var R_IMPORT_MANIFEST		: String = "@manifest" + R_HEADER_RULE;
-	
-	public static inline var R_PROPERTY_NAME		: String = "a-z0-9-";
-	public static inline var R_PROPERTY_VALUE		: String = R_WHITESPACE + "a-z0-9%#.,:)(/\"_'-";
-	
-	public static inline var R_BLOCK_NAME			: String = "(([.#]?)([a-z][a-z0-9_]+)(:([a-z-]+))?)";
-	public static inline var R_BLOCK_NAMES			: String = "" + R_BLOCK_NAME + "(" + R_SPACE_MUST + R_BLOCK_NAME + ")*";
-	public static inline var R_BLOCK_VALUE			: String = R_PROPERTY_VALUE + ":;";
-	
-	public static inline var R_HEX_VALUE			: String = "0-9a-f";
-	public static inline var R_HEX_EXPR				: String = "(0x|#)(["+R_HEX_VALUE+"]{8}|["+R_HEX_VALUE+"]{6}|["+R_HEX_VALUE+"]{3})";
-	public static inline var R_RGBA_EXPR			: String = "(rgba)" + R_WS + "[(]((" + R_WS + R_DEC_OCTET + R_WS + "," + R_WS + "){3})((0[.][0-9]+)|0|1)" + R_WS + "[)]";
-	public static inline var R_COLOR_EXPR			: String = "("+R_HEX_EXPR+")|("+R_RGBA_EXPR+")";
-	
-	public static inline var R_RELATIVE_UNITS		: String = "px|ex|em";
-	public static inline var R_ABSOLUTE_UNITS		: String = "in|cm|mm|pt|pc";
-	public static inline var R_UNITS				: String = "(" + R_RELATIVE_UNITS + "|" + R_ABSOLUTE_UNITS + ")"; // + "|%";
-	
-	public static inline var R_SIMPLE_UNIT_VALUE	: String = R_FLOAT_VALUE + "[%a-z]+";			//matches floating points with a posible unit (flash player will crash if we make the search complexer...)
-	
-//	public static inline var R_ZERO_VALUE			: String = "((?![1-9]+)0)|(^0)"; // "[^1-9]+0|(?:(\\s|^)0)"; //"((" + R_SPACE_MUST + "|^)0)";
-	public static inline var R_INT_VALUE			: String = "([-]?[0-9]+)";
-	public static inline var R_FLOAT_VALUE			: String = "([-]?(([0-9]*[.][0-9]{1,3})|[0-9]+))";
-	public static inline var R_INT_UNIT_VALUE		: String = "((" + R_INT_VALUE + R_UNITS + "))"; //"((" + R_INT_VALUE + R_UNITS + ")|" + R_ZERO_VALUE + ")";
-	public static inline var R_FLOAT_UNIT_VALUE		: String = "((" + R_FLOAT_VALUE + R_UNITS + "))"; //"((" + R_FLOAT_VALUE + R_UNITS + ")|" + R_ZERO_VALUE + ")";
-	public static inline var R_PERC_VALUE			: String = "((" + R_FLOAT_VALUE + "%))";
-	public static inline var R_FLOAT_GROUP_VALUE	: String = R_FLOAT_UNIT_VALUE + "(" + R_SPACE_MUST + R_FLOAT_UNIT_VALUE + ")?(" + R_SPACE_MUST + R_FLOAT_UNIT_VALUE + ")?(" + R_SPACE_MUST + R_FLOAT_UNIT_VALUE + ")?";
-	public static inline var R_POINT_VALUE			: String = R_FLOAT_UNIT_VALUE + R_SPACE + "," + R_SPACE + R_FLOAT_UNIT_VALUE;
-	public static inline var R_OPTIONAL_FLOAT_VALUE	: String = "("+R_FLOAT_UNIT_VALUE + "|current)";
-	public static inline var R_OPTIONAL_POINT_VALUE	: String = R_OPTIONAL_FLOAT_VALUE + R_SPACE + "," + R_SPACE + R_OPTIONAL_FLOAT_VALUE;
-	
-	public static inline var R_SIMPLE_GRADIENT_COLOR: String = "(" + R_COLOR_EXPR + ")(" + R_SPACE_MUST + R_SIMPLE_UNIT_VALUE + ")?";
-	public static inline var R_GRADIENT_COLOR		: String = "(" + R_COLOR_EXPR + ")(" + R_SPACE_MUST + "(" + R_FLOAT_UNIT_VALUE + "|" + R_PERC_VALUE + ")|0)?";
-	public static inline var R_GRADIENT_SPREAD		: String = "pad|reflect|repeat";
-	
-	public static inline var R_DOMAIN_LABEL			: String = "[a-z]([a-z0-9-]*[a-z0-9])?";
-	public static inline var R_CLASS_EXPR			: String = "(" + R_DOMAIN_LABEL + ")([.]" + R_DOMAIN_LABEL + ")*";
-	
-	public static inline var R_CUSTOM_SHAPE_EXPR	: String = "class" + R_SPACE + "[(]" + R_SPACE + "(" + R_CLASS_EXPR + ")"+R_SPACE+"[)]";
-	
-	public static inline var R_ROTATION				: String = R_FLOAT_VALUE + "deg";
-	public static inline var R_WORDWRAP				: String = "off|normal|break-word";
-	
-	
-	//
-	//URI Regexp
-	//@see http://labs.apache.org/webarch/uri/rfc/rfc3986.html
-	//
-	public static inline var R_URI_SCHEME			: String = "[a-z][a-z0-9+.-]+";										//"file|http|https|ftp|ldap|news|telnet"
-	public static inline var R_URI_USERINFO			: String = "[a-z0-9_-]+(:.+)?";										//match username and optional the password
-	public static inline var R_URI_DNS				: String = "(" + R_DOMAIN_LABEL + ")([.]" + R_DOMAIN_LABEL + ")+";
-	public static inline var R_DEC_OCTET			: String = "([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])";			//matches a number from 0 - 255
-	public static inline var R_URI_IPV4				: String = "(" + R_DEC_OCTET + "[.]){3}" + R_DEC_OCTET;
-	public static inline var R_URI_IPV6				: String = "((" + R_HEX_VALUE + "){4}){5}";							//TODO: not sure how to implement the full IPv6 range.. this just covers 60 bits
-	public static inline var R_URI_HOST				: String = "(" + R_URI_DNS + "|" + R_URI_IPV4 + "|" + R_URI_IPV6 + "|localhost)";
-	public static inline var R_URI_PORT				: String = "[0-9]{1,4}|[0-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9{2}|655[0-2][0-9]|6553[0-5]]";	//port range from 0 - 65535
-	public static inline var R_URI_AUTHORITY		: String = "(" + R_URI_USERINFO + "@)?(" + R_URI_HOST + ")(:(" + R_URI_PORT + "))?";
-	public static inline var R_URI_NAME				: String = "[a-z][a-z0-9+%_, -]*";
-	public static inline var R_URI_FOLDERNAME		: String = "(" + R_URI_NAME + ")|([.]{1,2})";
-	public static inline var R_URI_FILENAME			: String = R_URI_NAME + "[.][a-z0-9]+";
-	public static inline var R_URI_PATH				: String = "([a-z]:/)?((" + R_URI_FOLDERNAME + ")/)*((" + R_URI_FILENAME + ")|(" + R_URI_FOLDERNAME + ")/?)";		//match path with optional filename at the end
-	public static inline var R_URI_QUERY_VALUE		: String = "[a-z][a-z0-9+.?/_%-]*";
-	public static inline var R_URI_QUERY_VAR		: String = "((" + R_URI_QUERY_VALUE + "=" + R_URI_QUERY_VALUE + ")|(" + R_URI_QUERY_VALUE + "))";
-	public static inline var R_URI_QUERY			: String = "[?]" + R_URI_QUERY_VAR + "(&" + R_URI_QUERY_VAR + ")*";
-	public static inline var R_URI_FRAGMENT			: String = "#(" + R_URI_QUERY_VALUE + ")+";
-	public static inline var R_URI_EXPR				: String = "((" + R_URI_SCHEME + ")://)?(" + R_URI_AUTHORITY + ")(/" + R_URI_PATH + ")?(" + R_URI_QUERY + ")?(" + R_URI_FRAGMENT + ")?";
-	
-	
-	/**
-	 * Greedy stupid URI/file matcher
-	 * R_URI_EXPR took to much time
-	 */
-	public static inline var R_URI_PRETENDER		: String = "[/a-z0-9/&%.#+=\\;:$@?_-]+";
-	public static inline var R_FILE_EXPR			: String = R_URI_PATH;
-	
-	
-	public static inline var R_BG_REPEAT_EXPR		: String = "repeat-all|no-repeat";
-	
-	public static inline var R_FONT_STYLE_EXPR		: String = "normal|italic|oblique|inherit";
-	public static inline var R_FONT_WEIGHT_EXPR		: String = "normal|bolder|bold|lighter|inherit";
-	public static inline var R_GENERIC_FONT_FAMILIES: String = "serif|sans[-]serif|monospace|cursive|fantasy";
-	public static inline var R_FONT_FAMILY_EXPR		: String = "("+R_GENERIC_FONT_FAMILIES+")|((embed[(])?(['\"]([a-z0-9+.,+/\\ _-]+)['\"])[)]?)|([a-z]+)";
-	
-	public static inline var R_HOR_DIR				: String = "(left|center|right)";
-	public static inline var R_VER_DIR				: String = "(top|center|bottom)";
-	public static inline var R_DIRECTIONS			: String = "(horizontal|vertical)";
-	public static inline var R_MOVE_DIRECTIONS		: String = "(top-to-bottom|bottom-to-top|left-to-right|right-to-left)";
-	public static inline var R_POSITIONS			: String = "(top[-]" + R_HOR_DIR + "|middle[-](left|right)|bottom[-]" + R_HOR_DIR + "|(" + R_POINT_VALUE + "))";
-	
-	public static inline var R_COMMA				: String = R_SPACE + "," + R_SPACE;
-	
-	public static inline var R_TIME_MS				: String = "([1-9][0-9]*)ms";
-	public static inline var R_EASING				: String = "(back|bounce|circ|cubic|elastic|expo|linear|quad|quart|quint|sine)[-]((in[-]out)|in|out)";
-	
-	
-	
-	
 	public var blockExpr				(default, null) : EReg;
 	public var blockNameExpr			(default, null) : EReg;
 	public var propExpr					(default, null) : EReg;
@@ -368,84 +368,84 @@ class CSSParser
 	private inline function stopTimer (label:String)
 	{
 		timer.stop();
-		neko.Lib.println("\t" + Date.now() + " - " + timer.currentTime + " ms - " + label);
+		CSSParserMain.print("\t" + Date.now() + " - " + timer.currentTime + " ms - " + label);
 		timer.reset();
 	}
 	
 	
 	private inline function init ()
 	{
-		blockNameExpr	= new EReg ( R_BLOCK_NAME, "i" );
+		blockNameExpr	= new EReg ( R.BLOCK_NAME, "i" );
 		blockExpr		= new EReg(
-			  "(^" + R_BLOCK_NAMES+")"		//match style selectors containing .name, #name or name
-			+ "[" + R_WHITESPACE + "]*{"	//match opening of a block
-			+ "([" + R_BLOCK_VALUE + "]*)"	//match content of a block
-			+ "[" + R_WHITESPACE + "]*}"	//match closing of a block
+			  "(^" + R.BLOCK_NAMES+")"		//match style selectors containing .name, #name or name
+			+ "[" + R.WHITESPACE + "]*{"	//match opening of a block
+			+ "([" + R.BLOCK_VALUE + "]*)"	//match content of a block
+			+ "[" + R.WHITESPACE + "]*}"	//match closing of a block
 			, "im");
 		
 		propExpr = new EReg(
-			  "[" + R_WHITESPACE + "]*([" + R_PROPERTY_NAME + "]+)[" + R_WHITESPACE + "]*:"		//match property name
-			+ "[" + R_WHITESPACE + "]*([" + R_PROPERTY_VALUE + "]+)[" + R_WHITESPACE + "]*;"	//match property value
+			  "[" + R.WHITESPACE + "]*([" + R.PROPERTY_NAME + "]+)[" + R.WHITESPACE + "]*:"		//match property name
+			+ "[" + R.WHITESPACE + "]*([" + R.PROPERTY_VALUE + "]+)[" + R.WHITESPACE + "]*;"	//match property value
 			, "im");
 		
-		intValExpr				= new EReg(R_INT_VALUE, "i");				//1 = value
-		intUnitValExpr			= new EReg(R_INT_UNIT_VALUE, "i");			//3 = value, 4 = unit
-		percValExpr				= new EReg(R_PERC_VALUE, "i");				//2 = value
-		floatValExpr			= new EReg(R_FLOAT_VALUE, "i");				//1 = value
-		floatUnitValExpr		= new EReg(R_FLOAT_UNIT_VALUE, "i");		//3 = value, 6 = unit
-		floatUnitGroupValExpr	= new EReg(R_FLOAT_GROUP_VALUE, "i");		//1 = prop1 ( 3 = val, 6 = unit ), 8 = prop2 ( 10 = val, 13 = unit ), 15 = prop3 ( 17 = val, 20 = unit ), 22 = prop4 ( 24 = val, 27 = unit )
-		pointExpr				= new EReg(R_POINT_VALUE, "i");				//1 = prop1 ( 3 = val, 6 = unit ), 8 = prop2 ( 10 = val, 13 = unit )
-		angleExpr				= new EReg(R_ROTATION, "i");
+		intValExpr				= new EReg(R.INT_VALUE, "i");				//1 = value
+		intUnitValExpr			= new EReg(R.INT_UNIT_VALUE, "i");			//3 = value, 4 = unit
+		percValExpr				= new EReg(R.PERC_VALUE, "i");				//2 = value
+		floatValExpr			= new EReg(R.FLOAT_VALUE, "i");				//1 = value
+		floatUnitValExpr		= new EReg(R.FLOAT_UNIT_VALUE, "i");		//3 = value, 6 = unit
+		floatUnitGroupValExpr	= new EReg(R.FLOAT_GROUP_VALUE, "i");		//1 = prop1 ( 3 = val, 6 = unit ), 8 = prop2 ( 10 = val, 13 = unit ), 15 = prop3 ( 17 = val, 20 = unit ), 22 = prop4 ( 24 = val, 27 = unit )
+		pointExpr				= new EReg(R.POINT_VALUE, "i");				//1 = prop1 ( 3 = val, 6 = unit ), 8 = prop2 ( 10 = val, 13 = unit )
+		angleExpr				= new EReg(R.ROTATION, "i");
 		
-		colorValExpr			= new EReg(R_COLOR_EXPR, "i");
-		fontFamilyExpr			= new EReg("("+R_FONT_FAMILY_EXPR+")", "i");
-		fontWeightExpr			= new EReg("("+R_FONT_WEIGHT_EXPR+")", "i");
-		fontStyleExpr			= new EReg("("+R_FONT_STYLE_EXPR+")", "i");
+		colorValExpr			= new EReg(R.COLOR_EXPR, "i");
+		fontFamilyExpr			= new EReg("("+R.FONT_FAMILY_EXPR+")", "i");
+		fontWeightExpr			= new EReg("("+R.FONT_WEIGHT_EXPR+")", "i");
+		fontStyleExpr			= new EReg("("+R.FONT_STYLE_EXPR+")", "i");
 		
 		linGradientExpr = new EReg(
-				  "(linear-gradient)"+R_WS+"[(]"							//match linear gradient		(1 = type)
-				+ R_WS+"("+R_ROTATION+")"									//match rotation			(3 = degrees)
-				+ "((" + R_COMMA + R_SIMPLE_GRADIENT_COLOR+"){2,})"			//match colors				(4 = colors)
-				+ "(" + R_COMMA + "("+R_GRADIENT_SPREAD+"))?"				//match spread method		(21 = method)
-			    + R_WS+"[)]", "im");
+				  "(linear-gradient)"+R.WS+"[(]"							//match linear gradient		(1 = type)
+				+ R.WS+"("+R.ROTATION+")"									//match rotation			(3 = degrees)
+				+ "((" + R.COMMA + R.SIMPLE_GRADIENT_COLOR+"){2,})"			//match colors				(4 = colors)
+				+ "(" + R.COMMA + "("+R.GRADIENT_SPREAD+"))?"				//match spread method		(21 = method)
+			    + R.WS+"[)]", "im");
 		
 		radGradientExpr = new EReg(
-				  "(radial-gradient)"+R_WS+"[(]"							//match radial gradient		(1 = type)
-				+ R_WS+"([-]?(0?[.][0-9]+|0|1))"							//match focal point			(2 = radial-point)
-				+ "((" + R_COMMA + R_SIMPLE_GRADIENT_COLOR+"){2,})"			//match colors				(4 = colors)
-				+ "(" + R_COMMA + "("+R_GRADIENT_SPREAD+"))?"				//match spread method		(21 = method)
-			    + R_WS+"[)]", "im");
+				  "(radial-gradient)"+R.WS+"[(]"							//match radial gradient		(1 = type)
+				+ R.WS+"([-]?(0?[.][0-9]+|0|1))"							//match focal point			(2 = radial-point)
+				+ "((" + R.COMMA + R.SIMPLE_GRADIENT_COLOR+"){2,})"			//match colors				(4 = colors)
+				+ "(" + R.COMMA + "("+R.GRADIENT_SPREAD+"))?"				//match spread method		(21 = method)
+			    + R.WS+"[)]", "im");
 		
-		gradientColorExpr = new EReg(R_GRADIENT_COLOR, "i");
+		gradientColorExpr = new EReg(R.GRADIENT_COLOR, "i");
 		
 		imageURIExpr = new EReg(
 				  "(url)"													//match url opener				1
-				+ R_SPACE+"[(]"												//match opening '('
-				+ R_SPACE+"['\"]?"											//match possible opening ' or "
-		//		+ R_WS+"(("+R_FILE_EXPR+")|("+R_URI_EXPR+"))"				//match the url content			4 = local file. 19 = URI
-				+ R_SPACE+"("+R_URI_PRETENDER+")"							//match the url content			2 
-				+ R_SPACE+"['\"]?"											//match possible closing ' or "
-				+ R_SPACE+"[)]"												//match closing ')'
+				+ R.SPACE+"[(]"												//match opening '('
+				+ R.SPACE+"['\"]?"											//match possible opening ' or "
+		//		+ R.WS+"(("+R.FILE_EXPR+")|("+R.URI_EXPR+"))"				//match the url content			4 = local file. 19 = URI
+				+ R.SPACE+"("+R.URI_PRETENDER+")"							//match the url content			2 
+				+ R.SPACE+"['\"]?"											//match possible closing ' or "
+				+ R.SPACE+"[)]"												//match closing ')'
 			, "i");
 		
-		imageRepeatExpr = new EReg("("+R_BG_REPEAT_EXPR+")", "i");			//match possible repeat value	1
+		imageRepeatExpr = new EReg("("+R.BG_REPEAT_EXPR+")", "i");			//match possible repeat value	1
 		
 		classRefExpr = new EReg(
 			  	"(Class)"													//match Class opener			1
-				+ R_SPACE+"[(]"												//match opening '('
-				+ R_SPACE+"("+R_CLASS_EXPR+")"								//match the class content		2
-				+ R_SPACE+"[)]"												//match closing ')'
+				+ R.SPACE+"[(]"												//match opening '('
+				+ R.SPACE+"("+R.CLASS_EXPR+")"								//match the class content		2
+				+ R.SPACE+"[)]"												//match closing ')'
 			, "i");
 		
-		var horLayoutEnding = R_SPACE
-		 	+ "([(]" + R_SPACE + R_HOR_DIR 									//2 = hor-dir
-			+ "(" + R_COMMA + R_VER_DIR + ")?" 								//4 - ver-dir
-			+ R_SPACE + "[)])?";
+		var horLayoutEnding = R.SPACE
+		 	+ "([(]" + R.SPACE + R.HOR_DIR 									//2 = hor-dir
+			+ "(" + R.COMMA + R.VER_DIR + ")?" 								//4 - ver-dir
+			+ R.SPACE + "[)])?";
 		
-		var verLayoutEnding = R_SPACE
-		 	+ "([(]" + R_SPACE + R_VER_DIR 									//2 = ver-dir
-			+ "(" + R_COMMA + R_HOR_DIR + ")?" 								//4 - hor-dir
-			+ R_SPACE + "[)])?";
+		var verLayoutEnding = R.SPACE
+		 	+ "([(]" + R.SPACE + R.VER_DIR 									//2 = ver-dir
+			+ "(" + R.COMMA + R.HOR_DIR + ")?" 								//4 - hor-dir
+			+ R.SPACE + "[)])?";
 		
 		
 		floatHorExpr	= new EReg( "float-hor" + horLayoutEnding, "i");
@@ -459,48 +459,48 @@ class CSSParser
 		horEllipseExpr	= new EReg( "hor-ellipse" + horLayoutEnding, "i");
 		verEllipseExpr	= new EReg( "ver-ellipse" + verLayoutEnding, "i");
 		ellipseExpr		= new EReg( "ellipse" + horLayoutEnding, "i");
-		
+		 
 		dynamicTileExpr	= new EReg(
 			  "dynamic-tile"
 			+ "("
-				+ R_SPACE + "[(]" + R_SPACE + R_DIRECTIONS					// 3 = start-direction
-				+ "(" + R_COMMA + R_HOR_DIR									// 5 = horizontal direction
-					+ "(" + R_COMMA + R_VER_DIR + ")?"						// 7 = vertical direction
+				+ R.SPACE + "[(]" + R.SPACE + R.DIRECTIONS					// 3 = start-direction
+				+ "(" + R.COMMA + R.HOR_DIR									// 5 = horizontal direction
+					+ "(" + R.COMMA + R.VER_DIR + ")?"						// 7 = vertical direction
 			 		+ ")?"
-				+ R_SPACE + "[)]"
+				+ R.SPACE + "[)]"
 			+ ")?"
 			, "i");
 		
 		fixedTileExpr	= new EReg(
 			  "fixed-tile"
 			+ "("
-				+ R_SPACE + "[(]" + R_SPACE + R_DIRECTIONS					// 3 = start-direction
-				+ "(" + R_COMMA + R_INT_VALUE								// 5 = number of rows or columns (depending on the start-direction)
-					+ "(" + R_COMMA + R_HOR_DIR								// 7 = horizontal direction
-						+ "(" + R_COMMA + R_VER_DIR + ")?"					// 9 = vertical direction
+				+ R.SPACE + "[(]" + R.SPACE + R.DIRECTIONS					// 3 = start-direction
+				+ "(" + R.COMMA + R.INT_VALUE								// 5 = number of rows or columns (depending on the start-direction)
+					+ "(" + R.COMMA + R.HOR_DIR								// 7 = horizontal direction
+						+ "(" + R.COMMA + R.VER_DIR + ")?"					// 9 = vertical direction
 			 		+ ")?"	
 		 		+ ")?"
-				+ R_SPACE + "[)]"
+				+ R.SPACE + "[)]"
 			+ ")?"
 			, "i");
 		
 		triangleExpr	= new EReg(
 			  "triangle"
 			+ "("
-			 	+ R_SPACE + "[(]"
-			 	+ R_SPACE + R_POSITIONS
-			 	+ R_SPACE + "[)]"
+			 	+ R.SPACE + "[(]"
+			 	+ R.SPACE + R.POSITIONS
+			 	+ R.SPACE + "[)]"
 			+ ")?"
 			, "i");
 			
-		customShapeExpr = new EReg( R_CUSTOM_SHAPE_EXPR, "i" );
+		customShapeExpr = new EReg( R.CUSTOM_SHAPE_EXPR, "i" );
 		
 		
 		//
 		//filter expressions
 		//
 		
-		filterBlurExpr		= new EReg(R_FLOAT_UNIT_VALUE + R_SPACE_MUST + R_FLOAT_UNIT_VALUE, "i");		//1 = prop1 ( 3 = val, 6 = unit ), 8 = prop2 ( 10 = val, 13 = unit )
+		filterBlurExpr		= new EReg(R.FLOAT_UNIT_VALUE + R.SPACE_MUST + R.FLOAT_UNIT_VALUE, "i");		//1 = prop1 ( 3 = val, 6 = unit ), 8 = prop2 ( 10 = val, 13 = unit )
 		filterInnerExpr		= new EReg("inner", "i");
 		filterHideExpr		= new EReg("hide-object", "i");
 		filterKnockoutExpr	= new EReg("knockout", "i");
@@ -509,79 +509,79 @@ class CSSParser
 		
 		
 		
-		easingExpr	= new EReg(R_EASING, "i");
-		timingExpr	= new EReg(R_TIME_MS, "i");
+		easingExpr	= new EReg(R.EASING, "i");
+		timingExpr	= new EReg(R.TIME_MS, "i");
 		
 		//parameters for a effect with 2 or 4 float-unit parameters
 		var effectFloatGroupParams = 
 			  "("
-			+		R_SPACE + R_OPTIONAL_POINT_VALUE		//start pos x = 4, y = 11
-			+		R_SPACE_MUST + R_OPTIONAL_POINT_VALUE	//end pos x = 18, y = 25
+			+		R.SPACE + R.OPTIONAL_POINT_VALUE		//start pos x = 4, y = 11
+			+		R.SPACE_MUST + R.OPTIONAL_POINT_VALUE	//end pos x = 18, y = 25
 			+ ")|("
-			+		R_SPACE + R_OPTIONAL_POINT_VALUE		//end pos x = 33, y = 40
+			+		R.SPACE + R.OPTIONAL_POINT_VALUE		//end pos x = 33, y = 40
 			+ ")";
 		
 		var fadeParams = 
 			  "("
-			+ 		R_SPACE + R_PERC_VALUE					//start-alpha = 3
-			+		R_SPACE_MUST + R_PERC_VALUE				//end-alpha = 8
+			+ 		R.SPACE + R.PERC_VALUE					//start-alpha = 3
+			+		R.SPACE_MUST + R.PERC_VALUE				//end-alpha = 8
 			+  ")|("
-			+		R_SPACE + R_PERC_VALUE					//end-alpha = 14
+			+		R.SPACE + R.PERC_VALUE					//end-alpha = 14
 			+  ")";
 		
 		var rotateParams = 
 			  "("
-			+		R_SPACE + "(" + R_ROTATION + ")"		//start-rotation = 3
-			+		R_SPACE_MUST + "(" + R_ROTATION + ")"	//end-rotation = 7
+			+		R.SPACE + "(" + R.ROTATION + ")"		//start-rotation = 3
+			+		R.SPACE_MUST + "(" + R.ROTATION + ")"	//end-rotation = 7
 			+ ")|("
-			+		R_SPACE + R_ROTATION					//end-rotation = 10
+			+		R.SPACE + R.ROTATION					//end-rotation = 10
 			+ ")";
 		
 		var scaleParams = 
 			  "("
-			+		R_SPACE + R_PERC_VALUE					// start-scaleX	= 3
-			+		R_SPACE + "," + R_SPACE + R_PERC_VALUE	// start-scaleY	= 8
-			+		R_SPACE_MUST + R_PERC_VALUE				// end-scaleX	= 13
-			+		R_SPACE + "," + R_SPACE + R_PERC_VALUE	// end-scaleY	= 18
+			+		R.SPACE + R.PERC_VALUE					// start-scaleX	= 3
+			+		R.SPACE + "," + R.SPACE + R.PERC_VALUE	// start-scaleY	= 8
+			+		R.SPACE_MUST + R.PERC_VALUE				// end-scaleX	= 13
+			+		R.SPACE + "," + R.SPACE + R.PERC_VALUE	// end-scaleY	= 18
 			+ ")|("
-			+		R_SPACE + R_PERC_VALUE					// end-scaleX	= 24
-			+		R_SPACE + "," + R_SPACE + R_PERC_VALUE	// end-scaleY	= 29
+			+		R.SPACE + R.PERC_VALUE					// end-scaleX	= 24
+			+		R.SPACE + "," + R.SPACE + R.PERC_VALUE	// end-scaleY	= 29
 			+ ")";
 		
 		anchorScaleEffExpr = new EReg(
 			  "^anchor-scale"
-			+	"(" + R_SPACE_MUST + R_POSITIONS + ")?"		// position		= 2
-			+	"(" + R_SPACE_MUST + R_PERC_VALUE + ")?"	// end-scaleX	= 20
-			+	"(" + R_SPACE_MUST + R_PERC_VALUE + ")?"	// end-scaleY	= 25
+			+	"(" + R.SPACE_MUST + R.POSITIONS + ")?"		// position		= 2
+			+	"(" + R.SPACE_MUST + R.PERC_VALUE + ")?"	// end-scaleX	= 20
+			+	"(" + R.SPACE_MUST + R.PERC_VALUE + ")?"	// end-scaleY	= 25
 			, "i");
 		
-		fadeEffExpr		= new EReg("^fade(" + R_SPACE_MUST + fadeParams + ")?" , "i");
-		moveEffExpr		= new EReg("^move(" + R_SPACE_MUST + effectFloatGroupParams + ")?", "i");
-		resizeEffExpr	= new EReg("^resize(" + R_SPACE_MUST + effectFloatGroupParams + ")?", "i");
-		rotateEffExpr	= new EReg("^rotate(" + R_SPACE_MUST + rotateParams + ")?", "i" );
-		scaleEffExpr	= new EReg("^scale(" + R_SPACE_MUST + scaleParams + ")?", "i");
+		fadeEffExpr		= new EReg("^fade(" + R.SPACE_MUST + fadeParams + ")?" , "i");
+		moveEffExpr		= new EReg("^move(" + R.SPACE_MUST + effectFloatGroupParams + ")?", "i");
+		resizeEffExpr	= new EReg("^resize(" + R.SPACE_MUST + effectFloatGroupParams + ")?", "i");
+		rotateEffExpr	= new EReg("^rotate(" + R.SPACE_MUST + rotateParams + ")?", "i" );
+		scaleEffExpr	= new EReg("^scale(" + R.SPACE_MUST + scaleParams + ")?", "i");
 		
 		wipeEffExpr = new EReg(
 			  "^wipe"
-			+	"(" + R_SPACE_MUST + R_MOVE_DIRECTIONS + ")?"	// direction	= 1
-			+	"(" + R_SPACE_MUST + R_FLOAT_UNIT_VALUE + ")?"	// end-scaleX	= 19
-			+	"(" + R_SPACE_MUST + R_FLOAT_UNIT_VALUE + ")?"	// end-scaleY	= 26
+			+	"(" + R.SPACE_MUST + R.MOVE_DIRECTIONS + ")?"	// direction	= 1
+			+	"(" + R.SPACE_MUST + R.FLOAT_UNIT_VALUE + ")?"	// end-scaleX	= 19
+			+	"(" + R.SPACE_MUST + R.FLOAT_UNIT_VALUE + ")?"	// end-scaleY	= 26
 			, "i");
 		
 		setActionEffExpr = new EReg ( 
-			  "^set-action" + R_SPACE + "("
+			  "^set-action" + R.SPACE + "("
 			+	"("
-			+		"alpha" + R_SPACE + "[(](" + fadeParams + ")" + R_SPACE + "[)]"
+			+		"alpha" + R.SPACE + "[(](" + fadeParams + ")" + R.SPACE + "[)]"
 			+	")|("
-			+		"position" + R_SPACE + "[(](" + effectFloatGroupParams + ")" + R_SPACE + "[)]"
+			+		"position" + R.SPACE + "[(](" + effectFloatGroupParams + ")" + R.SPACE + "[)]"
 			+	")|("
-			+		"rotation" + R_SPACE + "[(](" + rotateParams + ")" + R_SPACE + "[)]"
+			+		"rotation" + R.SPACE + "[(](" + rotateParams + ")" + R.SPACE + "[)]"
 			+	")|("
-			+		"size" + R_SPACE + "[(](" + effectFloatGroupParams + ")" + R_SPACE + "[)]"
+			+		"size" + R.SPACE + "[(](" + effectFloatGroupParams + ")" + R.SPACE + "[)]"
 			+	")|("
-			+		"scale" + R_SPACE + "[(](" + scaleParams + ")" + R_SPACE + "[)]"
+			+		"scale" + R.SPACE + "[(](" + scaleParams + ")" + R.SPACE + "[)]"
 			+	")|("
-			+		"any" + R_SPACE + "[(]" + R_SPACE + "([a-z][a-z0-9_+.-]*)" + R_SPACE + "," + R_SPACE + "([a-z0-9_+.-]+)(" + R_SPACE + "," + R_SPACE + "([a-z0-9_+.-]+))?" + R_SPACE + "[)]"
+			+		"any" + R.SPACE + "[(]" + R.SPACE + "([a-z][a-z0-9_+.-]*)" + R.SPACE + "," + R.SPACE + "([a-z0-9_+.-]+)(" + R.SPACE + "," + R.SPACE + "([a-z0-9_+.-]+))?" + R.SPACE + "[)]"
 			+	")"
 			+ ")?"
 			, "i" );
@@ -589,8 +589,11 @@ class CSSParser
 		
 		sequenceEffExpr = new EReg( "^sequence([^(]*)[(](.+)[)]", "i" );
 		parallelEffExpr = new EReg( "^parallel([^(]*)[(]([^)]+)[)]", "i" );
-		
-		effectChildrenExpr	= new EReg( "([a-z0-9 \\t_+%#.-]+([(]([^)]*|(?1))[)])?)("+R_SPACE+"[,]"+R_SPACE+")?", "i");
+#if nodejs
+		effectChildrenExpr	= new EReg( "([a-z0-9 \\t_+%#.-]+([(]([^)]*)[)])?)("+R.SPACE+"[,]"+R.SPACE+")?", "i");	//nodejs doesn't support looking back
+#else
+		effectChildrenExpr	= new EReg( "([a-z0-9 \\t_+%#.-]+([(]([^)]*|(?1))[)])?)("+R.SPACE+"[,]"+R.SPACE+")?", "i");
+#end
 	}
 	
 	
@@ -602,19 +605,15 @@ class CSSParser
 	
 	private inline function loadFileContent (file:String) : String
 	{
-#if neko
 		try {
-			return neko.io.File.getContent( file );
-		}
-		catch (e:Dynamic)
-		{
+#if neko	return neko.io.File.getContent(file);
+#elseif js 	return js.Node.fs.readFileSync(file);
+#else		throw "not implemented yet!";
+			return "";
+#end	} catch (e:Dynamic) {
 			trace("ERROR IMPORTING STYLESHEET (" + file + "): " + e);
 			return "";
 		}
-#else
-		throw "not implemented yet!";
-		return "";
-#end
 	}
 	
 	
@@ -705,7 +704,7 @@ class CSSParser
 	 */
 	private function importManifests ( styleContent ) : String
 	{
-		var importExpr = new EReg ( R_IMPORT_MANIFEST, "i" );
+		var importExpr = new EReg ( R.IMPORT_MANIFEST, "i" );
 		return importExpr.customReplace(styleContent, importManifest);
 	}
 	
@@ -726,7 +725,7 @@ class CSSParser
 	 */
 	private function importStyleSheets ( styleContent ) : String
 	{
-		var importExpr = new EReg ( R_IMPORT_SHEET, "i" );
+		var importExpr = new EReg ( R.IMPORT_SHEET, "i" );
 		return importExpr.customReplace(styleContent, importStyleSheet);
 	}
 	
@@ -751,7 +750,7 @@ class CSSParser
 	/**
 	 * Method will add recursive the package-name to all the element-styles
 	 */
-	private inline function setManifestNames ( style:StyleBlock )
+	private function setManifestNames ( style:StyleBlock )
 	{
 		Assert.notNull(style);
 		setManifestNamesInList( style.idChildren,			false );
@@ -1016,11 +1015,12 @@ class CSSParser
 	private function removeAllWhiteSpace (style:String)
 	{
 	//	return ~/[\r\n\t ]*/.removeAll(style);
-		style = style.replace("\r", "");
-	//	style = style.replace("\n\n", "");
-	//	style = style.replace(" ", "");
-		style = style.replace("\t", "");
-		return style;
+		var s = Std.string(style);
+		s = s.replace("\r", "");
+	//	s = s.replace("\n\n", "");
+	//	s = s.replace(" ", "");
+		s = s.replace("\t", "");
+		return style = s;
 	}
 	
 	
@@ -1139,7 +1139,7 @@ class CSSParser
 		var children	= parentStyle.getChildrenOfType( childType );
 		var childBlock	= new StyleBlock(childType);
 		childBlock.parentStyle = parentStyle;
-#if (debug && neko)
+#if (debug && CSSParser)
 		childBlock.cssName = childName;
 #end
 		children.set( childName, childBlock );

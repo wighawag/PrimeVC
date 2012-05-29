@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.layout.algorithms.tile;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
  import primevc.core.collections.BalancingListCollection;
@@ -518,7 +518,7 @@ class FixedTileAlgorithm extends TileAlgorithmBase, implements ILayoutAlgorithm
 	}
 	
 	
-#if neko
+#if CSSParser
 	override public function toCode (code:ICodeGenerator)
 	{
 		code.construct( this, [ startDirection, maxTilesInDirection, horizontalDirection, verticalDirection ] );

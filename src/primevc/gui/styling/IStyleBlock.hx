@@ -29,10 +29,6 @@
 package primevc.gui.styling;
  import primevc.core.traits.IFlagOwner;
  import primevc.core.traits.IInvalidatable;
-#if neko
- import primevc.tools.generator.ICodeFormattable;
- import primevc.tools.generator.ICSSFormattable;
-#end
 
 
 /**
@@ -42,8 +38,8 @@ package primevc.gui.styling;
 interface IStyleBlock
 				implements IInvalidatable
 			,	implements IFlagOwner
-#if neko	,	implements ICSSFormattable
-			,	implements ICodeFormattable		#end
+#if CSSParser,	implements primevc.tools.generator.ICSSFormattable
+			,	implements primevc.tools.generator.ICodeFormattable		#end
 {
 	/**
 	 * Variable defining which properties in the style-declaration have been

@@ -29,14 +29,8 @@
 package primevc.gui.styling;
  import primevc.core.traits.IInvalidatable;
  import primevc.core.traits.Invalidatable;
-#if neko
- import primevc.tools.generator.ICodeGenerator;
-#end
-#if (neko || debug)
- import primevc.utils.ID;
-  using Type;
-#end
   using primevc.utils.BitUtil;
+  using Type;
 
 
 /**
@@ -47,7 +41,7 @@ package primevc.gui.styling;
  */
 class StyleBlockBase extends Invalidatable, implements IStyleBlock
 {
-#if (debug || neko)
+#if (debug || CSSParser)
 	public var _oid					(default, null)		: Int;
 #end
 	
@@ -69,8 +63,8 @@ class StyleBlockBase extends Invalidatable, implements IStyleBlock
 	public function new (filled:Int = 0)
 	{
 		super();
-#if (debug || neko)
-		_oid = ID.getNext();
+#if (debug || CSSParser)
+		_oid = primevc.utils.ID.getNext();
 #end
 		filledProperties	= filled;
 		inheritedProperties	= 0;
@@ -80,7 +74,7 @@ class StyleBlockBase extends Invalidatable, implements IStyleBlock
 	
 	override public function dispose ()
 	{
-#if (debug || neko)
+#if (debug || CSSParser)
 		_oid				= -1;
 #end
 		filledProperties	= 0;
@@ -102,7 +96,7 @@ class StyleBlockBase extends Invalidatable, implements IStyleBlock
 		else		updateAllFilledPropertiesFlag();
 		
 	//	trace("markProperty "+readProperties(propFlag)+" = "+isSet);
-#if !neko
+#if !CSSParser
 		invalidate( propFlag );
 #end
 	}
@@ -122,7 +116,7 @@ class StyleBlockBase extends Invalidatable, implements IStyleBlock
 #if debug
 	public function readProperties ( flags:Int = -1 )	: String	{ Assert.abstract(); return null; }
 	public inline function readAll () : String						{ return readProperties( allFilledProperties ); }
-	#if !neko
+	#if !CSSParser
 	public function toString ()
 	{
 		var name = this.getClass().getClassName();
@@ -133,7 +127,7 @@ class StyleBlockBase extends Invalidatable, implements IStyleBlock
 #end
 	
 	
-#if neko
+#if CSSParser
 	#if	debug
 		public var cssName : String;
 		public function toString ()						{ return cssName; }
@@ -141,8 +135,8 @@ class StyleBlockBase extends Invalidatable, implements IStyleBlock
 		public function toString ()						{ return toCSS(); }
 	#end
 	
-	public function toCSS (prefix:String = "") 		{ Assert.abstract(); return ""; }
-	public function cleanUp ()						{ Assert.abstract(); }
-	public function toCode (code:ICodeGenerator)	{ Assert.abstract(); }
+	public function toCSS (prefix:String = "") 								{ Assert.abstract(); return ""; }
+	public function cleanUp ()												{ Assert.abstract(); }
+	public function toCode (code:primevc.tools.generator.ICodeGenerator)	{ Assert.abstract(); }
 #end
 }

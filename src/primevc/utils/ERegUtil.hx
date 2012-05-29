@@ -158,7 +158,7 @@ class ERegUtil #if flash9 extends EReg #end
 	
 	public static inline function getExpression (expr:EReg, results:Int = 0) { return expr.r; }
 	
-	#elseif neko
+	#else
 	public static function resultToString (expr:EReg, results:Int = 0) : String
 	{
 		var output = "";

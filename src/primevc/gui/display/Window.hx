@@ -31,15 +31,15 @@ package primevc.gui.display;
  import primevc.core.geom.IntRectangle;
  import primevc.core.traits.IDisablable;
 #if flash9
+ import flash.display.InteractiveObject;
  import flash.events.Event;
  import primevc.avm2.events.FlashSignal0;
  import primevc.core.geom.Point;
+ import primevc.gui.events.UserEventTarget;
 #end
-#if (flash8 || flash9 || js)
- import flash.display.InteractiveObject;
+#if !CSSParser
  import primevc.gui.display.IInteractiveObject;
  import primevc.gui.events.DisplayEvents;
- import primevc.gui.events.UserEventTarget;
  import primevc.gui.events.UserEvents;
  import primevc.gui.input.Mouse;
   using primevc.utils.Bind;
@@ -54,7 +54,7 @@ package primevc.gui.display;
  * @author Ruben Weijers
  * @creation-date Jul 13, 2010
  */
-#if (flash8 || flash9 || js)
+#if !CSSParser
 class Window implements IDisplayContainer, implements IDisablable
 {
 	public static inline function startup<WindowInstance>(windowClassFactory : Stage -> WindowInstance) : WindowInstance

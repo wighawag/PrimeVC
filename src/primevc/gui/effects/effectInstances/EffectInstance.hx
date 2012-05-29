@@ -29,11 +29,8 @@
 package primevc.gui.effects.effectInstances;
  import haxe.Timer;
  import primevc.core.dispatcher.Signal0;
- import primevc.core.traits.IDisposable;
- import primevc.core.ListNode;
  import primevc.gui.display.IDisplayObject;
  import primevc.gui.effects.EffectProperties;
- import primevc.gui.effects.IEffect;
  import primevc.gui.states.EffectStates;
   using primevc.utils.NumberUtil;
   using primevc.utils.TypeUtil;
@@ -46,8 +43,8 @@ package primevc.gui.effects.effectInstances;
  * @author Ruben Weijers
  * @creation-date Oct 01, 2010
  */
-class EffectInstance < TargetType, PropertiesType:IEffect > 
-				extends ListNode < EffectInstance < TargetType, PropertiesType > >
+class EffectInstance<TargetType, PropertiesType:primevc.gui.effects.IEffect> 
+				extends primevc.core.ListNode < EffectInstance < TargetType, PropertiesType > >
 			,	implements IEffectInstance < TargetType, PropertiesType > 
 {
 	public var started		(default, null)				: Signal0;
@@ -191,7 +188,7 @@ class EffectInstance < TargetType, PropertiesType:IEffect >
 			//calculate tween duration
 			var valDiff:Float			= startPos > endPos ? startPos - endPos : endPos - startPos;
 			var calcDuration:Int		= ( effect.duration * valDiff ).roundFloat();
-#if debug
+#if (debug && flash9)
 			if (slowMotion)			calcDuration *= 10;
 #end
 			prevTween = new feffects.Tween( startPos, endPos, calcDuration, null, null, effect.easing );

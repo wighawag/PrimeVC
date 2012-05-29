@@ -26,14 +26,13 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.gui.effects;	
-#if (flash8 || flash9 || js)
- import primevc.gui.effects.effectInstances.ResizeEffectInstance;
-#end
+package primevc.gui.effects;
  import primevc.gui.traits.ISizeable;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
+#else
+ import primevc.gui.effects.effectInstances.ResizeEffectInstance;
 #end
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
@@ -102,15 +101,14 @@ class ResizeEffect extends Effect < ISizeable, ResizeEffect >
 	}
 	
 	
-#if (flash8 || flash9 || js)
+#if !CSSParser
 	override public function createEffectInstance (target)
 	{
 		return cast new ResizeEffectInstance(target, this);
 	}
-#end
-	
-	
-#if neko
+
+#else
+
 	override public function toCSS (prefix:String = "") : String
 	{
 		var props = [];

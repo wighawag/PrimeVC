@@ -34,11 +34,12 @@ package primevc.gui.events;
 
 
 typedef TouchEvents = 
-    #if     flash9  primevc.avm2.events.TouchEvents;
-    #elseif flash   primevc.avm1.events.TouchEvents;
-    #elseif js      primevc.js  .events.TouchEvents;
-    #elseif neko    primevc.neko.events.TouchEvents;
-    #else           #error; #end
+    #if     flash9      primevc.avm2.events.TouchEvents;
+    #elseif flash       primevc.avm1.events.TouchEvents;
+    #elseif nodejs      #error;
+    #elseif js          primevc.js  .events.TouchEvents;
+//  #elseif neko        primevc.neko.events.TouchEvents;
+    #else               #error; #end
 
 typedef TouchHandler    = TouchState -> Void;
 typedef TouchSignal     = primevc.core.dispatcher.Signal1<TouchState>;

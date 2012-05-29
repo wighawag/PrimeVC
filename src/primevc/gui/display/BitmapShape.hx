@@ -36,6 +36,7 @@ package primevc.gui.display;
 typedef BitmapShape = 
 	#if		flash9	primevc.avm2.display.BitmapShape;
 	#elseif	flash8	primevc.avm1.display.BitmapShape;
+	#elseif nodejs 	#error;
 	#elseif	js		primevc.js  .display.BitmapShape;
-	#else			Error	#end
+	#else			#error	#end
 

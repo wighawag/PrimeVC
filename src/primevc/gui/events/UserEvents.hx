@@ -31,11 +31,12 @@ package primevc.gui.events;
  import primevc.core.dispatcher.Signal1;
 
 typedef UserEvents = 
-	#if		flash9	primevc.avm2.events.UserEvents;
-	#elseif	flash8	primevc.avm1.events.UserEvents;
-	#elseif	js		primevc.js  .events.UserEvents;
-	#elseif neko	primevc.neko.events.UserEvents;
-	#else	#error	#end
+    #if 	flash9		primevc.avm2.events.UserEvents;
+	#elseif	flash8		primevc.avm1.events.UserEvents;
+	#elseif nodejs 		#error;
+	#elseif	js			primevc.js  .events.UserEvents;
+//	#elseif neko		primevc.neko.events.UserEvents;
+	#else				#error	#end
 
 
 /**

@@ -27,21 +27,10 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.effects;
-#if (debug || neko)
- import primevc.utils.ID;
-#end
-#if neko
- import primevc.tools.generator.ICodeGenerator;
+#if !CSSParser
+ import primevc.gui.effects.effectInstances.IEffectInstance;
   using primevc.types.Reference;
 #end
- import primevc.core.traits.Invalidatable;
- import primevc.gui.display.IDisplayObject;
-	
-#if (flash8 || flash9 || js)
- import primevc.gui.effects.effectInstances.IEffectInstance;
-#end
-
- import primevc.types.Number;
   using primevc.utils.NumberUtil;
 
 
@@ -51,9 +40,9 @@ package primevc.gui.effects;
  * @author Ruben Weijers
  * @creation-date Aug 31, 2010
  */
-class Effect < TargetType, EffectClass:IEffect > extends Invalidatable, implements IEffect
+class Effect <TargetType, EffectClass:IEffect> extends primevc.core.traits.Invalidatable, implements IEffect
 {
-#if (debug || neko)
+#if (debug || CSSParser)
 	public var _oid				(default, null)	: Int;
 #end
 	
@@ -66,11 +55,11 @@ class Effect < TargetType, EffectClass:IEffect > extends Invalidatable, implemen
 	public function new( newDuration:Int = 350, newDelay:Int = 0, newEasing:Easing = null ) 
 	{
 		super();
-#if (debug || neko)
-		_oid			= ID.getNext();
+#if (debug || CSSParser)
+		_oid			= primevc.utils.ID.getNext();
 #end
 		duration		= newDuration.notSet()	? 350 : newDuration;
-		delay			= newDelay <= 0			? Number.INT_NOT_SET : newDelay;
+		delay			= newDelay <= 0			? primevc.types.Number.INT_NOT_SET : newDelay;
 #if flash9
 		easing			= newEasing == null 	? feffects.easing.Linear.easeNone : newEasing;
 #end
@@ -98,7 +87,7 @@ class Effect < TargetType, EffectClass:IEffect > extends Invalidatable, implemen
 	}
 	
 	
-#if (flash8 || flash9 || js)
+#if !CSSParser
 	/**
 	 * Method will start a new effect on the given target and return the 
 	 * playing effect instance.
@@ -168,11 +157,12 @@ class Effect < TargetType, EffectClass:IEffect > extends Invalidatable, implemen
 	}
 	
 	
-#if neko
+#if CSSParser
 	public function toString ()						{ return toCSS(); }
 	public function toCSS (prefix:String = "")		{ Assert.abstract(); return null; }
 	public function isEmpty () : Bool				{ return duration <= 0; }
 	public function cleanUp ()						{}
-	public function toCode (code:ICodeGenerator)	{ Assert.abstract(); }
+	public function toCode (code:primevc.tools.generator.ICodeGenerator)
+		Assert.abstract()
 #end
 }

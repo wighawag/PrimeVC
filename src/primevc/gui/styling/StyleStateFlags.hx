@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.styling;
-#if (neko || debug)
+#if (CSSParser || debug)
   using primevc.utils.BitUtil;
   using StringTools;
 #end
@@ -37,7 +37,7 @@ package primevc.gui.styling;
  * @author Ruben Weijers
  * @creation-date Oct 20, 2010
  */
-#if (!(neko || debug)) extern #end class StyleStateFlags
+#if (!(CSSParser || debug)) extern #end class StyleStateFlags
 {
 	public static inline var ALL_STATES			= MOUSE_STATES | FORM_STATES | PROGRESS_STATES | SELECTED | DRAG_STATES;
 	public static inline var DRAG_STATES		= DRAG_OVER | DRAG_DROP;
@@ -79,7 +79,7 @@ package primevc.gui.styling;
 	public static inline var DRAG_DROP		= 1 << 18;
 	
 	
-#if (neko || debug)
+#if (CSSParser || debug)
 	public static inline function stringToState (v:String) : Int
 	{
 		return switch (v.toLowerCase().trim())

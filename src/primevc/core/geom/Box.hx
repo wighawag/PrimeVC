@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.core.geom;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeFormattable;
  import primevc.tools.generator.ICodeGenerator;
  import primevc.tools.generator.ICSSFormattable;
@@ -43,7 +43,7 @@ package primevc.core.geom;
  */
 class Box
 				implements IBox
-#if neko	,	implements ICSSFormattable
+#if CSSParser,	implements ICSSFormattable
 			,	implements ICodeFormattable		#end
 {
 	public var left		(getLeft, setLeft)		: Int;
@@ -51,14 +51,14 @@ class Box
 	public var top		(getTop, setTop)		: Int;
 	public var bottom	(getBottom, setBottom)	: Int;
 	
-#if neko
+#if CSSParser
 	public var _oid		(default, null)			: Int;
 #end
 	
 	
 	public function new ( top:Int = 0, right:Int = Number.INT_NOT_SET, bottom:Int = Number.INT_NOT_SET, left:Int = Number.INT_NOT_SET )
 	{
-#if neko
+#if CSSParser
 		this._oid	= ID.getNext();
 #end
 		this.top	= top;
@@ -82,7 +82,7 @@ class Box
 	
 #if (debug && flash9)
 	public function toString () { return "Box ( "+top+"px "+right+"px "+bottom+"px "+left+"px )"; }
-#elseif neko
+#elseif CSSParser
 	public function toString () { return toCSS(); }
 
 

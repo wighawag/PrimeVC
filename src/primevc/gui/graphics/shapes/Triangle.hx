@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.graphics.shapes;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
  import primevc.core.geom.space.Position;
@@ -189,14 +189,14 @@ class Triangle extends ShapeBase, implements IGraphicShape
 		return v;
 	}
 
-#if (neko || debug)
+#if (CSSParser || debug)
 	override public function toCSS (prefix:String = "") : String
 	{
 		return "triangle";
 	}
 #end
 
-#if neko
+#if CSSParser
 	override public function toCode (code:ICodeGenerator)
 	{
 		code.construct( this, [ direction ] );

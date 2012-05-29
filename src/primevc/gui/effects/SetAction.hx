@@ -27,15 +27,12 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.effects;
- import primevc.gui.core.IUIElement;	
-#if (flash8 || flash9 || js)
- import primevc.gui.effects.effectInstances.SetActionInstance;
-#end
-#if neko
+ import primevc.gui.core.IUIElement;
+  using primevc.utils.NumberUtil;
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
 #end
-  using primevc.utils.NumberUtil;
 
 
 /**
@@ -60,12 +57,11 @@ class SetAction extends Effect < IUIElement, SetAction >
 	
 	override public function setValues (v:EffectProperties)	{ prop = v; }
 	override public function clone ()						{ return cast new SetAction( duration, delay, easing, prop ); }
-#if (flash8 || flash9 || js)
-	override public function createEffectInstance (target)	{ return cast new SetActionInstance(target, this); }
-#end
-	
-	
-#if neko
+#if !CSSParser
+	override public function createEffectInstance (target)	{ return cast new primevc.gui.effects.effectInstances.SetActionInstance(target, this); }
+
+#else
+
 	override public function toCSS (prefix:String = "") : String
 	{
 		var props = [];

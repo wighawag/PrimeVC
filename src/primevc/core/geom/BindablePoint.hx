@@ -61,7 +61,7 @@ class BindablePoint extends IntPoint, implements IDisposable
 	}
 	
 	
-#if (debug && !neko)
+#if (debug && !CSSParser)
 	public function toString ()
 	{
 		return "BPoint( " + x + ", " + y + " )";

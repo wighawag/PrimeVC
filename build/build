@@ -120,7 +120,7 @@ else
 		 	|| exit 1;
 	
 	echo -e "\n2. BUILDING STYLES"
-	bash build/build-styles -s "${STYLEDIR}" ${Debug:+-d} ${Force:+-f} || exit 1;
+	bash build/build-styles -s "${STYLEDIR}" ${Force:+-f} || exit 1;
 
 	echo -e "\n3. COMPILING SWF"
 	echo build/build.hxml \

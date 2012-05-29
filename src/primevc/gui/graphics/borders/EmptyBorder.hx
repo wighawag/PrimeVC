@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.graphics.borders;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
  import primevc.core.geom.IRectangle;
@@ -64,7 +64,7 @@ class EmptyBorder extends GraphicElement, implements IGraphicProperty, implement
 	private inline function setInnerBorder (v:Bool)		{ return false; }
 	
 	
-#if neko
+#if CSSParser
 	override public function toCSS (prefix:String = "")		{ return "none"; }
 	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [] ); }
 #end

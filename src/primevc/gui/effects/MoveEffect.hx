@@ -26,14 +26,13 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.gui.effects;	
-#if (flash8 || flash9 || js)
- import primevc.gui.effects.effectInstances.MoveEffectInstance;
-#end
+package primevc.gui.effects;
  import primevc.gui.traits.IPositionable;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
+#else
+ import primevc.gui.effects.effectInstances.MoveEffectInstance;
 #end
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
@@ -87,7 +86,7 @@ class MoveEffect extends Effect < IPositionable, MoveEffect >
 	}
 	
 	
-#if (flash8 || flash9 || js)
+#if !CSSParser
 	override public function createEffectInstance (target:IPositionable)
 	{
 		return cast new MoveEffectInstance(target, this);
@@ -109,7 +108,7 @@ class MoveEffect extends Effect < IPositionable, MoveEffect >
 	}
 	
 	
-#if neko
+#if CSSParser
 	override public function toCSS (prefix:String = "") : String
 	{
 		var props = [];

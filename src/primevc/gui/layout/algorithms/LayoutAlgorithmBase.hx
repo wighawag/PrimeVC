@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.layout.algorithms;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeFormattable;
  import primevc.tools.generator.ICodeGenerator;
  import primevc.utils.ID;
@@ -51,14 +51,14 @@ package primevc.gui.layout.algorithms;
  */
 class LayoutAlgorithmBase 
 				implements IDisposable
-#if neko	,	implements ICodeFormattable		#end
+#if CSSParser,	implements ICodeFormattable		#end
 {
 #if debug public static var created		: Int = 0; #end
 #if debug public static var disposed	: Int = 0; #end
 	public var algorithmChanged 		(default, null)				: Signal0;
 	public var group					(default, setGroup)			: ILayoutContainer;
 	
-#if neko
+#if CSSParser
 	public var _oid						(default, null)				: Int;
 #end
 
@@ -67,8 +67,8 @@ class LayoutAlgorithmBase
 	
 	public function new()
 	{
-#if debug	created++;							#end
-#if neko	_oid			= ID.getNext();		#end
+#if debug		created++;							#end
+#if CSSParser	_oid		= ID.getNext();		#end
 		algorithmChanged	= new Signal0();
 		validatePrepared	= false;
 	}
@@ -206,13 +206,13 @@ class LayoutAlgorithmBase
 	
 	
 	
-#if (neko || debug)
+#if (CSSParser || debug)
 	public function toString () : String				{ return toCSS(); }
 	public function toCSS (prefix:String = "") : String	{ Assert.abstract(); return ""; }
 	public function isEmpty () : Bool					{ return false; }
 #end
 	
-#if neko
+#if CSSParser
 	public function cleanUp () : Void					{  }
 	public function toCode (code:ICodeGenerator)		{ code.construct( this ); }
 #end

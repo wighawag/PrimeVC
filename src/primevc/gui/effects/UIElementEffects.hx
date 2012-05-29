@@ -33,6 +33,7 @@ package primevc.gui.effects;
   using primevc.utils.Bind;
   using primevc.utils.BitUtil;
   using primevc.utils.IfUtil;
+  using primevc.core.states.SimpleStateMachine;
 
 
 private typedef EffectInstanceType 	= IEffectInstance < Dynamic, Dynamic >;
@@ -141,7 +142,7 @@ class UIElementEffects implements IDisposable
 	
 	public function playMove ()
 	{
-#if (flash8 || flash9 || js)
+#if !CSSParser
 		var newX = target.layout.getHorPosition();
 		var newY = target.layout.getVerPosition();
 		if (enabled && move.notNull())
@@ -161,7 +162,7 @@ class UIElementEffects implements IDisposable
 	
 	public function playResize ()
 	{
-#if (flash8 || flash9 || js)
+#if !CSSParser
 		var bounds = target.layout.innerBounds;
 		
 		if (enabled && resize.notNull())
@@ -177,7 +178,7 @@ class UIElementEffects implements IDisposable
 	
 	public inline function playRotate ( endV:Float )
 	{
-#if (flash8 || flash9 || js)
+#if !CSSParser
 		if (enabled && rotate.notNull())
 		{
 			rotate.setValues( EffectProperties.rotation( target.rotation, endV ) );
@@ -193,7 +194,7 @@ class UIElementEffects implements IDisposable
 	
 	public inline function playScale ( endSx:Float, endSy:Float )
 	{
-#if (flash8 || flash9 || js)
+#if !CSSParser
 		if (enabled && scale.notNull())
 		{
 			scale.setValues( EffectProperties.scale( target.scaleX, target.scaleY, endSx, endSy ) );
@@ -210,22 +211,23 @@ class UIElementEffects implements IDisposable
 	
 	public function playShow ()
 	{
-#if (flash8 || flash9 || js)
+#if !CSSParser
 		if (enabled && show.notNull())
 		{
 			if (hide.notNull()) {
 				hide.ended.unbind(target);
-				if (hide.isWaiting())	{ hide.stop(); }
-				if (hide.isPlaying())	{ hide.stop(); }
-				else					target.visible = false;
+				if 		(hide.isWaiting())	hide.stop();
+				else if (hide.isPlaying())	hide.stop();
+				else						target.visible = false;
+				
+				if (show == hide)			show.isReverted = false;
 			}
+			else							target.visible = false;
+			
+			if (target.layout.isInvalidated())
+				callback(show.play).onceOnEntering( target.layout.state, validated, this );
 			else
-				target.visible = false;
-			
-			if (show == hide)
-				show.isReverted = false;
-			
-			show.play();
+				show.play();
 		}
 #end
 	}
@@ -233,17 +235,16 @@ class UIElementEffects implements IDisposable
 	
 	public function playHide ()
 	{
-#if (flash8 || flash9 || js)
+#if !CSSParser
 		if (enabled && hide.notNull())
 		{
 			if (show.notNull()) {
-				if (show.isWaiting())	{ show.stop(); }
-				if (show.isPlaying())	{ show.stop(); }
+				if 		(show.isWaiting())	show.stop();
+				else if (show.isPlaying())	show.stop();
+				else						target.layout.state.change.unbind(this);
+
+				if (show == hide)			hide.isReverted = true;
 			}
-			
-			if (show == hide)
-				hide.isReverted = true;
-			
 			hide.play();
 		}
 #end

@@ -27,9 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.styling;
-#if neko
- import primevc.tools.generator.ICodeGenerator;
-#end
  import primevc.core.geom.Box;
  import primevc.core.traits.IInvalidatable;
  import primevc.gui.layout.algorithms.ILayoutAlgorithm;
@@ -764,7 +761,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-#if neko
+#if CSSParser
 	override public function toCSS (prefix:String = "") : String
 	{
 		var css = [];
@@ -810,7 +807,7 @@ class LayoutStyle extends StyleSubBlock
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 		{

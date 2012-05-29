@@ -27,21 +27,14 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.effects;
-#if neko
- import primevc.tools.generator.ICodeGenerator;
+#if CSSParser
+  using primevc.types.Reference;
 #end
  import primevc.core.geom.space.Position;
  import primevc.core.geom.IntPoint;
  import primevc.gui.display.IDisplayObject;	
-#if (flash8 || flash9 || js)
- import primevc.gui.effects.effectInstances.AnchorScaleEffectInstance;
-#end
  import primevc.gui.states.EffectStates;
  import primevc.types.Number;
-#if neko
- import primevc.tools.generator.ICodeGenerator;
-  using primevc.types.Reference;
-#end
   using primevc.utils.NumberUtil;
 
 
@@ -84,10 +77,10 @@ class AnchorScaleEffect extends Effect < IDisplayObject, AnchorScaleEffect >
 	}
 	
 	
-#if (flash8 || flash9 || js)
+#if !CSSParser
 	override public function createEffectInstance (target)
 	{
-		return cast new AnchorScaleEffectInstance(target, this);
+		return cast new primevc.gui.effects.effectInstances.AnchorScaleEffectInstance(target, this);
 	}
 #end
 	
@@ -102,7 +95,7 @@ class AnchorScaleEffect extends Effect < IDisplayObject, AnchorScaleEffect >
 	override public function setValues (v:EffectProperties) {}
 	
 	
-#if neko
+#if CSSParser
 	private function posToCSS () : String
 	{
 		return switch (zoomPosition) {
@@ -136,7 +129,7 @@ class AnchorScaleEffect extends Effect < IDisplayObject, AnchorScaleEffect >
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator) : Void
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())
 			code.construct( this, [ duration, delay, easing, zoomPosition, startValue, endValue ] );

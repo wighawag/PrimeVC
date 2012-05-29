@@ -32,12 +32,11 @@ package primevc.gui.filters;
 #if (flash9 || flash8)
 typedef GradientBevelFilter = flash.filters.GradientBevelFilter;
 
-#elseif	js
-throw "error";
+//#elseif	js
+//throw "error";
 
 #else
 
- import primevc.tools.generator.ICodeGenerator;
  import primevc.utils.Color;
   using primevc.utils.Color;
   using Std;
@@ -126,8 +125,8 @@ class GradientBevelFilter extends BitmapFilter
 	}
 
 
-#if (neko || debug)
-	override public function toCode (code:ICodeGenerator) : Void
+#if (CSSParser || debug)
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator) : Void
 	{
 		code.construct( this, [ 
 			distance, angle, colors, alphas, ratios, 

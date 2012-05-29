@@ -426,7 +426,7 @@ class VerticalFloatAlgorithm extends VerticalBaseAlgorithm, implements IVertical
 	}
 	
 	
-#if (neko || debug)
+#if (CSSParser || debug)
 	override public function toCSS (prefix:String = "") : String
 	{
 		return "float-ver (" + direction + ", " + horizontal + ")";

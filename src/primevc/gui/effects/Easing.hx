@@ -30,5 +30,5 @@ package primevc.gui.effects;
 
 
 typedef Easing = 
-	#if neko	primevc.types.Reference;
-	#else		Float -> Float -> Float -> Float -> Float; #end
+	#if CSSParser	primevc.types.Reference;
+	#else			Float -> Float -> Float -> Float -> Float; #end

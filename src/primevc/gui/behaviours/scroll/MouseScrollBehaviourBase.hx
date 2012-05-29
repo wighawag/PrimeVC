@@ -29,7 +29,7 @@
 package primevc.gui.behaviours.scroll;
  import primevc.gui.behaviours.BehaviourBase;
  import primevc.gui.traits.IScrollable;
-#if !neko
+#if !CSSParser
  import primevc.core.dispatcher.Wire;
  import primevc.gui.events.MouseEvents;
  import primevc.gui.layout.IScrollableLayout;
@@ -46,7 +46,7 @@ package primevc.gui.behaviours.scroll;
  */
 class MouseScrollBehaviourBase extends BehaviourBase<IScrollable>, implements IScrollBehaviour
 {
-#if !neko
+#if !CSSParser
 	private var scrollLayout		: IScrollableLayout;
 	private var activateBinding		: Wire < Dynamic >;
 	private var deactivateBinding	: Wire < Dynamic >;

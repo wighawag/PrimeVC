@@ -32,9 +32,6 @@ package primevc.gui.graphics.borders;
  import primevc.gui.graphics.GraphicFlags;
  import primevc.gui.graphics.IGraphicProperty;
  import primevc.gui.traits.IGraphicsOwner;
-#if neko
- import primevc.tools.generator.ICodeGenerator;
-#end
   using primevc.utils.IfUtil;
   using primevc.utils.NumberUtil;
 
@@ -192,20 +189,20 @@ class BorderBase <FillType:IGraphicProperty> extends GraphicElement, implements 
 	}
 	
 
-#if (neko || debug)
+#if (CSSParser || debug)
 	override public function toCSS (prefix:String = "")
 	{
 		return fill + " " + weight + "px " + (innerBorder ? "inside" : "outside");
 	}
 #end
-#if neko
+#if CSSParser
 	override public function isEmpty () : Bool
 	{
 		return fill == null;
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator)
 	{
 		code.construct( this, [ fill, weight, innerBorder, caps, joint, pixelHinting ] );
 	}

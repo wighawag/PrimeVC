@@ -29,10 +29,10 @@
 package primevc.gui.styling;
  import primevc.core.traits.IDisposable;
  import Hash;
-#if (neko || debug)
+#if (CSSParser || debug)
  import primevc.utils.ID;
 #end
-#if neko
+#if CSSParser
  import primevc.types.SimpleDictionary;
  import primevc.tools.generator.ICodeFormattable;
  import primevc.tools.generator.ICodeGenerator;
@@ -41,7 +41,7 @@ package primevc.gui.styling;
 #end
 
 
-typedef SelectorMapType = #if neko SimpleDictionary<String, StyleBlock> #else Hash<StyleBlock> #end;
+typedef SelectorMapType = #if CSSParser SimpleDictionary<String, StyleBlock> #else Hash<StyleBlock> #end;
 
 /**
  * @author Ruben Weijers
@@ -49,10 +49,10 @@ typedef SelectorMapType = #if neko SimpleDictionary<String, StyleBlock> #else Ha
  */
 class StyleChildren 
 				implements IDisposable
-#if neko	,	implements ICSSFormattable
+#if CSSParser,	implements ICSSFormattable
 			,	implements ICodeFormattable		#end
 {
-#if (neko || debug)
+#if (CSSParser || debug)
 	public var _oid					(default, null) : Int;
 #end
 	
@@ -67,7 +67,7 @@ class StyleChildren
 			idSelectors = null
 		)
 	{
-#if (neko || debug)
+#if (CSSParser || debug)
 		_oid = ID.getNext();
 #end
 		this.elementSelectors	= elementSelectors;
@@ -150,7 +150,7 @@ class StyleChildren
 	}
 	
 	
-#if neko
+#if CSSParser
 	public function toString ()	{ return toCSS(); }
 	
 	

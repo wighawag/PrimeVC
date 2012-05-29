@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.graphics.fills;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
  import primevc.core.geom.IRectangle;
@@ -240,7 +240,7 @@ class BitmapFill extends GraphicElement, implements IGraphicProperty
 	}
 	
 	
-#if neko
+#if CSSParser
 	override public function toString ()					{ return "BitmapFill( " + asset + ", " + smooth + ", " + repeat + " )"; }
 	override public function toCSS (prefix:String = "")		{ return asset + " " + repeat; }
 	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [ assetFactory, asset, matrix, repeat, smooth ] ); }

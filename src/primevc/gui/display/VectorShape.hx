@@ -89,7 +89,7 @@ class VectorShapeImpl implements IDisplayObject
 	}
 	
 	
-#if !neko
+#if !CSSParser
 	public function getDisplayCursor () : DisplayDataCursor
 	{
 		return new DisplayDataCursor(this);

@@ -34,11 +34,12 @@ package primevc.gui.events;
 
 
 typedef MouseEvents = 
-	#if		flash9	primevc.avm2.events.MouseEvents;
-	#elseif	flash	primevc.avm1.events.MouseEvents;
-	#elseif	js		primevc.js  .events.MouseEvents;
-	#elseif	neko	primevc.neko.events.MouseEvents;
-	#else			#error; #end
+	#if		flash9		primevc.avm2.events.MouseEvents;
+	#elseif	flash		primevc.avm1.events.MouseEvents;
+	#elseif nodejs 		#error;
+	#elseif	js			primevc.js  .events.MouseEvents;
+//	#elseif	neko		primevc.neko.events.MouseEvents;
+	#else				#error; #end
 
 typedef MouseHandler	= MouseState -> Void;
 typedef MouseSignal		= primevc.core.dispatcher.Signal1<MouseState>;

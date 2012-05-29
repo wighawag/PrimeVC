@@ -411,7 +411,7 @@ class HorizontalFloatAlgorithm extends HorizontalBaseAlgorithm, implements IHori
 	}
 	
 	
-#if (neko || debug)
+#if (CSSParser || debug)
 	override public function toCSS (prefix:String = "") : String
 	{
 		return "float-hor (" + direction + ", " + vertical + ")";

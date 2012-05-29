@@ -27,10 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.core;
- import primevc.core.traits.IDisposable;
- import primevc.gui.events.UserEventTarget;
- import primevc.gui.states.SkinStates;
- import primevc.gui.traits.IBehaving;
+#if !CSSParser
 
 
 /**
@@ -48,10 +45,10 @@ package primevc.gui.core;
  * @creation-date Aug 03, 2010
  */
 interface ISkin 
-		implements IBehaving
-	,	implements IDisposable
+		implements primevc.gui.traits.IBehaving
+	,	implements primevc.core.traits.IDisposable
 {
-	public var skinState		(default, null)		: SkinStates;	
+	public var skinState		(default, null)		: primevc.gui.states.SkinStates;	
 //	public var owner			(default, setOwner) : OwnerClass;
 	public function changeOwner	(o:IUIComponent)	: Void;
 	
@@ -112,5 +109,8 @@ interface ISkin
 	 * focus. The skin can check if the target is one of it's children and then
 	 * return true or false.
 	 */
-	public function isFocusOwner (target:UserEventTarget) : Bool;
+	public function isFocusOwner (target:primevc.gui.events.UserEventTarget) : Bool;
 }
+#else
+interface ISkin implements primevc.gui.traits.IBehaving, implements primevc.core.traits.IDisposable {}
+#end

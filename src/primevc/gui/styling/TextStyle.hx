@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.styling;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
  import primevc.core.traits.IInvalidatable;
@@ -657,7 +657,7 @@ class TextStyle extends StyleSubBlock
 	
 	
 
-#if neko
+#if CSSParser
 	override public function toCSS (prefix:String = "")
 	{
 		var css = [];

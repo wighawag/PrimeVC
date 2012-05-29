@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.behaviours.scroll;
-#if !neko
+#if !CSSParser
  import primevc.gui.display.IDisplayObject;
  import primevc.gui.events.KeyModState;		// <= needed for typedef TargetType
  import primevc.gui.events.MouseEvents;
@@ -46,7 +46,7 @@ package primevc.gui.behaviours.scroll;
  */
 class ScrollHelper
 {
-#if !neko
+#if !CSSParser
 	public static function getLocalMouse (target:IScrollable, mouseObj:MouseState)
 	{
 		Assert.notNull( target );

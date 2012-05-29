@@ -29,13 +29,10 @@
 package primevc.gui.styling;
  import primevc.core.traits.IInvalidatable;
  import primevc.types.SimpleDictionary;
-#if neko
- import primevc.tools.generator.ICodeGenerator;
-#end
   using primevc.utils.BitUtil;
 
 
-typedef StatesListType	= #if neko SimpleDictionary < Int, StyleBlock > #else IntHash<StyleBlock> #end;
+typedef StatesListType	= #if CSSParser SimpleDictionary<Int, StyleBlock> #else IntHash<StyleBlock> #end;
 private typedef Flags	= StyleStateFlags;
 
 
@@ -63,8 +60,8 @@ class StatesStyle extends StyleSubBlock
 	override public function dispose ()
 	{
 		if (states != null) {
-#if neko	states.dispose(); #end
-			states = null;
+#if CSSParser	states.dispose(); #end
+				states = null;
 		}
 		super.dispose();
 	}
@@ -189,7 +186,7 @@ class StatesStyle extends StyleSubBlock
 			return;
 		
 		if (states == null)		states = new StatesListType();
-		if (state == null)		#if neko states.unset( stateName ); #else states.remove( stateName ); #end
+		if (state == null)		#if CSSParser states.unset( stateName ); #else states.remove( stateName ); #end
 		else					states.set( stateName, state );
 		
 		markProperty( stateName, state != null );
@@ -217,7 +214,7 @@ class StatesStyle extends StyleSubBlock
 	//
 	
 	
-#if neko
+#if CSSParser
 	public function keys () : Iterator < Int >				{ return states != null ? states.keys() : null; }
 	public function iterator () : Iterator < StyleBlock >	{ return states != null ? states.iterator() : null; }
 
@@ -256,7 +253,7 @@ class StatesStyle extends StyleSubBlock
 	}
 	
 
-	override public function toCode (code:ICodeGenerator)
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator)
 	{
 		if (!isEmpty())
 			code.construct( this, [ filledProperties, states ] );

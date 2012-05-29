@@ -44,23 +44,32 @@ package primevc.tools;
  */
 class CSSParserMain
 {
-	
+	public static inline function print(v:String)
+		#if nodejs 	js.Lib.print(v)
+		#else 		neko.Lib.print(v+"\n") #end
+
 	/**
 	 * This script needs one parameter to run: the location of the skin folder
 	 */
 	public static function main ()
 	{
-		if (neko.Sys.args().length == 0)
-			throw "Skin folder location is needed to run this script.";
+		var args:Array<String> = 
+			#if js 	js.Node.process.argv;
+			#else 	Sys.args(); #end
+#if js 	args.shift(); args.shift(); #end
+		if (args.length == 0)	throw "Skin folder location is needed to run this script.";
 		
+		var timer = new StopWatch().start();
 		var primevcDir = "src/primevc";
-		if (neko.Sys.args().length == 2)
-			primevcDir = neko.Sys.args()[1] + "/" + primevcDir;
+		if (args.length == 2)
+			primevcDir = args[1] + "/" + primevcDir;
 		
-		var css = new CSSParserMain( neko.Sys.args()[0], primevcDir );
+		print(args.join(", "));
+		var css = new CSSParserMain( args[0], primevcDir );
 		css.parse();
 		css.generateCode();
 		css.flush();
+		print("\t" + Date.now() + " - " + timer.stop() + " ms - Done!");
 	}
 	
 	
@@ -85,10 +94,10 @@ class CSSParserMain
 		generator.instanceIgnoreList.set( styles._oid, styles );
 		
 		var tplName = primevcDir + "/tools/StyleSheet.tpl.hx";
-		if (!neko.FileSystem.exists( tplName ))
+		if (#if nodejs !js.Node.path.existsSync(tplName) #else !sys.FileSystem.exists( tplName ) #end)
 			throw "Template does not exist! "+tplName;
 		
-		template = neko.io.File.getContent( tplName );
+		template = #if nodejs Std.string(js.Node.fs.readFileSync(tplName)); #else sys.io.File.getContent(tplName); #end
 	}
 	
 	
@@ -102,7 +111,7 @@ class CSSParserMain
 	
 	public function generateCode ()
 	{
-	//	neko.Lib.println(Date.now() + " Generating code");
+	//	print(Date.now() + " Generating code");
 		
 		generator.start();
 		if (styles.has( StyleFlags.ELEMENT_CHILDREN ))			generateSelectorCode( cast styles.elementChildren, "elementChildren" );
@@ -138,10 +147,13 @@ class CSSParserMain
 	{
 		beginTimer();
 		//write haxe code
-		var output = neko.io.File.write( skinFolder + "/StyleSheet.hx", false );
+#if nodejs
+		print(skinFolder);
+		js.Node.fs.writeFileSync(skinFolder + "/StyleSheet.hx", template);
+#else 	var output = sys.io.File.write( skinFolder + "/StyleSheet.hx", false );
 		output.writeString( template );
 		output.close();
-		
+#end
 		stopTimer(" Writing code to " + skinFolder + "/StyleSheet.hx");
 	}
 	
@@ -171,8 +183,8 @@ class CSSParserMain
 	private inline function stopTimer (name:String)
 	{
 		timer.stop();
-		neko.Lib.println("\t" + Date.now() + " - " + timer.currentTime + " ms - " + name);
+		print("\t" + Date.now() + " - " + timer.currentTime + " ms - " + name);
 		timer.reset();
-	//	neko.Lib.println(Date.now() +" - "+name);
+	//	print(Date.now() +" - "+name);
 	}
 }

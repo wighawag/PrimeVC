@@ -26,15 +26,14 @@
  * Authors:
  *  Ruben Weijers   <ruben @ onlinetouch.nl>
  */
-package primevc.gui.effects;    
-#if (flash8 || flash9 || js)
- import primevc.gui.effects.effectInstances.IEffectInstance;
- import primevc.gui.effects.effectInstances.ScrollEffectInstance;
-#end
+package primevc.gui.effects;
  import primevc.gui.traits.IScrollable;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
+#else
+ import primevc.gui.effects.effectInstances.IEffectInstance;
+ import primevc.gui.effects.effectInstances.ScrollEffectInstance;
 #end
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
@@ -87,14 +86,6 @@ class ScrollEffect extends Effect < IScrollable, ScrollEffect >
     {
         return cast new ScrollEffect( duration, duration, easing, startX, startY, endX, endY );
     }
-    
-    
-#if (flash8 || flash9 || js)
-    override public function createEffectInstance (target) : IEffectInstance<IScrollable, ScrollEffect>
-    {
-        return cast new ScrollEffectInstance(target, this);
-    }
-#end
 
 
     override public function setValues ( v:EffectProperties ) 
@@ -111,7 +102,14 @@ class ScrollEffect extends Effect < IScrollable, ScrollEffect >
     }
     
     
-#if neko
+#if !CSSParser
+    override public function createEffectInstance (target) : IEffectInstance<IScrollable, ScrollEffect>
+    {
+        return cast new ScrollEffectInstance(target, this);
+    }
+
+#else
+
     override public function toCSS (prefix:String = "") : String
     {
         var props = [];

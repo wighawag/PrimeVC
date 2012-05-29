@@ -37,7 +37,7 @@ package primevc.gui.managers;
  */
 interface ISystem
 {
-#if !neko
+#if !CSSParser
 	
 	/**
 	 * Popup manager. IUIElements that are added to the popupmanager will

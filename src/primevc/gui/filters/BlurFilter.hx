@@ -32,12 +32,10 @@ package primevc.gui.filters;
 #if (flash9 || flash8)
 typedef BlurFilter = flash.filters.BlurFilter;
 
-#elseif	js
-throw "error";
+//#elseif	js
+//throw "error";
 
 #else
-
- import primevc.tools.generator.ICodeGenerator;
 
 
 /**
@@ -80,8 +78,8 @@ class BlurFilter extends BitmapFilter
 	}
 
 
-	#if (neko || debug)
-	override public function toCode (code:ICodeGenerator) : Void
+	#if (CSSParser || debug)
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator) : Void
 	{
 		code.construct( this, [ blurX, blurY, quality ] );
 	}

@@ -26,15 +26,14 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.gui.effects;	
-#if (flash8 || flash9 || js)
- import primevc.gui.effects.effectInstances.IEffectInstance;
- import primevc.gui.effects.effectInstances.RotateEffectInstance;
-#end
+package primevc.gui.effects;
  import primevc.gui.display.IDisplayObject;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
+#else
+ import primevc.gui.effects.effectInstances.IEffectInstance;
+ import primevc.gui.effects.effectInstances.RotateEffectInstance;
 #end
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
@@ -74,14 +73,6 @@ class RotateEffect extends Effect < IDisplayObject, RotateEffect >
 	{
 		return cast new RotateEffect(duration, delay, easing, startValue, endValue);
 	}
-
-	
-#if (flash8 || flash9 || js)
-	override public function createEffectInstance (target:IDisplayObject) : IEffectInstance<IDisplayObject, RotateEffect>
-	{
-		return cast new RotateEffectInstance( target, this );
-	}
-#end
 	
 	
 	override public function setValues ( v:EffectProperties ) 
@@ -96,7 +87,14 @@ class RotateEffect extends Effect < IDisplayObject, RotateEffect >
 	}
 	
 	
-#if neko
+#if !CSSParser
+	override public function createEffectInstance (target:IDisplayObject) : IEffectInstance<IDisplayObject, RotateEffect>
+	{
+		return cast new RotateEffectInstance( target, this );
+	}
+
+#else
+
 	override public function toCSS (prefix:String = "") : String
 	{
 		var props = [];

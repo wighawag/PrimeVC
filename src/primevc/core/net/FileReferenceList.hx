@@ -36,5 +36,6 @@ package primevc.core.net;
 typedef FileReferenceList = 
 	#if		flash9	primevc.avm2.net.FileReferenceList;
 	#elseif	flash8	primevc.avm1.net.FileReferenceList;
+	#elseif	nodejs	#error;
 	#elseif	js		primevc.js  .net.FileReferenceList;
-	#else			error; #end
+	#else			#error; #end

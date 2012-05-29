@@ -27,11 +27,10 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.behaviours.scroll;	
-#if !neko
+#if !CSSParser
  import primevc.core.geom.IntPoint;
  import primevc.gui.events.MouseEvents;
   using primevc.utils.NumberUtil;
-#end
 
 
 /**
@@ -42,7 +41,6 @@ package primevc.gui.behaviours.scroll;
  */
 class MouseMoveScrollBehaviour extends MouseScrollBehaviourBase
 {
-#if !neko
 	override private function calculateScroll (mouseObj:MouseState)
 	{
 		var scrollHor = scrollLayout.horScrollable();
@@ -73,5 +71,9 @@ class MouseMoveScrollBehaviour extends MouseScrollBehaviourBase
 		if (!scrollPos.isEqualTo( scrollLayout.scrollPos ))
 			scrollLayout.scrollPos.setTo( scrollPos );
 	}
-#end
 }
+
+
+#else
+class MouseMoveScrollBehaviour {}
+#end

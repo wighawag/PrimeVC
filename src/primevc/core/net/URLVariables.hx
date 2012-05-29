@@ -37,6 +37,6 @@ package primevc.core.net;
 typedef URLVariables = 
 	#if		flash9	flash.net.URLVariables;
 	#elseif	flash8	primevc.avm1.net.URLVariables;
+	#elseif nodejs 	#error;
 	#elseif	js		primevc.js  .net.URLVariables;
-	#elseif	neko	primevc.neko.net.URLVariables;
-	#else			error; #end
+	#else			#error; #end

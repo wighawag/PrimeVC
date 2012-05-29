@@ -28,7 +28,7 @@
  */
 package primevc.gui.events;
 
-
+#if !CSSParser
 
 /**
  * FocusEvent state information
@@ -62,3 +62,4 @@ class FocusState extends KeyModState
 #end
 	}
 }
+#end

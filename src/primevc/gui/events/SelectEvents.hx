@@ -34,6 +34,7 @@ package primevc.gui.events;
 typedef SelectEvents = 
 	#if		flash9	primevc.avm2.events.SelectEvents;
 	#elseif	flash8	primevc.avm1.events.SelectEvents;
+	#elseif nodejs 	#error;
 	#elseif	js		primevc.js  .events.SelectEvents;
 	#else	SelectSignals;	#end
 

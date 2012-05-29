@@ -29,7 +29,7 @@
 package primevc.gui.behaviours.scroll;
  import primevc.gui.behaviours.BehaviourBase;
  import primevc.gui.traits.IScrollable;
-#if !neko
+#if !CSSParser
  import primevc.core.dispatcher.Wire;
  import primevc.core.geom.Point;
  import primevc.gui.behaviours.drag.DragHelper;
@@ -52,7 +52,7 @@ package primevc.gui.behaviours.scroll;
  */
 class DragScrollBehaviour extends BehaviourBase<IScrollable>, implements IScrollBehaviour
 {
-#if !neko
+#if !CSSParser
 	private var layout			: IScrollableLayout;
 	private var lastMousePos	: Point;
 	private var dragHelper		: DragHelper;

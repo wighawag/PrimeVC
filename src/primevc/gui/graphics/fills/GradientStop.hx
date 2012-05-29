@@ -27,13 +27,13 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.graphics.fills;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
  import primevc.gui.graphics.GraphicElement;
  import primevc.gui.graphics.GraphicFlags;
  import primevc.types.RGBA;
-#if (debug || neko)
+#if (debug || CSSParser)
   using primevc.utils.Color;
   using primevc.utils.NumberUtil;
 #end
@@ -79,7 +79,7 @@ class GradientStop extends GraphicElement
 	}
 	
 	
-#if neko
+#if CSSParser
 	override public function toCSS (prefix:String = "")		{ return color.string() + " " + ((position / 255) * 100).roundFloat() + "%"; }
 	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [ color, position ] ); }
 #end

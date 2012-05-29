@@ -32,8 +32,47 @@ package primevc.core.geom;
 typedef Matrix2D = flash.geom.Matrix;
 #elseif flash
 typedef Matrix2D = flash.geom.Matrix;
-#elseif neko
-typedef Matrix2D = primevc.neko.geom.Matrix;
 #else
-typedef Matrix2D = Dynamic;
+
+ import primevc.utils.ID;
+ import primevc.tools.generator.ICodeFormattable;
+ import primevc.tools.generator.ICodeGenerator;
+
+
+/**
+ * Neko implementation for primevc.core.geom.Matrix2D
+ * 
+ * @author Ruben Weijers
+ * @creation-date Sep 14, 2010
+ * @see http://livedocs.adobe.com/flash/9.0/ActionScriptLangRefV3/flash/geom/Matrix.html
+ */
+class Matrix2D implements ICodeFormattable
+{
+	public var a	: Float;
+	public var b	: Float;
+	public var c	: Float;
+	public var d 	: Float;
+	public var tx	: Float;
+	public var ty	: Float;
+	
+	public var _oid	(default, null) : Int;
+	
+	
+	public function new (a:Float = 1, b:Float = 0, c:Float = 0, d:Float = 1, tx:Float = 0, ty:Float = 0)
+	{
+		_oid = ID.getNext();
+		this.a = a;
+		this.b = b;
+		this.c = c;
+		this.d = d;
+		this.tx = tx;
+		this.ty = ty;
+	}
+	
+	
+	public function toCode (code:ICodeGenerator)	{ code.construct( this, [ a, b, c, d, tx, ty ] ); }
+	public function isEmpty ()						{ return false; }
+	public function cleanUp () : Void				{}
+}
+
 #end

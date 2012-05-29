@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.layout.algorithms.tile;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
  import primevc.core.geom.space.Direction;
@@ -81,7 +81,7 @@ class TileAlgorithmBase extends DynamicLayoutAlgorithm, implements ITileAlgorith
 	}
 	
 	
-#if neko
+#if CSSParser
 	override public function toCode (code:ICodeGenerator)
 	{
 		code.construct( this, [ startDirection, horizontalDirection, verticalDirection ] );

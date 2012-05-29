@@ -87,8 +87,9 @@ class Manifest implements IDisposable
 	
 	public function addFile (file:String) : Void
 	{
-#if neko
-		var content	= new Fast( neko.io.File.getContent( file ).parse().firstElement() );
+#if CSSParser
+		var c 		= #if nodejs Std.string(js.Node.fs.readFileSync(file)); #else sys.io.File.getContent(file); #end
+		var content	= new Fast( c.parse().firstElement() );
 		
 		for (item in content.nodes.component)
 		{

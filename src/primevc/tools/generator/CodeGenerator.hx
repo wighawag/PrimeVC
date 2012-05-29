@@ -78,7 +78,7 @@ class CodeGenerator implements ICodeGenerator
 	
 	public function new ()
 	{
-#if !neko Assert.abstract(); #end
+#if !CSSParser Assert.abstract(); #end
 		instanceIgnoreList	= new IntHash();
 	}
 	
@@ -236,7 +236,7 @@ class CodeGenerator implements ICodeGenerator
 	private function formatValue (v:Dynamic) : ValueType
 	{
 		var type:ValueType = null;
-		if		(isColor(v))					type = tColor(v.color, v.a);
+		if		(v != null && isColor(v))		type = tColor(v.color, v.a);
 		else if (v.is( ICodeFormattable ))		type = getObject(v);
 		else if (v.is( Reference))				type = cast(v, Reference).toCode(this);
 		

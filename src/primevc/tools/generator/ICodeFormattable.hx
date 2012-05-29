@@ -30,14 +30,14 @@ package primevc.tools.generator;
  import primevc.core.traits.IUIdentifiable;
 
 
-#if (neko || debug)
+#if (CSSParser || debug)
 /**
  * @author Ruben Weijers
  * @creation-date Sep 13, 2010
  */
 interface ICodeFormattable implements IUIdentifiable
 {
-	#if neko
+	#if CSSParser
 		/**
 		 * Method to write to content of the object as haxe code.
 		 */

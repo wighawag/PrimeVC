@@ -48,7 +48,7 @@ interface IDisplayObject
 {
 	
 	public function isObjectOn			(otherObj:IDisplayObject)					: Bool;
-#if !neko
+#if !CSSParser
 	public function getDisplayCursor	()											: DisplayDataCursor;
 	
 	/**

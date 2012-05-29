@@ -27,16 +27,12 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.traits;
-#if (flash8 || flash9 || js)
- import primevc.gui.events.UserEvents;
- import primevc.gui.events.UserEventTarget;
-#end
 
 
 interface IInteractive
 {
-#if (flash8 || flash9 || js)
-	var userEvents		(default, null)				: UserEvents;
+#if !CSSParser
+	var userEvents		(default, null)				: primevc.gui.events.UserEvents;
 #end
 	
 	/**
@@ -57,7 +53,7 @@ interface IInteractive
 	 * This is usefull when a Label with a textfield loses it's focus to the
 	 * textfield, but is still the focus-owner.
 	 */
-	public function isFocusOwner (target:UserEventTarget) : Bool;
+	public function isFocusOwner (target:primevc.gui.events.UserEventTarget) : Bool;
 	
 	
 	var doubleClickEnabled							: Bool;

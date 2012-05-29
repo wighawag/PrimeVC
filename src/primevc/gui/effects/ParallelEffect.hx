@@ -26,12 +26,11 @@
  * Authors:
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
-package primevc.gui.effects;	
-#if (flash8 || flash9 || js)
- import primevc.gui.effects.effectInstances.ParallelEffectInstance;
-#end
-#if neko
+package primevc.gui.effects;
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
+#else
+ import primevc.gui.effects.effectInstances.ParallelEffectInstance;
 #end
  import primevc.utils.NumberUtil;
   using primevc.utils.Bind;
@@ -51,7 +50,7 @@ class ParallelEffect extends CompositeEffect
 	}
 	
 	
-#if (flash8 || flash9 || js)
+#if !CSSParser
 	override public function createEffectInstance (target)
 	{
 		return cast new ParallelEffectInstance( target, this );
@@ -68,7 +67,7 @@ class ParallelEffect extends CompositeEffect
 	}
 
 
-#if neko
+#if CSSParser
 	override public function toCSS (prefix:String = "") : String
 	{
 		return "parallel " + super.toCSS(prefix);

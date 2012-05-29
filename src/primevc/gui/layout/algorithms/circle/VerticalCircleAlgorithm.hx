@@ -173,7 +173,7 @@ class VerticalCircleAlgorithm extends VerticalBaseAlgorithm, implements IVertica
 		return ( isEllipse ? group.height >> 1 : Formulas.getCircleRadius(group.width, group.height) ).roundFloat();
 	}
 	
-#if (neko || debug)
+#if (CSSParser || debug)
 	override public function toCSS (prefix:String = "") : String
 	{
 		return "ver-circle (" + direction + ", " + horizontal + ")";

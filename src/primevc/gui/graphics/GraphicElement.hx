@@ -28,10 +28,10 @@
  */
 package primevc.gui.graphics;
  import primevc.core.traits.Invalidatable;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
-#if (neko || debug)
+#if (CSSParser || debug)
  import primevc.utils.ID;
 #end
 
@@ -45,7 +45,7 @@ package primevc.gui.graphics;
  */
 class GraphicElement extends Invalidatable, implements IGraphicElement 
 {
-#if (neko || debug)
+#if (CSSParser || debug)
 	public var _oid (default, null)	: Int;
 	
 	
@@ -63,12 +63,12 @@ class GraphicElement extends Invalidatable, implements IGraphicElement
 	}
 #end
 
-#if neko	
+#if CSSParser	
 	public function toCode (code:ICodeGenerator) { Assert.abstract(); }
 #end
 
 
-#if (neko || debug)
+#if (CSSParser || debug)
 	public function toString () : String				{ return toCSS(); }
 	@:keep public function toCSS (prefix:String = "") : String	{ /*Assert.abstract();*/ return "GraphicElement"; }
 	public function isEmpty () : Bool					{ return false; }

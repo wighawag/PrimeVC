@@ -38,8 +38,9 @@ package primevc.gui.events;
 typedef BrowserEvents = 
 	#if		flash9	primevc.avm2.events.BrowserEvents;
 	#elseif	flash8	primevc.avm1.events.BrowserEvents;
+	#elseif nodejs 	#error;
 	#elseif	js		primevc.js  .events.BrowserEvents;
-	#else	#error	#end
+	#else			#error	#end
 
 
 /**

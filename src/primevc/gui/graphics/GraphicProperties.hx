@@ -43,10 +43,10 @@ package primevc.gui.graphics;
   using primevc.utils.TypeUtil;
 
 
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
-#if (debug || neko)
+#if (debug || CSSParser)
  import primevc.utils.ID;
 #end
 
@@ -83,7 +83,7 @@ class GraphicProperties implements IGraphicElement
 	
 	public function new (layout:IntRectangle = null, shape:IGraphicShape = null, fill:IGraphicProperty = null, border:IBorder = null, borderRadius:Corners = null)
 	{
-#if (debug || neko)
+#if (debug || CSSParser)
 		_oid = ID.getNext();
 #end
 		listeners			= new FastList< IInvalidateListener >();
@@ -110,7 +110,7 @@ class GraphicProperties implements IGraphicElement
 		border		= null;
 		fill		= null;
 		layout		= null;
-#if (debug || neko)
+#if (debug || CSSParser)
 		_oid		= 0;
 #end
 	}
@@ -368,7 +368,7 @@ class GraphicProperties implements IGraphicElement
 	public inline function isEmpty () : Bool		{ return (layout == null || layout.isEmpty()) || shape == null; }
 	
 	
-#if neko
+#if CSSParser
 	public function toString ()						{ return "GraphicProperties: l: "+layout+"; s: "+shape+"; f: "+fill+"; b: "+border; }
 	public function toCSS (prefix:String = "")		{ Assert.abstract(); return ""; }
 	public function toCode (code:ICodeGenerator)	{ code.construct(this, [ layout, shape, fill, border, borderRadius ]); }

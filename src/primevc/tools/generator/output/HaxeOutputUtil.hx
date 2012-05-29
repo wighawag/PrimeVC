@@ -95,7 +95,7 @@ class HaxeOutputUtil
 			case tBool(v):					return v == true ? 'true' : 'false';
 			case tObject(v):				return doc.writeObj(v);
 			case tColor(rgb, a):			return "0x" + rgb.hex(6) + "" + a.hex(2);
-			case tUInt(v):					return "0x" + v.hex(6);
+			case tUInt(v):					return "0x" + Std.int(v).hex(6);
 			case tFunction(v):				return v;
 			case tEnum(v, p):				return v + (p == null ? "" : "(" + p.format(doc) + ")");
 			case tClass(v):					return v;

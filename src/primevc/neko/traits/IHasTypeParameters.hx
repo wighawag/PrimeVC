@@ -28,7 +28,7 @@
  */
 package primevc.neko.traits;
 
-#if neko
+#if CSSParser
 /**
  * Empty interface to indicate in neko that a class has TypeParameters. This is
  * needed when generating code and a class with type-parameters is not Generic.

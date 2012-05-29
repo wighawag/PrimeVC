@@ -28,15 +28,11 @@
  */
 package primevc.gui.effects;
  import primevc.gui.display.IDisplayObject;	
-#if (flash8 || flash9 || js)
- import primevc.gui.effects.effectInstances.FadeEffectInstance;
-#end
-#if neko
- import primevc.tools.generator.ICodeGenerator;
-  using primevc.types.Reference;
-#end
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
+#if CSSParser
+  using primevc.types.Reference;
+#end
 
 
 /**
@@ -75,10 +71,10 @@ class FadeEffect extends Effect < IDisplayObject, FadeEffect >
 	}
 	
 	
-#if (flash8 || flash9 || js)
+#if !CSSParser
 	override public function createEffectInstance (target)
 	{
-		return cast new FadeEffectInstance(target, this);
+		return cast new primevc.gui.effects.effectInstances.FadeEffectInstance(target, this);
 	}
 #end
 
@@ -96,7 +92,7 @@ class FadeEffect extends Effect < IDisplayObject, FadeEffect >
 	}
 	
 	
-#if neko
+#if CSSParser
 	override public function toCSS (prefix:String = "") : String
 	{
 		var props = [];
@@ -111,7 +107,7 @@ class FadeEffect extends Effect < IDisplayObject, FadeEffect >
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator) : Void
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())
 			code.construct( this, [ duration, delay, easing, startValue, endValue ] );

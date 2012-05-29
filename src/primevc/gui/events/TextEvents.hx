@@ -34,8 +34,9 @@ package primevc.gui.events;
 typedef TextEvents = 
 	#if		flash9	primevc.avm2.events.TextEvents;
 	#elseif	flash8	primevc.avm1.events.TextEvents;
+	#elseif nodejs 	#error;
 	#elseif	js		primevc.js  .events.TextEvents;
-	#else	#error	#end
+	#else			#error	#end
 
 
 typedef TextHandler	= String -> Void;

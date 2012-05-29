@@ -32,8 +32,8 @@ package primevc.gui.filters;
 #if (flash9 || flash8)
 typedef GradientGlowFilter = flash.filters.GradientGlowFilter;
 
-#elseif	js
-throw "error";
+//#elseif	js
+//throw "error";
 
 #else
 

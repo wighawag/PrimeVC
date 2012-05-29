@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.graphics;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
  import primevc.core.collections.FastCell;
@@ -196,7 +196,7 @@ class ComposedGraphicProperty extends GraphicElement, implements IComposedGraphi
 	}
 	
 	
-#if neko
+#if CSSParser
 	
 	//
 	// CSS / ICODEFORMATTABLE METHODS

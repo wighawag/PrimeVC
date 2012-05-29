@@ -34,8 +34,9 @@ package primevc.core.events;
 typedef CommunicationEvents = 
 	#if		flash9	primevc.avm2.events.CommunicationEvents;
 	#elseif	flash8	primevc.avm1.events.CommunicationEvents;
+	#elseif	nodejs 	Dynamic;
 	#elseif	js		primevc.js  .events.CommunicationEvents;
-	#else	Dynamic	#end 	// #error prevents CSSParser from begin compiled
+	#else			#error	#end
 
 
 

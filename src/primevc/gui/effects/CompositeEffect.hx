@@ -28,7 +28,7 @@
  */
 package primevc.gui.effects;
  import primevc.core.collections.ArrayList;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
 #end
@@ -111,7 +111,7 @@ class CompositeEffect extends Effect < Dynamic, CompositeEffect >
 	}
 
 
-#if neko
+#if CSSParser
 	override public function toCSS (prefix:String = "") : String
 	{
 		var props = [];

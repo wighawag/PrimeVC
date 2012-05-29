@@ -29,15 +29,12 @@
 package primevc.gui.effects;
  import primevc.core.geom.space.MoveDirection;
  import primevc.gui.display.IDisplayObject;	
-#if (flash8 || flash9 || js)
- import primevc.gui.effects.effectInstances.WipeEffectInstance;
-#end
-#if neko
+ import primevc.types.Number;
+  using primevc.utils.NumberUtil;
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
 #end
- import primevc.types.Number;
-  using primevc.utils.NumberUtil;
 
 
 /**
@@ -78,12 +75,11 @@ class WipeEffect extends Effect < IDisplayObject, WipeEffect >
 	
 	override public function setValues (v:EffectProperties) {}
 	override public function clone ()						{ return cast new WipeEffect( duration, delay, easing, direction, startValue, endValue ); }
-#if (flash8 || flash9 || js)
-	override public function createEffectInstance (target)	{ return cast new WipeEffectInstance(target, this); }
-#end
-	
-	
-#if neko
+#if !CSSParser
+	override public function createEffectInstance (target)	{ return cast new primevc.gui.effects.effectInstances.WipeEffectInstance(target, this); }
+
+#else
+
 	override public function toCSS (prefix:String = "") : String
 	{
 		var props = [];

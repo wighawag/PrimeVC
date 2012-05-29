@@ -28,7 +28,7 @@
  */
 package primevc.gui.graphics.shapes;
  import primevc.gui.graphics.GraphicElement;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
 
@@ -41,7 +41,7 @@ package primevc.gui.graphics.shapes;
  */
 class ShapeBase extends GraphicElement 
 {
-#if neko
+#if CSSParser
 	override public function toCode (code:ICodeGenerator)
 	{
 		code.construct( this );

@@ -1,6 +1,4 @@
 package primevc.js.display;
-
-import nl.onlinetouch.viewer.view.managers.js.Transform;
 import primevc.js.display.DisplayList;
 
 import js.Dom;
@@ -18,7 +16,7 @@ class DOMElem
 	public var elem			(default, null):Dynamic;
 	public var height		(default, setHeight):Int;
 	public var id			(default, setId):String;
-	public var matrix		(default, null):WebKitCSSMatrix;
+	public var matrix		(default, null):Dynamic;//WebKitCSSMatrix;
 	public var parent		:DOMElem;
 	public var scale		(default, setScale):Float;
 	public var style		(getStyle, null):Style;
@@ -33,9 +31,9 @@ class DOMElem
 		elem = Lib.document.createElement(type);
 		
 		children = new DisplayList(this);
-		
-		matrix = Transform.getMatrix(elem);
-		
+#if onlinetouch
+		matrix = nl.onlinetouch.viewer.view.managers.js.Transform.getMatrix(elem);	//<-- WTF Stan?!@%
+#end
 		(untyped this).x = 0;
 		(untyped this).y = 0;
 		(untyped this).scale = 1;

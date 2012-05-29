@@ -27,7 +27,7 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.graphics.fills;
-#if neko
+#if CSSParser
  import primevc.tools.generator.ICodeGenerator;
 #end
  import primevc.core.geom.IRectangle;
@@ -87,10 +87,10 @@ class SolidFill extends GraphicElement, implements IGraphicProperty
 	}
 	
 	
-#if (neko || debug)
+#if (CSSParser || debug)
 	override public function toCSS (prefix:String = "")		{ return color.string(); }
 #end
-#if neko
+#if CSSParser
 	override public function toCode (code:ICodeGenerator)	{ code.construct( this, [ color ] ); }
 #end
 }
