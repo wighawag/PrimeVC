@@ -64,7 +64,6 @@ class CSSParserMain
 		if (args.length == 2)
 			primevcDir = args[1] + "/" + primevcDir;
 		
-		print(args.join(", "));
 		var css = new CSSParserMain( args[0], primevcDir );
 		css.parse();
 		css.generateCode();
@@ -148,7 +147,6 @@ class CSSParserMain
 		beginTimer();
 		//write haxe code
 #if nodejs
-		print(skinFolder);
 		js.Node.fs.writeFileSync(skinFolder + "/StyleSheet.hx", template);
 #else 	var output = sys.io.File.write( skinFolder + "/StyleSheet.hx", false );
 		output.writeString( template );

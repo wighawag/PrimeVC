@@ -267,6 +267,7 @@ class ListView<ListDataType> extends UIDataContainer < IReadOnlyList < ListDataT
 	{
 #if debug
 		Assert.that(fromDepth < children.length, fromDepth + " < "+children.length+"; from: "+fromDepth+"; to: "+toDepth+"; newDataPos: " +newDataPos+" layoutChildren: "+layoutContainer.children.length);
+		Assert.that( newDataPos < data.length, newDataPos+ " < " + data.length + ": ERROR! fromDepth: " + fromDepth+"; toDepth: "+toDepth );
 #end
 		var d = data.getItemAt(newDataPos);
 		var r = children.getItemAt(fromDepth).as(IUIDataElement);

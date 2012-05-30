@@ -2264,13 +2264,13 @@ class CSSParser
 		
 		var strippedV:String	= strip(v);
 		var p:Array<Dynamic>	= null;
-		var cName:String		= Type.getClassName( switch (strippedV) {
-			case "line":		cast Line;
-			case "circle":		cast Circle;
-			case "ellipse":		cast Ellipse;
-			case "rectangle":	cast RegularRectangle;
+		var cName:String		= switch (strippedV) {
+			case "line":		Type.getClassName(Line);
+			case "circle":		Type.getClassName(Circle);
+			case "ellipse":		Type.getClassName(Ellipse);
+			case "rectangle":	Type.getClassName(RegularRectangle);
 			default:			null;
-		} );
+		};
 		
 		//try matching triangle shape..
 		if (cName == null && triangleExpr.match(v))

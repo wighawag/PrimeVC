@@ -13,7 +13,7 @@ ParserClass="primevc.tools.CSSParser"
 SourceFolder="${PRIMEVC_ROOT}/src"
 MainFile="${SourceFolder}/${MainClass//.//}.hx"			#replace all dots with slashes
 ParserClass="${SourceFolder}/${ParserClass//.//}.hx"	#replace all dots with slashes
-Parser="${PRIMEVC_ROOT}/build/parser.n"
+Parser="${PRIMEVC_ROOT}/build/parser.js"
 Force=false
 #Resource=""
 
