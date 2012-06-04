@@ -60,19 +60,20 @@ class InvalidationManager extends QueueManager
 	{
 		isValidating = true;
 		disableBinding();
-		
 #if debug
-		var s = traceQueues ? "\n\tbegin validating layout; first: "+first+"; last: "+last : null;
+		var i = 0;
+		if (traceQueues)
+			trace("\n\tbegin validating layout; first: "+first+"; last: "+last);
 #end
-		
 		while (first != null)
 		{
+#if debug 	if (i++ > 200) { trace("ERROR: INVALIDATION is stuck on "+first+" -> "+first.nextValidatable); first = null; break; } #end
+
 			var obj	= first.as(IPropertyValidator);
 			obj.validate();
+
+#if debug	if (traceQueues)	trace("\n\t\t"+i+". validate "+obj+"; next: "+obj.nextValidatable+"; first: "+first+"; isFirst? "+(obj == first)+"; isNext? "+(obj == obj.nextValidatable)); #end
 			
-#if debug	if (traceQueues)
-				s += "\n\t\tvalidated "+obj+"; next: "+obj.nextValidatable;
-#end
 			// During validation the queue can change (adding/removing items).
 			// The 'first' property will be the correct value if the current 
 			// validating object was removed from the queue during it's own 
@@ -89,10 +90,7 @@ class InvalidationManager extends QueueManager
 			obj.nextValidatable = obj.prevValidatable = null;
 		}
 		
-#if debug
-		if (traceQueues)
-			trace( s += "\n\tfinished validating layout; first: "+first+"; last: "+last );
-#end
+#if debug if (traceQueues)	trace("\n\tfinished validating layout; first: "+first+"; last: "+last+"; loops: "+i); #end
 		
 		last = null;
 		isValidating = false;

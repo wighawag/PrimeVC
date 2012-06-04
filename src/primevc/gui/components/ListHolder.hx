@@ -65,10 +65,11 @@ class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType>, im
 	public var createItemRenderer				(default, setCreateItemRenderer) : ListDataType -> Int -> IUIDataElement<ListDataType>;
 	
 	
-	public function new (id:String, data:DataType = null, listData:IReadOnlyList<ListDataType> = null)
+	public function new (id:String, data:DataType = null, listData:IReadOnlyList<ListDataType> = null, list:ListView<ListDataType> = null)
 	{
 		super(id, data);
 		this.listData	= listData;
+		this.list		= list;
 	}
 	
 	
@@ -91,8 +92,12 @@ class ListHolder <DataType, ListDataType> extends UIDataContainer <DataType>, im
 	override private function createChildren ()
 	{
 		//check if listview isn't created by a skin or super-class
-		if (list == null)	list = new ListView(id.value+"Content", listData);
-		else                list.data = listData;
+		if (list == null)
+			list = new ListView(id.value+"Content", listData);
+		else {
+			list.id.value   = id.value+"Content";
+			list.data 		= listData;
+		}
 		
 		list.setFocus.on( userEvents.focus, this );
 		list.createItemRenderer = createItemRenderer;

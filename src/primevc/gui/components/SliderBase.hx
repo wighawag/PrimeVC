@@ -142,8 +142,9 @@ class SliderBase extends UIDataContainer <PercentageHelper>
 		super.validate();
 		
 		if (changes.has(UIElementFlags.PERCENTAGE))
-			if (!updateChildren())		//updating children fails if the width or height in layout isn't set yet
-				invalidate(UIElementFlags.PERCENTAGE);
+			updateChildren();	// <-- don't invalidate PERCENTAGE again.. this can cause infinite loops!
+		/*	if (!updateChildren())		//updating children fails if the width or height in layout isn't set yet
+				invalidate(UIElementFlags.PERCENTAGE);*/
 		
 		if (changes.has(UIElementFlags.DIRECTION))
 			createMouseMoveBinding();
