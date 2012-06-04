@@ -97,16 +97,15 @@ class MoveEffectInstance extends EffectInstance < IPositionable, MoveEffect >
 	
 	override private function initStartValues ()
 	{
-		var targetX = target.is(ILayoutable) ? target.as(ILayoutable).layout.getHorPosition() : target.x;
-		var targetY = target.is(ILayoutable) ? target.as(ILayoutable).layout.getVerPosition() : target.y;
-
-		if (endX.notSet())			endX	= effect.endX.isSet() ? effect.endX : targetX;
-		if (endY.notSet())			endY	= effect.endY.isSet() ? effect.endY : targetY;
+	//	trace(target.as(ILayoutable).layout.getHorPosition()+", "+target.as(ILayoutable).layout.getVerPosition()+"; "+target.x+", "+target.y);
+	/*	if (endX.notSet())	*/		endX	= effect.endX.isSet() ? effect.endX : target.is(ILayoutable) ? target.as(ILayoutable).layout.getHorPosition() : target.x;
+	/*	if (endY.notSet())	*/		endY	= effect.endY.isSet() ? effect.endY : target.is(ILayoutable) ? target.as(ILayoutable).layout.getVerPosition() : target.y;
 
 		if (effect.startX.isSet())	startX	= target.x = effect.startX;
-		else						startX	= targetX;
+		else						startX	= target.x;
 		if (effect.startY.isSet())	startY	= target.y = effect.startY;
-		else						startY	= targetY;
+		else						startY	= target.y;
+	//	trace(startX+", "+startY+" ==> "+endX+", "+endY);
 		
 		changeX = isXChanged();
 		changeY = isYChanged();

@@ -30,6 +30,7 @@ package primevc.gui.effects;
  import primevc.core.traits.IDisposable;
  import primevc.gui.core.IUIElement;
  import primevc.gui.effects.effectInstances.IEffectInstance;
+// import primevc.types.Number;
   using primevc.utils.Bind;
   using primevc.utils.BitUtil;
   using primevc.utils.IfUtil;
@@ -143,15 +144,16 @@ class UIElementEffects implements IDisposable
 	public function playMove ()
 	{
 #if !CSSParser
-		var newX = target.layout.getHorPosition();
-		var newY = target.layout.getVerPosition();
+		
 		if (enabled && move.notNull())
 		{
-			move.setValues( EffectProperties.position( target.x, target.y, newX, newY ) );
+		//	move.setValues( EffectProperties.position( Number.INT_NOT_SET, Number.INT_NOT_SET, newX, newY ) );
 			move.play();
 		}
 		else
 		{
+			var newX = target.layout.getHorPosition();
+			var newY = target.layout.getVerPosition();
 			target.x = newX;
 			target.y = newY;
 			target.rect.move( newX, newY );

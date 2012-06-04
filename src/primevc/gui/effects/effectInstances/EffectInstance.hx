@@ -112,8 +112,8 @@ class EffectInstance<TargetType, PropertiesType:primevc.gui.effects.IEffect>
 	
 	public function play ( withEffect:Bool = true, directly:Bool = false ) : Void
 	{
-		Assert.that(!isDisposed());
-		if (state == EffectStates.waiting && !directly)
+	//	Assert.that(!isDisposed());
+		if (isDisposed() || state == EffectStates.waiting && !directly)
 			return;
 		
 		stopDelay();
