@@ -58,6 +58,7 @@ class StopWatch
 	public  inline function reset ()			{ runnedTime	 = 0; }
 	public  inline function pause ()			{ runnedTime	+= TimerUtil.stamp() - startTime; }
 	public  inline function resume ()			{ startTime		 = TimerUtil.stamp(); }
+	@:keep
 	public  inline function start ()			{ reset(); resume(); return this; }
 	public  inline function stop ()				{ pause(); timesList.push( runnedTime ); return currentTime; }
 	private inline function getCurrentTime ()	{ return runnedTime; }
