@@ -127,7 +127,7 @@ class ScaleEffectInstance extends EffectInstance < IScaleable, ScaleEffect >
 	}
 	
 	
-	override private function onTweenReady ( ?tweenPos:Float )
+	override private function onTweenReady ()
 	{
 		if (target.scaleX == 0 || target.scaleY == 0) {
 			(untyped target).visible	= false;

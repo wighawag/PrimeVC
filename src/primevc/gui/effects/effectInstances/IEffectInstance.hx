@@ -130,7 +130,7 @@ interface IEffectInstance < TargetType, PropertiesType:IEffect >
 	public  function playWithoutEffect () : Void;
 	
 	
-	private function onTweenReady ( ?tweenPos:Float ) : Void;
+	private function onTweenReady () : Void;
 	
 	
 	private function hideFilters () : Void;

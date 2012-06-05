@@ -100,7 +100,7 @@ class FadeEffectInstance extends EffectInstance < IDisplayObject, FadeEffect >
 	}
 	
 	
-	override private function onTweenReady ( ?tweenPos:Float )
+	override private function onTweenReady ()
 	{
 		if (target.alpha == 0) {
 			target.visible	= false;

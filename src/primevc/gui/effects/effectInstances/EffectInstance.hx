@@ -191,8 +191,9 @@ class EffectInstance<TargetType, PropertiesType:primevc.gui.effects.IEffect>
 #if (debug && flash9)
 			if (slowMotion)			calcDuration *= 10;
 #end
-			prevTween = new feffects.Tween( startPos, endPos, calcDuration, null, null, effect.easing );
-			prevTween.setTweenHandlers( tweenUpdater, onTweenReady );
+			prevTween = new feffects.Tween( startPos, endPos, calcDuration, effect.easing );
+		//	prevTween.setTweenHandlers( tweenUpdater, onTweenReady );	<-- feffects 1.2.0
+			prevTween.onUpdate(tweenUpdater).onFinish(onTweenReady);
 			prevTween.start();
 		}
 	}
@@ -210,7 +211,7 @@ class EffectInstance<TargetType, PropertiesType:primevc.gui.effects.IEffect>
 	}
 	
 	
-	private function onTweenReady ( ?tweenPos:Float )
+	private function onTweenReady ()
 	{
 		state = EffectStates.finished;
 		applyFilters();
@@ -261,7 +262,8 @@ class EffectInstance<TargetType, PropertiesType:primevc.gui.effects.IEffect>
 		if (prevTween != null)
 		{
 			prevTween.stop();
-			prevTween.setTweenHandlers(null, null);
+		//	prevTween.setTweenHandlers(null, null);
+			prevTween.onUpdate(null).onFinish(null);
 			prevTween = null;
 		}
 	}

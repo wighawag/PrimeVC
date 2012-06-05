@@ -133,7 +133,7 @@ class WipeEffectInstance extends EffectInstance < IDisplayObject, WipeEffect >
 	}
 	
 	
-	override private function onTweenReady ( ?tweenPos:Float )
+	override private function onTweenReady ()
 	{
 		var rect = target.scrollRect;
 		if (rect != null) {

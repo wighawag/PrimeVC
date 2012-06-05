@@ -122,7 +122,7 @@ else
 	echo -e "\n2. BUILDING STYLES"
 	bash build/build-styles -s "${STYLEDIR}" ${Force:+-f} || exit 1;
 
-	echo -e "\n3. COMPILING SWF"
+	echo -e "\n3. COMPILING SWF\t$(date)"
 	echo build/build.hxml \
 		-swf "'$OUTPUT'" \
 		${Debug:---no-traces --dead-code-elimination --macro Undead.keepAlive()} \
