@@ -484,31 +484,14 @@ class LayoutContainer extends AdvancedLayoutClient, implements ILayoutContainer,
 	
 	public function scrollTo (child:ILayoutClient)
 	{
-	 // trace(child.outerBounds);
-		var c = child.outerBounds;
-		if (horScrollable())
-		{
-			var left	= scrollPos.x;
-			var right	= left + width;
-			
-			if		(c.left < left)			scrollPos.x = c.left;
-			else if (c.right > right)		scrollPos.x = c.right - width;
-		}
-		if (verScrollable())
-		{
-			var top		= scrollPos.y;
-			var bottom	= top + height;
-			
-			if		(c.top < top)			scrollPos.y = c.top;
-			else if (c.bottom > bottom)		scrollPos.y = c.bottom - height;
-			
-		}
+		if (horScrollable())	scrollPos.x = (child.outerBounds.centerX - (width >> 1)) .within(0, scrollableWidth);
+		if (verScrollable())	scrollPos.y = (child.outerBounds.centerY - (height >> 1)).within(0, scrollableHeight);
 	}
 	
 	
 	public inline function scrollToDepth( index:Int )
 	{
-	//  trace("depth: "+index+"; fixedStart: "+fixedChildStart+"; length: "+children.length);
+	//	trace("depth: "+index+"; fixedStart: "+fixedChildStart+"; length: "+children.length);
 	    if (index >= fixedChildStart && index < (fixedChildStart + children.length))
 	        scrollTo( children.getItemAt( index - fixedChildStart ) );
 	    else if (algorithm != null)
