@@ -207,8 +207,9 @@ Panel #closeBtn {
 
 DebugBar {
 	width: 100%;
-	background: #111;
+	background: #111111aa;
 	algorithm: float-hor(center, center);
+	bottom: 0px;
 }
 
 DebugBar Button {

@@ -355,16 +355,6 @@ class CSSParser
 	
 	
 	
-	public function new (styles:StyleBlock, manifest:Manifest = null)
-	{
-		timer			= new StopWatch();
-		this.styles		= styles;
-		this.manifest	= manifest;
-		styleSheetQueue = new SimpleList < StyleQueueItem >();
-		init();
-	}
-	
-	
 	private inline function stopTimer (label:String)
 	{
 		timer.stop();
@@ -373,8 +363,13 @@ class CSSParser
 	}
 	
 	
-	private inline function init ()
+	public function new (styles:StyleBlock, manifest:Manifest = null)
 	{
+		timer			= new StopWatch();
+		this.styles		= styles;
+		this.manifest	= manifest;
+		styleSheetQueue = new SimpleList < StyleQueueItem >();
+
 		blockNameExpr	= new EReg ( R.BLOCK_NAME, "i" );
 		blockExpr		= new EReg(
 			  "(^" + R.BLOCK_NAMES+")"		//match style selectors containing .name, #name or name
@@ -723,9 +718,9 @@ class CSSParser
 	 * It's important that the 'importExpr' variable is local, otherwise their
 	 * might be errors when stylesheets in stylesheets are imported.
 	 */
-	private function importStyleSheets ( styleContent ) : String
+	@:keep private inline function importStyleSheets ( styleContent ) : String
 	{
-		var importExpr = new EReg ( R.IMPORT_SHEET, "i" );
+		var importExpr = new EReg(R.IMPORT_SHEET, "i");
 		return importExpr.customReplace(styleContent, importStyleSheet);
 	}
 	
@@ -1029,7 +1024,7 @@ class CSSParser
 	 * literal strings.
 	 * @see http://ostermiller.org/findcomment.html
 	 */
-	private inline function removeComments (style:String):String
+	@:keep private inline function removeComments (style:String):String
 	{
 		var commentExpr = new EReg(
 			  "("
@@ -1370,54 +1365,54 @@ class CSSParser
 			// unsupported properties
 			//
 			
-			case "font-variant":			//inherit, normal, small-caps
-			case "text-shadow":
-			case "line-height":
-			case "word-spacing":
-			case "vertical-align":
-			case "white-space":
+			case "font-variant",			//inherit, normal, small-caps
+				 "text-shadow",
+				 "line-height",
+				 "word-spacing",
+				 "vertical-align",
+				 "white-space",
 			
-			case "list-style":
-			case "list-style-image":
-			case "list-style-position":
-			case "list-style-type":
+				 "list-style",
+				 "list-style-image",
+				 "list-style-position",
+				 "list-style-type",
 			
-			case "background-clip":			//border-box, padding-box, content-box
-			case "background-origin":		//border-box, padding-box, content-box
-			case "background-attachment":	//scroll, fixed, local
-			case "background-position":
-			case "background-size":			//<length>,<percentage>|auto|{1,2}cover|contain
-			case "background-repeat":		// repeat-all, no-repeat
+				 "background-clip",			//border-box, padding-box, content-box
+				 "background-origin",		//border-box, padding-box, content-box
+				 "background-attachment",	//scroll, fixed, local
+				 "background-position",
+				 "background-size",			//<length>,<percentage>|auto|{1,2}cover|contain
+				 "background-repeat",		// repeat-all, no-repeat
 			
-			case "corner-shaping":
-			case "corner-clipping":
-			case "border-top":
-			case "border-bottom":
-			case "border-left":
-			case "border-right":
-			case "border-image-slice":
-			case "border-image-width":
-			case "border-image-outset":
-			case "border-image-repeat":
+				 "corner-shaping",
+				 "corner-clipping",
+				 "border-top",
+				 "border-bottom",
+				 "border-left",
+				 "border-right",
+				 "border-image-slice",
+				 "border-image-width",
+				 "border-image-outset",
+				 "border-image-repeat",
 			
-			case "outline":
-			case "outline-style":
-			case "outline-color":
-			case "outline-width":
+				 "outline",
+				 "outline-style",
+				 "outline-color",
+				 "outline-width",
 			
 			/** quite impossible to implement to orignal transition doc if there are 8 diffent transition types... :-S **/
-			case "transition-property":
-			case "transition-duration":
-			case "transition-timing-function":
-			case "transition-delay":
-			case "animation-iteration-count":
-			case "animation-play-state":
+				 "transition-property",
+				 "transition-duration",
+				 "transition-timing-function",
+				 "transition-delay",
+				 "animation-iteration-count",
+				 "animation-play-state",
 			
-			case "box-sizing":				//currentBlock.layout.sizing		= parseBoxSizing (val); //content-box /*(box model)*/, border-box /*(padding and border will render inside box)*/
-			case "z-index":
-			case "float":
-			case "clear":
-			case "display":
+				 "box-sizing",				//currentBlock.layout.sizing		= parseBoxSizing (val); //content-box /*(box model)*/, border-box /*(padding and border will render inside box)*/
+				 "z-index",
+				 "float",
+				 "clear",
+				 "display":
 			
 				trace(name+" is not yet supported");
 		}
