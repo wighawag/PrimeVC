@@ -38,7 +38,7 @@ class LangMacro
 					{
 						haxe.macro.Context.registerModuleDependency("primevc.locale.LangMacro", currentDir + "/" + file);
 						var data = YamlHX.read( neko.io.File.getContent( currentDir + "/" + file) );
-						var key = data.x.firstChild().nodeName;
+						var key = data.x.firstElement().nodeName;
 						langsRaw.set(key , data);
 					}
 				}
