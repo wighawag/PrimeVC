@@ -33,7 +33,7 @@ package primevc.gui.traits;
  * @author Ruben Weijers
  * @creation-date Aug 04, 2010
  */
-interface ISizeable implements IDisplayable
+interface ISizeable #if !CSSParser implements IDisplayable #end
 {
 #if flash9
 	var height					: Float;

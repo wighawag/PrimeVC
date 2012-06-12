@@ -27,33 +27,26 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.traits;
- import primevc.core.traits.IDisposable;
-#if !CSSParser
- import primevc.core.geom.IntRectangle;
- import primevc.gui.display.IDisplayContainer;
- import primevc.gui.display.Window;
- import primevc.gui.events.DisplayEvents;
-#end
 
 
 /**
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-interface IDisplayable implements IDisposable	
+interface IDisplayable implements primevc.core.traits.IDisposable	
 {
 #if !CSSParser
-	var displayEvents			(default, null)				: DisplayEvents;
+	var displayEvents			(default, null)				: primevc.gui.events.DisplayEvents;
 	
 	/**
 	 * Reference to the object in which this displayobject is placed. It 
 	 * behaves like the 'parent' property in as3.
 	 */
-	public var container		(default, default)			: IDisplayContainer;
+	public var container		(default, default)			: primevc.gui.display.IDisplayContainer;
 	/**
 	 * Wrapper object for the stage.
 	 */
-	public var window			(default, setWindow)		: Window;
+	public var window			(default, setWindow)		: primevc.gui.display.Window;
 	
 	
 	/**
@@ -66,6 +59,6 @@ interface IDisplayable implements IDisposable
 	 * For the moment, the size and position is only correct when it's set
 	 * manually or by an effect. This due the lack of support for AS3 setters.
 	 */
-	public var rect				(default, null)				: IntRectangle;
+	public var rect				(default, null)				: primevc.core.geom.IntRectangle;
 #end
 }

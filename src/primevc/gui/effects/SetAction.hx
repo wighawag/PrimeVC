@@ -27,10 +27,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.effects;
- import primevc.gui.core.IUIElement;
   using primevc.utils.NumberUtil;
 #if CSSParser
- import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
 #end
 
@@ -43,7 +41,7 @@ package primevc.gui.effects;
  * @author Ruben Weijers
  * @creation-date Sep 01, 2010
  */
-class SetAction extends Effect < IUIElement, SetAction >
+class SetAction extends #if CSSParser Effect<Dynamic, Dynamic> #else Effect<primevc.gui.core.IUIElement, SetAction> #end
 {
 	public var prop : EffectProperties;
 	
@@ -59,7 +57,6 @@ class SetAction extends Effect < IUIElement, SetAction >
 	override public function clone ()						{ return cast new SetAction( duration, delay, easing, prop ); }
 #if !CSSParser
 	override public function createEffectInstance (target)	{ return cast new primevc.gui.effects.effectInstances.SetActionInstance(target, this); }
-
 #else
 
 	override public function toCSS (prefix:String = "") : String
@@ -110,7 +107,7 @@ class SetAction extends Effect < IUIElement, SetAction >
 	}
 
 
-	override public function toCode (code:ICodeGenerator) : Void
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())
 			code.construct( this, [ duration, delay, easing, prop ] );

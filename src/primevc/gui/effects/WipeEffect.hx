@@ -28,11 +28,9 @@
  */
 package primevc.gui.effects;
  import primevc.core.geom.space.MoveDirection;
- import primevc.gui.display.IDisplayObject;	
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
 #if CSSParser
- import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
 #end
 
@@ -44,7 +42,7 @@ package primevc.gui.effects;
  * @author Ruben Weijers
  * @creation-date Aug 31, 2010
  */
-class WipeEffect extends Effect < IDisplayObject, WipeEffect >
+class WipeEffect extends #if !CSSParser Effect<primevc.gui.display.IDisplayObject,WipeEffect> #else Effect<Dynamic,Dynamic> #end
 {
 	/**
 	 * Move direction of the wipe effect.
@@ -107,7 +105,7 @@ class WipeEffect extends Effect < IDisplayObject, WipeEffect >
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator) : Void
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())
 			code.construct( this, [ duration, delay, easing, direction, startValue, endValue ] );

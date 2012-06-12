@@ -33,7 +33,7 @@ package primevc.gui.traits;
  * @author Ruben Weijers
  * @creation-date Nov 09, 2010
  */
-interface IGraphicsOwner implements IDisplayable
+interface IGraphicsOwner #if !CSSParser implements IDisplayable #end
 {
 #if flash9
 	public var graphics			(default, null)		: flash.display.Graphics;

@@ -29,10 +29,7 @@
 package primevc.gui.effects;
  import primevc.gui.traits.IPositionable;
 #if CSSParser
- import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
-#else
- import primevc.gui.effects.effectInstances.MoveEffectInstance;
 #end
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
@@ -89,7 +86,7 @@ class MoveEffect extends Effect < IPositionable, MoveEffect >
 #if !CSSParser
 	override public function createEffectInstance (target:IPositionable)
 	{
-		return cast new MoveEffectInstance(target, this);
+		return cast new primevc.gui.effects.effectInstances.MoveEffectInstance(target, this);
 	}
 #end
 
@@ -126,7 +123,7 @@ class MoveEffect extends Effect < IPositionable, MoveEffect >
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator) : Void
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())
 			code.construct( this, [ duration, delay, easing, startX, startY, endX, endY ] );

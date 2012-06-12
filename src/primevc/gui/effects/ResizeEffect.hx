@@ -27,15 +27,11 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.effects;
- import primevc.gui.traits.ISizeable;
-#if CSSParser
- import primevc.tools.generator.ICodeGenerator;
-  using primevc.types.Reference;
-#else
- import primevc.gui.effects.effectInstances.ResizeEffectInstance;
-#end
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
+#if CSSParser
+  using primevc.types.Reference;
+#end
 
 
 /**
@@ -44,7 +40,7 @@ package primevc.gui.effects;
  * @author Ruben Weijers
  * @creation-date Aug 31, 2010
  */
-class ResizeEffect extends Effect < ISizeable, ResizeEffect >
+class ResizeEffect extends Effect<primevc.gui.traits.ISizeable,ResizeEffect>
 {
 	/**
 	 * Explicit start width value. If this value is not set, the effect will 
@@ -103,10 +99,7 @@ class ResizeEffect extends Effect < ISizeable, ResizeEffect >
 	
 #if !CSSParser
 	override public function createEffectInstance (target)
-	{
-		return cast new ResizeEffectInstance(target, this);
-	}
-
+		return cast new primevc.gui.effects.effectInstances.ResizeEffectInstance(target, this)
 #else
 
 	override public function toCSS (prefix:String = "") : String
@@ -123,7 +116,7 @@ class ResizeEffect extends Effect < ISizeable, ResizeEffect >
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator) : Void
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())
 			code.construct( this, [ duration, delay, easing, startW, startH, endW, endH ] );

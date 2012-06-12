@@ -38,12 +38,6 @@ package primevc.tools;
  import primevc.core.geom.Corners;
  import primevc.core.geom.IntPoint;
  import primevc.core.traits.IDisposable;
- import primevc.gui.behaviours.layout.ClippedLayoutBehaviour;
- import primevc.gui.behaviours.layout.UnclippedLayoutBehaviour;
- import primevc.gui.behaviours.scroll.CornerScrollBehaviour;
- import primevc.gui.behaviours.scroll.DragScrollBehaviour;
- import primevc.gui.behaviours.scroll.MouseMoveScrollBehaviour;
- import primevc.gui.behaviours.scroll.ShowScrollbarsBehaviour;
  import primevc.gui.effects.AnchorScaleEffect;
  import primevc.gui.effects.CompositeEffect;
  import primevc.gui.effects.Easing;
@@ -87,16 +81,6 @@ package primevc.tools;
  import primevc.gui.graphics.shapes.Triangle;
  import primevc.gui.graphics.EmptyGraphicProperty;
  import primevc.gui.graphics.IGraphicProperty;
- import primevc.gui.layout.algorithms.circle.HorizontalCircleAlgorithm;
- import primevc.gui.layout.algorithms.circle.VerticalCircleAlgorithm;
- import primevc.gui.layout.algorithms.float.HorizontalFloatAlgorithm;
- import primevc.gui.layout.algorithms.float.VerticalFloatAlgorithm;
- import primevc.gui.layout.algorithms.tile.DynamicTileAlgorithm;
- import primevc.gui.layout.algorithms.tile.FixedTileAlgorithm;
- import primevc.gui.layout.algorithms.tile.SimpleTileAlgorithm;
- import primevc.gui.layout.algorithms.DynamicLayoutAlgorithm;
- import primevc.gui.layout.algorithms.ILayoutAlgorithm;
- import primevc.gui.layout.algorithms.RelativeAlgorithm;
  import primevc.gui.layout.LayoutFlags;
  import primevc.gui.layout.RelativeLayout;
  import primevc.gui.styling.EffectsStyle;
@@ -2707,6 +2691,26 @@ class CSSParser
 	}
 	
 	
+	private static inline var ALGORITHM_CLASSPATH = "primevc.gui.layout.algorithms.";
+
+
+	private function algorithmToClass (alg:Algorithms) : String
+	{
+		return switch (alg) {
+			case circleHor:     "primevc.gui.layout.algorithms.circle.HorizontalCircleAlgorithm";
+			case circleVer:     "primevc.gui.layout.algorithms.circle.VerticalCircleAlgorithm";
+			case floatHor:      "primevc.gui.layout.algorithms.float.HorizontalFloatAlgorithm";
+			case floatVer:      "primevc.gui.layout.algorithms.float.VerticalFloatAlgorithm";
+			case dynamicTile:   "primevc.gui.layout.algorithms.tile.DynamicTileAlgorithm";
+			case fixedTile:     "primevc.gui.layout.algorithms.tile.FixedTileAlgorithm";
+			case simpleTile:    "primevc.gui.layout.algorithms.tile.SimpleTileAlgorithm";
+			case dynamicLayout: "primevc.gui.layout.algorithms.DynamicLayoutAlgorithm";
+			case relative:      "primevc.gui.layout.algorithms.RelativeAlgorithm";
+		//	case : primevc.gui.layout.algorithms.ILayoutAlgorithm;
+		}
+	}
+
+
 	/**
 	 * Checks if the given string contains a layout algorithm and parses the
 	 * properties of the algorithm to a algorithm instance.
@@ -2736,32 +2740,32 @@ class CSSParser
 	 */
 	private function parseAndSetLayoutAlgorithm (v:String) : Void
 	{
-		var info:Factory<ILayoutAlgorithm> = new Factory();
+		var info:Factory<Dynamic> = new Factory();
 		var v 		= v.trim().toLowerCase();
 		var setFlag = false; 	// for parser to set the algorithm flag in layout object
 		
-		if		(v == "relative")			info.classRef = RelativeAlgorithm.getClassName();
+		if		(v == "relative")			info.classRef = algorithmToClass(relative);
 		else if	(v == "none")			{	info.classRef = null; setFlag = true; }						//FIXME -> none and inherit are the same now. none is not implemented yet..
 		else if	(v == "inherit")			info.classRef = null;
-		else if (v == "tile")				info.classRef = SimpleTileAlgorithm.getClassName();
+		else if (v == "tile")				info.classRef = algorithmToClass(simpleTile);
 		
 		//
 		// match floating layout
 		//
 		
 		else if (floatHorExpr.match(v)) {
-			info.classRef	= HorizontalFloatAlgorithm.getClassName();
+			info.classRef	= algorithmToClass(floatHor);
 			info.params		= [ parseHorDirection( floatHorExpr.matched(2) ), parseVerDirection( floatHorExpr.matched(4) ) ];
 		}
 		else if (floatVerExpr.match(v)) {
-			info.classRef	= VerticalFloatAlgorithm.getClassName();
+			info.classRef	= algorithmToClass(floatVer);
 			info.params		= [ parseVerDirection( floatVerExpr.matched(2) ), parseHorDirection( floatVerExpr.matched(4) ) ];
 		}
 		else if (floatExpr.match(v)) {
-			info.classRef	= DynamicLayoutAlgorithm.getClassName();
+			info.classRef	= algorithmToClass(dynamicLayout);
 			info.params		= [
-				new Factory( HorizontalFloatAlgorithm.getClassName(),	[ parseHorDirection( floatExpr.matched(2) ) ] ), 
-				new Factory( VerticalFloatAlgorithm.getClassName(),	[ parseVerDirection( floatExpr.matched(4) ) ] )
+				new Factory( algorithmToClass(floatHor),	[ parseHorDirection( floatExpr.matched(2) ) ] ), 
+				new Factory( algorithmToClass(floatVer),	[ parseVerDirection( floatExpr.matched(4) ) ] )
 			];
 		}
 		
@@ -2770,18 +2774,18 @@ class CSSParser
 		//
 		
 		else if (horCircleExpr.match(v)) {
-			info.classRef	= HorizontalCircleAlgorithm.getClassName();
+			info.classRef	= algorithmToClass(circleHor);
 			info.params		= [ parseHorDirection( horCircleExpr.matched(2) ), parseVerDirection( horCircleExpr.matched(4) ), false ];
 		}
 		else if (verCircleExpr.match(v)) {
-			info.classRef	= VerticalCircleAlgorithm.getClassName();
+			info.classRef	= algorithmToClass(circleVer);
 			info.params		= [ parseVerDirection( verCircleExpr.matched(2) ), parseHorDirection( verCircleExpr.matched(4) ), false ];
 		}
 		else if (circleExpr.match(v)) {
-			info.classRef	= DynamicLayoutAlgorithm.getClassName();
+			info.classRef	= algorithmToClass(dynamicLayout);
 			info.params		= [ 
-				new Factory( HorizontalCircleAlgorithm.getClassName(),	[ parseHorDirection( circleExpr.matched(2) ), null, false ] ), 
-				new Factory( VerticalCircleAlgorithm.getClassName(),	[ parseVerDirection( circleExpr.matched(4) ), null, false ] )
+				new Factory( algorithmToClass(circleHor),	[ parseHorDirection( circleExpr.matched(2) ), null, false ] ), 
+				new Factory( algorithmToClass(circleVer),	[ parseVerDirection( circleExpr.matched(4) ), null, false ] )
 			];
 		}
 		
@@ -2790,18 +2794,18 @@ class CSSParser
 		//
 		
 		else if (horEllipseExpr.match(v)) {
-			info.classRef	= HorizontalCircleAlgorithm.getClassName();
+			info.classRef	= algorithmToClass(circleHor);
 			info.params		= [ parseHorDirection( horEllipseExpr.matched(2) ), parseVerDirection( horEllipseExpr.matched(4) ) ];
 		}
 		else if (verEllipseExpr.match(v)) {
-			info.classRef	= VerticalCircleAlgorithm.getClassName();
+			info.classRef	= algorithmToClass(circleVer);
 			info.params		= [ parseVerDirection( verEllipseExpr.matched(2) ), parseHorDirection( verEllipseExpr.matched(4) ) ];
 		}
 		else if (ellipseExpr.match(v)) {
-			info.classRef	= DynamicLayoutAlgorithm.getClassName();
+			info.classRef	= algorithmToClass(dynamicLayout);
 			info.params		= [
-				new Factory( HorizontalCircleAlgorithm.getClassName(),	[ parseHorDirection( horEllipseExpr.matched(2) ) ] ), 
-				new Factory( VerticalCircleAlgorithm.getClassName(),	[ parseVerDirection( horEllipseExpr.matched(4) ) ] )
+				new Factory( algorithmToClass(circleHor),	[ parseHorDirection( horEllipseExpr.matched(2) ) ] ), 
+				new Factory( algorithmToClass(circleVer),	[ parseVerDirection( horEllipseExpr.matched(4) ) ] )
 			];
 		}
 		
@@ -2817,10 +2821,10 @@ class CSSParser
 		else if (dynamicTileExpr.match(v))
 		{
 			if (dynamicTileExpr.matched(1) == null)
-				info.classRef = DynamicTileAlgorithm.getClassName();
+				info.classRef = algorithmToClass(dynamicTile);
 			else
 			{
-				info.classRef = DynamicTileAlgorithm.getClassName();
+				info.classRef = algorithmToClass(dynamicTile);
 				info.params.push( parseDirection( dynamicTileExpr.matched( 3 ) ) );
 				info.params.push( (dynamicTileExpr.matched( 5 ) != null) ? parseHorDirection( dynamicTileExpr.matched( 5 ) ) : null );
 				info.params.push( (dynamicTileExpr.matched( 7 ) != null) ? parseVerDirection( dynamicTileExpr.matched( 7 ) ) : null );
@@ -2829,10 +2833,10 @@ class CSSParser
 		else if (fixedTileExpr.match(v))
 		{
 			if (fixedTileExpr.matched(1) == null)
-				info.classRef = FixedTileAlgorithm.getClassName();
+				info.classRef = algorithmToClass(fixedTile);
 			else
 			{
-				info.classRef	= FixedTileAlgorithm.getClassName();
+				info.classRef	= algorithmToClass(fixedTile);
 				info.params.push( parseDirection( fixedTileExpr.matched( 2 ) ) );
 				info.params.push( (fixedTileExpr.matched( 4 ) != null) ? getInt( fixedTileExpr.matched( 4 ) )				: Number.INT_NOT_SET );
 				info.params.push( (fixedTileExpr.matched( 6 ) != null) ? parseHorDirection( fixedTileExpr.matched( 6 ) )	: null );
@@ -3138,11 +3142,11 @@ class CSSParser
 		}
 		
 		//match strength
-		if (isInt(v))
+		if (isFloat(v))
 		{
-			f.strength	= parseInt(v);
+			f.strength	= parseFloat(v);
 			isValid		= true;
-			v			= removeInt(v);
+			v			= removeFloat(v);
 		}
 		
 		//match inner bool
@@ -3250,10 +3254,10 @@ class CSSParser
 		}
 		
 		//match strength
-		if (isValid && isInt(v))
+		if (isValid && isFloat(v))
 		{
-			f.strength	= parseInt(v);
-			v			= removeInt(v);
+			f.strength	= parseFloat(v);
+			v			= removeFloat(v);
 		}
 		
 		//match filter type
@@ -3498,11 +3502,11 @@ class CSSParser
 	{
 		var setFlag = false, className = null;
 		switch (v.trim().toLowerCase()) {
-			case "hidden":				className = ClippedLayoutBehaviour.getClassName();
-			case "scroll-mouse-move":	className = MouseMoveScrollBehaviour.getClassName();
-			case "drag-scroll":			className = DragScrollBehaviour.getClassName();
-			case "corner-scroll":		className = CornerScrollBehaviour.getClassName();
-			case "scrollbars":			className = ShowScrollbarsBehaviour.getClassName();
+			case "hidden":				className = "primevc.gui.behaviours.layout.ClippedLayoutBehaviour";
+			case "scroll-mouse-move":	className = "primevc.gui.behaviours.scroll.MouseMoveScrollBehaviour";
+			case "drag-scroll":			className = "primevc.gui.behaviours.scroll.DragScrollBehaviour";
+			case "corner-scroll":		className = "primevc.gui.behaviours.scroll.CornerScrollBehaviour";
+			case "scrollbars":			className = "primevc.gui.behaviours.scroll.ShowScrollbarsBehaviour";
 			case "visible":				setFlag   = true;
 			default:					throw "unkown overflow"; //className = UnclippedLayoutBehaviour.getClassName();
 		};
@@ -4022,4 +4026,17 @@ class StyleQueueItem implements IDisposable
 	{
 		path = content = filename = null;
 	}
+}
+
+
+private enum Algorithms {
+	floatHor;
+	floatVer;
+	circleHor;
+	circleVer;
+	dynamicTile;
+	fixedTile;
+	simpleTile;
+	dynamicLayout;
+	relative;
 }

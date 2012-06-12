@@ -27,17 +27,14 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.graphics;
- import primevc.core.traits.IInvalidatable;
- import primevc.core.traits.IDisposable;
-
 
 /**
  * @author Ruben Weijers
  * @creation-date Jul 30, 2010
  */
-@:keep interface IGraphicElement 	//FIXME - no @:keep
-				implements IInvalidatable
-			,	implements IDisposable
+interface IGraphicElement 	//FIXME - no @:keep
+				implements primevc.core.traits.IInvalidatable
+			,	implements primevc.core.traits.IDisposable
 #if CSSParser,	implements primevc.tools.generator.ICodeFormattable
 			,	implements primevc.tools.generator.ICSSFormattable #end
 {

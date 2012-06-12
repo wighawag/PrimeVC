@@ -36,9 +36,10 @@ package primevc.gui.traits;
  * @author Ruben Weijers
  * @creation-date Jul 13, 2010
  */
-interface IDrawable 
+interface IDrawable
+	#if !CSSParser
 			  implements ILayoutable
-			, implements IGraphicsOwner
+			, implements IGraphicsOwner #end
 {
 #if flash9
 	/**

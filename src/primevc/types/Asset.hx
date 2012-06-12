@@ -30,8 +30,6 @@ package primevc.types;
  import primevc.core.geom.Matrix2D;
  import primevc.core.net.ICommunicator;
  import primevc.core.states.SimpleStateMachine;
- import primevc.core.traits.IDisposable;
- import primevc.core.traits.IValueObject;
  import primevc.gui.display.BitmapData;
  import primevc.gui.display.DisplayObject;
  import primevc.types.Number;
@@ -67,8 +65,8 @@ private typedef BytesData		= haxe.io.BytesData;
  * @author Ruben Weijers
  * @creation-date Jul 31, 2010
  */
-class Asset		implements IDisposable
-			,	implements IValueObject
+class Asset		implements primevc.core.traits.IDisposable
+			,	implements primevc.core.traits.IValueObject
 #if CSSParser,	implements ICodeFormattable		#end
 {
 	//

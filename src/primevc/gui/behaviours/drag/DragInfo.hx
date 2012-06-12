@@ -27,16 +27,11 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.behaviours.drag;
- import primevc.core.traits.IDisposable;
  import primevc.core.collections.IDataCursor;
- import primevc.core.geom.Point;
  import primevc.core.geom.IRectangle;
- import primevc.gui.display.DisplayDataCursor;
- import primevc.gui.display.IDisplayContainer;
  import primevc.gui.display.ISprite;
  import primevc.gui.layout.LayoutClient;
  import primevc.gui.traits.IDropTarget;
- import primevc.gui.traits.ILayoutable;
   using primevc.utils.NumberUtil;
   using primevc.utils.TypeUtil;
 
@@ -48,7 +43,7 @@ package primevc.gui.behaviours.drag;
  * @author Ruben Weijers
  * @creation-date Jul 21, 2010
  */
-class DragInfo implements IDisposable
+class DragInfo implements primevc.core.traits.IDisposable
 {
 	public var target			(default, null)				: ISprite;
 	
@@ -61,7 +56,7 @@ class DragInfo implements IDisposable
 	/**
 	 * Information about the displayList in which the target is placed.
 	 */
-	public var displayCursor	(default, null)				: DisplayDataCursor;
+	public var displayCursor	(default, null)				: primevc.gui.display.DisplayDataCursor;
 	
 	/**
 	 * Optional cursor pointer for the data
@@ -98,7 +93,7 @@ class DragInfo implements IDisposable
 	public var dropBounds									: IRectangle;
 	
 	
-	public function new (target:ISprite, dataCursor:IDataCursor<Dynamic> = null, dragRenderer:ISprite = null, dragLayout:LayoutClient = null)
+	public function new (target, dataCursor:IDataCursor<Dynamic> = null, dragRenderer = null, dragLayout = null)
 	{
 		this.target			= target;
 		this.displayCursor	= target.getDisplayCursor();

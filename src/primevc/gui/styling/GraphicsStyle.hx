@@ -33,12 +33,9 @@ package primevc.gui.styling;
 #end
  import primevc.core.geom.Corners;
  import primevc.core.traits.IInvalidatable;
- import primevc.gui.behaviours.scroll.IScrollBehaviour;
- import primevc.gui.core.ISkin;
  import primevc.gui.graphics.borders.IBorder;
  import primevc.gui.graphics.shapes.IGraphicShape;
  import primevc.gui.graphics.IGraphicProperty;
- import primevc.gui.traits.IScrollable;
  import primevc.types.Asset;
  import primevc.types.Factory;
  import primevc.types.Number;
@@ -48,9 +45,9 @@ package primevc.gui.styling;
 
 private typedef Flags		= GraphicFlags;
 private typedef Shape		= #if CSSParser primevc.types.Reference; #else IGraphicShape; #end
-private typedef Skin		= Factory<ISkin>;
+private typedef Skin		= #if CSSParser Factory<Dynamic> #else Factory<primevc.gui.core.ISkin> #end;
 private typedef Icon		= Factory<Dynamic>;
-private typedef Overflow	= Factory1<IScrollable, IScrollBehaviour>;
+private typedef Overflow	= #if CSSParser Factory1<Dynamic, Dynamic> #else Factory1<primevc.gui.traits.IScrollable, primevc.gui.behaviours.scroll.IScrollBehaviour> #end;
 
 
 /**

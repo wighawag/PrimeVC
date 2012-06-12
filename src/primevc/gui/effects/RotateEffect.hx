@@ -27,13 +27,8 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.effects;
- import primevc.gui.display.IDisplayObject;
 #if CSSParser
- import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
-#else
- import primevc.gui.effects.effectInstances.IEffectInstance;
- import primevc.gui.effects.effectInstances.RotateEffectInstance;
 #end
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
@@ -46,7 +41,7 @@ package primevc.gui.effects;
  * @author Ruben Weijers
  * @creation-date Aug 31, 2010
  */
-class RotateEffect extends Effect < IDisplayObject, RotateEffect >
+class RotateEffect extends #if !CSSParser Effect<primevc.gui.display.IDisplayObject,RotateEffect> #else Effect<Dynamic,Dynamic> #end
 {
 	/**
 	 * Explicit start rotation value. If this value is not set, the effect will 
@@ -88,11 +83,8 @@ class RotateEffect extends Effect < IDisplayObject, RotateEffect >
 	
 	
 #if !CSSParser
-	override public function createEffectInstance (target:IDisplayObject) : IEffectInstance<IDisplayObject, RotateEffect>
-	{
-		return cast new RotateEffectInstance( target, this );
-	}
-
+	override public function createEffectInstance (target)
+		return cast new primevc.gui.effects.effectInstances.RotateEffectInstance(target, this)
 #else
 
 	override public function toCSS (prefix:String = "") : String
@@ -110,7 +102,7 @@ class RotateEffect extends Effect < IDisplayObject, RotateEffect >
 	}
 	
 	
-	override public function toCode (code:ICodeGenerator) : Void
+	override public function toCode (code:primevc.tools.generator.ICodeGenerator) : Void
 	{
 		if (!isEmpty())
 			code.construct( this, [ duration, delay, easing, startValue, endValue ] );

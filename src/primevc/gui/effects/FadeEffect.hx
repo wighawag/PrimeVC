@@ -27,7 +27,6 @@
  *  Ruben Weijers	<ruben @ onlinetouch.nl>
  */
 package primevc.gui.effects;
- import primevc.gui.display.IDisplayObject;	
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
 #if CSSParser
@@ -41,7 +40,7 @@ package primevc.gui.effects;
  * @author Ruben Weijers
  * @creation-date Aug 31, 2010
  */
-class FadeEffect extends Effect < IDisplayObject, FadeEffect >
+class FadeEffect extends #if !CSSParser Effect<primevc.gui.display.IDisplayObject, FadeEffect> #else Effect<Dynamic, Dynamic> #end
 {
 	/**
 	 * Explicit start alpha value. If this value is not set, the effect will 

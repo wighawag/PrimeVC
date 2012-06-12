@@ -29,7 +29,6 @@
 package primevc.gui.styling;
  import primevc.core.geom.Box;
  import primevc.core.traits.IInvalidatable;
- import primevc.gui.layout.algorithms.ILayoutAlgorithm;
  import primevc.gui.layout.RelativeLayout;
  import primevc.types.Factory;
  import primevc.types.Number;
@@ -39,7 +38,7 @@ package primevc.gui.styling;
 
 
 private typedef Flags		= LayoutStyleFlags;
-private typedef Algorithm	= Factory<ILayoutAlgorithm>;
+private typedef Algorithm	= #if CSSParser Factory<Dynamic> #else Factory<primevc.gui.layout.algorithms.ILayoutAlgorithm> #end;
 
 
 /**

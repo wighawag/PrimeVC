@@ -32,7 +32,6 @@ package primevc.gui.effects;
 #end
  import primevc.core.geom.space.Position;
  import primevc.core.geom.IntPoint;
- import primevc.gui.display.IDisplayObject;	
  import primevc.gui.states.EffectStates;
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
@@ -44,7 +43,7 @@ package primevc.gui.effects;
  * @author Ruben Weijers
  * @creation-date Aug 31, 2010
  */
-class AnchorScaleEffect extends Effect < IDisplayObject, AnchorScaleEffect >
+class AnchorScaleEffect extends #if !CSSParser Effect<primevc.gui.display.IDisplayObject, AnchorScaleEffect> #else Effect<Dynamic, Dynamic> #end
 {
 	/**
 	 * Explicit ScaleX and ScaleY start-value

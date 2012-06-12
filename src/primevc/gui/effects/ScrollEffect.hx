@@ -27,13 +27,8 @@
  *  Ruben Weijers   <ruben @ onlinetouch.nl>
  */
 package primevc.gui.effects;
- import primevc.gui.traits.IScrollable;
 #if CSSParser
- import primevc.tools.generator.ICodeGenerator;
   using primevc.types.Reference;
-#else
- import primevc.gui.effects.effectInstances.IEffectInstance;
- import primevc.gui.effects.effectInstances.ScrollEffectInstance;
 #end
  import primevc.types.Number;
   using primevc.utils.NumberUtil;
@@ -45,7 +40,7 @@ package primevc.gui.effects;
  * @author Ruben Weijers
  * @creation-date Jul 15, 2011
  */
-class ScrollEffect extends Effect < IScrollable, ScrollEffect >
+class ScrollEffect extends Effect<primevc.gui.traits.IScrollable, ScrollEffect>
 {
     /**
      * Explicit start x value. If this value is not set, the effect will 
@@ -103,11 +98,8 @@ class ScrollEffect extends Effect < IScrollable, ScrollEffect >
     
     
 #if !CSSParser
-    override public function createEffectInstance (target) : IEffectInstance<IScrollable, ScrollEffect>
-    {
-        return cast new ScrollEffectInstance(target, this);
-    }
-
+    override public function createEffectInstance (target) : primevc.gui.effects.effectInstances.IEffectInstance<primevc.gui.traits.IScrollable,ScrollEffect>
+        return cast new primevc.gui.effects.effectInstances.ScrollEffectInstance(target, this)
 #else
 
     override public function toCSS (prefix:String = "") : String
@@ -127,7 +119,7 @@ class ScrollEffect extends Effect < IScrollable, ScrollEffect >
     }
     
     
-    override public function toCode (code:ICodeGenerator) : Void
+    override public function toCode (code:primevc.tools.generator.ICodeGenerator) : Void
     {
         if (!isEmpty())
             code.construct( this, [ duration, delay, easing, startX, startY, endX, endY ] );
