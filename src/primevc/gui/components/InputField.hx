@@ -81,7 +81,7 @@ class InputField <VOType> extends DataButton <VOType>
 		var d = new RevertableBindable<String>("");
 		d.dispatchAfterCommit();
 		d.updateAfterCommit();
-		data 		= d;
+		data = d;
 
 		super(id, defaultLabel, icon, vo);
 		updateVO 	= doNothing;

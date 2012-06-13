@@ -41,7 +41,6 @@ package primevc.gui.components;
   using primevc.utils.TypeUtil;
 
 
-private typedef DataType	= Bindable<String>;
 private typedef Flags		= primevc.gui.core.UIElementFlags;
 
 
@@ -51,7 +50,7 @@ private typedef Flags		= primevc.gui.core.UIElementFlags;
  * @author Ruben Weijers
  * @creation-date Oct 29, 2010
  */
-class Label extends UIDataComponent <DataType>, implements ITextStylable
+class Label extends UIDataComponent <Bindable<String>>, implements ITextStylable
 {
 	public var field				(default, null)				: UITextField;
 	public var displayHTML			(default, setDisplayHTML)	: Bool;
@@ -64,10 +63,10 @@ class Label extends UIDataComponent <DataType>, implements ITextStylable
 #end
 
 	
-	public function new (id:String = null, data:DataType = null)
+	public function new (id:String = null, data:Bindable<String> = null)
 	{
 		if (data == null)
-			data = new DataType();
+			data = new Bindable<String>();
 		
 		layout = new AdvancedLayoutClient();
 		super(id, data);

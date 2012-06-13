@@ -44,8 +44,6 @@ package primevc.gui.graphics.fills;
   using primevc.utils.TypeUtil;
 
 #if flash9
- import flash.display.InterpolationMethod;
-
 typedef FlashGradientType = flash.display.GradientType;
 #end
 
@@ -169,7 +167,7 @@ class GradientFill extends GraphicElement, implements IGraphicProperty
 			ratios.push( fill.position );
 		}
 		
-		target.graphics.beginGradientFill( getFlashType(), colors, alphas, ratios, lastMatrix, getSpreadMethod(), InterpolationMethod.RGB, focalPointRatio  );
+		target.graphics.beginGradientFill( getFlashType(), colors, alphas, ratios, lastMatrix, getSpreadMethod(), flash.display.InterpolationMethod.RGB, focalPointRatio  );
 #end
 		isFinished = true;
 	}
