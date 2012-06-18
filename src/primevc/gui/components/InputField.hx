@@ -103,6 +103,8 @@ class InputField <VOType> extends DataButton <VOType>
 	
 	override public function dispose ()
 	{
+		(untyped this).updateVO = null;
+		
 		if (fieldBinding != null) {
 			fieldBinding.dispose();
 			fieldBinding = null;
@@ -180,6 +182,7 @@ class InputField <VOType> extends DataButton <VOType>
 		updateLabel();
 		if (data.value == defaultLabel) {
 			data.set("");
+			data.change.send("", null);
 			styleClasses.remove("empty");
 		}
 		

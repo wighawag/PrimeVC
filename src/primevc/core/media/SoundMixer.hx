@@ -107,7 +107,7 @@ private class SoundMixerInstance
     /**
      * Overall volume setting
      */
-    public var volume       (default, null)        : Bindable<Float>;
+    public var volume       (default, null)         : Bindable<Float>;
     /**
      * Flag indicating if the sound is muted
      */
