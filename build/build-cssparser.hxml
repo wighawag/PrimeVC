@@ -1,7 +1,9 @@
--lib feffects
+-lib nodejs
+-D CSSParser
 #-lib listtools
 #-cp ../libs
 -cp libs/haxe
+-cp libs/haxe/node
 #-cp libs/haxe
 -cp libs/apparat
 -cp src

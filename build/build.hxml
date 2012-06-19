@@ -1,5 +1,5 @@
 -lib feffects
-
+-D dragEnabled
 -D Full
 #-D stats
 #-D network-sandbox

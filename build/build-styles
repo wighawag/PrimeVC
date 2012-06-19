@@ -50,9 +50,7 @@ if $Force || [[ ! -f "$Parser" ]]  ||  test "$MainFile" -nt "$Parser"  ||  test 
 	haxe build/build-cssparser.hxml \
 		-main $MainClass \
 		-js "$Parser" \
-		-lib nodejs \
 		$Debug \
-		-D CSSParser \
 		${Debug:---no-traces --dead-code-elimination} || exit 1;
 	CompilerUpdated=true
 fi;

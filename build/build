@@ -136,7 +136,6 @@ else
 		${ACCESS:--D local} \
 		${PROFILING:+-swf-lib "'$PRJROOT/bin-debug/swf/FlashPreloadProfiler_RC2.swf'" -D profiling} \
 		$CONSOLE \
-		-D dragEnabled \
 		${CODECOVERAGE:+-D CodeCoverage -lib mcover --macro massive.mcover.MCover.includeAll()} \
 		${XML:+-xml $OUTPUTDIR/classes.xml $MainClass} \
 		| xargs -t time haxe \
