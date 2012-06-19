@@ -159,25 +159,21 @@ class CSSParserMain
 	
 	private function generateSelectorCode (selectorHash:Hash<ICodeFormattable>, name:String) : Void
 	{
+		Assert.notNull(selectorHash);
 		beginTimer();
-		
-		//create selector code
-		var keys = selectorHash.keys();
-		var i	 = 0;
-		for (key in keys)
-		{
+		var i = 0;
+		for (key in selectorHash.keys()) {
 			var val = selectorHash.get(key);
 			if (!val.isEmpty()) {
 				generator.setSelfAction( name + ".set", [ key, val ] );
 				i++;
 			}
 		}
-		
 		stopTimer("generate "+name+" ("+i+")");
 	}
 	
 	
-	private inline function beginTimer ()	{ timer.start(); }
+	private inline function beginTimer ()	timer.start()
 	private inline function stopTimer (name:String)
 	{
 		timer.stop();

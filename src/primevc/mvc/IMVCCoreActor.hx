@@ -35,5 +35,4 @@ package primevc.mvc;
  */
 @:autoBuild(primevc.utils.MacroUtils.autoStartListening())
 @:autoBuild(primevc.utils.MacroUtils.autoStopListening())
-@:keep
 interface IMVCCoreActor implements IMVCCore, implements IMVCActor {}
